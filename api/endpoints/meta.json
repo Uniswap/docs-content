@@ -1,0 +1,9 @@
+{
+  "title": "Endpoints",
+  "pages": [
+    "swapping",
+    "liquidity-provisioning",
+    "reference-data",
+    "utility"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Concepts",
+  "pages": [
+    "alternative-signers",
+    "batched-transactions",
+    "delegation",
+    "erc-7739",
+    "erc-7914",
+    "gas-abstraction",
+    "hooks"
+  ]
+}

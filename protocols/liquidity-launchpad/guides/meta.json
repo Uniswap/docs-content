@@ -1,0 +1,11 @@
+{
+  "title": "Guides",
+  "pages": [
+    "example-configuration",
+    "exit-bid",
+    "local-deployment",
+    "price-discovery",
+    "setup",
+    "submit-bid"
+  ]
+}

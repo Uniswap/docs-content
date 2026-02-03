@@ -1,0 +1,8 @@
+{
+  "title": "Utility",
+  "pages": [
+    "check_wallet_delegation",
+    "create_calldata",
+    "encode_7702_transactions"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Swapping",
+  "pages": [
+    "approval",
+    "create_protocol_batch_swap",
+    "create_protocol_delegated_swap",
+    "create_protocol_swap",
+    "create_uniswapx_order",
+    "get_protocol_swap",
+    "get_uniswapx_order",
+    "limit_quote",
+    "quote"
+  ]
+}

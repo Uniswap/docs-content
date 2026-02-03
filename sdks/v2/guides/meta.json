@@ -1,0 +1,10 @@
+{
+  "title": "Guides",
+  "pages": [
+    "getting-started",
+    "fetching-data",
+    "getting-pair-address",
+    "pricing",
+    "swapping"
+  ]
+}

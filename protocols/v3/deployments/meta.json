@@ -1,0 +1,19 @@
+{
+  "title": "Deployments",
+  "pages": [
+    "v3-arbitrum-deployments",
+    "v3-avalanche-deployments",
+    "v3-base-deployments",
+    "v3-blast-deployments",
+    "v3-bnb-deployments",
+    "v3-celo-deployments",
+    "v3-ethereum-deployments",
+    "v3-monad-deployments",
+    "v3-optimism-deployments",
+    "v3-polygon-deployments",
+    "v3-unichain-deployments",
+    "v3-world-chain-deployments",
+    "v3-zksync-deployments",
+    "v3-zora-deployments"
+  ]
+}

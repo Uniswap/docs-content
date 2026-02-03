@@ -1,0 +1,9 @@
+{
+  "title": "API",
+  "pages": [
+    "index",
+    "concepts",
+    "guides",
+    "endpoints"
+  ]
+}
