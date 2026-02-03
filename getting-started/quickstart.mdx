@@ -1,0 +1,58 @@
+---
+title: Quick Start
+description: Get up and running with the Uniswap API in minutes.
+---
+
+# Quick Start
+
+This guide will help you make your first API request in minutes.
+
+## Step 1: Get Your API Key
+
+First, sign up for a developer account and create an API key in the [Developer Portal](/).
+
+<Callout type="info">
+  Keep your API key secure and never expose it in client-side code.
+</Callout>
+
+## Step 2: Make Your First Request
+
+Once you have your API key, you can make your first request:
+
+```bash
+curl -X GET "https://api.uniswap.org/v1/quote" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+## Step 3: Install the SDK (Optional)
+
+For a better developer experience, install our official SDK:
+
+```bash
+npm install @uniswap/sdk
+```
+
+Then use it in your application:
+
+```typescript
+import { UniswapSDK } from '@uniswap/sdk'
+
+const sdk = new UniswapSDK({
+  apiKey: process.env.UNISWAP_API_KEY,
+})
+
+const quote = await sdk.quote({
+  tokenIn: '0x...',
+  tokenOut: '0x...',
+  amount: '1000000000000000000',
+})
+```
+
+## Next Steps
+
+Now that you've made your first request:
+
+- Learn about [authentication](/docs/getting-started/authentication) in detail
+- Explore the full API reference
+- Check out code examples
