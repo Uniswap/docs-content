@@ -27,7 +27,7 @@ All signed Priority Orders created through the Uniswap UI will be available via 
 GET https://api.uniswap.org/v2/orders?orderStatus=open&orderType=Priority
 ```
 
-As a lower latency alternative to polling the API, fillers can also apply to register a webhook and receive a feed of all open orders. See details for registering [here](../webhooks). 
+As a lower latency alternative to polling the API, fillers can also apply to register a webhook and receive a feed of all open orders. See details for registering [here](./webhooks). 
 
 After fetching orders, use the latest version of the [UniswapX SDK](https://github.com/Uniswap/sdks/tree/main/sdks/uniswapx-sdk#parsing-orders). Requires [2.1.0-beta.13](https://www.npmjs.com/package/@uniswap/uniswapx-sdk/v/2.1.0-beta.13) or later.
 
