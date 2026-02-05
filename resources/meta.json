@@ -1,10 +1,12 @@
 {
-  "title": "Resources",
-  "pages": [
-    "index",
-    "ai-coding",
-    "builder-support",
-    "governance",
-    "subgraphs"
-  ]
-}
+    "title": "Resources",
+    "pages": [
+        "agents",
+        "builder-support",
+        "governance",
+        "subgraphs"
+        
+        
+    ],
+    "defaultOpen": false
+  }

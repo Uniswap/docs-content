@@ -1,6 +1,9 @@
 {
-  "title": "Concepts",
-  "pages": [
-    "fees"
-  ]
-}
+    "title": "Concepts",
+    "pages": [
+        "fees"
+        
+        
+    ],
+    "defaultOpen": false
+  }

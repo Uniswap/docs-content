@@ -9,7 +9,7 @@ there are some key differences in the architecture and accounting.
 
 ### Pool Creation
 
-**v4**: The singleton contract facilitates the creation of a pool and
+**v4**: The singleton contract facilitates the creation of a pool and 
 also stores its state. This pattern reduces costs when creating a pool
 and doing multi-hop swaps. Because pools are _contract state_ and not entirely new _contracts_ themselves, pool creation is significantly cheaper.
 
@@ -26,7 +26,7 @@ and only needs to perform token transfers at the very end of the sequence.
 **v3**: Because flash accounting is missing from v3, it is the responsibility
 of the integrating contract to perform token transfers, after each individual call, to each individual pool contract
 
-## Liquidity Fee Accounting
+## Liquidity Fee Accounting 
 
 **v4**: Accrued fees act like a credit when modifying liquidity.
 Increasing liquidity will convert the fee revenue to liquidity
@@ -39,7 +39,7 @@ This separation may be preferred to simplify fee accounting. If two users share 
 range and state in `PoolManager`, integrating contracts must be careful in managing
 fees
 
-**v3**: Liquidity positions of the same range and pool will share the same state. While believed to
+**v3**: Liquidity positions of the same range and pool will share the same state. While believed to 
 be more gas efficient at the time, integrating contracts will need to handle fee management since
 the state is shared on the core pool contract
 

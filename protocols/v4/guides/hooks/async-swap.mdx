@@ -2,7 +2,7 @@
 title: AsyncSwap Hooks
 ---
 
-One feature enabled by [custom accounting](/docs/protocols/v4/guides/custom-accounting) is​​​​‌ AsyncSwap swap. This feature allows hook developers to replace the v4 (v3-style) swap logic.
+One feature enabled by [custom accounting](/docs/contracts/uniswap-protocol-contracts/v4/guides/custom-accounting) is​​​​‌ AsyncSwap swap. This feature allows hook developers to replace the v4 (v3-style) swap logic.
 
 This means developers can replace Uniswap's internal core logic for how to handle swaps. Two emergent use-cases are possible with custom accounting:
 
@@ -49,12 +49,12 @@ contract AsyncSwapHook is BaseHook {
 
 ## beforeSwap
 
-AsyncSwap only works on exact-input swaps and the *beforeSwap* **must** take the input currency and return [`BeforeSwapDelta`](/docs/protocols/v4/overview). The hook should `IPoolManager.mint` itself the corresponding tokens equal to the amount of the input (`amountSpecified`). It should then return a `BeforeSwapDelta` where `deltaSpecified = -amountSpecified` (the positive amount).
+AsyncSwap only works on exact-input swaps and the *beforeSwap* **must** take the input currency and return [`BeforeSwapDelta`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/types/beforeswapdelta). The hook should `IPoolManager.mint` itself the corresponding tokens equal to the amount of the input (`amountSpecified`). It should then return a `BeforeSwapDelta` where `deltaSpecified = -amountSpecified` (the positive amount).
 
 The funds' movements are as follows:
 
 1. User initiates a swap, specifying -100 tokenA as input
-2. The hook's beforeSwap takes 100 tokenA for itself, and returns a value of 100 to PoolManager.
+2. The hook's beforeSwap takes 100 tokenA for itself, and returns a value of 100 to PoolManager. 
 3. The PoolManager accounts the 100 tokens against the swap input, leaving 0 tokens remaining
 4. The PoolManager does not execute swap logic, as there are no tokens left to swap
 5. The PoolManager transfers the delta from the hook to the swap router, in step 2 the hook created a debt (that must be paid)
@@ -103,7 +103,7 @@ contract AsyncSwapTest is Test, Deployers {
     // ...
 
     function setUp() public {
-        // ...
+        // ... 
     }
 
     function test_asyncSwap() public {

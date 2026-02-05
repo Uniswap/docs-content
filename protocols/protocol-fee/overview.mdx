@@ -26,20 +26,20 @@ Each protocol component that generates fees (v2, v3, v4, UniswapX, Unichain, and
 
 Immutable contract that receives all tokens from fee sources on a given chain. Only the active Releaser can withdraw from it.
 
-See [TokenJar](/docs/protocols/protocol-fee/overview) for more.
+See [TokenJar](technical-reference/AssetSink.md) for more.
 
 ### Fee Adapters
 
 Adapters that connect specific protocol versions or products to the TokenJar. They define how and when fees are collected.
 
-See [Fee Adapters](/docs/protocols/protocol-fee/overview).
+See [Fee Adapters](technical-reference/V3FeeController.md).
 
 ### Releasers
 
 Contracts that convert collected fees into protocol value according to defined logic.
 Examples include the Firepit Releaser, which burns UNI in return for assets.
 
-See [Releasers](/docs/protocols/protocol-fee/overview).
+See [Releasers](technical-reference/IReleaser.md).
 
 ## Real-World Example
 

@@ -1,7 +1,10 @@
 {
-  "title": "Concepts",
-  "pages": [
-    "architecture",
-    "auction-types"
-  ]
-}
+    "title": "Concepts",
+    "pages": [
+        "architecture",
+        "auction-types"
+        
+        
+    ],
+    "defaultOpen": false
+  }

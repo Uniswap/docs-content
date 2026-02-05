@@ -1,9 +1,12 @@
 {
-  "title": "API",
-  "pages": [
-    "index",
-    "concepts",
-    "guides",
-    "endpoints"
-  ]
-}
+    "title": "API Reference",
+    "pages": [
+        "overview",
+        "concepts",
+        "guides",
+        "endpoints"
+        
+        
+    ],
+    "defaultOpen": false
+  }

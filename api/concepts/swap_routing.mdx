@@ -1,0 +1,76 @@
+---
+title: 'Swap Routing'
+description: 'How to Achieve Desired Routing'
+---
+## Routing Principals
+In order to get the appropriate swap routing, it is important to closely consider the values submitted through the `/quote` `protocols` and `routingPreference` fields. We recommend specifying the desired swap routing by specifying all `protocols` which you feel comfortable using and leaving the `routingPreference` field blank.
+
+- The `protocols` field is used to specify the protocols from which pricing will be considered and through which your swap may eventually be executed. The possible values for the field are `V2`, `V3`, `V4`, `UNISWAPX_V2`, and `UNISWAPX_V3`
+- The `routingPreference` field is used to specify the preferred matching strategy. The possible values for the field are `BEST_PRICE` and `FASTEST`
+
+<Callout>
+**RoutingPreference Deprecation**<br/>
+The `routingPreference` field  previously supported additional values. These additional values are now deprecated (see the [sunset notice](/docs/sunset_notifications/routing_preference_options)). For more information, see the migration section below.
+</Callout>
+
+For complete information on the available values and combinations for the `protocols` and `routingPreference` fields, see the field descriptions in the [/quote](/docs/api-references/swapping/quote). A summary is provided below:
+
+- To perform a swap using only Uniswap protocol liquidity pools, specify `protocols` as `V2`, `V3`, and/or `V4`.
+- To perform a swap using only UniswapX protocol liquidity, specify `protocols` as `UNISWAPX_V2` **or** `UNISWAPX_V3`. Note that multiple UniswapX protocols may not be specified in the same request.
+- To perform a wrap/unwrap or bridge action, do not specify values for `protocols` or `routingPreference`. Note that wrapping/unwrapping is not supported through UniswapX protocols at all and a request to wrap/unwrap when `protocols` is set to any UniswapX protocol will fail.
+- To obtain the best possible pricing from all protocols or the limited set of `protocols` specified, set `routingPreference` to `BEST_PRICE`
+- To obtain the fastest possible quote from all protocols or the limited set of `protocols` specified, set `routingPreference` to `FASTEST`. (Note that this will not consider private liquidity available via the UniswapX protocols.)
+
+## Migrating from RoutingPreference to Protocols
+
+If you are currently specifying a value for the `routingPreference` field which is not `BEST_PRICE` or `FASTEST`, you are using a deprecated method of specifying your swap routing. You must migrate to specifying the protocols you have whitelisted in the `protocols` field. A mapping of deprecated `routingPreference` values to new `protocols` fields are presented in the following table, assuming you permit all protocols values today:
+
+| `routingPreference` Legacy Value | Equivalent `protocols` Value                   |
+| :------------------------------- | :--------------------------------------------- |
+| CLASSIC                          | V2, V3, V4                                     |
+| UNISWAPX_V2                      | UNISWAPX_V2                                    |
+| BEST_PRICE_V2                    | V2, V3, V4, UNISWAPX_V2                        |
+| V2_ONLY                          | V2                                             |
+| V3_ONLY                          | V3                                             |
+
+The following are some examples of both the legacy and new approaches, as well as some edge cases to consider.
+
+### Legacy use of `routingPreference`
+
+```
+protocols: undefined  
+routingPreference: 'BEST_PRICE'  
+// protocols considered => ['V2', 'V3', 'V4', 'UNISWAPX_V2','UNISWAPX_V3']
+```
+
+```
+protocols: undefined  
+routingPreference: 'V3_ONLY'  
+// protocols considered => ['V3']
+```
+
+### New use of `protocols` and `routingPreference`
+
+```
+protocols: ['V2', 'V3']  
+routingPreference: 'BEST_PRICE'  
+// protocols considered => ['V2', 'V3']
+```
+
+```
+protocols: ['V2']  
+routingPreference: 'BEST_PRICE'  
+// protocols considered => ['V2']
+```
+
+```
+protocols: undefined 
+routingPreference: undefined  
+// protocols considered => ['V2', 'V3', 'V4', 'UNISWAPX_V2', 'UNISWAPX_V3']
+```
+
+```
+protocols: undefined 
+routingPreference: FASTEST  
+// protocols considered => ['V2', 'V3', 'V4']
+```

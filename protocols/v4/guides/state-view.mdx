@@ -7,7 +7,7 @@ title: StateView
 When building on **Uniswap v4**, you will often need to read pool state for both onchain and offchain use cases. Onchain contracts can directly invoke the [**StateLibrary**](https://github.com/Uniswap/v4-core/blob/main/src/libraries/StateLibrary.sol) to execute these reads during transactions, but offchain systems—such as frontends or analytics services—require a deployed contract with view functions. This is where [**StateView**](https://github.com/Uniswap/v4-periphery/blob/main/src/lens/StateView.sol) comes in.
 
 > *In short: Use StateLibrary within onchain contracts and use StateView with an RPC for frontends and analytics.*
->
+> 
 
 By providing a dedicated interface for offchain reads, **StateView** helps:
 
@@ -17,12 +17,12 @@ By providing a dedicated interface for offchain reads, **StateView** helps:
 
 ## Comparing onchain and offchain Access
 
-If you’re familiar with [Reading Pool State](/docs/protocols/v4/guides/read-pool-state), you already know that Uniswap v4 uses **extsload** for efficient data access. For onchain usage, we rely on **StateLibrary** within contracts. However, offchain clients cannot rely on an onchain library for state reads.
+If you’re familiar with [Reading Pool State](/docs/contracts/uniswap-protocol-contracts/v4/guides/read-pool-state), you already know that Uniswap v4 uses **extsload** for efficient data access. For onchain usage, we rely on **StateLibrary** within contracts. However, offchain clients cannot rely on an onchain library for state reads. 
 
 Instead, **StateView** provides these same calls in a single contract designed explicitly for offchain consumption.
 
 > *Because StateLibrary operates via onchain function calls, it’s not directly accessible to offchain clients. Hence, StateView provides a simple, gas-free interface designed for frontends and analytics.*
->
+> 
 
 For instance, an onchain contract might use the `StateLibrary` as follows:
 
@@ -81,7 +81,7 @@ const stateView = getContract({
 ```
 
 > **Note:** _The stateView object comes from our getContract call above. Make sure you’ve imported stateViewABI correctly before attempting to read from the contract._
->
+> 
 
 With this setup, you can now:
 
@@ -156,22 +156,22 @@ const getPoolLiquidity = async (poolId: string) => {
 
 While **StateView** exposes many functions, here are several essential calls for most offchain applications. Each function typically takes a `poolId` (of type `bytes32`) as the key input, identifying which pool to query.
 
-1. **[`getSlot0(poolId)`](/docs/protocols/v4/guides/state-view#getslot0)**
+1. **[`getSlot0(poolId)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/lens/StateView#getslot0)**
     - Returns `(uint160 sqrtPriceX96, int24 tick, uint8 protocolFee, uint8 lpFee)`.
     - Essential for displaying real-time price data and fees.
-2. **[`getLiquidity(poolId)`](/docs/protocols/v4/guides/state-view#getliquidity)**
+2. **[`getLiquidity(poolId)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/lens/StateView#getliquidity)**
     - Returns `uint128 liquidity` (the total active pool liquidity).
     - Used to assess trading depth and volatility.
-3. **[`getPositionInfo(poolId, positionId)`](/docs/protocols/v4/guides/state-view#getpositioninfo)**
+3. **[`getPositionInfo(poolId, positionId)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/lens/StateView#getpositioninfo)**
     - Returns `(uint128 liquidity, uint256 feeGrowthInside0Last, uint256 feeGrowthInside1Last)`.
     - Critical for tracking user positions, especially to calculate earned fees over time.
-4. **[`getFeeGrowthGlobals(poolId)`](/docs/protocols/v4/guides/state-view#getfeegrowthglobals)**
+4. **[`getFeeGrowthGlobals(poolId)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/lens/StateView#getfeegrowthglobals)**
     - Returns `(uint256 feeGrowthGlobal0, uint256 feeGrowthGlobal1)`.
     - Useful for analytics around total fee accumulation in the pool.
 
 ### Note on `poolId` and `positionId`
 
-- In **Uniswap v4**, a `poolId` is typically a `bytes32` that is derived by calling
+- In **Uniswap v4**, a `poolId` is typically a `bytes32` that is derived by calling 
 `keccak256(abi.encode(poolKey))` where poolKey contains:
   - currency0: The lower currency address of the pool
   - currency1: The higher currency address of the pool

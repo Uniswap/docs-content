@@ -1,16 +1,18 @@
 {
-  "title": "Protocols",
-  "pages": [
-    "index",
-    "v4",
-    "v3",
-    "v2",
-    "uniswapx",
-    "universal-router",
-    "permit2",
-    "smart-wallet",
-    "liquidity-launchpad",
-    "the-compact",
-    "protocol-fee"
-  ]
-}
+    "title": "Protocols",
+    "pages": [
+        "v4",
+        "v3",
+        "v2",
+        "liquidity-launchpad",
+        "smart-wallet",
+        "uniswapx",
+        "the-compact",
+        "permit2",
+        "universal-router",
+        "protocol-fee"
+        
+        
+    ],
+    "defaultOpen": false
+  }

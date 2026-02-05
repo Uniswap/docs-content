@@ -4,7 +4,7 @@ title: Hook Deployment
 
 ## Hook Flags
 
-As mentioned in [Concept of Hooks](/docs/get-started/concepts/hooks), hook contracts indicate their implemented functions by __encoding its behavior in the address of the contract__. The `PoolManager` uses these permissions to determine which hook functions to call for a given pool. See `PoolManager` deployment addresses [here](/docs/protocols/v4/deployments).
+As mentioned in [Concept of Hooks](../../concepts/hooks), hook contracts indicate their implemented functions by __encoding its behavior in the address of the contract__. The `PoolManager` uses these permissions to determine which hook functions to call for a given pool. See `PoolManager` deployment addresses [here](/docs/contracts/uniswap-protocol-contracts/v4/deployments).
 
 Each hook function e.g. `beforeSwap` - corresponds to a certain _flag_. For example, the `beforeSwap` function is correlated to the [`BEFORE_SWAP_FLAG`](https://github.com/Uniswap/v4-core/blob/main/src/libraries/Hooks.sol#L37) which has a value of `1 << 7`.
 
@@ -19,8 +19,8 @@ Addresses on Ethereum are 20 bytes long (160 bits). So for example the address:
 represented in binary is:
 
 ```solidity
-0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
-0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 
+0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 
 0000 0000 0000 0000 0000 0000 1100 0000
 ```
 
@@ -40,12 +40,12 @@ A full list of all flags can be found [here](https://github.com/Uniswap/v4-core/
 
 Because of encoded addresses, hook developers must _mine_ an address to a their particular pattern.
 
-For local testing, `deployCodeTo` cheatcode in Foundry can be used to deploy hook contract to any address.
+For local testing, `deployCodeTo` cheatcode in Foundry can be used to deploy hook contract to any address. 
 
 But when deploying hooks to an actual network, address mining is required to find the proper deployment address
 There is a helper library [`HookMiner.sol`](https://github.com/Uniswap/v4-periphery/blob/main/src/utils/HookMiner.sol) that can be used to mine for correct addresses.
 
-Let's see it in action for a Foundry script. We will make use of the example - Points Hook from [Building Your First Hook](/docs/protocols/v4/guides/hooks/getting-started).
+Let's see it in action for a Foundry script. We will make use of the example - Points Hook from [Building Your First Hook](./your-first-hook).
 
 First we set up the contract for Foundry script and import the relevant dependencies:
 
@@ -84,10 +84,10 @@ bytes memory constructorArgs = abi.encode(POOLMANAGER);
     HookMiner.find(CREATE2_DEPLOYER, flags, type(PointsHook).creationCode, constructorArgs);
 ```
 
-<Callout type="info" title="**CREATE2_DEPLOYER**">
+:::note **CREATE2_DEPLOYER**
 - `CREATE2_DEPLOYER` is the address that will deploy the hook. In `forge test`, this will be the test contract `address(this)` or the pranking address.
 - In `forge script`, this should be `0x4e59b44847b379578588920cA78FbF26c0B4956C` (CREATE2 Deployer Proxy)
-</Callout>
+:::
 
 Refer to this for more details on deploying contracts with CREATE2: [Deploying Contracts with CREATE2](https://docs.openzeppelin.com/cli/2.8/deploying-with-create2)
 

@@ -1,10 +1,13 @@
 {
-  "title": "Uniswap v3",
-  "pages": [
-    "overview",
-    "concepts",
-    "guides",
-    "security",
-    "deployments"
-  ]
-}
+    "title": "v3",
+    "pages": [
+        "overview",
+        "concepts",
+        "guides",
+        "deployments",
+        "security"
+        
+        
+    ],
+    "defaultOpen": false
+  }

@@ -1,8 +1,11 @@
 {
-  "title": "Builder Support",
-  "pages": [
-    "get-funded",
-    "security-resources",
-    "uf-ambassadors"
-  ]
-}
+    "title": "Builder Support",
+    "pages": [
+        "get-funded",
+        "security-resources",
+        "uf-ambassadors"
+        
+        
+    ],
+    "defaultOpen": false
+  }

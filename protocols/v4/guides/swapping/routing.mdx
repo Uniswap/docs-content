@@ -14,7 +14,7 @@ While it’s technically possible to interact directly with the PoolManager cont
 
 ## UniversalRouter command encoding
 
-The [Universal Router](/docs/protocols/universal-router/overview) uses a unique encoding system for its commands and inputs, which is crucial to understand when configuring it for v4 swaps.
+The [Universal Router](/docs/contracts/universal-router/overview) uses a unique encoding system for its commands and inputs, which is crucial to understand when configuring it for v4 swaps.
 
 When calling `UniversalRouter.execute()`, you provide two main parameters:
 
@@ -288,7 +288,7 @@ function swapExactInputSingle(
     PoolKey calldata key,
     uint128 amountIn,
     uint128 minAmountOut,
-    uint256 deadline
+    uint256 deadline 
 ) external returns (uint256 amountOut) {
 // Encode the Universal Router command
     bytes memory commands = abi.encodePacked(uint8(Commands.V4_SWAP));

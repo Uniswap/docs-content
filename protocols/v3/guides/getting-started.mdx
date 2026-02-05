@@ -1,5 +1,7 @@
 ---
+id: local-environment
 title: Set Up Your Local Environment
+sidebar_position: 0.5
 ---
 
 One of the most common questions we get asked is what development toolset to use to build on-chain integrations with Uniswap. There’s no right answer to this question but for this guide we’ll recommend a common one: `Node.js` , `NPM` and `Hardhat`.
@@ -65,7 +67,7 @@ That’s it! You should now have a functional development environment to start b
 
 ## Compile a Basic Contract
 
-To confirm that our environment is configured correctly we’ll attempt to compile a basic Swap contract. Create a new file, `./contracts/Swap.sol` and paste the following code into it (a detailed guide to this contract can be found [here](/docs/protocols/v3/guides/swapping/single-hop-swapping)):
+To confirm that our environment is configured correctly we’ll attempt to compile a basic Swap contract. Create a new file, `./contracts/Swap.sol` and paste the following code into it (a detailed guide to this contract can be found [here](./swaps/single-swaps)):
 
 ```jsx
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -128,7 +130,7 @@ Compiled { x } Solidity files successfully
 
 When building and testing integrations with on chain protocols, developers often hit a problem: the liquidity on the live chain is critical to thoroughly testing their code but testing against a live network like Mainnet can be extremely expensive.
 
-See [the SDK getting started guide](/docs/sdks/v3/guides/getting-started) for a full example on how to use forks.
+See [the SDK getting started guide](/docs/sdk/v3/guides/local-development) for a full example on how to use forks.
 
 With your local node up and running, you can use the `--network localhost` flag in tests to point the Hardhat testing suite to that local node:
 

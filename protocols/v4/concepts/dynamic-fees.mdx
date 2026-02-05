@@ -52,11 +52,11 @@ These methods offer flexibility in implementing various fee strategies.
 
 Below is an example of how to set dynamic fees using the `beforeSwap` hook:
 
-{/* ![](./images/Uniswap_V4_Dynamic_Fees_Step_1.jpg) */}
+![](./images/Uniswap_V4_Dynamic_Fees_Step_1.jpg)
 
 Before a swap occurs, the `beforeSwap` hook is invoked to determine the fee based on the defined logic. This hook calls the `updateDynamicLPFee` function on the PoolManager contract to update the fee.
 
-{/* ![](./images/Uniswap_V4_Dynamic_Fees_Step_2.jpg) */}
+![](./images/Uniswap_V4_Dynamic_Fees_Step_2.jpg)
 
 The `updateDynamicLPFee` function in the PoolManager contract updates the pool's fee accordingly.
 

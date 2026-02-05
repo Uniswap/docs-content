@@ -1,9 +1,12 @@
 {
-  "title": "Flash Swaps",
-  "pages": [
-    "getting-started",
-    "calling-flash",
-    "final-contract",
-    "flash-callback"
-  ]
-}
+    "title": "flash-Swaps",
+    "pages": [
+        "getting-started",
+        "calling-flash",
+        "flash-callback",
+        "final-contract"
+        
+        
+    ],
+    "defaultOpen": false
+  }

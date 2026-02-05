@@ -1,0 +1,12 @@
+{
+    "title": "Swapping",
+    "pages": [
+        "check-approval",
+        "quote",
+        "limit-quote",
+        "order"
+        
+        
+    ],
+    "defaultOpen": false
+  }

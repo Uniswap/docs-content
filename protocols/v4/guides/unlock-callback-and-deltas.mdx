@@ -83,7 +83,7 @@ to provide
 ### Delta-resolving
 
 _Delta-resolving_ operations are used to even out the deltas created
-by the _liquidity-accessing_ operations.
+by the _liquidity-accessing_ operations. 
 They are the following:
 
 * _settle_ - used following token transfers to the manager
@@ -98,16 +98,16 @@ be transferred back to the owner or used in settling negative balances
 * _clear_ - used to zero out positive token deltas, helpful to forfeit
 insignificant token amounts in order to avoid paying further transfer costs
 
-### Handling Deltas for Liquidity Modifications
+### Handling Deltas for Liquidity Modifications 
 
-#### When it happens
-- **Building custom routers** that pre-calculate token amounts.
-- **Estimating values** for user interfaces or simulations.
+#### When it happens  
+- **Building custom routers** that pre-calculate token amounts.  
+- **Estimating values** for user interfaces or simulations.  
 
-#### Why It Happens
-- **Pre-calculated amounts** (e.g., from `LiquidityAmounts.getAmountsForLiquidity()`) use static math.
-- **Actual deltas** (from `modifyLiquidity()`) reflect real-time pool state, including:
-  - Tick crossings during execution.
+#### Why It Happens  
+- **Pre-calculated amounts** (e.g., from `LiquidityAmounts.getAmountsForLiquidity()`) use static math.  
+- **Actual deltas** (from `modifyLiquidity()`) reflect real-time pool state, including:  
+  - Tick crossings during execution.  
   - Rounding in fixed-point arithmetic (`Q128.128`).
 
 #### Why LiquidityAmounts ≠ Liquidity Delta
@@ -139,14 +139,14 @@ poolManager.modifyLiquidity(
 getAmountsForLiquidity() assumes static 3000 price
 modifyLiquidity() reflects actual 3001 price
 
-#### Key Impact
-| Scenario | Risk |
-|----------|------|
-| **Underestimating deltas** | Transactions revert with `CurrencyNotSettled`. |
+#### Key Impact  
+| Scenario | Risk |  
+|----------|------|  
+| **Underestimating deltas** | Transactions revert with `CurrencyNotSettled`. |  
 | **Overestimating deltas** | Users overpay and lose funds to residual dust. |
 | **No slippage check** | Significant financial losses. |
 
-#### Best Practices for Custom Routers
+#### Best Practices for Custom Routers 
 
 1. **Never settle without validating against slippage**
 
@@ -163,8 +163,8 @@ modifyLiquidity() reflects actual 3001 price
         );
     ```
 
-2. **Use Deltas for Settlement**
-   Always derive final amounts from `modifyLiquidity()` deltas:
+2. **Use Deltas for Settlement**  
+   Always derive final amounts from `modifyLiquidity()` deltas:  
    ```solidity
         CallbackData memory _data = abi.decode(data, (CallbackData));
         (BalanceDelta delta, ) = poolManager.modifyLiquidity(
@@ -172,7 +172,7 @@ modifyLiquidity() reflects actual 3001 price
             _data.params,
             hex""
         );
-
+        
         _data.key.currency0.settle(poolManager, _data.key.hookAddress, delta.amount0() < 0
             ? uint256(uint128(-delta.amount0()))
             : uint256(uint128(delta.amount0())), false);
@@ -181,7 +181,8 @@ modifyLiquidity() reflects actual 3001 price
             : uint256(uint128(delta.amount1())), false);
    ```
 
-> ⚠️ **Custom Router Pitfall**
-> When pre-calculating liquidity changes, always account for rounding differences.
+> ⚠️ **Custom Router Pitfall**  
+> When pre-calculating liquidity changes, always account for rounding differences.  
 > **Never** assume `getAmountsForLiquidity() == modifyLiquidity()` deltas.
 > Enforce slippage post-execution.
+

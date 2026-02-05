@@ -1,9 +1,12 @@
 {
-  "title": "Smart Wallet",
-  "pages": [
-    "overview",
-    "concepts",
-    "deployments",
-    "guides"
-  ]
-}
+    "title": "Smart Wallet",
+    "pages": [
+        "overview",
+        "concepts",
+        "guides",
+        "deployments"
+        
+        
+    ],
+    "defaultOpen": false
+  }

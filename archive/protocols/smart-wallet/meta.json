@@ -1,0 +1,9 @@
+{
+  "title": "Smart Wallet",
+  "pages": [
+    "overview",
+    "concepts",
+    "deployments",
+    "guides"
+  ]
+}

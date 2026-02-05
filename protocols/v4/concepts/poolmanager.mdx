@@ -65,7 +65,7 @@ The primary purpose of the `PoolManager` is to:
 
 ### Liquidity Management
 
-- Liquidity providers can add or remove liquidity using the `modifyLiquidity` function on the `PoolManager`. However, you wouldn't call this directly from your application, you would call this from a periphery contract to handle the locking & unlocking a particular pool.
+- Liquidity providers can add or remove liquidity using the `modifyLiquidity` function on the `PoolManager`. However, you wouldn't call this directly from your application, you would call this from a periphery contract to handle the locking & unlocking a particular pool. 
 - The `PoolManager` executes the following steps:
     1. Checks if the pool is valid and initialized
     2. Determines if the modification is an addition or removal of liquidity

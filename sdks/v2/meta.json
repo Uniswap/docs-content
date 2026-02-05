@@ -1,7 +1,10 @@
 {
-  "title": "SDK v2",
-  "pages": [
-    "overview",
-    "guides"
-  ]
-}
+    "title": "v2",
+    "pages": [
+        "overview",
+        "guides"
+        
+        
+    ],
+    "defaultOpen": false
+  }

@@ -4,7 +4,7 @@ title: ERC-6909
 
 ## Introduction
 
-Uniswap v4 uses [ERC-6909](/docs/protocols/v4/concepts/erc-6909), a token standard that works alongside the protocol’s flash accounting system. This guide explains how ERC-6909 functions within v4, when to use mint versus burn operations, and how developers can implement them effectively.
+Uniswap v4 uses [ERC-6909](/docs/contracts/uniswap-protocol-contracts/v4/concepts/erc6909), a token standard that works alongside the protocol’s flash accounting system. This guide explains how ERC-6909 functions within v4, when to use mint versus burn operations, and how developers can implement them effectively.
 
 ## What is ERC-6909?
 
@@ -22,7 +22,7 @@ poolManager.burn(owner, currency.toId(), amount);
 
 ### Integration with Flash Accounting
 
-While flash accounting tracks balance changes as deltas throughout a transaction, ERC-6909 provides an additional primitive to resolve  deltas.
+While flash accounting tracks balance changes as deltas throughout a transaction, ERC-6909 provides an additional primitive to resolve  deltas. 
 
 This enables:
 
@@ -88,7 +88,7 @@ function _beforeSwap(address, PoolKey calldata key, IPoolManager.SwapParams call
     returns (bytes4, BeforeSwapDelta, uint24)
 {
     poolManager.mint(key.currency0, address(this), amount);
-
+    
     return (
       BaseHook.beforeSwap.selector,
       BeforeSwapDeltaLibrary.ZERO_DELTA,
@@ -160,7 +160,7 @@ function donate(
 
     // 2. Encode our struct into bytes to pass through unlock
     bytes memory encodedData = abi.encode(data);
-
+    
     // 3. Call unlock with our encoded data
     // 4. unlock will call our callback, which returns encoded delta
     // 5. Decode the returned bytes back into a BalanceDelta

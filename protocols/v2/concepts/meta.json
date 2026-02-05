@@ -1,13 +1,16 @@
 {
-  "title": "Concepts",
-  "pages": [
-    "architecture",
-    "flash-swaps",
-    "math",
-    "oracles",
-    "pools",
-    "pricing",
-    "swapping",
-    "understanding-returns"
-  ]
-}
+    "title": "Concepts",
+    "pages": [
+        "architecture",
+        "pools",
+        "swapping",
+        "oracles",
+        "flash-swap",
+        "understanding-returns",
+        "pricing",
+        "math"
+        
+        
+    ],
+    "defaultOpen": false
+  }

@@ -1,0 +1,9 @@
+{
+  "title": "Flash Swaps",
+  "pages": [
+    "getting-started",
+    "calling-flash",
+    "final-contract",
+    "flash-callback"
+  ]
+}

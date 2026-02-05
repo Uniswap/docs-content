@@ -1,11 +1,12 @@
 ---
+id: security
 title: Security Framework
 ---
 # A Self-Directed Security Framework
 
 The aim of this guide, and its accompanying [worksheet](https://docs.google.com/spreadsheets/d/1oZdKZh13UbqVp3HujAcv-2NKP-j7NQAELhB7kyWlLRE/edit?usp=sharing), is to give hook developers a clear, structured, and self-directed framework for understanding the security risks inherent to their project. It explains how complexity, math, external dependencies, upgradeability, liquidity behavior, and other factors contribute to risk. It also provides a consistent rubric for classifying risk tiers and choosing an appropriate combination of audits, monitoring services, bug bounties, and optional formal verification.
 
-This [framework](https://github.com/uniswapfoundation/security-framework/tree/main) is provided as a public, informational resource. The [Uniswap Foundation](https://www.uniswapfoundation.org/) does not review, audit, or certify any submissions, scores, or implementations derived from it. Use of this framework is voluntary and self-directed.
+This [framework](https://github.com/uniswapfoundation/security-framework/tree/main) is provided as a public, informational resource. The [Uniswap Foundation](https://www.uniswapfoundation.org/) does not review, audit, or certify any submissions, scores, or implementations derived from it. Use of this framework is voluntary and self-directed. 
 
 Scores and categorizations do **not** represent security assurances or guarantees of safety; they are intended only to outline recommended practices that may help reduce risk. References to “required,” “minimum,” or “mandatory” standards are descriptive, not prescriptive, and should not be interpreted as formal validation or endorsement.
 
@@ -13,18 +14,18 @@ Scores and categorizations do **not** represent security assurances or guarantee
 
 The guide consists of 12 sections. Here is a brief overview of each section and what you will find inside:
 
-1. **[Understanding Hook Risk in v4:](/docs/protocols/v4/security#1-understanding-hook-risk-in-v4)** Explains how hooks can introduce new security risks through accounting, math, external dependencies, governance, and liquidity behaviors.
-2. [Hook Risk Self-Scoring Dimensions:](/docs/protocols/v4/security#2-hook-risk-self-scoring-dimensions) Defines the nine quantitative dimensions used to evaluate a hook’s inherent risk profile.
-3. [Generic Hook Risk Tiers & Recommendations:](/docs/protocols/v4/security#3-generic-hook-risk-tiers-and-recommendations) Maps total scores to low, medium, and high risk tiers and outlines the minimum security expectations for each.
-4. [Feature-Specific Security Recommendations:](/docs/protocols/v4/security#4-feature-specific-security-recommendations) Highlights seven high-impact features that trigger mandatory security actions regardless of overall tier score.
-5. [How to Evaluate Your Security Needs:](/docs/protocols/v4/security#5-how-to-evaluate-your-security-needs) Explains how to combine risk tiers and feature triggers into an actionable security plan for your hook.
-6. [Operational Security (OPSEC):](/docs/protocols/v4/security#6-operational-security-opsec) Focuses on protecting the processes, information, people, and workflows around your hook, ensuring attackers cannot exploit how you operate, not just how your code behaves.
-7. [Security Best Practices Checklist:](/docs/protocols/v4/security#7-security-best-practices-checklist) Provides universal best-practice guidelines that all hooks should follow across accounting, access control, upgradeability, and transparency.
-8. [Risk Calculator Scoring Sheet:](/docs/protocols/v4/security#8-risk-calculator-scoring-sheet) Introduces an automated worksheet to calculate scores, identify triggers, and generate tailored recommendations.
-9. [How To Use This Framework:](/docs/protocols/v4/security#9-how-to-use-this-framework) Outlines a step-by-step workflow for scoring your hook, interpreting results, and preparing for audits and deployment.
-10. [Future Extensions Community Driven:](/docs/protocols/v4/security#10-future-extensions-community-driven) Describes how the community can evolve the framework by adding dimensions, patterns, tools, and shared learnings.
-11. [Security Resources:](/docs/protocols/v4/security#11-security-resources) a list of external resources for Hook builders.
-12. [Conclusion:](/docs/protocols/v4/security#12-conclusion) Summarizes the framework’s purpose and reinforces the importance of self-directed, ongoing security responsibility for hook developers.
+1. **[Understanding Hook Risk in v4:](/docs/contracts/uniswap-protocol-contracts/v4/security#1-understanding-hook-risk-in-v4)** Explains how hooks can introduce new security risks through accounting, math, external dependencies, governance, and liquidity behaviors.
+2. [Hook Risk Self-Scoring Dimensions:](/docs/contracts/uniswap-protocol-contracts/v4/security#2-hook-risk-self-scoring-dimensions) Defines the nine quantitative dimensions used to evaluate a hook’s inherent risk profile.
+3. [Generic Hook Risk Tiers & Recommendations:](/docs/contracts/uniswap-protocol-contracts/v4/security#3-generic-hook-risk-tiers-and-recommendations) Maps total scores to low, medium, and high risk tiers and outlines the minimum security expectations for each.
+4. [Feature-Specific Security Recommendations:](/docs/contracts/uniswap-protocol-contracts/v4/security#4-feature-specific-security-recommendations) Highlights seven high-impact features that trigger mandatory security actions regardless of overall tier score.
+5. [How to Evaluate Your Security Needs:](/docs/contracts/uniswap-protocol-contracts/v4/security#5-how-to-evaluate-your-security-needs) Explains how to combine risk tiers and feature triggers into an actionable security plan for your hook.
+6. [Operational Security (OPSEC):](/docs/contracts/uniswap-protocol-contracts/v4/security#6-operational-security-opsec) Focuses on protecting the processes, information, people, and workflows around your hook, ensuring attackers cannot exploit how you operate, not just how your code behaves.
+7. [Security Best Practices Checklist:](/docs/contracts/uniswap-protocol-contracts/v4/security#7-security-best-practices-checklist) Provides universal best-practice guidelines that all hooks should follow across accounting, access control, upgradeability, and transparency.
+8. [Risk Calculator Scoring Sheet:](/docs/contracts/uniswap-protocol-contracts/v4/security#8-risk-calculator-scoring-sheet) Introduces an automated worksheet to calculate scores, identify triggers, and generate tailored recommendations.
+9. [How To Use This Framework:](/docs/contracts/uniswap-protocol-contracts/v4/security#9-how-to-use-this-framework) Outlines a step-by-step workflow for scoring your hook, interpreting results, and preparing for audits and deployment.
+10. [Future Extensions Community Driven:](/docs/contracts/uniswap-protocol-contracts/v4/security#10-future-extensions-community-driven) Describes how the community can evolve the framework by adding dimensions, patterns, tools, and shared learnings.
+11. [Security Resources:](/docs/contracts/uniswap-protocol-contracts/v4/security#11-security-resources) a list of external resources for Hook builders.
+12. [Conclusion:](/docs/contracts/uniswap-protocol-contracts/v4/security#12-conclusion) Summarizes the framework’s purpose and reinforces the importance of self-directed, ongoing security responsibility for hook developers.
 
 # How to Use the Guide + Worksheet
 
@@ -60,9 +61,9 @@ Hooks that touch balances or modify deltas must handle accounting with extreme p
 - **ERC20 behavioral assumptions:** Many tokens deviate from the “standard”: fee-on-transfer tokens, rebasing tokens, ERC-777 hooks, or pausable/ freezable tokens. These can silently break accounting, introduce reentrancy, or cause unexpected DoS behavior.
 - **Holding or rehypothecating assets:** When a hook holds liquidity itself or deposits assets into another protocol, rounding errors and token-return inconsistencies multiply quickly.
 
-<Callout type="info">
+:::info
 Although the well-known [Bunni](https://www.halborn.com/blog/post/explained-the-bunni-hack-september-2025) and [Balancer](https://www.halborn.com/blog/post/explained-the-balancer-hack-november-2025) incidents were not specifically related to v4 infrastructure, they illustrate the types of accounting drift and asset-handling mistakes that hook developers must proactively guard against.
-</Callout>
+:::
 
 ### External Calls, Reentrancy, and State Drift
 
@@ -73,9 +74,9 @@ Any external call made during `beforeSwap`, `afterSwap`, or liquidity callbacks 
 - **External protocol state drift:** Prices, balances, positions, or interest rates can change between callbacks, even within the same transaction.
 - **Liquidity migration between callbacks:** External calls can add/remove liquidity, making earlier snapshots invalid.
 
-<Callout type="info">
+:::info
 **Core principle:** If your hook calls external contracts, assume *every* piece of state may change before the callback sequence completes. Only explicit tests can validate safety here.
-</Callout>
+:::
 
 ### Mathematical Correctness & Precision Risks
 
@@ -124,7 +125,7 @@ Even in these cases, strict controls are necessary.
 - **Test upgrades thoroughly**, including invariant tests and simulations of swap flows and callback ordering.
 - **Publish an upgrade policy** detailing how upgrades are announced, reviewed, and executed.
 
-**Versioning Instead of Upgrading:**
+**Versioning Instead of Upgrading:** 
 
 When safety is higher priority than convenience:
 
@@ -165,7 +166,7 @@ A hook’s risk profile is not static. As liquidity grows, even small design fla
 - formal verification needs
 - emergency procedures
 
-whenever TVL materially increases. More info on these topics to evaluate can be found in [Generic Hook Risk Tiers & Recommendations.](/docs/protocols/v4/security#3-generic-hook-risk-tiers-and-recommendations)
+whenever TVL materially increases. More info on these topics to evaluate can be found in [Generic Hook Risk Tiers & Recommendations.](/docs/contracts/uniswap-protocol-contracts/v4/security#3-generic-hook-risk-tiers-and-recommendations)
 
 ### Flash Accounting and Transient State Risks
 
@@ -192,7 +193,7 @@ Returning a `BeforeSwapDelta` that fully consumes the user’s input (or fully s
 
 ### Permission Encoding & Salt Grinding Pitfalls
 
-Hooks in Uniswap v4 rely on a hashed permission system: the PoolManager derives a permission bitmap from the hook’s address and uses it to determine which callbacks (e.g., before/after swap, add liquidity, remove liquidity) are allowed. In practice this means the hook’s deployed address effectively encodes its permissions.
+Hooks in Uniswap v4 rely on a hashed permission system: the PoolManager derives a permission bitmap from the hook’s address and uses it to determine which callbacks (e.g., before/after swap, add liquidity, remove liquidity) are allowed. In practice this means the hook’s deployed address effectively encodes its permissions. 
 
 If a CREATE2 salt is computed incorrectly when mining the hook address:
 
@@ -212,9 +213,9 @@ Hook assumptions may break for non-standard tokens such as:
 - Tokens with pausability, freezing, or blacklisting capabilities
 - Tokens with unconventional decimals
 
-<Callout type="info">
+:::info
 *These behaviors can break accounting guarantees or introduce reentrancy risk.*
-</Callout>
+:::
 
 ### Multi-Pool and Routing Interactions
 
@@ -241,13 +242,13 @@ To remain safe, cross-chain hooks should incorporate:
 - **Off-chain observability:** Operators must detect when remote state lags, diverges, or produces suspicious sequences.
 - **Adversarial assumptions:** Treat the origin chain as manipulable prior to message finality and design around worst-case ordering and timing.
 
-<Callout type="info">
+:::info
 **Core message:** Cross-chain hooks must assume latency, inconsistency, and adversarial ordering as the *normal case*, not exceptions. Designing for these realities ensures hooks remain robust even when cross-chain communication behaves unpredictably.
-</Callout>
+:::
 
 ## 2. Hook Risk Self-Scoring Dimensions
 
-The risk framework assigns a score across nine dimensions. Together, these describe the hook’s complexity, potential failure surface, systemic impact, and team preparedness.
+The risk framework assigns a score across nine dimensions. Together, these describe the hook’s complexity, potential failure surface, systemic impact, and team preparedness. 
 
 These dimensions align with a [Uniswap Hooks Security Worksheet](https://docs.google.com/spreadsheets/d/1oZdKZh13UbqVp3HujAcv-2NKP-j7NQAELhB7kyWlLRE/edit?gid=1821687847#gid=1821687847) (both tools work seamlessly together).
 
@@ -255,9 +256,9 @@ Teams should score themselves on these 9 dimensions and evaluate each dimension 
 
 ### Risk Dimensions
 
-<Callout type="note">
+:::note 
 Higher means more risk
-</Callout>
+:::
 
 ### Complexity (0 to 5)
 
@@ -317,9 +318,9 @@ Hooks that directly influence the swap path, effective price, routing decisions,
 
 Risk tiers provide a baseline set of recommendations depending on the total risk score from the previous scoring phase, but are not sufficient on their own. Certain features introduce specific risk categories that require mandatory safeguards regardless of total score. Each risk tier is expected to have extensive unit and fuzz test coverage.
 
-<Callout type="note">
+:::note
 Specific features require additional steps defined in the next section
-</Callout>
+:::
 
 ### Low Risk (0 to 6)
 
@@ -392,9 +393,9 @@ Triggers when:
 - Formal verification is recommended if TVL score is 5 or the math materially impacts prices (Invariant preservation, arithmetic bounds, correctness of composite math)
 - Continuous or periodic monitoring is recommended when combined with autonomy or price-modifying behavior
 
-<Callout type="info">
+:::info 
 Even if the overall score is Low or Medium, a specialized math review is recommended whenever custom math is present.
-</Callout>
+:::
 
 ### Hook Holds Its Own Liquidity or Manages External Liquidity
 
@@ -502,7 +503,7 @@ This acknowledges that impact severity scales with liquidity.
 
 ## 5. How to Evaluate your Security Needs
 
-In [section 3](/docs/protocols/v4/security#3-generic-hook-risk-tiers-and-recommendations) we discussed the generic hook tiers and recommendations based on the risk profile of your hook. In [section 4](/docs/protocols/v4/security#4-feature-specific-security-recommendations) the specific features you are developing were analyzed to provide more custom guidance. In practice you will need to look both at the overall risk of your hook as well as at the specific features you are developing to understand your security needs.
+In [section 3](/docs/contracts/uniswap-protocol-contracts/v4/security#3-generic-hook-risk-tiers-and-recommendations) we discussed the generic hook tiers and recommendations based on the risk profile of your hook. In [section 4](/docs/contracts/uniswap-protocol-contracts/v4/security#4-feature-specific-security-recommendations) the specific features you are developing were analyzed to provide more custom guidance. In practice you will need to look both at the overall risk of your hook as well as at the specific features you are developing to understand your security needs.
 
 ### Combined Trigger Logic (How it Works in Practice)
 
@@ -549,9 +550,9 @@ Strong OPSEC requires monitoring not only the hook’s on-chain behavior, but al
 
 Integrating OPSEC ensures that hooks remain secure across their entire operational lifecycle, protecting against human error, leaked information, social engineering, and process-level failures.
 
-<Callout type="info">
+:::info
 For more information see the [Operational Security framework from the Security Alliance](https://frameworks.securityalliance.org/opsec/overview/)
-</Callout>
+:::
 
 ## 7. Security Best Practices Checklist
 
@@ -594,7 +595,7 @@ While security practices must scale with the hook’s complexity, some fundament
 
 - [Alchemy](https://www.alchemy.com/overviews/smart-contract-security-best-practices)
 - [Nethermind](https://www.nethermind.io/blog/best-practices-for-writing-secure-smart-contract-code)
-- [Official Solidity docs on Security Considerations](https://docs.soliditylang.org/en/latest/security-considerations.html)
+- [Official Solidity docs on Security Considerations](https://docs.soliditylang.org/en/latest/security-considerations.html) 
 
 ## 8. Risk Calculator [Scoring Sheet](https://docs.google.com/spreadsheets/d/1oZdKZh13UbqVp3HujAcv-2NKP-j7NQAELhB7kyWlLRE/edit?usp=sharing)
 
@@ -608,9 +609,9 @@ A [Uniswap Hooks Security Worksheet](https://docs.google.com/spreadsheets/d/1oZd
 
 The calculator ensures consistent scoring across teams and audit providers.
 
-<Callout type="info">
+:::info
 UF does not review or validate spreadsheet outputs.
-</Callout>
+:::
 
 ## 9. How To Use This Framework
 
@@ -621,9 +622,9 @@ UF does not review or validate spreadsheet outputs.
 - Publish audits, disclosures, and changelogs
 - Reassess risk periodically as TVL grows or new features are added
 
-<Callout type="note">
+:::note
 Teams should re evaluate their tier after any major upgrade or when incentivized liquidity is introduced.
-</Callout>
+:::
 
 ## 10. Future Extensions Community Driven
 
@@ -677,9 +678,9 @@ Teams developing hooks may find the following providers and tools helpful when i
 - [Security Alliance OPSEC Framework](https://frameworks.securityalliance.org/opsec/overview)
 - Key management providers: [Safe (multisig)](https://app.safe.global/welcome), [Fireblocks](https://www.fireblocks.com/)
 
-<Callout type="note">
+:::note
 These resources are illustrative, not exhaustive. Teams should choose tools appropriate for their design, risk level, and operational maturity.
-</Callout>
+:::
 
 ## 12. Conclusion
 

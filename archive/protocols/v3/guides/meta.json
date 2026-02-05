@@ -1,0 +1,11 @@
+{
+  "title": "Guides",
+  "pages": [
+    "getting-started",
+    "swapping",
+    "managing-liquidity",
+    "flash-swaps",
+    "liquidity-mining",
+    "common-errors"
+  ]
+}

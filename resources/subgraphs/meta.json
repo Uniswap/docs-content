@@ -1,8 +1,11 @@
 {
-  "title": "Subgraphs",
-  "pages": [
-    "overview",
-    "concepts",
-    "guides"
-  ]
-}
+    "title": "Subgraphs",
+    "pages": [
+        "overview",
+        "concepts",
+        "guides"
+        
+        
+    ],
+    "defaultOpen": false
+  }

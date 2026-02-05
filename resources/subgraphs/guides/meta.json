@@ -1,8 +1,11 @@
 {
-  "title": "Guides",
-  "pages": [
-    "display-data",
-    "v3-query-examples",
-    "v4-query-examples"
-  ]
-}
+    "title": "Guides",
+    "pages": [
+        "display-data",
+        "v4-query-examples",
+        "v3-query-examples"
+        
+        
+    ],
+    "defaultOpen": false
+  }

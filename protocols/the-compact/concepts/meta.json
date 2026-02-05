@@ -1,9 +1,13 @@
 {
-  "title": "Concepts",
-  "pages": [
-    "allocators",
-    "arbiters",
-    "compacts",
-    "resource-locks"
-  ]
-}
+    "title": "Concepts",
+    "pages": [
+        "resource-locks",
+        "compacts",
+        "allocators",
+        "arbiters",
+        "periphery-contracts"
+        
+        
+    ],
+    "defaultOpen": false
+  }

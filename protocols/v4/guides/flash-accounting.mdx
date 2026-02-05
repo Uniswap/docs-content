@@ -27,7 +27,7 @@ All operations that access pool liquidity must occur while the PoolManager is un
 3. Resolve all deltas
 4. Context returns to the PoolManager which verifies no outstanding deltas
 
-If any deltas remain unresolved when the PoolManager locks, the entire transaction reverts. This guarantees that all token movements balance out by the end of the transaction.
+If any deltas remain unresolved when the PoolManager locks, the entire transaction reverts. This guarantees that all token movements balance out by the end of the transaction. 
 
 ## Understanding the Basics
 
@@ -104,7 +104,7 @@ function resolveWithERC20(
     if (!currency.isAddressZero()) {  // If not ETH
         poolManager.sync(currency);    // Sync currency balance first
         IERC20Minimal(Currency.unwrap(currency)).transfer(
-            address(poolManager),
+            address(poolManager), 
             amount
         );
         poolManager.settle();          // Complete the settlement
@@ -146,7 +146,7 @@ ERC-6909 operations map to their ERC-20 equivalents in v4:
 Notice how this pattern requires no additional sync operations or separate token transfers.
 
 > **Important**: *Every delta must be resolved before the transaction ends, or the entire transaction will revert. Use* `TransientStateLibrary` *to verify your balances are properly settled.*
->
+> 
 
 > _Delta is a net balance resulting from token movements thus not bound to a certain token type i.e. can be resolved via mix-and-match with ERC-20 functions and ERC-6909 functions._
 
@@ -191,7 +191,7 @@ When you call this function the flow followed is the following:
 5. Execution of the logic returns to the PoolManager which verifies there are no outstanding deltas, and will relock itself
 
 > **Warning***: Always implement proper access control in your unlock callback. Only the PoolManager should be able to call it.*
->
+> 
 
 ### Implementing the Unlock Callback
 
@@ -212,7 +212,7 @@ contract FlashAccountingExample {
     constructor(IPoolManager _poolManager) {
         poolManager = _poolManager;
     }
-
+    
     function executeSwap(
         PoolKey calldata key,
         uint256 amount
@@ -224,7 +224,7 @@ contract FlashAccountingExample {
         // Important: Must check caller is PoolManager
         require(msg.sender == address(poolManager), "Not pool manager");
 
-        // Decode and call our executeOperations function which
+        // Decode and call our executeOperations function which 
         // we'll implement next
         (bytes memory result) = executeOperations(data);
 
@@ -239,7 +239,7 @@ This base contract sets up the foundation for working with v4’s flash accounti
 The callback must verify it's being called by the PoolManager and return a bytes value (even if empty) to prevent transaction failures. Any actual pool operations (like swaps or liquidity changes) will be handled through the `executeOperations` function.
 
 > **Critical Note***: The most common mistake developers make is not returning a bytes value from unlockCallback. This will cause your transaction to revert. Always return a bytes value, even if it’s empty.*
->
+> 
 
 Let’s add functionality to execute operations:
 
@@ -285,7 +285,7 @@ function executeOperations(
 }
 ```
 
-The `executeOperations` function handles the actual pool operations. It first decodes the data passed from the unlock call to get the operation parameters.
+The `executeOperations` function handles the actual pool operations. It first decodes the data passed from the unlock call to get the operation parameters. 
 
 In this example, it executes a swap which creates deltas (token obligations) that must be resolved. For negative deltas (tokens we owe), we follow a specific sequence: first sync the currency state, then transfer the tokens to the PoolManager, and finally call settle. For positive deltas (tokens we receive), we use take to claim them. All deltas must be resolved before the function returns or the transaction will revert.
 
@@ -312,7 +312,7 @@ BalanceDelta delta = poolManager.modifyLiquidity(
 // delta.amount1() = -200  (need to provide token1)
 ```
 
-When adding liquidity to a pool, you’ll need to provide both tokens in the pair. The `modifyLiquidity` function returns a [`BalanceDelta`](/docs/protocols/v4/overview) that indicates how many tokens you need to provide. In this case:
+When adding liquidity to a pool, you’ll need to provide both tokens in the pair. The `modifyLiquidity` function returns a [`BalanceDelta`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/types/balancedelta) that indicates how many tokens you need to provide. In this case:
 
 - The negative values in the delta (-100, -200) indicate you need to provide these amounts of each token
 - The values are proportional to the current pool price and your specified price range (tickLower to tickUpper)

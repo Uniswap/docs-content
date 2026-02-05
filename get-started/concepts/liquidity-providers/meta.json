@@ -1,8 +1,12 @@
 {
-  "title": "Liquidity Providers",
-  "pages": [
-    "concentrated-liquidity",
-    "lp-calculations",
-    "range-orders"
-  ]
-}
+    "title": "Liquidity Providers",
+    "pages": [
+        "concentrated-liquidity",
+        "range-orders",
+        "lp-calculations"
+       
+        
+        
+    ],
+    "defaultOpen": false
+  }

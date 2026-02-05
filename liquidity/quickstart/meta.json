@@ -1,8 +1,9 @@
 {
-  "title": "Quickstart",
-  "pages": [
-    "creating-a-pool",
-    "filling-on-uniswapx",
-    "managing-liquidity"
-  ]
-}
+    "title": "Quickstart",
+    "pages": [
+        "managing-liquidity",
+        "creating-a-pool",
+        "filling-on-uniswapx"
+    ],
+    "defaultOpen": false
+  }

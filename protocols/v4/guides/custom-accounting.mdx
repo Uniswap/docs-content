@@ -13,9 +13,9 @@ Before we dive into the details of custom accounting, hook fees, custom curves, 
 
 ### Delta Accounting in v4
 
-As described in [Flash Accounting](/docs/protocols/v4/concepts/flash-accounting) Uniswap v4 tracks net token transfers with transient storage. Unlike previous versions that tracked absolute token balances, v4 records changes to these balances (*deltas*). This approach is at the core of v4’s enhanced flexibility and efficiency.
+As described in [Flash Accounting](/docs/contracts/uniswap-protocol-contracts/v4/concepts/flash-accounting) Uniswap v4 tracks net token transfers with transient storage. Unlike previous versions that tracked absolute token balances, v4 records changes to these balances (*deltas*). This approach is at the core of v4’s enhanced flexibility and efficiency.
 
-In the v4 architecture, the [`PoolManager`](/docs/protocols/v4/concepts/poolmanager) manages credits or debits per address. After a swap router contract interacts with the PoolManager, the core contract determines that the swap router owes input tokens and must claim output tokens. Token balances are tracked as accumulated deltas in transient storage; and only the final deltas incur token transfers
+In the v4 architecture, the [`PoolManager`](/docs/contracts/uniswap-protocol-contracts/v4/concepts/PoolManager) manages credits or debits per address. After a swap router contract interacts with the PoolManager, the core contract determines that the swap router owes input tokens and must claim output tokens. Token balances are tracked as accumulated deltas in transient storage; and only the final deltas incur token transfers
 
 Delta accounting provides several key benefits:
 
@@ -41,7 +41,7 @@ Hook fees are typically calculated and applied in the `beforeSwap` function, all
 
 **Use of BeforeSwapDelta**
 
-Hook fees often utilize the [`BeforeSwapDelta`](/docs/protocols/v4/overview) mechanism to adjust swap amounts and transfer deltas from the hook to the swap router, enabling precise control over how the fee affects the swap.
+Hook fees often utilize the [`BeforeSwapDelta`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/types/beforeswapdelta) mechanism to adjust swap amounts and transfer deltas from the hook to the swap router, enabling precise control over how the fee affects the swap.
 
 **Flexible Implementation**
 
@@ -57,7 +57,7 @@ Keep reading because at the bottom we are providing a step by step guide on how 
 
 ### Custom Curves in v4
 
-Custom Curves in Uniswap v4 represent a big change in AMM design flexibility. Unlike [Uniswap v2](/docs/get-started/concepts/amms) where the x*y=k formula was hardcoded, v4 allows developers to implement a wide variety of pricing models.
+Custom Curves in Uniswap v4 represent a big change in AMM design flexibility. Unlike [Uniswap v2](/docs/contracts/uniswap-protocol-contracts/v2/concepts/protocol-overview/how-uniswap-works) where the x*y=k formula was hardcoded, v4 allows developers to implement a wide variety of pricing models.
 
 This is made possible through the hook system, particularly hooks that can interact with the swap process. Custom curves allow developers to eject the native concentrated liquidity pricing mechanism. These hooks can intercept swap requests, apply custom pricing logic, and return modified swap parameters. This enables the creation of pools with unique characteristics, such as:
 
@@ -171,11 +171,11 @@ poolManager.take(feeCurrency, address(this), feeAmount);
 
 ```
 
-<Callout type="note">
+:::note
 > Using `poolManager.take()` requires an ERC20 balance on the PoolManager, i.e. via other liquidity pools. If the `.take()` amount exceeds the ERC20 balance, the code will revert. As a workaround, use either:
 >1. `poolManager.mint()` to obtain ERC6909, which are also more gas efficient
 >2. A custom swap router, where input tokens are transferred to PoolManager before the router calls `poolManager.swap()`
-</Callout>
+:::
 
 #### Step 2.3: Create the BeforeSwapDelta
 
@@ -208,24 +208,24 @@ Now, let's dive deeper into how the `BeforeSwapDelta` works and how it affects t
 Let's say a user wants to swap 100 USDC for USDT
     - Hook's delta: (0, 0)
     - User's swap request: -100 USDC (negative because they're selling)
-
+    
 2. **After Hook Execution**:
 Our hook has taken a 1 USDC fee (assuming 1% for simplicity):
     - Hook's delta: (-1 USDC, 0) // The hook now owes 1 USDC to the pool
     - BeforeSwapDelta returned: (1 USDC, 0) // This will be added to the hook's delta and subtracted from the swap delta
-
+    
 3. **PoolManager Processing**:
 The PoolManager applies our `BeforeSwapDelta`
 The pool then swaps 99 USDC for, let's say, 98 USDT.
-
+    
 ```solidity
 amountToSwap = params.amountSpecified + hookDelta.getSpecifiedDelta();
 -99 USDC = -100 USDC + 1 USDC
 ```
-
+    
 4. **Delta Resolution**:
 The PoolManager then resolves the deltas:
-
+    
 ```solidity
 // Hook's new delta
 newHookDelta = oldHookDelta + returnDelta
@@ -235,7 +235,7 @@ newHookDelta = oldHookDelta + returnDelta
 swapDelta = (-99 USDC, 98 USDT) - (1 USDC, 0)
             = (-100 USDC, 98 USDT)
 ```
-
+    
 5. **Final Outcome**:
     - The hook's debt is cleared: It took 1 USDC as a fee, but "returned" it to the swap process.
     - The router (on behalf of the user) must pay 100 USDC (original amount including fee) and receives 98 USDT.
@@ -298,12 +298,12 @@ function getHookPermissions() public pure override returns (Hooks.Permissions me
 
 In afterSwap, you do not build a BeforeSwapDelta. Instead, we read actual output from **BalanceDelta** and compute fee on that amount.
 
-<Callout type="info" title="Unspecified currency (afterSwap)">
+:::tip Unspecified currency (afterSwap)
 The `int128` you return is for the **unspecified currency**. Map it like this:
 
 - **exactIn** → unspecified = **output** token → take the fee in **output**; user receives less output.
 - **exactOut** → unspecified = **input** token  → take the fee in **input**; user must pay more input.
-</Callout>
+:::
 
 ```solidity
 function _afterSwap(

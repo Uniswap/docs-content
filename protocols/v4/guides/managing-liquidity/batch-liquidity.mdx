@@ -4,13 +4,13 @@ title: Batch Modify
 
 ### Context
 
-As seen in previous guides, `PositionManager` is a command-based contract. This design is conducive to
+As seen in previous guides, `PositionManager` is a command-based contract. This design is conducive to 
 batching complex liquidity operations. For example, developers can encode efficient logic to move
-liquidity between two positions on entirely different Pools.
+liquidity between two positions on entirely different Pools. 
 
 ### Setup
 
-See the [setup guide](/docs/sdks/v3/guides/getting-started)
+See the [setup guide](./setup-liquidity)
 
 ## Guide
 
@@ -29,7 +29,7 @@ Additionally, _liquidity-operations_ do not have to happen prior to _delta-resol
 the two types of actions.
 
 > **However** is good practice to perform _liquidity-operations_ before _delta-resolving_ actions. Minimizing token transfers
-and leveraging [_flash accounting_](/docs/protocols/v4/concepts/flash-accounting) is more gas efficient
+and leveraging [_flash accounting_](../../concepts/flash-accounting) is more gas efficient
 
 Example: `Action.Y` happens after `Action.X` but before `Action.Z`
 ```solidity

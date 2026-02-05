@@ -1,7 +1,10 @@
 {
-  "title": "Permit2",
-  "pages": [
-    "overview",
-    "concepts"
-  ]
-}
+    "title": "Permit2",
+    "pages": [
+        "overview",
+        "concepts"
+        
+        
+    ],
+    "defaultOpen": false
+  }

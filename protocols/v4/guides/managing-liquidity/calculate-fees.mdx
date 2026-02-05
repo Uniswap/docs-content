@@ -4,15 +4,15 @@ title: Calculate LP fees
 
 ## Introduction
 
-With hook introduced in v4, [Dynamic Fees](/docs/protocols/v4/concepts/dynamic-fees) is now possible and allow v4 pools to have a flexible and responsive fee structure comparing to v3 pools with static fee tiers(0.05%, 0.3%, 1%).
+With hook introduced in v4, [Dynamic Fees](../concepts/dynamic-fees) is now possible and allow v4 pools to have a flexible and responsive fee structure comparing to v3 pools with static fee tiers(0.05%, 0.3%, 1%). 
 
 While in v3 we can get the amount for the fees claimed on each liquidity operation in the `Collect` event, in v4 with dynamic fees, swap fees are directly accrued to liquidity positions and can be further handled by hooks at *`afterModifyLiquidity`* - thus we should not emit `feesAccrued` in the event `ModifiyLiquidity`. This not only saves gas on event emission but more importantly avoid causing confusion since the amount of `feesAccrued` could be changed as a result of hook execution.
 
 ```solidity
 // Modify liquidity in v4
-function modifyLiquidity(PoolKey memory key, IPoolManager.ModifyLiquidityParams memory params, bytes calldata hookData)
-    // ...
-    returns (BalanceDelta callerDelta, BalanceDelta feesAccrued)
+function modifyLiquidity(PoolKey memory key, IPoolManager.ModifyLiquidityParams memory params, bytes calldata hookData) 
+    // ... 
+    returns (BalanceDelta callerDelta, BalanceDelta feesAccrued) 
 {
     PoolId id = key.toId();
     {
@@ -90,7 +90,7 @@ PoolId poolId = config.poolKey.toId();
 
 2. Get the all-time fee growth in `currency0` and `currency1` per unit of liquidity from `tickLower` to `tickUpper`
 ```solidity
-(uint256 feeGrowthInside0X128, uint256 feeGrowthInside1X128) =
+(uint256 feeGrowthInside0X128, uint256 feeGrowthInside1X128) = 
     manager.getFeeGrowthInside(poolId, config.tickLower, config.tickUpper);
 ```
 
@@ -107,7 +107,7 @@ Create a new function `getLifetimeFee(PositionConfig config, uint256 tokenId)`:
 1. Get the all-time fee growth in `currency0` and `currency1` per unit of liquidity from `tickLower` to `tickUpper`
 
 ```solidity
-(uint256 feeGrowthInside0X128, uint256 feeGrowthInside1X128) =
+(uint256 feeGrowthInside0X128, uint256 feeGrowthInside1X128) = 
     manager.getFeeGrowthInside(poolId, config.tickLower, config.tickUpper);
 ```
 
@@ -173,11 +173,11 @@ contract CalculateFeeExample {
         lifetimeFees = _convertFeesToBalanceDelta(feeGrowthInside0X128, feeGrowthInside1X128, liquidity);
     }
 
-    function _convertFeesToBalanceDelta(uint256 feeGrowthInside0X128, uint256 feeGrowthInside1X128, uint256 liquidity)
+    function _convertFeesToBalanceDelta(uint256 feeGrowthInside0X128, uint256 feeGrowthInside1X128, uint256 liquidity) 
         internal
-        view
+        view 
         returns (BalanceDelta feesInBalanceDelta) {
-
+            
         uint128 token0Amount = (FullMath.mulDiv(feeGrowthInside0X128, liquidity, FixedPoint128.Q128)).toUint128();
         uint128 token1Amount = (FullMath.mulDiv(feeGrowthInside1X128, liquidity, FixedPoint128.Q128)).toUint128();
         feesInBalanceDelta = toBalanceDelta(uint256(token0Amount).toInt128(), uint256(token1Amount).toInt128());

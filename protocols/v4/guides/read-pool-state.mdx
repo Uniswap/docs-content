@@ -4,7 +4,7 @@ title: Reading Pool State
 
 ## Introduction
 
-Unlike previous versions, v4 uses a different approach for storing and accessing pool data, which requires understanding the use of [`StateLibrary`](/docs/protocols/v4/overview) and [`extsload`](/docs/protocols/v4/overview).
+Unlike previous versions, v4 uses a different approach for storing and accessing pool data, which requires understanding the use of [`StateLibrary`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/libraries/StateLibrary) and [`extsload`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/Extsload).
 
 ## Understanding the PoolManager Architecture
 
@@ -12,7 +12,7 @@ Unlike previous versions, v4 uses a different approach for storing and accessing
 
 In Uniswap v4, all pools are managed by a single `PoolManager` contract, unlike v3 where each pool was a separate contract. This design offers simplified management since all pools are now accessible through a single contract.
 
-This approach significantly reduces deployment costs, simplifies protocol upgrades, and enables more efficient cross-pool interactions. It also allows for easier implementation of new features across all pools simultaneously.
+This approach significantly reduces deployment costs, simplifies protocol upgrades, and enables more efficient cross-pool interactions. It also allows for easier implementation of new features across all pools simultaneously. 
 
 ### Pools as Library Calls
 
@@ -108,9 +108,9 @@ abstract contract Exttload is IExttload {
 }
 ```
 
-While `StateLibrary` deals with persistent storage, [`TransientStateLibrary`](/docs/protocols/v4/overview) is used for handling transient storage. Transient storage, introduced in EIP-1153, is a way to store data that is only needed for the duration of a transaction, making it ideal for temporary data.
+While `StateLibrary` deals with persistent storage, [`TransientStateLibrary`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/libraries/transient-state-library) is used for handling transient storage. Transient storage, introduced in EIP-1153, is a way to store data that is only needed for the duration of a transaction, making it ideal for temporary data.
 
-It uses the [`exttload`](/docs/protocols/v4/overview) function, which is similar to `extsload`, but for transient storage; it is an external wrapper for the `TLOAD` opcode.
+It uses the [`exttload`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/Exttload) function, which is similar to `extsload`, but for transient storage; it is an external wrapper for the `TLOAD` opcode.
 
 ## Implementing a `PoolStateReader` Contract
 
@@ -260,4 +260,4 @@ Global fee growth is essential for several advanced operations:
 
 ---
 
-For additional reference, see [`StateLibrary`](/docs/protocols/v4/overview) and [`Extsload`](/docs/protocols/v4/overview)
+For additional reference, see [`StateLibrary`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/libraries/StateLibrary) and [`Extsload`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/Extsload)

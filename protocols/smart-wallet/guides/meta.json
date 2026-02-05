@@ -1,6 +1,9 @@
 {
-  "title": "Guides",
-  "pages": [
-    "best-practices"
-  ]
-}
+    "title": "Guides",
+    "pages": [
+        "best-practices"
+        
+        
+    ],
+    "defaultOpen": false
+  }

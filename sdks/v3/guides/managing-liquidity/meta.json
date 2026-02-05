@@ -1,13 +1,16 @@
 {
-  "title": "Managing Liquidity",
-  "pages": [
-    "getting-started",
-    "active-liquidity",
-    "collect-fees",
-    "modifying-position",
-    "position-fetching",
-    "position-minting",
-    "range-orders",
-    "swap-and-add"
-  ]
-}
+    "title": "Managing Liquidity",
+    "pages": [
+        "getting-started",
+        "position-minting",
+        "position-fetching",
+        "modifying-position",
+        "collect-fees",
+        "swap-and-add",
+        "active-liquidity",
+        "range-orders"
+        
+        
+    ],
+    "defaultOpen": false
+  }

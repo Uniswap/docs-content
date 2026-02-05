@@ -1,18 +1,21 @@
 {
-  "title": "Guides",
-  "pages": [
-    "create-pool",
-    "swapping",
-    "managing-liquidity",
-    "hooks",
-    "subscriber",
-    "position-manager",
-    "read-pool-state",
-    "unlock-callback-and-deltas",
-    "custom-accounting",
-    "flash-accounting",
-    "state-view",
-    "erc-6909",
-    "common-errors"
-  ]
-}
+    "title": "Guides",
+    "pages": [
+        "create-pool",
+        "swapping",
+        "managing-liquidity",
+        "hooks",
+        "position-manager",
+        "read-pool-state",
+        "unlock-callback-and-deltas",
+        "custom-accounting",
+        "flash-accounting",
+        "state-view",
+        "erc-6909",
+        "subscriber",
+        "common-errors"
+        
+        
+    ],
+    "defaultOpen": false
+  }

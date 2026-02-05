@@ -1,7 +1,10 @@
 {
-  "title": "v2",
-  "pages": [
-    "entities",
-    "queries"
-  ]
-}
+    "title": "v2",
+    "pages": [
+        "entities",
+        "queries"
+        
+        
+    ],
+    "defaultOpen": false
+  }
