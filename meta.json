@@ -17,8 +17,7 @@
     "---SDKs---",
     "sdks",
     "---API---",
-    "api",
-    "getting-started",
-    "trading-api"
+    "api"
+  
   ]
 }
