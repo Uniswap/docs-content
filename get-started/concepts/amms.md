@@ -27,6 +27,6 @@ Because the relative price of the two pair assets can only be changed through tr
 
 ## Further reading
 
-To see how token swaps work in practice, and to walk through the lifecycle of a swap, check out [Swaps](../core-concepts/swaps). Or, to see how liquidity pools work, see [Pools](../core-concepts/pools).
+To see how token swaps work in practice, and to walk through the lifecycle of a swap, check out [Swaps](../../protocols/v2/concepts/swapping). Or, to see how liquidity pools work, see [Pools](../../protocols/v2/concepts/pools).
 
 Ultimately, of course, the Uniswap protocol is just smart contract code running on Ethereum. To understand how they work, head over to [Smart Contracts](../../reference/smart-contracts/factory).
