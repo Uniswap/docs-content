@@ -1,12 +1,5 @@
 {
-    "title": "Protocol Fee",
-    "pages": [
-        "overview",
-        "concepts",
-        "guides",
-        "deployments"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Protocol Fee",
+  "pages": ["overview", "concepts", "guides", "deployments"],
+  "defaultOpen": false
+}

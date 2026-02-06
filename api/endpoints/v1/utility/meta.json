@@ -1,10 +1,6 @@
 {
-    "title": "Utility Endpoints",
-    "pages": ["create-transaction",
-        "check-wallet",
-        "EIP-7702"
-        
-    ],
-    
-    "defaultOpen": false
-  }
+  "title": "Utility Endpoints",
+  "pages": ["create-transaction", "check-wallet", "EIP-7702"],
+
+  "defaultOpen": false
+}

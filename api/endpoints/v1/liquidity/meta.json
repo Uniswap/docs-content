@@ -1,14 +1,14 @@
 {
-    "title": "Liquidity Provisioning Endpoints",
-    "pages": ["create-approval",
-        "create-pool",
-        "increase-position",
-        "decrease-position",
-        "claim-fees",
-        "claim-rewards",
-        "migrate"
-        
-    ],
-    
-    "defaultOpen": false
-  }
+  "title": "Liquidity Provisioning Endpoints",
+  "pages": [
+    "create-approval",
+    "create-pool",
+    "increase-position",
+    "decrease-position",
+    "claim-fees",
+    "claim-rewards",
+    "migrate"
+  ],
+
+  "defaultOpen": false
+}

@@ -1,10 +1,5 @@
 {
-    "title": "Concepts",
-    "pages": [
-        "allowance-transfer",
-        "signature-transfer"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Concepts",
+  "pages": ["allowance-transfer", "signature-transfer"],
+  "defaultOpen": false
+}

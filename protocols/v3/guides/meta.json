@@ -1,14 +1,5 @@
 {
-    "title": "Guides",
-    "pages": [
-        "getting-started",
-        "swapping",
-        "managing-liquidity",
-        "liquidity-mining",
-        "flash-swaps",
-        "common-errors"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Guides",
+  "pages": ["getting-started", "swapping", "managing-liquidity", "liquidity-mining", "flash-swaps", "common-errors"],
+  "defaultOpen": false
+}

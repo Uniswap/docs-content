@@ -1,10 +1,5 @@
 {
-    "title": "Traders",
-    "pages": [
-        "swaps"
-       
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Traders",
+  "pages": ["swaps"],
+  "defaultOpen": false
+}

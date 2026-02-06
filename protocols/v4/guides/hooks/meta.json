@@ -1,14 +1,12 @@
 {
-    "title": "Hooks",
-    "pages": [
-        "getting-started",
-        "swap-hooks",
-        "liquidity-hooks",
-        "async-swap",
-        "accessing-msg.sender",
-        "hook-deployment"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Hooks",
+  "pages": [
+    "getting-started",
+    "swap-hooks",
+    "liquidity-hooks",
+    "async-swap",
+    "accessing-msg.sender",
+    "hook-deployment"
+  ],
+  "defaultOpen": false
+}

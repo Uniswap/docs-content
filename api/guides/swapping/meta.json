@@ -1,11 +1,5 @@
 {
-    "title": "Swapping",
-    "pages": [
-        "getting-started",
-        "swapping",
-        "common-errors"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Swapping",
+  "pages": ["getting-started", "swapping", "common-errors"],
+  "defaultOpen": false
+}

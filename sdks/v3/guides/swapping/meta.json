@@ -1,11 +1,5 @@
 {
-    "title": "Swapping",
-    "pages": [
-        "quoting",
-        "routing",
-        "swapping"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Swapping",
+  "pages": ["quoting", "routing", "swapping"],
+  "defaultOpen": false
+}

@@ -1,13 +1,5 @@
 {
-    "title": "v3",
-    "pages": [
-        "overview",
-        "concepts",
-        "guides",
-        "deployments",
-        "security"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "v3",
+  "pages": ["overview", "concepts", "guides", "deployments", "security"],
+  "defaultOpen": false
+}

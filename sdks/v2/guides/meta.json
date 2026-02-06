@@ -1,13 +1,5 @@
 {
-    "title": "Guides",
-    "pages": [
-        "getting-started",
-        "fetching-data",
-        "pricing",
-        "swapping",
-        "getting-pair-address"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Guides",
+  "pages": ["getting-started", "fetching-data", "pricing", "swapping", "getting-pair-address"],
+  "defaultOpen": false
+}

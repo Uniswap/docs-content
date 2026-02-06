@@ -1,12 +1,5 @@
 {
-    "title": "Getting Started",
-    "pages": [
-        "index",
-        "glossary",
-        "concepts",
-        "research"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Getting Started",
+  "pages": ["index", "glossary", "concepts", "research"],
+  "defaultOpen": false
+}

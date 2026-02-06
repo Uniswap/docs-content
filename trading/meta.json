@@ -1,10 +1,5 @@
 {
-    "title": "Trade",
-    "pages": [
-        "overview",
-        "quickstart"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Trade",
+  "pages": ["overview", "quickstart"],
+  "defaultOpen": false
+}

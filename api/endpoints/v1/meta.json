@@ -1,11 +1,6 @@
 {
-    "title": "API References",
-    "pages": ["swapping",
-        "liquidity",
-        "reference-data",
-        "utility"
-        
-    ],
-    
-    "defaultOpen": false
-  }
+  "title": "API References",
+  "pages": ["swapping", "liquidity", "reference-data", "utility"],
+
+  "defaultOpen": false
+}

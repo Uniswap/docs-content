@@ -1,15 +1,12 @@
 {
-    "title": "Uniswapx-filling",
-    "pages": [
-        "overview",
-        "become-a-quoter",
-        "filling-on-mainnet",
-        "filling-on-arbitrum",
-        "filling-on-op-stack",
-        "webhooks"
-    
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Uniswapx-filling",
+  "pages": [
+    "overview",
+    "become-a-quoter",
+    "filling-on-mainnet",
+    "filling-on-arbitrum",
+    "filling-on-op-stack",
+    "webhooks"
+  ],
+  "defaultOpen": false
+}

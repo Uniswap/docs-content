@@ -1,9 +1,6 @@
 {
-    "title": "Uniswap Swapping",
-    "pages": ["create-order",
-        "status-check"
-        
-    ],
-    
-    "defaultOpen": false
-  }
+  "title": "Uniswap Swapping",
+  "pages": ["create-order", "status-check"],
+
+  "defaultOpen": false
+}

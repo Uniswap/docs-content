@@ -1,10 +1,5 @@
 {
-    "title": "Concepts",
-    "pages": [
-        "architecture",
-       "price-oracles",
-       "unsupported-tokens"
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Concepts",
+  "pages": ["architecture", "price-oracles", "unsupported-tokens"],
+  "defaultOpen": false
+}

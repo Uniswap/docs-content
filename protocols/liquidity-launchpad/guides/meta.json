@@ -1,14 +1,5 @@
 {
-    "title": "Guides",
-    "pages": [
-        "setup",
-        "local-deployment",
-        "example-configuration",
-        "submit-bid",
-        "price-discovery",
-        "exit-bid"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Guides",
+  "pages": ["setup", "local-deployment", "example-configuration", "submit-bid", "price-discovery", "exit-bid"],
+  "defaultOpen": false
+}

@@ -1,12 +1,5 @@
 {
-    "title": "SDKs",
-    "pages": [
-        "overview",
-        "v4",
-        "v3",
-        "v2"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "SDKs",
+  "pages": ["overview", "v4", "v3", "v2"],
+  "defaultOpen": false
+}

@@ -1,10 +1,5 @@
 {
-    "title": "Guides",
-    "pages": [
-        "swapping",
-        "managing-liquidity"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Guides",
+  "pages": ["swapping", "managing-liquidity"],
+  "defaultOpen": false
+}

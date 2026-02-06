@@ -1,10 +1,5 @@
 {
-    "title": "Swapping",
-    "pages": [
-        "single-hop-swapping",
-        "multi-hop-swapping"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Swapping",
+  "pages": ["single-hop-swapping", "multi-hop-swapping"],
+  "defaultOpen": false
+}

@@ -1,11 +1,5 @@
 {
-    "title": "UniswapX",
-    "pages": [
-        "overview",
-        "concepts",
-        "deployments"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "UniswapX",
+  "pages": ["overview", "concepts", "deployments"],
+  "defaultOpen": false
+}

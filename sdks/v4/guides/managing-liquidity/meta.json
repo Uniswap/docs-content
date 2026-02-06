@@ -1,12 +1,5 @@
 {
-    "title": "Managing Liquidity",
-    "pages": [
-        "position-minting",
-        "position-fetching",
-        "collect-fees",
-        "modifying-position"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Managing Liquidity",
+  "pages": ["position-minting", "position-fetching", "collect-fees", "modifying-position"],
+  "defaultOpen": false
+}

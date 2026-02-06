@@ -1,13 +1,5 @@
 {
-    "title": "Guides",
-    "pages": [
-        "overview",
-        "swapping",
-        "managing-liquidity",
-        "create-pool",
-        "pool-data"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Guides",
+  "pages": ["overview", "swapping", "managing-liquidity", "create-pool", "pool-data"],
+  "defaultOpen": false
+}

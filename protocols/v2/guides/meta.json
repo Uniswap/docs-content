@@ -1,17 +1,15 @@
 {
-    "title": "Guides",
-    "pages": [
-        "custom-interface-links",
-        "getting-started",
-        "swapping",
-        "providing-liquidity",
-        "flash-swaps",
-        "getting-pair-addresses",
-        "building-an-oracle",
-        "meta-transactions",
-        "common-errors"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Guides",
+  "pages": [
+    "custom-interface-links",
+    "getting-started",
+    "swapping",
+    "providing-liquidity",
+    "flash-swaps",
+    "getting-pair-addresses",
+    "building-an-oracle",
+    "meta-transactions",
+    "common-errors"
+  ],
+  "defaultOpen": false
+}

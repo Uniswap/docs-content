@@ -1,9 +1,5 @@
 {
-    "title": "v4",
-    "pages": [
-        "queries"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "v4",
+  "pages": ["queries"],
+  "defaultOpen": false
+}

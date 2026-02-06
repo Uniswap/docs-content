@@ -1,11 +1,5 @@
 {
-    "title": "Liquidity",
-    "pages": [
-        "overview",
-        "quickstart",
-        "uniswapx-filling"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Liquidity",
+  "pages": ["overview", "quickstart", "uniswapx-filling"],
+  "defaultOpen": false
+}

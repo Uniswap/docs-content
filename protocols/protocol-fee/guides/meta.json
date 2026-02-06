@@ -1,12 +1,5 @@
 {
-    "title": "Guides",
-    "pages": [
-        "getting-started",
-        "read-asset-balances",
-        "best-practices",
-        "deployments"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Guides",
+  "pages": ["getting-started", "read-asset-balances", "best-practices", "deployments"],
+  "defaultOpen": false
+}

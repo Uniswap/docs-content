@@ -1,12 +1,5 @@
 {
-    "title": "The Compact",
-    "pages": [
-        "overview",
-        "concepts",
-        "deployments",
-        "security"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "The Compact",
+  "pages": ["overview", "concepts", "deployments", "security"],
+  "defaultOpen": false
+}

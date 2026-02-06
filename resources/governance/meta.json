@@ -1,12 +1,5 @@
 {
-    "title": "Governance",
-    "pages": [
-        "overview",
-        "governance-process",
-        "adversarial-circumstances",
-        "glossary"
-        
-        
-    ],
-    "defaultOpen": false
-  }
+  "title": "Governance",
+  "pages": ["overview", "governance-process", "adversarial-circumstances", "glossary"],
+  "defaultOpen": false
+}
