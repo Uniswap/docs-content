@@ -16,7 +16,7 @@ Most API keys have a default rate limit of 3 requests per second (RPS). If you e
 
 ### 404 No Quotes Available
 
-The most commonly encountered HTTP error is an HTTP 404 with a message "No quotes available" from the [`/quote`](/api-reference/swapping/quote) endpoint. This error can happen for a variety of reasons related to request syntax, rather than there being no actual route between the specified tokens. In order of most common to less common reasons for receiving this error:
+The most commonly encountered HTTP error is an HTTP 404 with a message "No quotes available" from the [`/quote`](../endpoints/v1/swapping/quote) endpoint. This error can happen for a variety of reasons related to request syntax, rather than there being no actual route between the specified tokens. In order of most common to less common reasons for receiving this error:
 * The `amount` is too low to be quoted by UniswapX. If a quote is requested for only UniswapX (see [Swap Routing](/guides/swap_routing) for more on protocol selection), and the requested chain is an L2 (e.g. not Mainnet), the amount must exceed a threshold value in order to be quoted (see details [here](/guides/supported_chains)).
 * The specified chain is not supported by UniswapX. UniswapX has limited chain support, detailed [here](/guides/supported_chains).
 * The specified token(s) do not match the specified chain. The token addresses specified must be those belonging to the token on the given chain (ex. the USDC address on Mainnet is different than that on Base).

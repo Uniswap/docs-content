@@ -1,0 +1,11 @@
+{
+    "title": "Protocol Swapping",
+    "pages": ["create-swap",
+        "create-batch",
+        "create-delegated",
+        "status-check"
+        
+    ],
+    
+    "defaultOpen": false
+  }
