@@ -1,9 +1,0 @@
-{
-  "title": "Concepts",
-  "pages": [
-    "allocators",
-    "arbiters",
-    "compacts",
-    "resource-locks"
-  ]
-}
