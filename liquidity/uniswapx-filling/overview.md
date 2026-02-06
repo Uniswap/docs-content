@@ -42,10 +42,10 @@ This documentation contains specific integration guides for each chain. Choose y
 - [Unichain, Base](/docs/contracts/additional-contracts/uniswapx/fillers/priority/priorityorderreactor) - Priority gas auctions
 
 :::note Auction Types
-To learn about the different auction mechanics, please see the [Auction Types Overview](../auction-types) page. 
+To learn about the different auction mechanics, please see the [Auction Types Overview](../../protocols/uniswapx/concepts/auction-types) page. 
 :::
 
-Fillers should start with polling for orders and rate limit at 6rps. If after polling, a filler's performance is degraded due to the polling rate limit, please see the [Webhook Support](contracts/uniswapx/fillers/webhooks) documentation to learn about registering webhooks for orders.
+Fillers should start with polling for orders and rate limit at 6rps. If after polling, a filler's performance is degraded due to the polling rate limit, please see the [Webhook Support](../../liquidity/uniswapx-filling/webhooks) documentation to learn about registering webhooks for orders.
 
 ## Filler FAQ
 

@@ -19,7 +19,7 @@ Through these hook functions, developers can build sophisticated features like c
 
 ## Singleton Architecture
 
-The hook system in v4 is built on top of a revolutionary architectural change known as the singleton design. Unlike previous versions where each pool was a separate smart contract, v4 manages all pools through a single contract called the [PoolManager](/contracts/v4/concepts/PoolManager). This architectural innovation brings several key improvements:
+The hook system in v4 is built on top of a revolutionary architectural change known as the singleton design. Unlike previous versions where each pool was a separate smart contract, v4 manages all pools through a single contract called the [PoolManager](../../protocols/v4/concepts/poolmanager). This architectural innovation brings several key improvements:
 
 - **Efficient Pool Creation**: Pools are created as state updates rather than contract deployments, significantly reducing gas costs
 - **Gas Optimization**: Multi-hop swaps and complex operations are streamlined through a single contract
@@ -30,4 +30,4 @@ These core features are just the beginning of what's possible with Uniswap v4.
 
 To explore all features including flash accounting, native ETH support, dynamic fees, and custom accounting, check out the [v4 whitepaper](https://uniswap.org/whitepaper-v4.pdf).
 
-For technical implementations and detailed guides, visit the [v4 technical documentation](/contracts/v4/overview).
+For technical implementations and detailed guides, visit the [v4 technical documentation](../../protocols/v4/overview).

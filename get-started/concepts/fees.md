@@ -31,6 +31,6 @@ Similarly, we anticipate more exotic assets, or those traded rarely, will natura
 
 ## Protocol Fees
 
-With the passage of the [UNIfication governance proposal](https://vote.uniswapfoundation.org/proposals/93) on December 25th, 2025, all v2 pools and certain v3 pools now have a protocol fee to programmatically burn UNI. Read more on [protocol fees](../../contracts/protocol-fee/overview) and [fee levels](../../contracts/protocol-fee/fee-setting-rational).
+With the passage of the [UNIfication governance proposal](https://vote.uniswapfoundation.org/proposals/93) on December 25th, 2025, all v2 pools and certain v3 pools now have a protocol fee to programmatically burn UNI. Read more on [protocol fees](../../protocols/protocol-fee/overview) and [fee levels](../../protocols/protocol-fee/concept/fees).
 
 [^1]: In-range liquidity refers to the liquidity contained in any positions which span both sides of the spot price. 
