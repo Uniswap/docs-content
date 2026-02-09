@@ -10,13 +10,13 @@ You can use these docs to learn about the v3 Protocol Smart Contracts and develo
 
 ## Guides
 
-If you are new to the Uniswap Protocol, we recommend you start with the [basic concepts](../../concepts/uniswap-protocol) first.
+If you are new to the Uniswap Protocol, we recommend you start with the [basic concepts](/docs/get-started/concepts/amms) first.
 
-You can then setup your [local environment](./guides/local-environment) and execute your [first swap](./guides/swaps/single-swaps).
+You can then setup your [local environment](./guides/getting-started) and execute your [first swap](./guides/swapping/single-hop-swapping).
 
 ## Reference
 
-For a deeper dive, read through the [technical reference](./reference/overview) docs.
+For a deeper dive, read through the [v3 Core](https://github.com/Uniswap/v3-core) and [v3 Periphery](https://github.com/Uniswap/v3-periphery) source code.
 
 ## Resources
 

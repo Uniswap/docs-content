@@ -14,18 +14,18 @@ Scores and categorizations do **not** represent security assurances or guarantee
 
 The guide consists of 12 sections. Here is a brief overview of each section and what you will find inside:
 
-1. **[Understanding Hook Risk in v4:](/docs/contracts/uniswap-protocol-contracts/v4/security#1-understanding-hook-risk-in-v4)** Explains how hooks can introduce new security risks through accounting, math, external dependencies, governance, and liquidity behaviors.
-2. [Hook Risk Self-Scoring Dimensions:](/docs/contracts/uniswap-protocol-contracts/v4/security#2-hook-risk-self-scoring-dimensions) Defines the nine quantitative dimensions used to evaluate a hook’s inherent risk profile.
-3. [Generic Hook Risk Tiers & Recommendations:](/docs/contracts/uniswap-protocol-contracts/v4/security#3-generic-hook-risk-tiers-and-recommendations) Maps total scores to low, medium, and high risk tiers and outlines the minimum security expectations for each.
-4. [Feature-Specific Security Recommendations:](/docs/contracts/uniswap-protocol-contracts/v4/security#4-feature-specific-security-recommendations) Highlights seven high-impact features that trigger mandatory security actions regardless of overall tier score.
-5. [How to Evaluate Your Security Needs:](/docs/contracts/uniswap-protocol-contracts/v4/security#5-how-to-evaluate-your-security-needs) Explains how to combine risk tiers and feature triggers into an actionable security plan for your hook.
-6. [Operational Security (OPSEC):](/docs/contracts/uniswap-protocol-contracts/v4/security#6-operational-security-opsec) Focuses on protecting the processes, information, people, and workflows around your hook, ensuring attackers cannot exploit how you operate, not just how your code behaves.
-7. [Security Best Practices Checklist:](/docs/contracts/uniswap-protocol-contracts/v4/security#7-security-best-practices-checklist) Provides universal best-practice guidelines that all hooks should follow across accounting, access control, upgradeability, and transparency.
-8. [Risk Calculator Scoring Sheet:](/docs/contracts/uniswap-protocol-contracts/v4/security#8-risk-calculator-scoring-sheet) Introduces an automated worksheet to calculate scores, identify triggers, and generate tailored recommendations.
-9. [How To Use This Framework:](/docs/contracts/uniswap-protocol-contracts/v4/security#9-how-to-use-this-framework) Outlines a step-by-step workflow for scoring your hook, interpreting results, and preparing for audits and deployment.
-10. [Future Extensions Community Driven:](/docs/contracts/uniswap-protocol-contracts/v4/security#10-future-extensions-community-driven) Describes how the community can evolve the framework by adding dimensions, patterns, tools, and shared learnings.
-11. [Security Resources:](/docs/contracts/uniswap-protocol-contracts/v4/security#11-security-resources) a list of external resources for Hook builders.
-12. [Conclusion:](/docs/contracts/uniswap-protocol-contracts/v4/security#12-conclusion) Summarizes the framework’s purpose and reinforces the importance of self-directed, ongoing security responsibility for hook developers.
+1. **[Understanding Hook Risk in v4:](./security#1-understanding-hook-risk-in-v4)** Explains how hooks can introduce new security risks through accounting, math, external dependencies, governance, and liquidity behaviors.
+2. [Hook Risk Self-Scoring Dimensions:](./security#2-hook-risk-self-scoring-dimensions) Defines the nine quantitative dimensions used to evaluate a hook’s inherent risk profile.
+3. [Generic Hook Risk Tiers & Recommendations:](./security#3-generic-hook-risk-tiers-and-recommendations) Maps total scores to low, medium, and high risk tiers and outlines the minimum security expectations for each.
+4. [Feature-Specific Security Recommendations:](./security#4-feature-specific-security-recommendations) Highlights seven high-impact features that trigger mandatory security actions regardless of overall tier score.
+5. [How to Evaluate Your Security Needs:](./security#5-how-to-evaluate-your-security-needs) Explains how to combine risk tiers and feature triggers into an actionable security plan for your hook.
+6. [Operational Security (OPSEC):](./security#6-operational-security-opsec) Focuses on protecting the processes, information, people, and workflows around your hook, ensuring attackers cannot exploit how you operate, not just how your code behaves.
+7. [Security Best Practices Checklist:](./security#7-security-best-practices-checklist) Provides universal best-practice guidelines that all hooks should follow across accounting, access control, upgradeability, and transparency.
+8. [Risk Calculator Scoring Sheet:](./security#8-risk-calculator-scoring-sheet) Introduces an automated worksheet to calculate scores, identify triggers, and generate tailored recommendations.
+9. [How To Use This Framework:](./security#9-how-to-use-this-framework) Outlines a step-by-step workflow for scoring your hook, interpreting results, and preparing for audits and deployment.
+10. [Future Extensions Community Driven:](./security#10-future-extensions-community-driven) Describes how the community can evolve the framework by adding dimensions, patterns, tools, and shared learnings.
+11. [Security Resources:](./security#11-security-resources) a list of external resources for Hook builders.
+12. [Conclusion:](./security#12-conclusion) Summarizes the framework’s purpose and reinforces the importance of self-directed, ongoing security responsibility for hook developers.
 
 # How to Use the Guide + Worksheet
 
@@ -166,7 +166,7 @@ A hook’s risk profile is not static. As liquidity grows, even small design fla
 - formal verification needs
 - emergency procedures
 
-whenever TVL materially increases. More info on these topics to evaluate can be found in [Generic Hook Risk Tiers & Recommendations.](/docs/contracts/uniswap-protocol-contracts/v4/security#3-generic-hook-risk-tiers-and-recommendations)
+whenever TVL materially increases. More info on these topics to evaluate can be found in [Generic Hook Risk Tiers & Recommendations.](./security#3-generic-hook-risk-tiers-and-recommendations)
 
 ### Flash Accounting and Transient State Risks
 
@@ -503,7 +503,7 @@ This acknowledges that impact severity scales with liquidity.
 
 ## 5. How to Evaluate your Security Needs
 
-In [section 3](/docs/contracts/uniswap-protocol-contracts/v4/security#3-generic-hook-risk-tiers-and-recommendations) we discussed the generic hook tiers and recommendations based on the risk profile of your hook. In [section 4](/docs/contracts/uniswap-protocol-contracts/v4/security#4-feature-specific-security-recommendations) the specific features you are developing were analyzed to provide more custom guidance. In practice you will need to look both at the overall risk of your hook as well as at the specific features you are developing to understand your security needs.
+In [section 3](./security#3-generic-hook-risk-tiers-and-recommendations) we discussed the generic hook tiers and recommendations based on the risk profile of your hook. In [section 4](./security#4-feature-specific-security-recommendations) the specific features you are developing were analyzed to provide more custom guidance. In practice you will need to look both at the overall risk of your hook as well as at the specific features you are developing to understand your security needs.
 
 ### Combined Trigger Logic (How it Works in Practice)
 

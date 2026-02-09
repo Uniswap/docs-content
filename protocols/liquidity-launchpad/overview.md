@@ -13,9 +13,9 @@ The Uniswap Liquidity Launchpad is a comprehensive framework for bootstrapping i
 2. **Liquidity Bootstrapping** - Automatically seed Uniswap V4 pools with auction proceeds at the discovered price
 3. **Token Creation** (Optional) - Deploy new ERC-20 tokens with rich metadata and optional cross-chain capabilities
 
-Unlike traditional approaches that rely on centralized market makers or expose participants to timing games and manipulation, the Uniswap Liquidity Launchpad provides an open mechanism for boostrapping deep liquidity on decentralized exchanges.
+Unlike traditional approaches that rely on centralized market makers or expose participants to timing games and manipulation, the Uniswap Liquidity Launchpad provides an open mechanism for bootstrapping deep liquidity on decentralized exchanges.
 
-The system is composable - it is not limited to the intial set of implementation contracts. Other auction and LBPStrategy implementations are welcome!
+The system is composable - it is not limited to the initial set of implementation contracts. Other auction and LBPStrategy implementations are welcome!
 
 ### Key Benefits
 
@@ -52,7 +52,7 @@ The following actions must be performed atomically within one transaction.
 
 2. **Deploy Strategies**
 
-   Call `LiquidityLauncher.distributeToken()` to deploy a new LBPStrategy instance via factory. The strategy will validate that the auction parameters and eventual pool configuraiton are valid, and if so, it will deploy a CCA auction with the desired amount of tokens to sell. The `LiquidityLauncher` contract will transfer tokens to the LBPStrategy and then they will be transferred into the auction. 
+   Call `LiquidityLauncher.distributeToken()` to deploy a new LBPStrategy instance via factory. The strategy will validate that the auction parameters and eventual pool configuration are valid, and if so, it will deploy a CCA auction with the desired amount of tokens to sell. The `LiquidityLauncher` contract will transfer tokens to the LBPStrategy and then they will be transferred into the auction. 
 
    We use an optimistic transfer then call pattern throughout the contracts to trigger an action after performing an ERC20 transfer. 
 

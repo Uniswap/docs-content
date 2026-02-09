@@ -14,7 +14,7 @@ This guide builds on top of the [Pooling Liquidity guides](../liquidity/position
 We recommend going through this section of the docs before imnplementing Range Orders.
 :::
 
-In this example we will create a single-side liquidity position with the [NonfungiblePositionManager](/docs/contracts/uniswap-protocol-contracts/v3/reference/periphery/NonfungiblePositionManager) contract.
+In this example we will create a single-side liquidity position with the [NonfungiblePositionManager](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol) contract.
 We will then use **ethers JS** to observe the price of the Pool on new blocks and withdraw the liquidity when our target is reached.
 
 This guide will **cover**:

@@ -24,12 +24,12 @@ Instead of submitting these orders directly onchain, swappers sign a message tha
 Once an order is broadcast, fillers race to submit these orders onchain as soon as it is economically profitable for them to do so. The realized price for an order is based on when the order is filled by the first successful filler within the auction timeline. Some auctions use the block timestamp to determine the price, and some use the block number.
 
 :::info Auction Types
-Different chains use different auction mechanisms. See our [Auction Types Overview](/docs/contracts/additional-contracts/uniswapx/auction-types) for details.
+Different chains use different auction mechanisms. See our [Auction Types Overview](./concepts/auction-types) for details.
 :::
 
 ## Fillers on UniswapX
 As mentioned above, UniswapX introduces a new participant in the Uniswap ecosystem, the Filler. Fillers are sophisticated entities who perform complex calculations and employ MEV-protected strategies to pick up signed orders and execute them to achieve the most profitable fill. 
 
 :::info Getting Started as a Filler
-Anyone can fill orders on UniswapX. Get started by reading our [Filler Integration Overview](/docs/contracts/additional-contracts/uniswapx/fillers/filleroverview).
+Anyone can fill orders on UniswapX. Get started by reading the [Filler Integration Overview](../../liquidity/uniswapx-filling/overview).
 :::

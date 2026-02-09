@@ -59,7 +59,7 @@ UniswapX on Ethereum uses a sophisticated two-phase auction system that balances
 </p>
 
 :::note Cosigners
-Cosigners update auction parameters to reflect real-time prices, compensating for the delay between quoting and signing (which can be up to 30 seconds). They set the auction start block and adjust pricing within the user's signed parameters, while never exceeding the user's slippage tolerance. If you'd like to see how the Cosigner works in practice, please see the technical overview of [UniswapX RFQ V2](/docs/contracts/additional-contracts/uniswapx/fillers/mainnet/uniswapXrfq). 
+Cosigners update auction parameters to reflect real-time prices, compensating for the delay between quoting and signing (which can be up to 30 seconds). They set the auction start block and adjust pricing within the user's signed parameters, while never exceeding the user's slippage tolerance. If you'd like to see how the Cosigner works in practice, please see the technical overview of UniswapX RFQ V2. 
 <br/>
 Currently, the Uniswap Interface and Trading API sets the cosigner to Uniswap Labs, though this could be updated in the future.
 :::

@@ -8,7 +8,7 @@ sidebar_position: 5
 This section will walk you through how a CCA auction discovers new prices over time.
 
 ## Prerequisites
-Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/contracts/additional-contracts/liquidity-launchpad/quickstart/first-bid) where we submitted our first bid.
+Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](./submit-bid) where we submitted our first bid.
 
 ## Summary
 Currently we have a CCA contract deployed which we have submitted a bid to. We'll now modify our script to show how the price of the auction can change over time.

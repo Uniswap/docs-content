@@ -15,7 +15,7 @@ To run a query, copy and paste it into the [v4 explorer](https://thegraph.com/ex
 
 Global data refers to data points about the Uniswap v4 protocol as a whole, such as total value locked, total pools deployed, and total transaction counts.
 
-To query global data, pass in the PoolManager address `0x000000000004444c5dc75cb358380d2e3de08a90` and select the desired fields. Reference the full [poolManager schema](https://github.com/Uniswap/v4-subgraph/blob/main/schema.graphql#L1) to see all possible fields. PoolManager addresses for all supported chains are listed in the [Deployments](/contracts/v4/deployments) section.
+To query global data, pass in the PoolManager address `0x000000000004444c5dc75cb358380d2e3de08a90` and select the desired fields. Reference the full [poolManager schema](https://github.com/Uniswap/v4-subgraph/blob/main/schema.graphql#L1) to see all possible fields. PoolManager addresses for all supported chains are listed in the [Deployments](/docs/protocols/v4/deployments) section.
 
 ### Current Global Data
 
@@ -142,7 +142,7 @@ Retrieve the top 1000 most liquid pools. You can use this similar set up to orde
 
 ### Pool Daily Aggregated
 
-This query returns daily aggregated data for the first 10 days since the given timestamp for the UNI-ETH pool. To calculate `poolId`, refer to [PoolId Library](/contracts/v4/reference/core/types/PoolId#toid).
+This query returns daily aggregated data for the first 10 days since the given timestamp for the UNI-ETH pool. To calculate `poolId`, refer to [PoolId Library](https://github.com/Uniswap/v4-core/blob/main/src/types/PoolId.sol).
 
 ```graphql
 {

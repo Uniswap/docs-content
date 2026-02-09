@@ -66,7 +66,7 @@ So, the effective fee on the withdrawn amount is `.003 / .997 ≈ 0.3009027%`.
 
 ## Resources
 
-For further exploration of flash swaps, see the <a href='/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>whitepaper</a>.
+For further exploration of flash swaps, see the <a href='https://uniswap.org/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>whitepaper</a>.
 
 ## Example
 

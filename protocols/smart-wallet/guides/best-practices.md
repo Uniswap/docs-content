@@ -1,6 +1,6 @@
 ---
 id: technical-reference
-title: Technical Reference
+title: Integration Caveats
 ---
 
 For more details, see the [technical reference](https://github.com/Uniswap/calibur/tree/main/docs).

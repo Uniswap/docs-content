@@ -25,8 +25,8 @@ As liquidity tokens are themselves tradable assets, liquidity providers may sell
 
 > Learn more with advanced topics:
 
-- [Understanding Returns](../../concepts/advanced-topics/understanding-returns)
-- [Fees](../../concepts/advanced-topics/fees)
+- [Understanding Returns](./understanding-returns)
+- [Fees](/docs/get-started/concepts/fees)
 
 ## Why pools?
 
@@ -46,4 +46,4 @@ Just how end-users can interact with the Uniswap protocol through the Interface 
 
 ## Developer resources
 
-- To see how to pool tokens in a smart contract read [Providing Liquidity](../../guides/smart-contract-integration/providing-liquidity).
+- To see how to pool tokens in a smart contract read [Providing Liquidity](../guides/providing-liquidity).

@@ -8,7 +8,7 @@ sidebar_position: 6
 This section will walk you through exiting a bid and claiming purchased tokens on a CCA auction.
 
 ## Prerequisites
-This guide continues from the [previous section](/docs/contracts/additional-contracts/liquidity-launchpad/quickstart/price-discovery). Basic knowledge of the CCA auction mechanism and Solidity is assumed.
+This guide continues from the [previous section](./price-discovery). Basic knowledge of the CCA auction mechanism and Solidity is assumed.
 
 ## Summary
 Currently we have a CCA contract deployed which we have submitted a bid to. We're the only bidder in the auction and the clearing price of the auction is at our max price. Let's modify the script to add another bid which will outbid our initial one, and show how both bids can be exited.
@@ -253,6 +253,6 @@ This concludes the quickstart guide for the CCA auction mechanism! We covered:
 - Exiting a bid and claiming tokens
 - Sweeping unsold tokens and the total raised currency
 
-For more details please refer to the [technical reference](/docs/contracts/additional-contracts/liquidity-launchpad/auction-mechanism).
+For more details please refer to the [CCA auction mechanism](../concepts/cca).
 
 Additionally, the contracts are open sourced and MIT licensed. You can find the source code for the contracts in the [GitHub repository](https://github.com/Uniswap/continuous-clearing-auction).

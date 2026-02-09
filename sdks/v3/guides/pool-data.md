@@ -123,7 +123,7 @@ const [liquidity, slot0] =
   ])
 ```
 
-The [slot0 function](/docs/contracts/uniswap-protocol-contracts/v3/reference/core/interfaces/pool/IUniswapV3PoolState#slot0) represents the first (0th) storage slot of the pool and exposes multiple useful values in a single function:
+The `slot0` function represents the first (0th) storage slot of the pool and exposes multiple useful values in a single function:
 
 ```solidity
   function slot0(

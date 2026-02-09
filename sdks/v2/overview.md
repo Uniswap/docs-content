@@ -3,7 +3,7 @@ id: overview
 title: Overview
 ---
 
-Welcome to the Uniswap Protocol v2 SDK. To begin, we recommend looking at the [**Guides**](./guides/quick-start) and for deeper reference see the [**v2 SDK GitHub**](https://github.com/Uniswap/v2-sdk) repo.
+Welcome to the Uniswap Protocol v2 SDK. To begin, we recommend looking at the [**Guides**](./guides/getting-started) and for deeper reference see the [**v2 SDK GitHub**](https://github.com/Uniswap/v2-sdk) repo.
 
 
 ## Uniswap v2 SDK

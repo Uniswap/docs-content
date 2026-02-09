@@ -17,7 +17,7 @@ By providing a dedicated interface for offchain reads, **StateView** helps:
 
 ## Comparing onchain and offchain Access
 
-If you’re familiar with [Reading Pool State](/docs/contracts/uniswap-protocol-contracts/v4/guides/read-pool-state), you already know that Uniswap v4 uses **extsload** for efficient data access. For onchain usage, we rely on **StateLibrary** within contracts. However, offchain clients cannot rely on an onchain library for state reads. 
+If you’re familiar with [Reading Pool State](./read-pool-state), you already know that Uniswap v4 uses **extsload** for efficient data access. For onchain usage, we rely on **StateLibrary** within contracts. However, offchain clients cannot rely on an onchain library for state reads. 
 
 Instead, **StateView** provides these same calls in a single contract designed explicitly for offchain consumption.
 
@@ -156,16 +156,16 @@ const getPoolLiquidity = async (poolId: string) => {
 
 While **StateView** exposes many functions, here are several essential calls for most offchain applications. Each function typically takes a `poolId` (of type `bytes32`) as the key input, identifying which pool to query.
 
-1. **[`getSlot0(poolId)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/lens/StateView#getslot0)**
+1. **`getSlot0(poolId)`**
     - Returns `(uint160 sqrtPriceX96, int24 tick, uint8 protocolFee, uint8 lpFee)`.
     - Essential for displaying real-time price data and fees.
-2. **[`getLiquidity(poolId)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/lens/StateView#getliquidity)**
+2. **`getLiquidity(poolId)`**
     - Returns `uint128 liquidity` (the total active pool liquidity).
     - Used to assess trading depth and volatility.
-3. **[`getPositionInfo(poolId, positionId)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/lens/StateView#getpositioninfo)**
+3. **`getPositionInfo(poolId, positionId)`**
     - Returns `(uint128 liquidity, uint256 feeGrowthInside0Last, uint256 feeGrowthInside1Last)`.
     - Critical for tracking user positions, especially to calculate earned fees over time.
-4. **[`getFeeGrowthGlobals(poolId)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/lens/StateView#getfeegrowthglobals)**
+4. **`getFeeGrowthGlobals(poolId)`**
     - Returns `(uint256 feeGrowthGlobal0, uint256 feeGrowthGlobal1)`.
     - Useful for analytics around total fee accumulation in the pool.
 

@@ -115,7 +115,7 @@ Let's put this in a separate function. To implement it, we must:
 3. Get the total supply of the pair liquidity
 4. Sort the reserves in the order of tokenA, tokenB
 
-The [`UniswapV2Library`](../../reference/smart-contracts/library) has some helpful methods for this.
+The `UniswapV2Library` has some helpful methods for this.
 
 ```solidity
 pragma solidity ^0.6.6;

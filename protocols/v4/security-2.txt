@@ -68,6 +68,6 @@ In November 2024 Uniswap announced a [$15.5 million dollar bug bounty](https://b
 
 ## Additional Security Resources
 
-- Review the [v4 Core contracts](../reference/core/) for implementation details
-- Follow security best practices outlined in the [Hooks documentation](./hooks)
-- Test thoroughly using the provided [test contracts](../reference/core/test/)
+- Review the [v4 Core contracts](https://github.com/Uniswap/v4-core) for implementation details
+- Follow security best practices outlined in the Hooks documentation
+- Test thoroughly using the provided [test contracts](https://github.com/Uniswap/v4-core/tree/main/test)

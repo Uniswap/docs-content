@@ -46,7 +46,7 @@ const poolContract = new ethers.Contract(
 
 All V3 pools store observations of the current tick and the block timestamp. 
 To minimize pool deployment costs, only one Observation is stored in the contract when the Pool is created.
-Anyone who is willing to pay the gas costs can [increase](/docs/contracts/uniswap-protocol-contracts/v3/reference/core/UniswapV3Pool#increaseobservationcardinalitynext) the number of stored observations to up to `65535`.
+Anyone who is willing to pay the gas costs can `increaseObservationCardinalityNext` the number of stored observations to up to `65535`.
 If the Pool cannot store an additional Observation, it overwrites the oldest one.
 
 We create an interface to map our data to:
@@ -59,7 +59,7 @@ interface Observation {
 }
 ```
 
-To fetch the `Observations` from our pool contract, we will use the [`observe`](/docs/contracts/uniswap-protocol-contracts/v3/reference/core/UniswapV3Pool#observe) function:
+To fetch the `Observations` from our pool contract, we will use the `observe` function:
 
 ```solidity
 function observe(
@@ -157,7 +157,7 @@ const secondsBetween = 108
 const averageTick = diffTickCumulative / secondsBetween
 ```
 
-Now that we know the average active Tick over the last 10 blocks, we can calculate the price with the `tickToPrice` function, which returns a [`Price`](../../../core/reference/classes/Price) Object. Check out the [Pool data](./pool-data) guide to understand how to construct a Pool Object and access its properties. We don't need the full Tick Data for this guide.
+Now that we know the average active Tick over the last 10 blocks, we can calculate the price with the `tickToPrice` function, which returns a `Price` Object. Check out the [Pool data](./pool-data) guide to understand how to construct a Pool Object and access its properties. We don't need the full Tick Data for this guide.
 
 ```typescript
 import { tickToPrice, Pool } from '@uniswap/v3-sdk'

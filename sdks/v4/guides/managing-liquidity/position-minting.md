@@ -441,4 +441,4 @@ async function executeTransaction() {
 ## Further Resources
 
 - [Uniswap v4 SDK Repository](https://github.com/Uniswap/sdks/tree/main/sdks/v4-sdk)
-- [Permit2 Documentation](/docs/api/trading-apis/permit2)
+- [Permit2 Documentation](/docs/protocols/permit2/overview)

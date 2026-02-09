@@ -3,7 +3,7 @@ id: overview
 title: Overview
 ---
 
-[`Permit2`](https://github.com/Uniswap/permit2) is a unification of 2 contracts, [`SignatureTransfer`](./reference/signature-transfer.md) and [`AllowanceTransfer`](./reference/allowance-transfer.md). The `SignatureTransfer` contract handles all signature-based transfers, meaning that an allowance on the token is bypassed and permissions to the spender only last for the duration of the transaction that the one-time signature is spent. The `AllowanceTransfer` contract handles setting allowances on tokens, giving permissions to spenders on a specified amount for a specified duration of time. Any transfers that then happen through the `AllowanceTransfer` contract will only succeed if the proper permissions have been set.
+[`Permit2`](https://github.com/Uniswap/permit2) is a unification of 2 contracts, `SignatureTransfer` and `AllowanceTransfer`. The `SignatureTransfer` contract handles all signature-based transfers, meaning that an allowance on the token is bypassed and permissions to the spender only last for the duration of the transaction that the one-time signature is spent. The `AllowanceTransfer` contract handles setting allowances on tokens, giving permissions to spenders on a specified amount for a specified duration of time. Any transfers that then happen through the `AllowanceTransfer` contract will only succeed if the proper permissions have been set.
 
 ## Resources
 

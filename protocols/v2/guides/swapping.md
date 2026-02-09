@@ -9,13 +9,13 @@ _Read [safety considerations](#safety-considerations) for more._
 
 ## Using the Router
 
-The easiest way to safely swap tokens is to use the [router](../../reference/smart-contracts/router02), which provides a variety of methods to safely swap to and from different assets. You'll notice that there is a function for each permutation of swapping to/from an exact amount of ETH/tokens.
+The easiest way to safely swap tokens is to use the router, which provides a variety of methods to safely swap to and from different assets. You'll notice that there is a function for each permutation of swapping to/from an exact amount of ETH/tokens.
 
 First you must use an external price source to calculate the safety parameters for the function you'd like to call. This is either a minimum amount received when selling an exact input or the maximum amount you are willing to pay when buying an exact output amount.
 
 It is also important to ensure that your contract controls enough ETH/tokens to make the swap, and has granted approval to the router to withdraw this many tokens.
 
-_Check out the [Pricing](../../concepts/advanced-topics/pricing#pricing-trades) page for a more in depth discussion on getting prices._
+_Check out the [Pricing](../concepts/pricing#pricing-trades) page for a more in depth discussion on getting prices._
 
 ## Example
 
@@ -32,7 +32,7 @@ require(DAI.transferFrom(msg.sender, address(this), amountIn), 'transferFrom fai
 
 ### approve
 
-Now that our contract owns 50 DAI, we need to approve to the [router](../../reference/smart-contracts/router02) to withdraw this DAI:
+Now that our contract owns 50 DAI, we need to approve to the router to withdraw this DAI:
 
 ```solidity
 require(DAI.approve(address(UniswapV2Router02), amountIn), 'approve failed.');
@@ -56,4 +56,4 @@ Because Ethereum transactions occur in an adversarial environment, smart contrac
 
 The best way to protect against these attacks is to use an external price feed or "price oracle". The best "oracle" is simply _traders' off-chain observation of the current price_, which can be passed into the trade as a safety check. This strategy is best for situations _where users initiate trades on their own behalf_.
 
-However, when an off-chain price can't be used, an on-chain oracle should be used instead. Determining the best oracle for a given situation is not a part of this guide, but for more details on the Uniswap V2 approach to oracles, see [Oracles](../../concepts/core-concepts/oracles).
+However, when an off-chain price can't be used, an on-chain oracle should be used instead. Determining the best oracle for a given situation is not a part of this guide, but for more details on the Uniswap V2 approach to oracles, see [Oracles](../concepts/oracles).

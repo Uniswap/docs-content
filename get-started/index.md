@@ -44,5 +44,7 @@ The protocol is also immutable, in other words not upgradeable. No party is able
 ## Where to go from here
 
 - For core protocol concepts like AMMs, fees, and hooks, see [Concepts](./concepts/amms).
+- Ready to integrate swaps? Head to the [Trading guides](/docs/trading) for quickstarts and advanced swap patterns.
+- Want to provide liquidity or build LP tooling? See the [Liquidity guides](/docs/liquidity).
 - For research into the economics of AMMs, game theory, or optimization, check out our [research page](./research).
 - To start building, jump to the [SDK documentation](/docs/sdks/v4/overview) or the [API documentation](/docs/api/overview).

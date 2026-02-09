@@ -5,10 +5,10 @@ sidebar_position: 3
 ---
 
 # Configuring a CCA auction
-This section will walk you through each parameter of a CCA auction and an example configuration. For more details please refer to the [technical reference](/docs/contracts/additional-contracts/liquidity-launchpad/auction-mechanism).
+This section will walk you through each parameter of a CCA auction and an example configuration. For more details please refer to the [CCA auction mechanism](../concepts/cca).
 
 ### Prerequisites
-Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/contracts/additional-contracts/liquidity-launchpad/quickstart/local-deployment).
+Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](./local-deployment).
 
 ## Auction Parameters
 The `AuctionParameters` struct parameterizes a new CCA auction. It is encoded and passed to the `ContinuousClearingAuctionFactory` contract when deploying a new auction. The struct definition is as follows:
@@ -71,10 +71,10 @@ The `requiredCurrencyRaised` parameter is the amount of `currency` required to b
 ### auctionStepsData
 The `auctionStepsData` parameter is a packed bytes array that describes the token issuance schedule. It is used to determine the amount of tokens that will be sold in each block. It is a series of `uint64` values that represent the per-block issuance rate in MPS (milli-bips), and the number of blocks to sell over.
 
-For more details about the auction steps please refer to the [technical reference](/docs/contracts/additional-contracts/liquidity-launchpad/auction-mechanism#auction-steps-supply-issuance-schedule).
+For more details about the auction steps please refer to the [CCA auction mechanism](../concepts/cca).
 
 ## Example configuration
-Let's create an example configuration for a CCA auction. We'll use the script we started in the [previous section](/docs/contracts/additional-contracts/liquidity-launchpad/quickstart/local-deployment).
+Let's create an example configuration for a CCA auction. We'll use the script we started in the [previous section](./local-deployment).
 
 Here's the script copy and pasted for convenience:
 
@@ -128,7 +128,7 @@ AuctionParameters memory parameters = AuctionParameters({
 });
 ```
 
-Let's build the auction steps data. For simplicity, we'll sell tokens following a monotonically increasing schedule. We'll sell 10% over 50 blocks, 49% over 49 blocks, and the final 41% in the last block. See the [note about auction steps](/docs/contracts/additional-contracts/liquidity-launchpad/auction-mechanism#note-on-auction-steps) for more details about the rationale behind this example schedule.
+Let's build the auction steps data. For simplicity, we'll sell tokens following a monotonically increasing schedule. We'll sell 10% over 50 blocks, 49% over 49 blocks, and the final 41% in the last block. See the [note about auction steps](../concepts/cca#auction-steps) for more details about the rationale behind this example schedule.
 
 To derive the steps:
 - First tranche: 10% over 50 blocks

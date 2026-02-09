@@ -13,7 +13,7 @@ In this example we will use **ethers.js** and the **Uniswap v4 SDK** to create p
 - Gas-efficient architecture
 - Integrations with alternative trading venues
 
-For more information, developers should see [Uniswap v4 Overview](/docs/contracts/uniswap-protocol-contracts/v4/overview)
+For more information, developers should see [Uniswap v4 Overview](../../../protocols/v4/overview)
 
 For this guide, the following Uniswap packages are used:
   
@@ -22,7 +22,7 @@ For this guide, the following Uniswap packages are used:
 
 ## Configuration
 
-To initialize a Uniswap v4 Pool _without initial liquidity_, developers should call [`PoolManager.initialize()`](/docs/contracts/uniswap-protocol-contracts/v4/concepts/PoolManager)
+To initialize a Uniswap v4 Pool _without initial liquidity_, developers should call `PoolManager.initialize()`
 
 Creating a pool without liquidity may be useful for "reserving" a pool for future use, when initial liquidity is not available, or when external market makers would provide the starting liquidity.
 
@@ -50,7 +50,7 @@ export const CurrentConfig: ExampleConfig = {
 
 > For native token pairs (Ether), use `ADDRESS_ZERO` as `currency0`
 
-[PoolKey](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/types/PoolKey) uniquely identifies a pool
+`PoolKey` uniquely identifies a pool
 
 - _Currencies_ should be sorted, `uint160(currency0) < uint160(currency1)`
 - _lpFee_ is the fee expressed in pips, i.e. 3000 = 0.30%
@@ -80,7 +80,7 @@ const poolManager = new ethers.Contract(
 )
 ```
 
-We get the `POOL_MANAGER_ADDRESS` for our chain from [Uniswap Deployments](/docs/contracts/uniswap-protocol-contracts/v4/deployments).
+We get the `POOL_MANAGER_ADDRESS` for our chain from [Uniswap Deployments](../../../protocols/v4/deployments).
 
 Pools are initialized with a starting price
 
@@ -108,4 +108,4 @@ This means that on the first liquidity provision, if proper slippage parameters 
 To safely add the first liquidity to a new pool:
 
 - Always use appropriate slippage parameters when minting the first position
-- Consider adding liquidity immediately after pool creation in the same transaction. Reference our [Mint Position guide](/docs/sdk/v4/guides/liquidity/minting-position) for proper liquidity addition practices.
+- Consider adding liquidity immediately after pool creation in the same transaction. Reference our [Mint Position guide](/docs/sdks/v4/guides/managing-liquidity/position-minting) for proper liquidity addition practices.

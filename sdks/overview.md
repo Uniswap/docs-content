@@ -8,7 +8,7 @@ The Uniswap Core SDK provides abstractions for other SDKs to use in a Typescript
 
 This SDK is not expected to be used in isolation, but only as part of other SDKs.
 
-We recommend taking a look at the [**Technical Reference**](./reference/overview).
+We recommend taking a look at the [**SDK Core GitHub**](https://github.com/Uniswap/sdk-core).
 
 
 ## Resources

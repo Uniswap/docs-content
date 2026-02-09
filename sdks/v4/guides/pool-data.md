@@ -84,7 +84,7 @@ const poolId = Pool.getPoolId(currency0, currency1, fee, tickSpacing, hooks);
 
 ## Referencing the StateView contract and fetching metadata
 
-Now that we have the `PoolId` of a **USDC - ETH** Pool, we need to call [StateView](/docs/contracts/uniswap-protocol-contracts/v4/guides/state-view) contract to get the pool state. In v4 you need to use `StateLibrary` to read pool state, but offchain systems—such as frontends or analytics services—require a deployed contract with view functions. This is where `StateView` comes in.
+Now that we have the `PoolId` of a **USDC - ETH** Pool, we need to call [StateView](../../../protocols/v4/guides/state-view) contract to get the pool state. In v4 you need to use `StateLibrary` to read pool state, but offchain systems—such as frontends or analytics services—require a deployed contract with view functions. This is where `StateView` comes in.
 To construct the Contract we need to provide the address of the contract, its ABI and a provider connected to an RPC endpoint.
 
 ```typescript
@@ -100,7 +100,7 @@ const stateViewContract = new ethers.Contract(
 )
 ```
 
-We get the `STATE_VIEW_ADDRESS` for our chain from [Uniswap Deployments](/docs/contracts/uniswap-protocol-contracts/v4/deployments).
+We get the `STATE_VIEW_ADDRESS` for our chain from [Uniswap Deployments](../../../protocols/v4/deployments).
 Once we have set up our reference to the contract, we can proceed to access its methods. To construct our offchain representation of the Pool, we need to fetch its liquidity, sqrtPrice, currently active tick and the full Tick data.
 We get the **liquidity**, **sqrtPrice** and **tick** directly from the blockchain by calling `getLiquidity()`and `getSlot0()` on the StateView contract:
 
@@ -115,7 +115,7 @@ We get the **liquidity**, **sqrtPrice** and **tick** directly from the blockchai
   ])
 ```
 
-The [getSlot0 function](/docs/contracts/uniswap-protocol-contracts/v4/guides/state-view#getting-pool-state) represents the first (0th) storage slot of the pool and exposes multiple useful values in a single function:
+The `getSlot0` function represents the first (0th) storage slot of the pool and exposes multiple useful values in a single function:
 
 - `sqrtPriceX96`: The current pool price in Q64.96 fixed-point format.
 - `tick`: The current tick in which the pool is operating.
@@ -125,11 +125,11 @@ For our use case, we only need the `sqrtPriceX96` and the currently active `tick
 
 ## Fetching all Ticks
 
-v4 pools use ticks to [concentrate liquidity](/docs/contracts/uniswap-protocol-contracts/concepts/protocol/concentrated-liquidity) in price ranges and allow for better pricing of trades.
+v4 pools use ticks to concentrate liquidity in price ranges and allow for better pricing of trades.
 Even though most Pools only have a couple of **initialized ticks**, it is possible that a pools liquidity is defined by thousands of **initialized ticks**.
 In that case, it can be very expensive or slow to get all of them with normal RPC calls.
 
-If you are not familiar with the concept of ticks, check out the [`introduction`](/docs/contracts/uniswap-protocol-contracts/concepts/protocol/concentrated-liquidity#ticks).
+If you are not familiar with the concept of ticks, check out the introduction to ticks.
 
 To access tick data, we will use the `getTickInfo` function of the State View contract:
 

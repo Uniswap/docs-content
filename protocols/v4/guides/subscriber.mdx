@@ -45,7 +45,7 @@ contract MySubscriber is ISubscriber {
 
 ### 2. A caveat on `unsubscribe()`
 
-To prevent gas griefing during unsubscription, Uniswap v4 sets a fixed variable [`unsubscribeGasLimit`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/interfaces/INotifier#unsubscribegaslimit) when calling a subscriber’s `notifyUnsubscribe()` function.
+To prevent gas griefing during unsubscription, Uniswap v4 sets a fixed variable `unsubscribeGasLimit` when calling a subscriber’s `notifyUnsubscribe()` function.
 
 Without this limit, malicious subscribers could prevent liquidity providers from unsubscribing. If `notifyUnsubscribe()` were to consume too much gas, it would cause the unsubscription transaction to revert, thus leading to a denial-of-service
 
@@ -64,7 +64,7 @@ if (address(_subscriber).code.length > 0) {
 
 ### 3. Opt-in to a subscriber contract
 
-To opt-in to a subscriber contract, call [`subscribe()`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/interfaces/INotifier#subscribe) on `PositionManager`.
+To opt-in to a subscriber contract, call `subscribe()` on `PositionManager`.
 
 ```solidity
 import {IPositionManager} from "v4-periphery/src/interfaces/IPositionManager.sol";

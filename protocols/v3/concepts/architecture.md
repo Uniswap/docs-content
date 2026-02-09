@@ -21,13 +21,13 @@ A significant amount of care and attention has been given to gas optimization in
 
 ### Factory
 
-> [**Factory Reference**](./core/UniswapV3Factory)
+> [**Factory Source Code**](https://github.com/Uniswap/uniswap-v3-core/blob/main/contracts/UniswapV3Factory.sol)
 
 The factory defines the logic for generating pools. A pool is defined by two tokens, which make up the asset pair, and a fee. There can be multiple pools of the same asset pair, distinguished only by their swap fee.
 
 ### Pools
 
-> [**Pool Reference**](./core/UniswapV3Pool).
+> [**Pool Source Code**](https://github.com/Uniswap/uniswap-v3-core/blob/main/contracts/UniswapV3Pool.sol).
 
 Pools primarily serve as automated market makers for the paired assets. Additionally, they expose price oracle data and may be used as an asset source for flash transactions.
 
@@ -37,28 +37,24 @@ The periphery is a constellation of smart contracts designed to support domain-s
 
 ### SwapRouter
 
-> [**Swap Router Reference**](./periphery/SwapRouter)
-
-> [**Swap Router Interface**](./periphery/interfaces/ISwapRouter)
+> [**Swap Router Source Code**](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/SwapRouter.sol)
 
 The swap router supports all the basic requirements of a front-end offering trading. It natively supports single trades (x to y) and multihop trades (e.g. x to y to z).
 
 ### Nonfungible Position Manager
 
-> [**Nonfungible Position Manager Reference**](./periphery/NonfungiblePositionManager)
-
-> [**Nonfungible Position Manager Interface**](./periphery/interfaces/INonfungiblePositionManager)
+> [**Nonfungible Position Manager Source Code**](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol)
 
 The position manager handles the logic transactions involving the creation, adjustment, or exiting of positions.
 
 ### Oracle
 
-> [**Oracle Reference**](./core/libraries/Oracle)
+> [**Oracle Source Code**](https://github.com/Uniswap/uniswap-v3-core/blob/main/contracts/libraries/Oracle.sol)
 
 The oracle provides price and liquidity data useful for a wide variety of system designs, and is available in every deployed pool.
 
 ### Periphery Libraries
 
-> [**Periphery Libraries**](./periphery/libraries/Base64)
+> [**Periphery Libraries Source Code**](https://github.com/Uniswap/uniswap-v3-periphery/tree/main/contracts/libraries)
 
 The libraries provide a variety of helper functions developers may need, like calculating pool addresses, safe transfer functions, and more.

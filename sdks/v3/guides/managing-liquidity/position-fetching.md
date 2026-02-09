@@ -12,7 +12,7 @@ Like the [Liquidity Position guide](./position-data) it doesn't have an accompan
 If you need an introduction to liquidity positions, check out the [Liquidity Position guide](./position-data)
 :::
 
-The [NonfungiblePositionManager Contract](/docs/contracts/uniswap-protocol-contracts/v3/reference/periphery/NonfungiblePositionManager) can be used to create Positions, as well as get information on **existing Positions**.
+The [NonfungiblePositionManager Contract](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol) can be used to create Positions, as well as get information on **existing Positions**.
 In this guide, we will fetch **all Positions** an address has and fetch the **detailed Position Data** for those positions.
 
 The guide will **cover**:

@@ -32,14 +32,14 @@ This design ensures optimal price discovery: Ethereum needs off-chain quoting to
 ### Become a Quoter
 In the current Uniswap Labs interface implementation of UniswapX, some fillers may choose to help parameterize orders on Ethereum by participating as quoters. These fillers can *only* win a quote if they guarantee improved swap execution over Uniswap v2, v3 or v4 liquidity pools. Fillers who win a quote will receive execution priority for a limited period to fill orders for which they submitted winning quotes.
 
-To ensure a smooth swapping experience for traders, the set of quoters are vetted by Uniswap Labs. To read about expectations for quoters, please see [Become a Quoter](docs/contracts/uniswapx/fillers/mainnet/becomeQuoter). If you are interested in participating as a quoter, please reach out [here](mailto:quoters@uniswap.org) or join the [waitlist](https://uniswap.typeform.com/to/UiPDKgY6).
+To ensure a smooth swapping experience for traders, the set of quoters are vetted by Uniswap Labs. To read about expectations for quoters, please see the Become a Quoter documentation. If you are interested in participating as a quoter, please reach out [here](mailto:quoters@uniswap.org) or join the [waitlist](https://uniswap.typeform.com/to/UiPDKgY6).
 
 ### Become a Filler 
 This documentation contains specific integration guides for each chain. Choose your chain to see specific integration details:
 
-- [Ethereum](/docs/contracts/additional-contracts/uniswapx/fillers/mainnet/createFiller) - RFQ system with exclusive fill periods 
-- [Arbitrum](/docs/contracts/additional-contracts/uniswapx/fillers/arbitrum/arbitrumfiller) - Direct Dutch auction with 0.25s blocks  
-- [Unichain, Base](/docs/contracts/additional-contracts/uniswapx/fillers/priority/priorityorderreactor) - Priority gas auctions
+- **Ethereum** - RFQ system with exclusive fill periods
+- **Arbitrum** - Direct Dutch auction with 0.25s blocks
+- **Unichain, Base** - Priority gas auctions
 
 :::note Auction Types
 To learn about the different auction mechanics, please see the [Auction Types Overview](../../protocols/uniswapx/concepts/auction-types) page. 

@@ -160,7 +160,7 @@ async function getStoredPositionInfoV4(positionDetails, tokenId, owner) {
 
 ### Step 4: Current Fee Growth Values Retrieval
 
-**Read the current fee growth in the pool for the position's range:** To compute how much fees are unclaimed, we need the **current** fee growth inside the range and compare it to the last snapshot. We could manually fetch global fee growth and subtract out-of-range values, but `StateView` provides a convenience: [`getFeeGrowthInside(poolId, tickLower, tickUpper)`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/interfaces/IStateView) will calculate the up-to-date fee growth inside that tick range for each token. This function reads the latest pool state (including global fee growth) and subtracts the parts outside the range. It accounts for any new trades that happened since the last snapshot.
+**Read the current fee growth in the pool for the position's range:** To compute how much fees are unclaimed, we need the **current** fee growth inside the range and compare it to the last snapshot. We could manually fetch global fee growth and subtract out-of-range values, but `StateView` provides a convenience: `getFeeGrowthInside(poolId, tickLower, tickUpper)` will calculate the up-to-date fee growth inside that tick range for each token. This function reads the latest pool state (including global fee growth) and subtracts the parts outside the range. It accounts for any new trades that happened since the last snapshot.
 
 ```typescript
 async function getCurrentFeeGrowthV4(positionDetails) {

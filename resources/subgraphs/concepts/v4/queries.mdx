@@ -12,7 +12,7 @@ The full schema is available in the [v4-subgraph repository](https://github.com/
 The v4 subgraph reflects the architectural changes in v4:
 
 - **PoolManager replaces Factory** — Global protocol metrics are queried from the `poolManager` entity rather than a `factory` entity. The PoolManager address is `0x000000000004444c5dc75cb358380d2e3de08a90` on all supported chains.
-- **Pool IDs are hashes** — Pools are identified by a bytes32 hash derived from the pool key (token pair, fee, tick spacing, and hooks address), not a deployed contract address. See the [PoolId Library](/contracts/v4/reference/core/types/PoolId#toid) for details on computing pool IDs.
+- **Pool IDs are hashes** — Pools are identified by a bytes32 hash derived from the pool key (token pair, fee, tick spacing, and hooks address), not a deployed contract address. See the [PoolId Library](https://github.com/Uniswap/v4-core/blob/main/src/types/PoolId.sol) for details on computing pool IDs.
 - **Hooks are first-class** — Pool entities include a `hooks` field referencing the hook contract address, if any.
 - **Subscriptions and notifications** — Position entities track `subscriptions`, `unsubscriptions`, and `transfers` rather than the v3 model of mints, burns, and collects at the position level.
 

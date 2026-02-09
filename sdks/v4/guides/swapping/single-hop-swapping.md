@@ -75,7 +75,7 @@ const universalRouter = new ethers.Contract(
 )
 ```
 
-We can get the `UNIVERSAL_ROUTER_ADDRESS` for our chain from [Uniswap Deployments](/docs/contracts/uniswap-protocol-contracts/v4/deployments).
+We can get the `UNIVERSAL_ROUTER_ADDRESS` for our chain from [Uniswap Deployments](../../../../protocols/v4/deployments).
 
 A signer object can be created like this:
 

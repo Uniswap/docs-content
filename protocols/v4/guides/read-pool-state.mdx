@@ -4,7 +4,7 @@ title: Reading Pool State
 
 ## Introduction
 
-Unlike previous versions, v4 uses a different approach for storing and accessing pool data, which requires understanding the use of [`StateLibrary`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/libraries/StateLibrary) and [`extsload`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/Extsload).
+Unlike previous versions, v4 uses a different approach for storing and accessing pool data, which requires understanding the use of `StateLibrary` and `extsload`.
 
 ## Understanding the PoolManager Architecture
 
@@ -108,9 +108,9 @@ abstract contract Exttload is IExttload {
 }
 ```
 
-While `StateLibrary` deals with persistent storage, [`TransientStateLibrary`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/libraries/transient-state-library) is used for handling transient storage. Transient storage, introduced in EIP-1153, is a way to store data that is only needed for the duration of a transaction, making it ideal for temporary data.
+While `StateLibrary` deals with persistent storage, `TransientStateLibrary` is used for handling transient storage. Transient storage, introduced in EIP-1153, is a way to store data that is only needed for the duration of a transaction, making it ideal for temporary data.
 
-It uses the [`exttload`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/Exttload) function, which is similar to `extsload`, but for transient storage; it is an external wrapper for the `TLOAD` opcode.
+It uses the `exttload` function, which is similar to `extsload`, but for transient storage; it is an external wrapper for the `TLOAD` opcode.
 
 ## Implementing a `PoolStateReader` Contract
 
@@ -260,4 +260,4 @@ Global fee growth is essential for several advanced operations:
 
 ---
 
-For additional reference, see [`StateLibrary`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/libraries/StateLibrary) and [`Extsload`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/Extsload)
+For additional reference, see `StateLibrary` and `Extsload`

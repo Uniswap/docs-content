@@ -41,7 +41,7 @@ The command types that are not defined do not have an assigned command at this m
 
 ## v2 vs v1 Overview
 
-**Note:** For details on the previous version, see [Universal Router (Legacy)](../../universal-router-legacy/overview).
+**Note:** For details on the previous version, see [Universal Router (Legacy)](https://github.com/Uniswap/universal-router/tree/v1.6.0).
 
 | Feature                   | v1                        | v2                                       |
 | ------------------------- | ------------------------- | ---------------------------------------- |
@@ -285,7 +285,7 @@ Each command requires its own input structure. Inputs are encoded using `abi.enc
 
 - **`bytes actions`**  
   Encoded action identifiers specifying the type of swap or payment action.  
-  For available action types, see [Uniswap v4 SDK Actions](../../sdk/v4/reference/enumerations/Actions.md).
+  For available action types, see [Uniswap v4 SDK Actions](https://github.com/Uniswap/sdks/blob/main/sdks/v4-sdk/src/utils/v4Planner.ts).
 
 - **`bytes[] params`**
   ABI-encoded parameters array, corresponding one-to-one with each action provided in `actions`.
@@ -395,5 +395,4 @@ Be sure to follow such commands with cleanup logic (e.g., `SWEEP`) to handle unu
 
 ## Legacy Documentation
 
-- [Universal Router (Legacy) Overview](../../universal-router-legacy/overview)
-- [Universal Router (Legacy) Technical Reference](../../universal-router-legacy/technical-reference)
+- [Universal Router (Legacy)](https://github.com/Uniswap/universal-router/tree/v1.6.0)

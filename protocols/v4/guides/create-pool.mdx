@@ -12,7 +12,7 @@ Creating a pool on Uniswap v4 is permissionless and enables the trading of an as
 * Gas-efficient architecture
 * Integrations with alternative trading venues
 
-For more information, developers should see [Uniswap v4 Overview](/docs/contracts/uniswap-protocol-contracts/v4/overview)
+For more information, developers should see [Uniswap v4 Overview](../overview)
 
 The guide covers two approaches to creating a pool:
 1. Create a pool only
@@ -30,7 +30,7 @@ forge install uniswap/v4-periphery
 
 ## Guide: Create a Pool Only
 
-To initialize a Uniswap v4 Pool _without initial liquidity_, developers should call [`PoolManager.initialize()`](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/interfaces/IPoolManager#initialize)
+To initialize a Uniswap v4 Pool _without initial liquidity_, developers should call `PoolManager.initialize()`
 
 Creating a pool without liquidity may be useful for "reserving" a pool for future use, when initial liquidity is not available, or when external market makers would provide the starting liquidity
 
@@ -49,7 +49,7 @@ PoolKey memory pool = PoolKey({
 ```
 > For native token pairs (Ether), use `CurrencyLibrary.ADDRESS_ZERO` as `currency0`
 
-[PoolKey](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/types/PoolKey) uniquely identifies a pool
+`PoolKey` uniquely identifies a pool
 
 * _Currencies_ should be sorted, `uint160(currency0) < uint160(currency1)`
 * _lpFee_ is the fee expressed in pips, i.e. 3000 = 0.30%
@@ -78,7 +78,7 @@ IPoolManager(manager).initialize(pool, startingPrice);
     - i.e. `79228162514264337593543950336` is the starting price for a 1:1 pool
 
 ## Guide: Create a Pool & Add Liquidity
-Uniswap v4's [PositionManager](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/PositionManager) supports atomic creation of a pool and initial liquidity using [_multicall_](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/base/Multicall_v4). Developers can create a trading pool, with liquidity, in a single transaction:
+Uniswap v4's `PositionManager` supports atomic creation of a pool and initial liquidity using _multicall_. Developers can create a trading pool, with liquidity, in a single transaction:
 
 ### 1. Initialize the parameters provided to `multicall()`
 ```solidity
@@ -99,13 +99,13 @@ PoolKey memory pool = PoolKey({
 ```
 > For native token pairs (Ether), use `CurrencyLibrary.ADDRESS_ZERO` as `currency0`
 
-[PoolKey](/docs/contracts/uniswap-protocol-contracts/v4/reference/core/types/PoolKey) uniquely identifies a pool
+`PoolKey` uniquely identifies a pool
 * _Currencies_ should be sorted, `uint160(currency0) < uint160(currency1)`
 * _lpFee_ is the fee expressed in pips, i.e. 3000 = 0.30%
 * _tickSpacing_ is the granularity of the pool. Lower values are more precise but more expensive to trade
 * _hookContract_ is the address of the hook contract
 
-### 3. Encode the [`initializePool`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/base/PoolInitializer) parameters
+### 3. Encode the `initializePool` parameters
 Pools are initialized with a starting price
 ```solidity
 import {IPoolInitializer_v4} from "v4-periphery/src/interfaces/IPoolInitializer_v4.sol";
@@ -145,7 +145,7 @@ mintParams[0] = abi.encode(pool, tickLower, tickUpper, liquidity, amount0Max, am
 mintParams[1] = abi.encode(pool.currency0, pool.currency1);
 ```
 
-### 7. Encode the [`modifyLiquidites`](/docs/contracts/uniswap-protocol-contracts/v4/reference/periphery/PositionManager#modifyliquidities) call
+### 7. Encode the `modifyLiquidities` call
 ```solidity
 // Note: In production, deadlines should be calculated off-chain using real time
 // For example: uint256 deadline = block.timestamp + 3600; // 1 hour from now

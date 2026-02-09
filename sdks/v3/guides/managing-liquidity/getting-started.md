@@ -1,6 +1,6 @@
 ---
 id: position-data
-title: Liquidity Positions
+title: Understanding Liquidity Positions
 ---
 
 ## Introduction
@@ -8,7 +8,7 @@ title: Liquidity Positions
 This guide will introduce us to **liquidity positions** in Uniswap V3 and present the `v3-sdk` classes and Contracts used to interact with the protocol.
 The concepts and code snippets showcased here can be found across the **Pooling Liquidity** examples in the Uniswap code examples [repository](https://github.com/Uniswap/examples).
 
-In this guide, we will take a look at the [Position](../../reference/classes/Position) and [NonfungiblePositionManager](../../reference/classes/NonfungiblePositionManager) classes, as well as the [NonfungiblePositionManager Contract](/docs/contracts/uniswap-protocol-contracts/v3/reference/periphery/NonfungiblePositionManager).
+In this guide, we will take a look at the `Position` and `NonfungiblePositionManager` classes, as well as the [NonfungiblePositionManager Contract](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol).
 
 At the end of the guide, we should be familiar with the most important classes used to interact with liquidity positions.
 We should also understand how to fetch positions from the **NonfungiblePositionManager Contract**.
@@ -154,7 +154,7 @@ We will look at the **sdk** class and write functions on the Contract in this se
 
 ### Creating a Position
 
-To create a position on a Pool, the [`mint`](/docs/contracts/uniswap-protocol-contracts/v3/reference/periphery/NonfungiblePositionManager#mint) function is called on the Contract.
+To create a position on a Pool, the `mint` function is called on the Contract.
 The **sdk** class provides the `addCallParameters` function to create the calldata for the transaction:
 
 ```typescript

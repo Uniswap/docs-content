@@ -19,7 +19,7 @@ Liquidity providers, or LPs, are not a homogeneous group:
 
 - Token projects sometimes choose to become LPs to create a liquid marketplace for their token. This allows tokens to be bought and sold more easily, and unlocks interoperability with other DeFi projects through Uniswap.
 
-- Finally, some DeFi pioneers are exploring complex liquidity provision interactions like incentivized liquidity, liquidity as collateral, and other experimental strategies. Uniswap is the perfect protocol for projects to experiment with these kinds of ideas.
+- Finally, some DeFi pioneers are exploring complex liquidity provision interactions like incentivized liquidity, liquidity as collateral, and other experimental strategies. With UniswapX, a new class of participants called [fillers](/docs/liquidity/uniswapx-filling) can provide liquidity by filling user orders off-chain. Uniswap is the perfect protocol for projects to experiment with these kinds of ideas.
 
 ## Traders
 

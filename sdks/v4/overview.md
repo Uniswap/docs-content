@@ -7,9 +7,9 @@ title: Overview
 
 > **Welcome to the v4 Uniswap SDK!**
 
-The Uniswap v4 SDK provides abstractions to assist you with interacting with the Uniswap v4 smart contracts in a Typescript/Javascript environment (e.g. websites, node scripts). It makes use of the [**Core SDK**](../core/overview) to gain access to abstractions that are common amongst the Uniswap SDKs. With the SDK, you can add/remove liquidity, collect fees like what you will usually do with v3 SDK, but more with the extra functionalities from hooks introduced in v4!
+The Uniswap v4 SDK provides abstractions to assist you with interacting with the Uniswap v4 smart contracts in a Typescript/Javascript environment (e.g. websites, node scripts). It makes use of the [**Core SDK**](https://github.com/Uniswap/sdk-core) to gain access to abstractions that are common amongst the Uniswap SDKs. With the SDK, you can add/remove liquidity, collect fees like what you will usually do with v3 SDK, but more with the extra functionalities from hooks introduced in v4!
 
-For complete documentation of the SDK's offerings, see the [**Technical Reference**](./reference/overview).
+For complete documentation of the SDK's offerings, see the [**v4 SDK GitHub**](https://github.com/Uniswap/sdks/tree/main/sdks/v4-sdk).
 
 ## Installation
 
@@ -94,27 +94,27 @@ Learn how to restructure swaps using Universal Router integration.
 
 **Guides**: 
 
-- [Getting a Quote](/docs/sdk/v4/guides/swaps/quoting)
-- [Executing a Single-Hop Swap](/docs/sdk/v4/guides/swaps/single-hop-swapping)
-- [Executing Multi-Hop Swaps](/docs/sdk/v4/guides/swaps/multi-hop-swapping)
+- [Getting a Quote](/docs/sdks/v4/guides/swapping/quoting)
+- [Executing a Single-Hop Swap](/docs/sdks/v4/guides/swapping/single-hop-swapping)
+- [Executing Multi-Hop Swaps](/docs/sdks/v4/guides/swapping/multi-hop-swapping)
 
 ### 2. Position Management (Off-chain Indexing + Fee Collection)
 Understand position tracking systems and the new automatic fee collection patterns.
 
 **Guides**:
 
-- [Minting a Position](/docs/sdk/v4/guides/liquidity/minting-position)
-- [Fetching Positions](/docs/sdk/v4/guides/liquidity/fetching-positions)
-- [Collecting Fees](/docs/sdk/v4/guides/liquidity/collecting-fees)
-- [Adding and Removing Liquidity](/docs/sdk/v4/guides/liquidity/add-remove-liquidity)
+- [Minting a Position](/docs/sdks/v4/guides/managing-liquidity/position-minting)
+- [Fetching Positions](/docs/sdks/v4/guides/managing-liquidity/position-fetching)
+- [Collecting Fees](/docs/sdks/v4/guides/managing-liquidity/collect-fees)
+- [Adding and Removing Liquidity](/docs/sdks/v4/guides/managing-liquidity/modifying-position)
 
 ### 3. Advanced Features (StateView + Pool Creation)
 Explore efficient state queries and pool creation with the new architecture.
 
 **Guides**:
 
-- [Fetching Pool Data](/docs/sdk/v4/guides/advanced/pool-data)
-- [Create Pool](/docs/sdk/v4/guides/advanced/create-pool)
+- [Fetching Pool Data](/docs/sdks/v4/guides/pool-data)
+- [Create Pool](/docs/sdks/v4/guides/create-pool)
 
 ## Developer Links
 

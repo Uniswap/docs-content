@@ -27,7 +27,7 @@ From the Uniswap v4 Documentation, there are several hooks available for develop
 
 For our hook, we’ll be using `afterSwap` and `afterAddLiquidity` hooks. Why these instead of the `before...` hooks? We’ll dig deeper into this later in this guide.
 
-_Note: To initiate the swap in the first place, this is where [`UniversalRouter`](/docs/contracts/additional-contracts/universal-router/overview) comes into play where we will pass in the [`V4_SWAP`](https://github.com/Uniswap/universal-router/blob/main/contracts/libraries/Commands.sol#L35) command to `UniversalRouter.execute`._
+_Note: To initiate the swap in the first place, this is where `UniversalRouter` comes into play where we will pass in the [`V4_SWAP`](https://github.com/Uniswap/universal-router/blob/main/contracts/libraries/Commands.sol#L35) command to `UniversalRouter.execute`._
 
 ## Let’s create our hook!
 

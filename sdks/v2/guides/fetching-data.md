@@ -26,7 +26,7 @@ The next piece of data we need is **decimals**.
 
 ### Provided by the User
 
-One option here is to simply pass in the correct value, which we may know is `18`. At this point, we're ready to represent DAI as a [Token](../../core/reference/classes/Token):
+One option here is to simply pass in the correct value, which we may know is `18`. At this point, we're ready to represent DAI as a `Token`:
 
 ```typescript
 import { ChainId, Token } from '@uniswap/sdk-core'
@@ -62,21 +62,21 @@ const DAI = new Token(ChainId.MAINNET, '0x6B175474E89094C44Da98b954EedeAC495271d
 
 # Case 2: Pairs
 
-Now that we've explored how to define a token, let's talk about pairs. To read more about what Uniswap pairs are, see [Pair](/docs/contracts/uniswap-protocol-contracts/v2/reference/smart-contracts/pair)
+Now that we've explored how to define a token, let's talk about pairs. To read more about what Uniswap pairs are, see Pair
 
 As an example, let's try to represent the DAI-WETH pair.
 
 ## Identifying Data
 
-Each pair consists of two tokens (see previous section). Note that WETH used by the router is [exported by the SDK Core as WETH9](../../core/reference/overview).
+Each pair consists of two tokens (see previous section). Note that WETH used by the router is exported by the SDK Core as `WETH9`.
 
 ## Required Data
 
-The data we need is the _reserves_ of the pair. To read more about reserves, see [getReserves](/docs/contracts/uniswap-protocol-contracts/v2/reference/smart-contracts/pair#getreserves).
+The data we need is the _reserves_ of the pair. To read more about reserves, see `getReserves`.
 
 ### Provided by the User
 
-One option here is to simply pass in values which we've fetched ourselves to create a [Pair](../reference/pair). In this example we use ethers to fetch the data directly from the blockchain:
+One option here is to simply pass in values which we've fetched ourselves to create a `Pair`. In this example we use ethers to fetch the data directly from the blockchain:
 
 ```typescript
 import { ChainId, Token, WETH9, CurrencyAmount } from '@uniswap/sdk-core'

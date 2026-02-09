@@ -8,7 +8,7 @@ sidebar_position: 4
 This section will walk you through submitting a bid on a CCA auction.
 
 ## Prerequisites
-Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/contracts/additional-contracts/liquidity-launchpad/quickstart/example-configuration) where we configured a CCA auction and deployed it to our local anvil node.
+Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](./example-configuration) where we configured a CCA auction and deployed it to our local anvil node.
 
 ## Summary
 Currently we have a CCA contract deployed which we can interact with. It has the following parameters:
