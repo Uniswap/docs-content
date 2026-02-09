@@ -8,7 +8,7 @@ title: Collecting Fees
 This guide will cover how to collect fees from a liquidity position on the Uniswap V3 protocol. It is based on the [collecting fees code example](https://github.com/Uniswap/examples/tree/main/v3-sdk/collecting-fees), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the examples's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/collecting-fees/README.md) and follow the setup instructions.
 
 :::info
-If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../background) page!
+If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../../background) page!
 :::
 
 In the Uniswap V3 protocol, liquidity positions are represented using non-fungible tokens. In this guide we will use the `NonfungiblePositionManager` class to help us mint a liquidity position for the  **USDC - DAI** pair. We will then attempt to collect any fees that the position has accrued from those trading against our provisioned liquidity. The inputs to our guide are the **two tokens** that we are pooling for, the **amount** of each token we are pooling for, the Pool **fee** and the **max amount of accrued fees** we want to collect for each token.
@@ -28,7 +28,7 @@ For this guide, the following Uniswap packages are used:
 The core code of this guide can be found in [`collectFees()`](https://github.com/Uniswap/examples/blob/main/v3-sdk/collecting-fees/src/libs/liquidity.ts#L35).
 
 :::note
-This guide assumes you are familiar with our [Minting a Position](./minting-position) guide. A minted position is required to add or remove liquidity from, so the buttons will be disabled until a position is minted.
+This guide assumes you are familiar with our [Minting a Position](./position-minting) guide. A minted position is required to add or remove liquidity from, so the buttons will be disabled until a position is minted.
 
 Also note that we do not need to give approval to the `NonfungiblePositionManager` to transfer our tokens as we will have already done that when minting our position.
 :::
@@ -67,14 +67,14 @@ const collectOptions: CollectOptions = {
 }
 ```
 
-Read more about fetching position info [here](./position-data.md#fetching-positions).
+Read more about fetching position info [here](./getting-started.md#fetching-positions).
 
 Similar to the other functions exposed by the `NonfungiblePositionManager`, we pass the `tokenId` and the `recipient` of the fees, which in this case is our function's input position id and our wallet's address.
 
 The other two `CurrencyAmount` parameters (`expectedCurrencyOwed0` and `expectedCurrencyOwed1`) define the **maximum** amount of currency we expect to get collect through accrued fees of each token in the pool. We set these through our guide's configuration.
 
 In a real world scenario, we can fetch the amount of fees that are owed to the Position through the `positions()` function of the NonfungiblePositionManager Contract.
-We fetch the position info like in this code snippet taken from the [Fetching Positions guide](./fetching-positions):
+We fetch the position info like in this code snippet taken from the [Fetching Positions guide](./position-fetching):
 
 ```typescript
 const positionInfos = callResponses.map((position) => {
@@ -122,4 +122,4 @@ After pressing the button, if someone has traded against our position, we should
 
 ## Next Steps
 
-The previous guides detail all the atomic steps needed to create and manage positions. However, these approaches may not use all of your desired currency. To ensure you are using your full funds while minimizing gas prices, check out our guide on [Swapping and Adding Liquidity](./swap-and-add-liquidity) in a single transaction!
+The previous guides detail all the atomic steps needed to create and manage positions. However, these approaches may not use all of your desired currency. To ensure you are using your full funds while minimizing gas prices, check out our guide on [Swapping and Adding Liquidity](./swap-and-add) in a single transaction!

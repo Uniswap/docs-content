@@ -8,7 +8,7 @@ title: Active Liquidity
 This guide will cover how to fetch and compute the active liquidity in the specific Tick ranges of a pool. It is based on the [Liquidity Density example](https://github.com/Uniswap/examples/tree/main/v3-sdk/pool-data) and can be seen used in production, albeit in a more sophisticated way, in the [Uniswap Analytics](https://info.uniswap.org/#/pools) website.
 
 :::info
-If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../background) page!
+If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../overview) page!
 :::
 
 In this guide, we will use the V3 subgraph to fetch all ticks from **theGraph** and compute the active liquidity our Pool can use at each Tick. We then use `recharts` to draw a chart that visualizes our Pool's liqudity density.
@@ -104,7 +104,7 @@ interface GraphTick {
 
 The current Tick of the Pool represents the **current Price** after the last swap.
 Considering that the initialized Ticks only represent positions, we see that it is not necessarily one of the initialized Ticks but can be at any point in between them.
-The active liqudity at the current Price is also stored in the smart contract - we already fetched it with the `liquidity` function in the [previous guide](./pool-data).
+The active liqudity at the current Price is also stored in the smart contract - we already fetched it with the `liquidity` function in the [previous guide](../pool-data).
 
 ### Tickspacing
 
