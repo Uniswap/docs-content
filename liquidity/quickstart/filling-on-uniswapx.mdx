@@ -1,7 +1,48 @@
 ---
 title: Filling on UniswapX
-description: Placeholder
+description: Get started as a UniswapX filler, competing to execute user swaps at the best prices.
 ---
 
+UniswapX is a permissionless auction-based protocol where fillers compete to execute user swaps at the best prices. Anyone can participate as a filler by winning these auctions -- no approval is required on most chains.
 
-## FPO
+This page gives you the essentials to get started. For the full integration guide, see the [UniswapX filler documentation](/docs/liquidity/uniswapx-filling).
+
+## How it works
+
+When a user submits a swap through the Uniswap interface, UniswapX creates a signed order specifying the tokens, amounts, and a Dutch auction decay curve. Fillers monitor for these orders and compete to fill them, using their own liquidity sources (onchain pools, CEX inventory, private market makers, etc.).
+
+The auction mechanism differs by chain:
+
+- **Ethereum** -- RFQ system where quoters provide off-chain quotes and receive exclusive fill rights for a limited period. If the quoter fades, the order opens to all fillers via Dutch auction.
+- **Arbitrum** -- direct Dutch auction with 0.25s blocks, no RFQ needed.
+- **Unichain, Base** -- priority gas auctions.
+
+## Getting started
+
+1. **Join the community** -- the [Announcements Channel](https://t.me/uniswapx_fillers) on Telegram for updates, and the [Fillers Group](https://t.me/UniswapXdiscussion) for discussion.
+
+2. **Poll for orders** -- start by polling the UniswapX orders API for open orders. Rate limit at 6 requests per second. If your performance degrades due to the polling rate limit, register a [webhook](/docs/liquidity/uniswapx-filling/webhooks) for order notifications.
+
+3. **Build your filler** -- when you find a profitable order, submit a transaction to fill it onchain. The fill must execute the swap at the specified output amount (or better).
+
+4. **Quoting on Ethereum** (optional) -- to participate in the RFQ system on Ethereum mainnet, join the [waitlist](https://uniswap.typeform.com/to/UiPDKgY6) or [email quoters@uniswap.org](mailto:quoters@uniswap.org). See [Become a Quoter](/docs/liquidity/uniswapx-filling/become-a-quoter) for requirements.
+
+## Chain-specific guides
+
+Each chain has different auction mechanics and integration requirements:
+
+- [Ethereum](/docs/liquidity/uniswapx-filling/filling-on-mainnet) -- RFQ with exclusive fill periods
+- [Arbitrum](/docs/liquidity/uniswapx-filling/filling-on-arbitrum) -- direct Dutch auction
+- [Unichain, Base](/docs/liquidity/uniswapx-filling/filling-on-op-stack) -- priority gas auctions
+
+## Key considerations
+
+- **Fading** -- on Ethereum, if you win an RFQ but fail to fill the order, it counts as a "fade." Too many fades will temporarily block you from receiving quote requests.
+- **Permit2 nonces** -- fill transaction failures often mean the order was already filled by another filler, was cancelled by the user, or the signature expired.
+- **Inverse quotes** -- on Ethereum, you will receive two quote requests per actual swap (e.g. both USDC/ETH and ETH/USDC) to obfuscate the swapper's direction and reduce front-running risk.
+
+## Next steps
+
+- [Filler overview](/docs/liquidity/uniswapx-filling) -- complete documentation for quoters and fillers
+- [Webhook support](/docs/liquidity/uniswapx-filling/webhooks) -- register webhooks for order notifications
+- [UniswapX auction types](/docs/protocols/uniswapx/concepts/auction-types) -- understand the different auction mechanics

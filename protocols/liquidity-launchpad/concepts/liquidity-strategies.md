@@ -27,7 +27,7 @@ The following functions are left virtual to be implemented by the inheriting con
 - `_getTokenTransferAmount`: Calculates the amount of tokens to transfer to POSM
 - `_getCurrencyTransferAmount`: Calculates the amount of currency to transfer to POSM
 
-For example, if only a full range position is desired, the inheriting contract should create a full range position plan and transfer the full amount of tokens and currency to Position Manager. See [FullRangeLBPStrategy](TODO) for an example implementation.
+For example, if only a full range position is desired, the inheriting contract should create a full range position plan and transfer the full amount of tokens and currency to Position Manager. See [FullRangeLBPStrategy](#fullrangelbpstrategy) for an example implementation.
 
 ### Constructor parameters
 The LBPStrategyBase constructor takes the following parameters:

@@ -1,7 +1,47 @@
 ---
 title: Overview
-description: Placeholder
+description: Learn how to integrate token swaps on Uniswap, from smart contracts to REST APIs.
 ---
 
+Token swaps are the core primitive of the Uniswap protocol. A swap trades one token for another using onchain liquidity pools, with prices determined by an automated market maker (AMM) rather than an order book.
 
-## FPO
+Uniswap supports swaps on Ethereum, Arbitrum, Optimism, Base, Polygon, and other networks. Every swap is permissionless and executes atomically -- the caller either receives their output tokens or the transaction reverts.
+
+## Choose your integration path
+
+There are three ways to execute swaps, depending on your use case:
+
+### Smart contracts
+
+Build swap logic directly into your Solidity contracts using the Universal Router and Uniswap v4 PoolManager. This is the right path if you are building a protocol, aggregator, or any onchain system that needs to execute swaps programmatically.
+
+[Swap via smart contracts](/docs/protocols/v4/guides/swapping/swapping)
+
+### TypeScript SDK
+
+Use the Uniswap SDK to build swap transactions from a JavaScript or TypeScript application. The SDK handles routing, quoting, and transaction encoding, so you can focus on your frontend or backend logic.
+
+[Swap via the SDK](/docs/sdks/v4/guides/swapping/quoting)
+
+### Trading API (REST)
+
+Call the Uniswap Trading API to get optimized swap quotes and calldata over HTTP. This is the fastest way to integrate if you want a simple request/response interface without managing routing logic yourself.
+
+[Swap via the Trading API](/docs/api/guides/swapping/getting-started)
+
+## How swaps work
+
+Under the hood, every Uniswap swap interacts with one or more liquidity pools. Each pool holds reserves of two tokens and uses a pricing curve to determine exchange rates. When a user swaps token A for token B, they deposit token A into the pool and withdraw token B, with the price adjusting according to the constant product formula (v2) or concentrated liquidity curve (v3/v4).
+
+For multi-hop swaps (e.g. A to B to C), a router contract chains the individual pool swaps together into a single atomic transaction.
+
+Key concepts:
+- **Slippage tolerance** -- the maximum acceptable price movement between quote and execution
+- **Price impact** -- how much the swap itself moves the pool price, based on trade size relative to pool liquidity
+- **Deadlines** -- a timestamp after which the transaction reverts, protecting against stale quotes
+
+## Flash swaps
+
+Uniswap also supports flash swaps, where you can withdraw tokens before paying for them, as long as the debt is settled within the same transaction. This enables capital-free arbitrage and other advanced patterns.
+
+[Learn about flash swaps](/docs/trading/quickstart/flash-swapping)

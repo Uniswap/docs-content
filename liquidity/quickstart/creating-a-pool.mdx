@@ -1,8 +1,190 @@
 ---
 title: Creating a pool
-description: Placeholder
+description: Initialize a new Uniswap v4 pool with or without initial liquidity.
 ---
 
+Creating a pool on Uniswap v4 is permissionless and enables trading of any token pair. This guide covers two approaches:
 
-## FPO
+1. **Create a pool only** -- initialize the pool without liquidity
+2. **Create a pool and add initial liquidity** -- initialize and fund the pool in a single transaction
 
+## Prerequisites
+
+Developing with Uniswap v4 requires [Foundry](https://book.getfoundry.sh).
+
+```bash
+forge install uniswap/v4-core
+forge install uniswap/v4-periphery
+```
+
+## Guide: Create a pool only
+
+To initialize a pool without initial liquidity, call `PoolManager.initialize()`. This is useful for reserving a pool for future use or when external market makers will provide the starting liquidity.
+
+### 1. Configure the pool
+
+```solidity
+import {PoolKey} from "v4-core/src/types/PoolKey.sol";
+
+PoolKey memory pool = PoolKey({
+    currency0: currency0,
+    currency1: currency1,
+    fee: lpFee,
+    tickSpacing: tickSpacing,
+    hooks: hookContract
+});
+```
+
+<Callout type="note">
+For native token pairs (Ether), use `CurrencyLibrary.ADDRESS_ZERO` as `currency0`.
+</Callout>
+
+The `PoolKey` struct uniquely identifies a pool:
+- **Currencies** must be sorted: `uint160(currency0) < uint160(currency1)`
+- **lpFee** is expressed in pips (e.g. 3000 = 0.30%)
+- **tickSpacing** controls position granularity. Lower values are more precise but cause swaps to cross ticks more often, increasing gas costs
+- **hooks** is the address of the hook contract (use `address(0)` for no hooks)
+
+Reference tick spacing values from Uniswap v3:
+
+| Fee   | Fee Value | Tick Spacing |
+|-------|-----------|--------------|
+| 0.01% | 100       | 1            |
+| 0.05% | 500       | 10           |
+| 0.30% | 3000      | 60           |
+| 1.00% | 10_000    | 200          |
+
+### 2. Call initialize
+
+```solidity
+IPoolManager(manager).initialize(pool, startingPrice);
+```
+
+The `startingPrice` is expressed as `sqrtPriceX96`: `floor(sqrt(token1 / token0) * 2^96)`
+
+For a 1:1 pool, the starting price is `79228162514264337593543950336`.
+
+## Guide: Create a pool and add liquidity
+
+The v4 PositionManager supports atomic pool creation and initial liquidity via `multicall`. This creates a trading pool with liquidity in a single transaction.
+
+### 1. Initialize the multicall parameters
+
+```solidity
+bytes[] memory params = new bytes[](2);
+```
+
+- `params[0]` encodes the `initializePool` call
+- `params[1]` encodes a mint operation via `modifyLiquidities`
+
+### 2. Configure the pool
+
+```solidity
+PoolKey memory pool = PoolKey({
+    currency0: currency0,
+    currency1: currency1,
+    fee: lpFee,
+    tickSpacing: tickSpacing,
+    hooks: hookContract
+});
+```
+
+Same configuration rules as above.
+
+### 3. Encode initializePool
+
+```solidity
+import {IPoolInitializer_v4} from "v4-periphery/src/interfaces/IPoolInitializer_v4.sol";
+
+params[0] = abi.encodeWithSelector(
+    IPoolInitializer_v4.initializePool.selector,
+    pool,
+    startingPrice
+);
+```
+
+### 4. Encode the mint actions
+
+```solidity
+bytes memory actions = abi.encodePacked(
+    uint8(Actions.MINT_POSITION),
+    uint8(Actions.SETTLE_PAIR)
+);
+```
+
+- **MINT_POSITION** creates a new liquidity position
+- **SETTLE_PAIR** transfers both tokens from the caller to fund the position
+
+### 5. Encode the mint parameters
+
+```solidity
+bytes[] memory mintParams = new bytes[](2);
+mintParams[0] = abi.encode(
+    pool, tickLower, tickUpper, liquidity,
+    amount0Max, amount1Max, recipient, hookData
+);
+```
+
+| Parameter    | Type      | Description                                                    |
+|--------------|-----------|----------------------------------------------------------------|
+| `pool`       | _PoolKey_ | the pool to add liquidity to                                   |
+| `tickLower`  | _int24_   | lower tick boundary (must be a multiple of `tickSpacing`)      |
+| `tickUpper`  | _int24_   | upper tick boundary (must be a multiple of `tickSpacing`)      |
+| `liquidity`  | _uint256_ | amount of liquidity units to add                               |
+| `amount0Max` | _uint128_ | maximum amount of currency0 the caller is willing to transfer  |
+| `amount1Max` | _uint128_ | maximum amount of currency1 the caller is willing to transfer  |
+| `recipient`  | _address_ | address that receives the liquidity position (ERC-721)         |
+| `hookData`   | _bytes_   | arbitrary data forwarded to hook functions                     |
+
+### 6. Encode the settle pair parameters
+
+```solidity
+mintParams[1] = abi.encode(pool.currency0, pool.currency1);
+```
+
+### 7. Encode modifyLiquidities
+
+```solidity
+uint256 deadline = block.timestamp + 3600;
+params[1] = abi.encodeWithSelector(
+    posm.modifyLiquidities.selector,
+    abi.encode(actions, mintParams),
+    deadline
+);
+```
+
+### 8. Approve tokens via Permit2
+
+PositionManager uses Permit2 for token transfers. Repeat for both tokens:
+
+```solidity
+// Approve Permit2 as a spender
+IERC20(token).approve(address(permit2), type(uint256).max);
+
+// Approve PositionManager through Permit2
+IAllowanceTransfer(address(permit2)).approve(
+    token, address(positionManager), type(uint160).max, type(uint48).max
+);
+```
+
+### 9. Execute the multicall
+
+```solidity
+PositionManager(posm).multicall(params);
+```
+
+For pools paired with native ETH, provide `value` in the call:
+
+```solidity
+PositionManager(posm).multicall{value: ethToSend}(params);
+```
+
+<Callout type="warn">
+Excess Ether is **not** refunded unless you encode a `SWEEP` action in the actions parameter.
+</Callout>
+
+## Next steps
+
+- [Managing liquidity](/docs/liquidity/quickstart/managing-liquidity) -- increase, decrease, and collect fees on positions
+- [Mint position guide](/docs/protocols/v4/guides/managing-liquidity/mint-position) -- detailed PositionManager mint reference
+- [v4-template scripts](https://github.com/uniswapfoundation/v4-template/tree/main/script) -- end-to-end Foundry scripts

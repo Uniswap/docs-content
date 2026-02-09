@@ -1,7 +1,7 @@
 {
   "title": "Liquidity Provisioning Endpoints",
   "pages": [
-    "create-approval",
+    "check-approval",
     "create-pool",
     "increase-position",
     "decrease-position",

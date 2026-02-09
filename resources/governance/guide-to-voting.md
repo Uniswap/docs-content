@@ -12,7 +12,7 @@ To participate you will need:
 - A wallet that supports the Ethereum protocol and holds UNI tokens. (We suggest the [Uniswap wallet](https://wallet.uniswap.org/)).
 - To [delegate](#delegation) your tokens before the vote is active.
 
-The governance [process](./02-process.md) begins in the [Governance Forum](https://gov.uniswap.org/), where you can find proposals under consideration, gather information about community sentiment, and engage with the community.
+The governance [process](./governance-process) begins in the [Governance Forum](https://gov.uniswap.org/), where you can find proposals under consideration, gather information about community sentiment, and engage with the community.
 
 Once a given proposal is ready for an onchain vote, it will appear in the Uniswap [voting dashboard](https://vote.uniswapfoundation.org/) - where you can view all current and former Uniswap proposals.
 

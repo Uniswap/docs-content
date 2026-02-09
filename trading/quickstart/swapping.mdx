@@ -1,8 +1,241 @@
 ---
 title: Swapping
-
-description: Placeholder
+description: Execute a token swap on Uniswap v4 using the Universal Router.
 ---
 
+This guide walks through executing an exact-input swap on a Uniswap v4 pool from a Solidity smart contract, using the Universal Router.
 
-## FPO
+The `Universal Router` is a flexible, gas-efficient contract designed to execute swap operations across Uniswap protocols. It serves as an intermediary between users and the v4 `PoolManager`, handling the details of swap execution. While it is technically possible to interact with the PoolManager directly, the Universal Router is the recommended integration point.
+
+## Prerequisites
+
+Set up a foundry project and install the dependencies:
+
+```bash
+forge install uniswap/v4-core
+forge install uniswap/v4-periphery
+forge install uniswap/permit2
+forge install uniswap/universal-router
+forge install OpenZeppelin/openzeppelin-contracts
+```
+
+Add the following to `remappings.txt`:
+
+```
+@uniswap/v4-core/=lib/v4-core/
+@uniswap/v4-periphery/=lib/v4-periphery/
+@uniswap/permit2/=lib/permit2/
+@uniswap/universal-router/=lib/universal-router/
+@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
+```
+
+## Step 1: Set up the contract
+
+Import the necessary dependencies and define the contract:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.26;
+
+import { UniversalRouter } from "@uniswap/universal-router/contracts/UniversalRouter.sol";
+import { Commands } from "@uniswap/universal-router/contracts/libraries/Commands.sol";
+import { IPoolManager } from "@uniswap/v4-core/src/interfaces/IPoolManager.sol";
+import { IV4Router } from "@uniswap/v4-periphery/src/interfaces/IV4Router.sol";
+import { Actions } from "@uniswap/v4-periphery/src/libraries/Actions.sol";
+import { IPermit2 } from "@uniswap/permit2/src/interfaces/IPermit2.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { StateLibrary } from "@uniswap/v4-core/src/libraries/StateLibrary.sol";
+
+contract SwapExample {
+    using StateLibrary for IPoolManager;
+
+    UniversalRouter public immutable router;
+    IPoolManager public immutable poolManager;
+    IPermit2 public immutable permit2;
+
+    constructor(address _router, address _poolManager, address _permit2) {
+        router = UniversalRouter(payable(_router));
+        poolManager = IPoolManager(_poolManager);
+        permit2 = IPermit2(_permit2);
+    }
+}
+```
+
+Key imports:
+- **UniversalRouter** -- the main interface for executing swaps
+- **Commands** -- command definitions used by the Universal Router
+- **IPoolManager** -- interface for interacting with Uniswap v4 pools
+- **Actions** -- action definitions for the V4Router
+- **IPermit2** -- enhanced token approval functionality via Permit2
+- **StateLibrary** -- optimized functions for reading pool state
+
+## Step 2: Approve tokens with Permit2
+
+The Universal Router integrates with [Permit2](https://github.com/Uniswap/permit2) for token approvals. Before executing swaps, approve the router to spend tokens on behalf of your contract:
+
+```solidity
+function approveTokenWithPermit2(
+    address token,
+    uint160 amount,
+    uint48 expiration
+) external {
+    IERC20(token).approve(address(permit2), type(uint256).max);
+    permit2.approve(token, address(router), amount, expiration);
+}
+```
+
+This first approves Permit2 to spend the token, then uses Permit2 to approve the Universal Router with a specific amount and expiration.
+
+## Step 3: Implement the swap
+
+### 3.1: Define the function signature
+
+```solidity
+function swapExactInputSingle(
+    PoolKey calldata key,
+    uint128 amountIn,
+    uint128 minAmountOut
+) external returns (uint256 amountOut) {
+```
+
+The `PoolKey` struct uniquely identifies a v4 pool:
+
+```solidity
+struct PoolKey {
+    Currency currency0;   // lower currency, sorted numerically (address(0) for native ETH)
+    Currency currency1;   // higher currency, sorted numerically
+    uint24 fee;           // LP fee in pips, capped at 1_000_000
+    int24 tickSpacing;    // position granularity
+    IHooks hooks;         // hook contract address
+}
+```
+
+### 3.2: Encode the swap command
+
+```solidity
+bytes memory commands = abi.encodePacked(uint8(Commands.V4_SWAP));
+```
+
+`V4_SWAP` tells the Universal Router to perform a swap on a v4 pool. The specific swap type (exact input or exact output) is determined by the actions encoded next.
+
+### 3.3: Encode the actions
+
+```solidity
+bytes memory actions = abi.encodePacked(
+    uint8(Actions.SWAP_EXACT_IN_SINGLE),
+    uint8(Actions.SETTLE_ALL),
+    uint8(Actions.TAKE_ALL)
+);
+```
+
+The three actions define the swap flow:
+1. **SWAP_EXACT_IN_SINGLE** -- execute an exact-input swap on a single pool
+2. **SETTLE_ALL** -- pay all input tokens owed to the pool
+3. **TAKE_ALL** -- collect all output tokens from the swap
+
+### 3.4: Prepare the parameters
+
+Each encoded parameter corresponds to one action:
+
+```solidity
+bytes[] memory params = new bytes[](3);
+
+// Swap configuration
+params[0] = abi.encode(
+    IV4Router.ExactInputSingleParams({
+        poolKey: key,
+        zeroForOne: true,
+        amountIn: amountIn,
+        amountOutMinimum: minAmountOut,
+        hookData: bytes("")
+    })
+);
+
+// Input tokens (SETTLE_ALL)
+params[1] = abi.encode(key.currency0, amountIn);
+
+// Output tokens (TAKE_ALL)
+params[2] = abi.encode(key.currency1, minAmountOut);
+```
+
+- `zeroForOne: true` means swapping `currency0` for `currency1`. Set to `false` to swap in the other direction.
+- `amountOutMinimum` protects against excessive slippage.
+
+### 3.5: Execute the swap
+
+```solidity
+bytes[] memory inputs = new bytes[](1);
+inputs[0] = abi.encode(actions, params);
+
+uint256 deadline = block.timestamp + 20;
+router.execute(commands, inputs, deadline);
+```
+
+<Callout type="warn">
+Never use `block.timestamp` or `type(uint256).max` as the deadline in production. Calculate a real deadline off-chain based on the current time.
+</Callout>
+
+### 3.6: Verify the output
+
+```solidity
+amountOut = key.currency1.balanceOf(address(this));
+require(amountOut >= minAmountOut, "Insufficient output amount");
+return amountOut;
+```
+
+## Complete swap function
+
+```solidity
+function swapExactInputSingle(
+    PoolKey calldata key,
+    uint128 amountIn,
+    uint128 minAmountOut
+) external returns (uint256 amountOut) {
+    // Encode the Universal Router command
+    bytes memory commands = abi.encodePacked(uint8(Commands.V4_SWAP));
+    bytes[] memory inputs = new bytes[](1);
+
+    // Encode V4Router actions
+    bytes memory actions = abi.encodePacked(
+        uint8(Actions.SWAP_EXACT_IN_SINGLE),
+        uint8(Actions.SETTLE_ALL),
+        uint8(Actions.TAKE_ALL)
+    );
+
+    // Prepare parameters for each action
+    bytes[] memory params = new bytes[](3);
+    params[0] = abi.encode(
+        IV4Router.ExactInputSingleParams({
+            poolKey: key,
+            zeroForOne: true,
+            amountIn: amountIn,
+            amountOutMinimum: minAmountOut,
+            hookData: bytes("")
+        })
+    );
+    params[1] = abi.encode(key.currency0, amountIn);
+    params[2] = abi.encode(key.currency1, minAmountOut);
+
+    // Combine actions and params into inputs
+    inputs[0] = abi.encode(actions, params);
+
+    // Execute the swap
+    uint256 deadline = block.timestamp + 20;
+    router.execute(commands, inputs, deadline);
+
+    // Verify and return the output amount
+    amountOut = key.currency1.balanceOf(address(this));
+    require(amountOut >= minAmountOut, "Insufficient output amount");
+    return amountOut;
+}
+```
+
+## Exact input vs. exact output
+
+This guide demonstrates an **exact input** swap, where you specify the exact amount of tokens to sell and accept the best available output. Uniswap v4 also supports **exact output** swaps, where you specify the exact amount of tokens to receive and pay up to a maximum input amount. Use `Actions.SWAP_EXACT_OUT_SINGLE` for exact output swaps.
+
+## Next steps
+
+- [Multi-hop swapping](/docs/protocols/v3/guides/swapping/multi-hop-swapping) -- chain swaps across multiple pools
+- [Routing](/docs/protocols/v4/guides/swapping/routing) -- use the Uniswap smart order router for optimal execution
+- [Trading API](/docs/api/guides/swapping/getting-started) -- get quotes and calldata via REST

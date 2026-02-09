@@ -1,8 +1,233 @@
 ---
 title: Flash Swapping
-
-description: Placeholder
+description: Withdraw tokens from Uniswap pools with no upfront capital, executing arbitrary logic before repaying within the same transaction.
 ---
 
+Flash swaps allow you to withdraw up to the full reserves of any ERC-20 token from a Uniswap pool and execute arbitrary logic at no upfront cost, provided that by the end of the transaction you either:
 
-## FPO
+- Pay for the withdrawn tokens with the corresponding pair tokens
+- Return the withdrawn tokens along with a small fee
+
+This is possible because Ethereum transactions are atomic -- if the repayment conditions are not met, the entire transaction reverts as if nothing happened.
+
+## Why flash swaps matter
+
+Flash swaps remove upfront capital requirements for multi-step transactions involving Uniswap. Common use cases include:
+
+- **Capital-free arbitrage** -- withdraw tokens, trade them on another venue at a better price, repay Uniswap, and pocket the difference. No starting capital needed.
+- **Instant leverage** -- borrow tokens from Uniswap, deposit them as collateral on a lending protocol, and use the minted assets to repay the flash swap, all in one transaction.
+- **Collateral swaps** -- swap one form of collateral for another without needing to unwind and re-enter positions manually.
+
+## Flash swaps in Uniswap v2
+
+In v2, flash swaps are built into the core `swap` function. When calling `swap`, you can receive output tokens *before* sending input tokens. The pair contract checks its balances at the end of the callback, and reverts if the invariant is not satisfied.
+
+```solidity
+function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data);
+```
+
+When `data` is non-empty, the pair contract calls `uniswapV2Call` on the `to` address before enforcing the invariant. Your contract receives the tokens, executes custom logic, and must ensure the pair is made whole before the callback returns.
+
+### Example: capital-free arbitrage
+
+Imagine ETH costs 200 DAI on Uniswap and sells for 220 DAI on another exchange:
+
+1. Flash-withdraw 1 ETH from the Uniswap ETH/DAI pair
+2. Sell the 1 ETH for 220 DAI on the other exchange
+3. Repay Uniswap with 200 DAI (plus the 0.3% fee)
+4. Keep the ~20 DAI profit
+
+The entire flow executes in a single atomic transaction. If any step fails, everything reverts.
+
+## Flash loans in Uniswap v3
+
+Uniswap v3 introduces a dedicated `flash` function on pool contracts, which is separate from the swap function. This provides a cleaner API specifically for borrowing tokens:
+
+```solidity
+function flash(
+    address recipient,
+    uint256 amount0,
+    uint256 amount1,
+    bytes calldata data
+) external;
+```
+
+The pool sends the requested amounts of `token0` and `token1` to the `recipient`, then calls `uniswapV3FlashCallback` on `msg.sender`. The callback receives the fee amounts and the encoded `data`. At the end of the callback, the pool verifies that it has been repaid the borrowed amounts plus fees.
+
+### Building a v3 flash contract
+
+Here is a condensed walkthrough of building a flash loan contract that borrows from one v3 pool and arbitrages across pools with different fee tiers.
+
+#### 1. Contract setup
+
+Inherit from `IUniswapV3FlashCallback` and `PeripheryPayments`:
+
+```solidity
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity =0.7.6;
+pragma abicoder v2;
+
+import '@uniswap/v3-core/contracts/interfaces/callback/IUniswapV3FlashCallback.sol';
+import '@uniswap/v3-core/contracts/libraries/LowGasSafeMath.sol';
+import '@uniswap/v3-periphery/contracts/base/PeripheryPayments.sol';
+import '@uniswap/v3-periphery/contracts/base/PeripheryImmutableState.sol';
+import '@uniswap/v3-periphery/contracts/libraries/PoolAddress.sol';
+import '@uniswap/v3-periphery/contracts/libraries/CallbackValidation.sol';
+import '@uniswap/v3-periphery/contracts/libraries/TransferHelper.sol';
+import '@uniswap/v3-periphery/contracts/interfaces/ISwapRouter.sol';
+
+contract PairFlash is IUniswapV3FlashCallback, PeripheryImmutableState, PeripheryPayments {
+    using LowGasSafeMath for uint256;
+    using LowGasSafeMath for int256;
+
+    ISwapRouter public immutable swapRouter;
+
+    constructor(
+        ISwapRouter _swapRouter,
+        address _factory,
+        address _WETH9
+    ) PeripheryImmutableState(_factory, _WETH9) {
+        swapRouter = _swapRouter;
+    }
+}
+```
+
+#### 2. Initiate the flash loan
+
+Define parameter structs and call `flash` on the target pool:
+
+```solidity
+struct FlashParams {
+    address token0;
+    address token1;
+    uint24 fee1;       // fee tier of the pool to borrow from
+    uint256 amount0;
+    uint256 amount1;
+    uint24 fee2;       // fee tier of the first arb pool
+    uint24 fee3;       // fee tier of the second arb pool
+}
+
+struct FlashCallbackData {
+    uint256 amount0;
+    uint256 amount1;
+    address payer;
+    PoolAddress.PoolKey poolKey;
+    uint24 poolFee2;
+    uint24 poolFee3;
+}
+
+function initFlash(FlashParams memory params) external {
+    PoolAddress.PoolKey memory poolKey = PoolAddress.PoolKey({
+        token0: params.token0,
+        token1: params.token1,
+        fee: params.fee1
+    });
+    IUniswapV3Pool pool = IUniswapV3Pool(PoolAddress.computeAddress(factory, poolKey));
+
+    pool.flash(
+        address(this),
+        params.amount0,
+        params.amount1,
+        abi.encode(FlashCallbackData({
+            amount0: params.amount0,
+            amount1: params.amount1,
+            payer: msg.sender,
+            poolKey: poolKey,
+            poolFee2: params.fee2,
+            poolFee3: params.fee3
+        }))
+    );
+}
+```
+
+#### 3. Handle the callback
+
+Override `uniswapV3FlashCallback` to execute your arbitrage logic and repay the pool:
+
+```solidity
+function uniswapV3FlashCallback(
+    uint256 fee0,
+    uint256 fee1,
+    bytes calldata data
+) external override {
+    FlashCallbackData memory decoded = abi.decode(data, (FlashCallbackData));
+
+    // Verify the callback is from a legitimate v3 pool
+    CallbackValidation.verifyCallback(factory, decoded.poolKey);
+
+    address token0 = decoded.poolKey.token0;
+    address token1 = decoded.poolKey.token1;
+
+    // Approve router to spend borrowed tokens
+    TransferHelper.safeApprove(token0, address(swapRouter), decoded.amount0);
+    TransferHelper.safeApprove(token1, address(swapRouter), decoded.amount1);
+
+    // Set minimum outputs to cover borrowed amount + fees
+    uint256 amount0Min = decoded.amount0.add(fee0);
+    uint256 amount1Min = decoded.amount1.add(fee1);
+
+    // Swap token1 -> token0 in pool with fee2
+    uint256 amountOut0 = swapRouter.exactInputSingle(
+        ISwapRouter.ExactInputSingleParams({
+            tokenIn: token1,
+            tokenOut: token0,
+            fee: decoded.poolFee2,
+            recipient: address(this),
+            deadline: block.timestamp + 200,
+            amountIn: decoded.amount1,
+            amountOutMinimum: amount0Min,
+            sqrtPriceLimitX96: 0
+        })
+    );
+
+    // Swap token0 -> token1 in pool with fee3
+    uint256 amountOut1 = swapRouter.exactInputSingle(
+        ISwapRouter.ExactInputSingleParams({
+            tokenIn: token0,
+            tokenOut: token1,
+            fee: decoded.poolFee3,
+            recipient: address(this),
+            deadline: block.timestamp + 200,
+            amountIn: decoded.amount0,
+            amountOutMinimum: amount1Min,
+            sqrtPriceLimitX96: 0
+        })
+    );
+
+    // Repay the original pool
+    uint256 amount0Owed = decoded.amount0.add(fee0);
+    uint256 amount1Owed = decoded.amount1.add(fee1);
+
+    if (amount0Owed > 0) pay(token0, address(this), msg.sender, amount0Owed);
+    if (amount1Owed > 0) pay(token1, address(this), msg.sender, amount1Owed);
+
+    // Send profits to the original caller
+    if (amountOut0 > amount0Owed) {
+        uint256 profit0 = amountOut0.sub(amount0Owed);
+        pay(token0, address(this), decoded.payer, profit0);
+    }
+    if (amountOut1 > amount1Owed) {
+        uint256 profit1 = amountOut1.sub(amount1Owed);
+        pay(token1, address(this), decoded.payer, profit1);
+    }
+}
+```
+
+<Callout type="warn">
+Always validate the callback origin using `CallbackValidation.verifyCallback`. Without this check, any address could call your callback function and manipulate your contract.
+</Callout>
+
+## Key differences: v2 flash swaps vs. v3 flash loans
+
+| Feature | v2 | v3 |
+|---|---|---|
+| Function | Built into `swap` | Dedicated `flash` function |
+| Callback | `uniswapV2Call` | `uniswapV3FlashCallback` |
+| Fee | Standard swap fee (0.3%) | Pool-specific fee tier |
+| Borrow | Single token per call | Both tokens simultaneously |
+
+## Next steps
+
+- [Swapping quickstart](/docs/trading/quickstart/swapping) -- execute standard swaps on v4
+- [Flash accounting](/docs/protocols/v4/concepts/flash-accounting) -- understand v4's transient storage optimization
+- [v4 swap guide](/docs/protocols/v4/guides/swapping/swapping) -- integrate swaps directly with the PoolManager
