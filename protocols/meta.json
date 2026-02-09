@@ -1,5 +1,6 @@
 {
   "title": "Protocols",
+  "root": true,
   "pages": [
     "v4",
     "v3",
@@ -11,6 +12,5 @@
     "permit2",
     "universal-router",
     "protocol-fee"
-  ],
-  "defaultOpen": false
+  ]
 }

@@ -1,5 +1,5 @@
 {
   "title": "SDKs",
-  "pages": ["overview", "v4", "v3", "v2"],
-  "defaultOpen": false
+  "root": true,
+  "pages": ["overview", "v4", "v3", "v2"]
 }

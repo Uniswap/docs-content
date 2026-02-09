@@ -1,5 +1,5 @@
 {
   "title": "Resources",
-  "pages": ["agents", "builder-support", "governance", "subgraphs"],
-  "defaultOpen": false
+  "root": true,
+  "pages": ["agents", "builder-support", "governance", "subgraphs"]
 }
