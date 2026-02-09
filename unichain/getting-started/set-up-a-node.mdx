@@ -1,0 +1,34 @@
+---
+title: Set Up A Node
+description: Learn how to set up a Unichain node
+---
+
+Unichain (including Unichain Sepolia Testnet) runs on the OP Stack as part of the Superchain. The Optimism team has produced extensive docs on how to run Superchain nodes, we highly recommend you familiarize yourself with them before proceeding.
+- [How to Run a Superchain Node](https://docs.optimism.io/builders/node-operators/rollup-node)
+- [Node Operation Tutorials](https://docs.optimism.io/builders/node-operators/rollup-node#node-operator-tutorials)
+
+## Running a Unichain Node
+
+Check out the [Unichain Node Repository](https://github.com/Uniswap/unichain-node) for an easy to use node setup. This correctly configures op-node and op-geth for both unichain-mainnet and unichain-sepolia.
+
+## Manually Running Unichain Mainnet Nodes
+
+If you would like to manually run op-node & op-geth, you can do so by setting the network name to `unichain-mainnet`
+
+For op-node, set `--network=unichain-mainnet`
+For op-geth, set `--op-network=unichain-mainnet`
+
+Set the tx ingress to be `GETH_ROLLUP_SEQUENCERHTTP=https://mainnet-sequencer.unichain.org`
+
+More documentation on how to run your own nodes can be found in the [Optimism Docs](https://docs.optimism.io/builders/node-operators/rollup-node)
+
+## Manually Running Unichain Sepolia Nodes
+
+If you would like to manually run op-node & op-geth, you can do so by setting the network name to `unichain-sepolia`
+
+For op-node, set `--network=unichain-sepolia`
+For op-geth, set `--op-network=unichain-sepolia`
+
+Set the tx ingress to be `GETH_ROLLUP_SEQUENCERHTTP=https://sepolia-sequencer.unichain.org`
+
+More documentation on how to run your own nodes can be found in the [Optimism Docs](https://docs.optimism.io/builders/node-operators/rollup-node)

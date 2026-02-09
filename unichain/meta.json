@@ -1,5 +1,13 @@
 {
   "title": "Unichain",
   "root": true,
-  "pages": ["index"]
+  "pages": [
+    "index",
+    "getting-started",
+    "building-on-unichain",
+    "technical-information",
+    "tools",
+    "updates",
+    "ai-coding-guide"
+  ]
 }

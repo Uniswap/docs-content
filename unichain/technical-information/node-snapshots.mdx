@@ -1,0 +1,83 @@
+---
+title: "Unichain Node Snapshots"
+description: "Use snapshots to quickly bootstrap Unichain nodes without full blockchain sync"
+---
+
+Starting a new Unichain node from scratch requires a full blockchain sync, which can take 4-8 hours for mainnet and 2-4 hours for testnet. Using a snapshot significantly reduces this initial sync time to just a few minutes.
+
+## Snapshot Sources
+
+Allnodes provides regularly updated snapshots for both Unichain networks. Additionally, we host hourly differential updates for nodes that need to catch up quickly without downloading a full snapshot.
+
+| Network | Base image | 24 Snapshot | Hourly Diff |
+| :---- | :---- | :---- | :---- |
+| Mainnet | https://snapshots.publicnode.com/unichain-geth-base.tar.lz4 | https://publicnode.com/snapshots#unichain | https://sdca9.share.hsforms.com/2Nxi8y1IhRPO8mluwjYKgWA |
+| Sepolia Testnet | https://snapshots.publicnode.com/unichain-sepolia-geth-base-0-13772176.tar.lz4 | https://publicnode.com/snapshots#unichain | https://sdca9.share.hsforms.com/2Nxi8y1IhRPO8mluwjYKgWA |
+
+## Snapshot Restoration Process
+
+These instructions assume you're working in the cloned unichain-node directory containing the docker-compose.yml file. You can find instructions on how to set up a node [here](/docs/unichain/getting-started/set-up-a-node) if you don't already have one running.
+
+### 1. Prepare the Data Directory
+
+Create the data directory that will store your blockchain data:
+
+```bash
+mkdir ./geth-data
+```
+
+For existing installations: If you've previously run the node, stop it first and clear the existing data:
+
+```bash
+docker compose down
+rm -rf ./geth-data/*
+```
+
+### 2. Download the Snapshot
+
+Visit the appropriate Allnodes link from the table above and download the snapshot for your target network.
+
+**Important**: Ensure sufficient disk space is available. The compressed snapshot archive will expand to a significantly larger size when extracted.
+
+### 3. Extract the Archive
+
+Extract the downloaded snapshot file:
+
+```bash
+tar -xzvf <downloaded-snapshot-filename.tar.gz>
+```
+
+### 4. Organize the Data
+
+The extraction process creates a directory structure (typically named geth). Move the contents to your prepared data directory:
+
+```bash
+mv ./geth/* ./geth-data/
+rm -rf ./geth
+```
+
+**Expected result**: The ./geth-data/ directory should contain blockchain data folders (chaindata, nodes, etc.) directly, without additional nesting.
+
+### 5. Start the Node
+
+Launch your Unichain node with the restored data:
+
+```bash
+docker compose up --build -d
+```
+
+### 6. Verify Operation
+
+Monitor the node startup and sync process:
+
+```bash
+docker compose logs -f op-geth
+```
+
+The node should begin syncing from the snapshot's block height rather than genesis. Once operation is confirmed, the downloaded snapshot archive can be deleted to recover disk space.
+
+## Incremental Updates with Hourly Diffs
+
+For nodes that are already synchronized but have fallen behind, hourly differential files provide a more efficient update method than full snapshots. These smaller files contain only recent blockchain changes and can quickly bring a node current without the overhead of a complete snapshot download.
+
+Download the appropriate hourly diff from the links above and apply it to your existing node data for faster synchronization.
