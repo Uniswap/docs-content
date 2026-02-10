@@ -1,4 +1,13 @@
 {
   "title": "Technical Information",
-  "pages": ["network-information", "rpc-calls", "flashblocks", "advanced-txn", "evm-equivalence", "contract-addresses", "submitting-transactions-from-l1", "node-snapshots"]
+  "pages": [
+    "network-information",
+    "rpc-calls",
+    "flashblocks",
+    "advanced-txn",
+    "evm-equivalence",
+    "contract-addresses",
+    "submitting-transactions-from-l1",
+    "node-snapshots"
+  ]
 }

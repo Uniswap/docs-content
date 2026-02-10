@@ -1,5 +1,14 @@
 {
   "title": "Concepts",
-  "pages": ["amms", "ecosystem-participants", "liquidity-providers", "traders", "developers", "fees", "hooks", "integration-issues"],
+  "pages": [
+    "amms",
+    "ecosystem-participants",
+    "liquidity-providers",
+    "traders",
+    "developers",
+    "fees",
+    "hooks",
+    "integration-issues"
+  ],
   "defaultOpen": false
 }

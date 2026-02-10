@@ -1,13 +1,4 @@
 {
   "title": "Documentation",
-  "pages": [
-    "get-started",
-    "trading",
-    "liquidity",
-    "protocols",
-    "unichain",
-    "resources",
-    "sdks",
-    "api"
-  ]
+  "pages": ["get-started", "trading", "liquidity", "protocols", "unichain", "resources", "sdks", "api"]
 }
