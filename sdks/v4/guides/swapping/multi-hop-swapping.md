@@ -155,4 +155,4 @@ The token approvals for ERC20 token swaps remain the same as the [single-hop swa
 
 ## Next Steps
 
-Now that you're familiar with trading, consider checking out our next guides on [pooling liquidity](../liquidity/pool-data) to Uniswap!
+Now that you're familiar with trading, consider checking out our next guides on [pooling liquidity](../pool-data) to Uniswap!
