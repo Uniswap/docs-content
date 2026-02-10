@@ -8,7 +8,7 @@ title: Fetching Pool Data
 This guide will cover how to initialize a Pool with full tick data to allow offchain calculations. It is based on the [Fetching Pool data example](https://github.com/Uniswap/examples/tree/main/v3-sdk/pool-data), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/pool-data/README.md) and follow the setup instructions.
 
 :::info
-If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../background) page!
+If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../overview) page!
 :::
 
 In this example we will use **ethers JS** and **ethers-multicall** to construct a `Pool` object that we can use in the following guides.
@@ -142,11 +142,11 @@ For our use case, we only need the `sqrtPriceX96` and the currently active `tick
 
 ## Fetching all Ticks
 
-V3 pools use ticks to [concentrate liquidity](../../../../concepts/protocol/concentrated-liquidity) in price ranges and allow for better pricing of trades.
+V3 pools use ticks to [concentrate liquidity](../../../../get-started/concepts/liquidity-providers/concentrated-liquidity) in price ranges and allow for better pricing of trades.
 Even though most Pools only have a couple of **initialized ticks**, it is possible that a pools liquidity is defined by thousands of **initialized ticks**.
 In that case, it can be very expensive or slow to get all of them with normal RPC calls.
 
-If you are not familiar with the concept of ticks, check out the [`introduction`](./introduction).
+If you are not familiar with the concept of ticks, check out the [`introduction`](../../getting-started).
 
 To access tick data, we will use the `ticks` function of the V3 Pool contract:
 
@@ -366,4 +366,4 @@ With this fully initialized Pool, we can make accurate offchain calculations.
 
 ## Next Steps
 
-Now that you are familiar with fetching Pool data, continue your journey with the [next example](./active-liquidity) on visualizing the Liquidity density of a pool.
+Now that you are familiar with fetching Pool data, continue your journey with the [next example](./managing-liquidity/active-liquidity) on visualizing the Liquidity density of a pool.

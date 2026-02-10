@@ -174,7 +174,7 @@ const { calldata, value } = NonfungiblePositionManager.addCallParameters(
 ```
 
 This call creates a position if it doesn't exist, but can also be used to increase an existing position.
-Take a look at the [Mint Position guide](./minting-position) and [Modify Position guide](./modifying-position) to learn more.
+Take a look at the [Mint Position guide](./position-minting) and [Modify Position guide](./modifying-position) to learn more.
 
 ### Decreasing and Increasing a Position
 
@@ -203,4 +203,4 @@ const { calldata, value } =
 
 ## Next steps
 
-Now that you are familiar with the most important classes and Contract to interact with Liquidity Positions, continue with the next guide on [Minting Positions](./minting-position).
+Now that you are familiar with the most important classes and Contract to interact with Liquidity Positions, continue with the next guide on [Minting Positions](./position-minting).

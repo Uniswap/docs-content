@@ -8,7 +8,7 @@ title: Getting a Quote
 This guide will cover how to get the current quotes for any token pair on the Uniswap protocol. It is based on the [Quoting code example](https://github.com/Uniswap/examples/tree/main/v3-sdk/quoting), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the examples's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/quoting/README.md) and follow the setup instructions.
 
 :::info
-If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../background) page!
+If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../overview) page!
 :::
 
 In this example we will use `quoteExactInputSingle` to get a quote for the pair **USDC - WETH**.
@@ -54,7 +54,7 @@ interface ExampleConfig {
 export const CurrentConfig: ExampleConfig = {...}
 ```
 
-The default config of the example uses a local fork of mainnet. If you haven't already, check out our [local development guide](../local-development).
+The default config of the example uses a local fork of mainnet. If you haven't already, check out our [local development guide](../getting-started).
 To change the rpc endpoint or the Pool used, edit the [`Currentconfig`](https://github.com/Uniswap/examples/blob/main/v3-sdk/quoting/src/config.ts#L21).
 To connect to mainnet directly, set the `mainnet` field in the config:
 

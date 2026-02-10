@@ -124,7 +124,7 @@ Using one of the private keys provided by anvil, you have access to enough ETH t
 If you need any other token, you now have the flexibility of swapping your ETH to any token that has a pool deployed on Mainnet.
 You basically take your fake ETH and swap it to the token you need.
 
-Check out one of the [guides about swapping](./swaps/trading) and replace the RPC URL with your local anvil HTTP link as above.
+Check out one of the [guides about swapping](./swapping/swapping) and replace the RPC URL with your local anvil HTTP link as above.
 
 ## Next Steps
 

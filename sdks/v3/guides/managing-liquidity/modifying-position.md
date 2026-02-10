@@ -28,7 +28,7 @@ For this guide, the following Uniswap packages are used:
 The core code of this guide can be found in [`addLiquidity()`](https://github.com/Uniswap/examples/blob/d34a53412dbf905802da2249391788a225719bb8/v3-sdk/modifying-position/src/example/Example.tsx#L33) and [`removeLiquidity()`](https://github.com/Uniswap/examples/blob/733d586070afe2c8cceb35d557a77eac7a19a656/v3-sdk/modifying-position/src/example/Example.tsx#L83)
 
 :::note
-This guide assumes you are familiar with our [Minting a Position](./minting-position) guide. A minted position is required to add or remove liquidity from, so the buttons will be disabled until a position is minted.
+This guide assumes you are familiar with our [Minting a Position](./position-mintings) guide. A minted position is required to add or remove liquidity from, so the buttons will be disabled until a position is minted.
 
 Also note that we do not need to give approval to the `NonfungiblePositionManager` to transfer our tokens as we will have already done that when minting our position.
 :::
@@ -92,7 +92,7 @@ const positionToIncreaseBy = constructPosition(
 The `fromReadableAmount()` function calculates the amount of tokens in their smallest unit, so for example 1 ETH would be `1000000000000000000` Wei as ETH has 18 decimals.
 
 A better way to get the amounts might be to fetch them with the positionId directly from the blockchain.
-We demonstrated how to do that in the [first guide](./position-data.md#fetching-positions) of this series.
+We demonstrated how to do that in the [first guide](./getting-started.md#fetching-positions) of this series.
 
 ```typescript
 import { Pool, Position } from '@uniswap/v3-sdk'
@@ -138,7 +138,7 @@ const addLiquidityOptions: AddLiquidityOptions = {
 Compared to minting, we have omitted the `recipient` parameter and instead passed in the `tokenId` of the position we previously minted.
 As the Position already exists, the recipient doesn't change, instead the NonfungiblePositionManager contract can modify the existing Position by accessing it with its id.
 
-The tokenId can be fetched with the tokenOfOwnerByIndex function of the NonfungiblePositionManager Contract as described [here](./position-data.md#fetching-positions).
+The tokenId can be fetched with the tokenOfOwnerByIndex function of the NonfungiblePositionManager Contract as described [here](./getting-started.md#fetching-positions).
 
 The newly created position along with the options object are then passed to the `NonfungiblePositionManager`'s `addCallParameters`:
 
@@ -219,7 +219,7 @@ Just as with adding liquidity, we have we have omitted the `recipient` parameter
 We have also provide two additional parameters:
 
 - `liquidityPercentage` determines how much liquidity is removed from our initial position (as a `Percentage`), and transfers the removed liquidity back to our address. We set this percentage from our guide configuration ranging from 0 (0%) to 1 (100%). In this example we would remove 50% of the liquidity.
-- [`collectOptions`](https://github.com/Uniswap/v3-sdk/blob/08a7c050cba00377843497030f502c05982b1c43/src/nonfungiblePositionManager.ts#L105) gives us the option to collect the fees, if any, that we have accrued for this position. In this example, we won't collect any fees, so we provide zero values. If you'd like to see how to collect fees without modifying your position, check out our [collecting fees](./collecting-fees) guide!
+- [`collectOptions`](https://github.com/Uniswap/v3-sdk/blob/08a7c050cba00377843497030f502c05982b1c43/src/nonfungiblePositionManager.ts#L105) gives us the option to collect the fees, if any, that we have accrued for this position. In this example, we won't collect any fees, so we provide zero values. If you'd like to see how to collect fees without modifying your position, check out our [collecting fees](./collect-fees) guide!
 
 ```typescript
 import { CurrencyAmount } from '@uniswap/sdk-core'
@@ -266,4 +266,4 @@ After pressing the button, note how the balance of USDC and DAI increases and ou
 
 ## Next Steps
 
-Now that you can mint and modify a position, check out how to [collect fees](./collecting-fees) from the position!
+Now that you can mint and modify a position, check out how to [collect fees](./collect-fees) from the position!

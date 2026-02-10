@@ -10,7 +10,7 @@ It is based on the [minting a position code example](https://github.com/Uniswap/
 To run this example, check out the examples's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/minting-position/README.md) and follow the setup instructions.
 
 :::info
-If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../background) page!
+If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../../overview) page!
 :::
 
 In the Uniswap V3 protocol, liquidity positions are represented using non-fungible tokens. In this guide we will use the `NonfungiblePositionManager` class to help us mint a liquidity position for the  **USDC - DAI** pair. The inputs to our guide are the **two tokens** that we are pooling for, the **amount** of each token we are pooling for and the Pool **fee**.
@@ -104,7 +104,7 @@ Again, we can get the factory contract address from [GitHub](https://github.com/
 For Ethereum mainnet, or a local fork of mainnet, it is `0x1F98431c8aD98523631AE4a59f267346ea31F984`. 
 In our example, it is defined in [`constants.ts`](https://github.com/Uniswap/examples/blob/main/v3-sdk/minting-position/src/libs/constants.ts)
 
-Then, we get the Pool's data by creating a reference to the Pool's smart contract and accessing its methods, very similar to what we did in the [Quoting guide](../swaps/quoting.md#referencing-the-pool-contract-and-fetching-metadata):
+Then, we get the Pool's data by creating a reference to the Pool's smart contract and accessing its methods, very similar to what we did in the [Quoting guide](../swapping/quoting.md#referencing-the-pool-contract-and-fetching-metadata):
 
 ```typescript
 import IUniswapV3PoolABI from '@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json'
@@ -224,7 +224,7 @@ const txRes = await wallet.sendTransaction(transaction)
 ```
 
 Write calls do not return the result of the transaction. If we want to read the result we would need to use for example `trace_transaction`.
-You can find an example of that in the [Range Order guide](../advanced/range-orders).
+You can find an example of that in the [Range Order guide](./range-orders).
 In this example, we don't need the result of the transaction.
 
 The effect of the transaction is to mint a new Position NFT. We should see a new position with liquidity in our list of positions.

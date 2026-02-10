@@ -10,7 +10,7 @@ An example to showcase this concept can be found in the [Range Order example](ht
 To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/price-oracle/README.md) and follow the setup instructions.
 
 :::info
-This guide builds on top of the [Pooling Liquidity guides](../liquidity/position-data).
+This guide builds on top of the [Pooling Liquidity guides](./getting-started).
 We recommend going through this section of the docs before imnplementing Range Orders.
 :::
 
@@ -25,7 +25,7 @@ This guide will **cover**:
 4. Observing the price of the Pool
 5. Closing the Limit Order
 
-Before working through this guide, consider checking out the Range Orders [concept page](../../../../concepts/protocol/range-orders) to understand how Limit orders can be executed with Uniswap V3.
+Before working through this guide, consider checking out the Range Orders [concept page](../../../../get-started/concepts/liquidity-providers/range-orders) to understand how Limit orders can be executed with Uniswap V3.
 
 For this guide, the following Uniswap packages are used:
   
@@ -36,7 +36,7 @@ The core code of this guide can be found in [`range-order.ts`](https://github.co
 
 ## Understanding Range Orders
 
-If you have read the [Range Order Concept page](../../../../concepts/protocol/range-orders), you can skip this section.
+If you have read the [Range Order Concept page](../../../../get-started/concepts/liquidity-providers/range-orders), you can skip this section.
 
 Positions on a V3 Pool are always created with a Tick range in which their liquidity is accessible to swaps on the Pool.
 Lets look at the return value of the NonfungiblePositionManager contract when calling the `positions` function with a Position `tokenId`.
@@ -76,12 +76,12 @@ We will utilise this behaviour to provide liquidity with `token1` and withdraw t
 
 ## Calculating the Tick Range
 
-Our goal for this guide is to create a [Take Profit Order](../../../../concepts/protocol/range-orders.md#take-profit-orders) that trades `token0` for `token1` when the Price of `token0` increases by 5%.
+Our goal for this guide is to create a [Take Profit Order](../../../../get-started/concepts/liquidity-providers/range-orders#take-profit-orders) that trades `token0` for `token1` when the Price of `token0` increases by 5%.
 To create our Position, we need to first decide the Tick Range that we want to provide liquidity in.
 
 ### Upper Tick
 
-We [create a Pool](./pool-data) that represents the V3 Pool we are interacting with and get the `token0Price`.
+We [create a Pool](../pool-data) that represents the V3 Pool we are interacting with and get the `token0Price`.
 We won't need full tick data in this example.
 
 ```typescript
@@ -157,7 +157,7 @@ We now have a lower and upper Tick for our Position, next we need to construct a
 
 We will use the `NonfungiblePositionManager` and `Position` classes from the `v3-sdk` to construct our position. We then use an **etherJS** wallet to mint our Position onchain.
 
-If you are not familiar with liquidity Positions, check out the [liquidity position guides](../liquidity/position-data).
+If you are not familiar with liquidity Positions, check out the [liquidity position guides](./getting-started).
 
 ### Minting the Position
 
@@ -178,7 +178,7 @@ const position = Position.fromAmount0({
 Before we mint our position, we need to give the `NonfungiblePositionManager` Contract an approval to transfer our tokens.
 We can find the Contract address on the official [Uniswap GitHub](https://github.com/Uniswap/v3-periphery/blob/main/deploys.md).
 For local development, the contract address is the same as the network we are forking from.
-So if we are using a local fork of mainnet like described in the [Local development guide](../local-development), the contract address would be the same as on mainnet.
+So if we are using a local fork of mainnet like described in the [Local development guide](../getting-started), the contract address would be the same as on mainnet.
 
 ```typescript
 import ethers from 'ethers'
@@ -425,6 +425,6 @@ Executing a range order has certain limitations that may have become obvious dur
 ## Next Steps
 
 This guide showcases everything you need to implement Range Orders on your own, but only demonstrates creating a Take Profit order in `token0` to `token1` direction.
-Consider implementing Buy Limit orders as described in the [Range Orders concept page](../../../../concepts/protocol/range-orders.md#buy-limit-orders).
+Consider implementing Buy Limit orders as described in the [Range Orders concept page](../../../../get-started/concepts/liquidity-providers/range-orders.md#buy-limit-orders).
 
 This is currently the last guide in the `v3-sdk` series. Consider joining the [Uniswap Discord](https://discord.com/invite/uniswap) or checkout the official [GitHub](https://github.com/Uniswap) to learn more about the Uniswap Protocol.

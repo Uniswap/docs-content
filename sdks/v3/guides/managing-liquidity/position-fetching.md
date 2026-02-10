@@ -6,10 +6,10 @@ title: Fetching Positions
 ## Introduction
 
 This guide will cover how to create (or mint) a liquidity position on the Uniswap V3 protocol.
-Like the [Liquidity Position guide](./position-data) it doesn't have an accompanying example, nevertheless the concepts and functions used here can be found among the various examples that interact with liquidity positions.
+Like the [Liquidity Position guide](./getting-started) it doesn't have an accompanying example, nevertheless the concepts and functions used here can be found among the various examples that interact with liquidity positions.
 
 :::info
-If you need an introduction to liquidity positions, check out the [Liquidity Position guide](./position-data)
+If you need an introduction to liquidity positions, check out the [Liquidity Position guide](./getting-started)
 :::
 
 The [NonfungiblePositionManager Contract](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol) can be used to create Positions, as well as get information on **existing Positions**.

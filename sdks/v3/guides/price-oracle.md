@@ -10,7 +10,7 @@ It is based on the [Price Oracle example](https://github.com/Uniswap/examples/tr
 To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/oracle/README.md) and follow the setup instructions.
 
 :::info
-If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../background) page!
+If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../overview) page!
 :::
 
 In this example we will use **ethers JS** to observe the development of a Pool's current tick over several blocks.
@@ -24,7 +24,7 @@ This guide will **cover**:
 4. Computing TWAL
 5. Why prefer observe over observations
 
-Before diving into this guide, consider reading the theory behind using Uniswap V3 as an [Onchain Oracle](../../../../concepts/protocol/oracle).
+Before diving into this guide, consider reading the theory behind using Uniswap V3 as an [Onchain Oracle](../../../../protocols/v3/concepts/price-oracle).
 
 For this guide, the following Uniswap packages are used:
   
@@ -173,7 +173,7 @@ Let's continue with the average liquidity.
 
 ## Calculating the average Liquidity
 
-To understand the term **active Liquidity**, check out the [previous guide](./active-liquidity).
+To understand the term **active Liquidity**, check out the [previous guide](./managing-liquidity//active-liquidity).
 Similar to the `tick accumulator`, the `liquidity accumulator` stores a sum of values for every second since the Pool was initialized and increases with every second.
 Because of the size of the active liquidity value, it is impractical to just add up the active liquidity. Instead the **seconds per liquidity** are summed up.
 
@@ -284,4 +284,4 @@ For this reason, it is recommended to use the `observe` function.
 
 ## Next Steps
 
-Now that you are familiar with the Oracle feature of Uniswap, consider checking out the [next guide](./range-orders) on **Range Orders**.
+Now that you are familiar with the Oracle feature of Uniswap, consider checking out the [next guide](./managing-liquidity/range-orders) on **Range Orders**.
