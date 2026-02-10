@@ -9,9 +9,9 @@ This guide will cover how to fetch price observations from a V3 pool to get onch
 It is based on the [Price Oracle example](https://github.com/Uniswap/examples/tree/main/v3-sdk/oracle), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples).
 To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/oracle/README.md) and follow the setup instructions.
 
-:::info
+<Callout type="note">
 If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../overview) page!
-:::
+</Callout>
 
 In this example we will use **ethers JS** to observe the development of a Pool's current tick over several blocks.
 We will then calculate the time weighted average price - **TWAP**, and time weighted average liquidity - **TWAL** over the observed time interval.
@@ -108,13 +108,13 @@ const txRes = await poolContract.increaseObservationCardinalityNext(10)
 The Pool will now fill the open Observation Slots.
 As someone has to pay for the gas to write the observations, writing to the array of observations is part of the `swap()` and the `modifyPosition()` function of the Pool.
 
-:::note
+<Callout type="note">
 Saving an Observation is a write operation on the blockchain and therefore costs gas.
 This means that the pool will only be able to save observations for blocks where write calls are executed on the Pool contract.
 If no Observation is stored for a block, it is calculated as the time weighted arithmetic mean between the two closest Observations.
 Because of this, we can be sure the oldest Observation is **at least** 10 blocks old.
 It is very likely that the number of blocks covered is bigger than 10.
-:::
+</Callout>
 
 ## Fetching Observations
 
@@ -200,12 +200,12 @@ const TWAL =  secondsBetweenX128 / diffSecondsPerLiquidityX128
 
 This **time weighted average liquidity** is the harmonic mean over the time period observed.
 
-:::note
+<Callout type="note">
 The costs associated with manipulating/ changing the liquidity of a Pool are **orders of magnitude smaller** than with manipulating the price of the assets, as **prices** will be arbitraged for assets **with more than one market**.
 Adding massive amounts of liquidity to a Pool and withdrawing them after a block has passed more or less only costs gas fees.
 
 Use the **TWAP** with care and consider handling outliers.
-:::
+</Callout>
 
 ## Why prefer observe over observations?
 
@@ -246,11 +246,11 @@ We can only request one Observation at a time, so we create an Array of Promises
 We already see one difference, to using the `observe` function here.
 While `observe` creates an array onchain in the smart contract and returns it, calling `observations` requires us to make multiple RPC calls.
 
-:::note
+<Callout type="note">
 Depending on our setup and the Node we are using, either option can be faster, but making multiple RPC calls always has the danger of the blockchain state changing between our calls.
 While it is extremely unlikely, it is still possible that our Node updates with a new block and new Observation in between our calls.
 Because we access indices of an array, this would give us an unexpected result that we need to handle as an edge case in our implementation.
-:::
+</Callout>
 
 One way to handle this behaviour is deploying or [using](https://github.com/mds1/multicall) a Contract with a [multicall](https://solidity-by-example.org/app/multi-call/) functionality to get all observations with one request.
 You can also find an example of a JS multicall in the [Pool data guide](./pool-data).
@@ -271,10 +271,10 @@ const observations = results.map((result) => {
 
 We now have an Array of observations in the same format that we are used to.
 
-:::note
+<Callout type="note">
 Because Observations are stored in a **fixed size array** with always the oldest Observation overwritten if a new one is stored, they are **not sorted**.
 We need to sort the result by the timestamp.
-:::
+</Callout>
 
 The timestamps of the Observations we got are correspondent to blocks where **Swaps or Position changes** happened on the Pool.
 Because of this, we would need to calculate Observations for specific intervals manually from the **surrounding Observations**.

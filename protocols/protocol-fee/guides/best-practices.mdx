@@ -13,7 +13,7 @@ The nonce mechanism prevents front-running attacks, where a successful front-run
 to burn a substantial amount of UNI in exchange for little to no assets. The nonce mechanism ensures sequencing, so **if two competing transactions
 use the same nonce, only one will succeed**
 
-:::danger
+<Callout type="error">
 Integrating *contracts* should **NEVER** read the `nonce` at the time of the transaction
 
 ```solidity
@@ -27,9 +27,9 @@ contract Vulnerable {
     }
 }
 ```
-:::
+</Callout>
 
-:::tip
+<Callout type="info">
 ```solidity
 contract SafeRelease {
     IFirepit public firepit;
@@ -41,7 +41,7 @@ contract SafeRelease {
 }
 ```
 In the safe pattern, the caller is responsible for reading the `Firepit.nonce()` offchain, assocating it with releasable assets, and passing it as a **calldata** parameter
-:::
+</Callout>
 
 ## Collect Uniswap v3 Fees
 
@@ -49,7 +49,7 @@ For further reading, please see [Read Asset Balance](./read-asset-balance)
 
 In the Uniswap Protocol Fee system, Uniswap v3 fees *must be collected* to the `AssetSink` before they are eligible for release.
 
-:::tip
+<Callout type="info">
 We recommend that integrators check and collect Uniswap v3 fees before calling `Firepit.release()`, to ensure the maximum assets are released.
 
 Collection is available via
@@ -68,7 +68,7 @@ function collectAndRelease(
     firepit.release(_nonce, assets, recipient);
 }
 ```
-:::
+</Callout>
 
 ## UNI Approvals
 
@@ -108,7 +108,7 @@ function getUnderlyingAmounts(uint256 lpTokens) external view returns (uint256 a
 }
 ```
 
-:::note
+<Callout type="note">
 Integrators should perform additional validation, i.e. pool price and slippage checks as to not
 misrepresent the LP token's underlying token amounts
-:::
+</Callout>

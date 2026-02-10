@@ -1,7 +1,6 @@
 ---
 id: CCA
 title: Continuous Clearing Auction
-sidebar_position: 3
 ---
 
 # Continuous Clearing Auction (CCA)

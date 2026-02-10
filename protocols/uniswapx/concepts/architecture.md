@@ -4,7 +4,7 @@ title: Architecture
 ---
 
 <!-- ![Architecture](./assets/uniswapx-architecture.png) -->
-<img src={require('./images/UniswapX.png').default} alt="UniswapX" width="100%%" />
+![UniswapX](./images/UniswapX.png)
 
 ## Reactors
 

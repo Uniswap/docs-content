@@ -1,7 +1,6 @@
 ---
 id: setup
 title: Setup
-sidebar_position: 1
 ---
 
 # Getting started with CCA

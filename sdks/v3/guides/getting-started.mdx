@@ -25,10 +25,10 @@ like wallets with thousands of ETH and RPC URLs that you can use as drop-in repl
 This approach combines the best of all other approaches. You have a local chain that you can manipulate to your liking
 and you have real deployments of all the protocols you need to test and develop your dApp or smart contracts.
 
-:::info
+<Callout type="note">
 This guide focuses on Ethereum Mainnet. But you can easily fork any other chain by simply replacing the RPC URL with
 one of the network you want to use.
-:::
+</Callout>
 
 For this guide, the following packages are used:
   
@@ -39,10 +39,10 @@ For this guide, the following packages are used:
 Please note that we use ethers version 5, as this is still the most commonly used version of ethers.js.
 If you use version 6, you will need to slightly change the syntax in the examples below.
 
-:::info
+<Callout type="note">
 Forking a chain requires archival data and trace calls. Infura and normal geth instances are by default not archival.
 You can get a free archival RPC that you can use to follow this guide and fork Mainnet you can visit [Chainnodes](https://www.chainnodes.org/).
-:::
+</Callout>
 
 ## Using Foundry and Anvil
 
@@ -68,17 +68,17 @@ Run `anvil --help` to see all available options.
 
 Once you have done that, you should see something like the below:
 
-<img src={require('./images/anvil-result.png').default} alt="anvil result after calling" box-shadow="none"/>
+![anvil result after calling](./images/anvil-result.png)
 
 Your local fork of Mainnet is now running!
 
 And as you can see on the screenshot above, anvil prints a bunch of private keys that are loaded with 10k ETH each.
 We will use them going forward to send transactions, including swaps on Uniswap pools.
 
-:::warning
+<Callout type="warn">
 Security consideration: This is a fork of Mainnet and the same chain id is used. You have no replay protection to Ethereum Mainnet. So you need to 1: Never use the anvil private keys on a real chain or send funds to it
 (they are leaked everywhere) and 2: Not send any transactions to your local fork chain with accounts that you use on Ethereum Mainnet or other real chains.
-:::
+</Callout>
 
 If you scroll down in your terminal, near the bottom of the anvil logs you will find your RPC URL.
 If you haven't changed any configs, it should be `127.0.0.1:8545`.
@@ -110,7 +110,7 @@ The result should look like the below (see image below as well):
 }
 ```
 
-<img src={require('./images/postman-chainid-result.png').default} alt="anvil result after calling" box-shadow="none"/>
+![anvil result after calling](./images/postman-chainid-result.png)
 
 As you can see, the chain id is `1`, just like on Mainnet!
 

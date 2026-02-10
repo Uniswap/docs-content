@@ -1,7 +1,6 @@
 ---
 id: Strategies
 title: Strategies
-sidebar_position: 5
 ---
 
 # Understanding liquidity strategies

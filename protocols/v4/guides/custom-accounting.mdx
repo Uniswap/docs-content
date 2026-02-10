@@ -171,11 +171,11 @@ poolManager.take(feeCurrency, address(this), feeAmount);
 
 ```
 
-:::note
-> Using `poolManager.take()` requires an ERC20 balance on the PoolManager, i.e. via other liquidity pools. If the `.take()` amount exceeds the ERC20 balance, the code will revert. As a workaround, use either:
->1. `poolManager.mint()` to obtain ERC6909, which are also more gas efficient
->2. A custom swap router, where input tokens are transferred to PoolManager before the router calls `poolManager.swap()`
-:::
+<Callout type="note">
+Using `poolManager.take()` requires an ERC20 balance on the PoolManager, i.e. via other liquidity pools. If the `.take()` amount exceeds the ERC20 balance, the code will revert. As a workaround, use either:
+1. `poolManager.mint()` to obtain ERC6909, which are also more gas efficient
+2. A custom swap router, where input tokens are transferred to PoolManager before the router calls `poolManager.swap()`
+</Callout>
 
 #### Step 2.3: Create the BeforeSwapDelta
 
@@ -298,12 +298,12 @@ function getHookPermissions() public pure override returns (Hooks.Permissions me
 
 In afterSwap, you do not build a BeforeSwapDelta. Instead, we read actual output from **BalanceDelta** and compute fee on that amount.
 
-:::tip Unspecified currency (afterSwap)
+<Callout title="Unspecified currency (afterSwap)" type="info">
 The `int128` you return is for the **unspecified currency**. Map it like this:
 
 - **exactIn** → unspecified = **output** token → take the fee in **output**; user receives less output.
 - **exactOut** → unspecified = **input** token  → take the fee in **input**; user must pay more input.
-:::
+</Callout>
 
 ```solidity
 function _afterSwap(

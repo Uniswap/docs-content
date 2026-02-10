@@ -61,9 +61,9 @@ Hooks that touch balances or modify deltas must handle accounting with extreme p
 - **ERC20 behavioral assumptions:** Many tokens deviate from the “standard”: fee-on-transfer tokens, rebasing tokens, ERC-777 hooks, or pausable/ freezable tokens. These can silently break accounting, introduce reentrancy, or cause unexpected DoS behavior.
 - **Holding or rehypothecating assets:** When a hook holds liquidity itself or deposits assets into another protocol, rounding errors and token-return inconsistencies multiply quickly.
 
-:::info
+<Callout type="note">
 Although the well-known [Bunni](https://www.halborn.com/blog/post/explained-the-bunni-hack-september-2025) and [Balancer](https://www.halborn.com/blog/post/explained-the-balancer-hack-november-2025) incidents were not specifically related to v4 infrastructure, they illustrate the types of accounting drift and asset-handling mistakes that hook developers must proactively guard against.
-:::
+</Callout>
 
 ### External Calls, Reentrancy, and State Drift
 
@@ -74,9 +74,9 @@ Any external call made during `beforeSwap`, `afterSwap`, or liquidity callbacks 
 - **External protocol state drift:** Prices, balances, positions, or interest rates can change between callbacks, even within the same transaction.
 - **Liquidity migration between callbacks:** External calls can add/remove liquidity, making earlier snapshots invalid.
 
-:::info
+<Callout type="note">
 **Core principle:** If your hook calls external contracts, assume *every* piece of state may change before the callback sequence completes. Only explicit tests can validate safety here.
-:::
+</Callout>
 
 ### Mathematical Correctness & Precision Risks
 
@@ -213,9 +213,9 @@ Hook assumptions may break for non-standard tokens such as:
 - Tokens with pausability, freezing, or blacklisting capabilities
 - Tokens with unconventional decimals
 
-:::info
+<Callout type="note">
 *These behaviors can break accounting guarantees or introduce reentrancy risk.*
-:::
+</Callout>
 
 ### Multi-Pool and Routing Interactions
 
@@ -242,9 +242,9 @@ To remain safe, cross-chain hooks should incorporate:
 - **Off-chain observability:** Operators must detect when remote state lags, diverges, or produces suspicious sequences.
 - **Adversarial assumptions:** Treat the origin chain as manipulable prior to message finality and design around worst-case ordering and timing.
 
-:::info
+<Callout type="note">
 **Core message:** Cross-chain hooks must assume latency, inconsistency, and adversarial ordering as the *normal case*, not exceptions. Designing for these realities ensures hooks remain robust even when cross-chain communication behaves unpredictably.
-:::
+</Callout>
 
 ## 2. Hook Risk Self-Scoring Dimensions
 
@@ -256,9 +256,9 @@ Teams should score themselves on these 9 dimensions and evaluate each dimension 
 
 ### Risk Dimensions
 
-:::note 
+<Callout type="note">
 Higher means more risk
-:::
+</Callout>
 
 ### Complexity (0 to 5)
 
@@ -318,9 +318,9 @@ Hooks that directly influence the swap path, effective price, routing decisions,
 
 Risk tiers provide a baseline set of recommendations depending on the total risk score from the previous scoring phase, but are not sufficient on their own. Certain features introduce specific risk categories that require mandatory safeguards regardless of total score. Each risk tier is expected to have extensive unit and fuzz test coverage.
 
-:::note
+<Callout type="note">
 Specific features require additional steps defined in the next section
-:::
+</Callout>
 
 ### Low Risk (0 to 6)
 
@@ -393,9 +393,9 @@ Triggers when:
 - Formal verification is recommended if TVL score is 5 or the math materially impacts prices (Invariant preservation, arithmetic bounds, correctness of composite math)
 - Continuous or periodic monitoring is recommended when combined with autonomy or price-modifying behavior
 
-:::info 
+<Callout type="note">
 Even if the overall score is Low or Medium, a specialized math review is recommended whenever custom math is present.
-:::
+</Callout>
 
 ### Hook Holds Its Own Liquidity or Manages External Liquidity
 
@@ -550,9 +550,9 @@ Strong OPSEC requires monitoring not only the hook’s on-chain behavior, but al
 
 Integrating OPSEC ensures that hooks remain secure across their entire operational lifecycle, protecting against human error, leaked information, social engineering, and process-level failures.
 
-:::info
+<Callout type="note">
 For more information see the [Operational Security framework from the Security Alliance](https://frameworks.securityalliance.org/opsec/overview/)
-:::
+</Callout>
 
 ## 7. Security Best Practices Checklist
 
@@ -609,9 +609,9 @@ A [Uniswap Hooks Security Worksheet](https://docs.google.com/spreadsheets/d/1oZd
 
 The calculator ensures consistent scoring across teams and audit providers.
 
-:::info
+<Callout type="note">
 UF does not review or validate spreadsheet outputs.
-:::
+</Callout>
 
 ## 9. How To Use This Framework
 
@@ -622,9 +622,9 @@ UF does not review or validate spreadsheet outputs.
 - Publish audits, disclosures, and changelogs
 - Reassess risk periodically as TVL grows or new features are added
 
-:::note
+<Callout type="note">
 Teams should re evaluate their tier after any major upgrade or when incentivized liquidity is introduced.
-:::
+</Callout>
 
 ## 10. Future Extensions Community Driven
 
@@ -678,9 +678,9 @@ Teams developing hooks may find the following providers and tools helpful when i
 - [Security Alliance OPSEC Framework](https://frameworks.securityalliance.org/opsec/overview)
 - Key management providers: [Safe (multisig)](https://app.safe.global/welcome), [Fireblocks](https://www.fireblocks.com/)
 
-:::note
+<Callout type="note">
 These resources are illustrative, not exhaustive. Teams should choose tools appropriate for their design, risk level, and operational maturity.
-:::
+</Callout>
 
 ## 12. Conclusion
 

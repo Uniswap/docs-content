@@ -1,7 +1,6 @@
 ---
 id: example-configuration
 title: Example configuration
-sidebar_position: 3
 ---
 
 # Configuring a CCA auction

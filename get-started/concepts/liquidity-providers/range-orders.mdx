@@ -3,9 +3,9 @@ id: range-orders
 title: Range Orders
 ---
 
-:::note
+<Callout type="note">
 Range orders have the same implementation in both Uniswap v3 and v4, offering consistent functionality across both versions.
-:::
+</Callout>
 
 Customizable liquidity positions, along with single-sided asset provisioning, allow for a new style of swapping with automated market makers: the range order.
 
@@ -25,9 +25,9 @@ The nature of AMM design makes some styles of limit orders possible, while other
 
 > The current price of a DAI / ETH pool is 1,500 DAI / ETH. You would like to sell your ETH for DAI when the price of ETH reaches 1,600 DAI / ETH. This is possible, as the price space above the spot price is denominated in the higher valued asset, ETH. You can provide ETH at a price of 1,600 DAI / ETH and have the order filled when the spot price crosses your position.
 
-<img src={require('./images/RangeOrder1.png').default} alt="RangeOrder1" width="45%" height="45%" />
+![RangeOrder1](./images/RangeOrder1.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src={require('./images/RangeOrder2.png').default} alt="RangeOrder1" width="45%" height="45%" />
+![RangeOrder1](./images/RangeOrder2.png)
 
 ---
 

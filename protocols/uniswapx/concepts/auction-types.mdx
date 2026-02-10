@@ -55,14 +55,14 @@ UniswapX on Ethereum uses a sophisticated two-phase auction system that balances
     - In this system, we call the market makers in step 2 "Quoters" because they respond to our request for a quote. We call the market makers in step 6 "Fillers." The difference is that the set of Quoters is permissioned while the set of Fillers is permissionless.
 
 <p align="center">
-  <img src={require('./images/mainnet_flowchart.png').default} alt="UniswapX" width="60%" />
+  ![UniswapX](./images/mainnet_flowchart.png)
 </p>
 
-:::note Cosigners
-Cosigners update auction parameters to reflect real-time prices, compensating for the delay between quoting and signing (which can be up to 30 seconds). They set the auction start block and adjust pricing within the user's signed parameters, while never exceeding the user's slippage tolerance. If you'd like to see how the Cosigner works in practice, please see the technical overview of UniswapX RFQ V2. 
-<br/>
+<Callout title="Cosigners" type="note">
+Cosigners update auction parameters to reflect real-time prices, compensating for the delay between quoting and signing (which can be up to 30 seconds). They set the auction start block and adjust pricing within the user's signed parameters, while never exceeding the user's slippage tolerance. If you'd like to see how the Cosigner works in practice, please see the technical overview of UniswapX RFQ V2.
+
 Currently, the Uniswap Interface and Trading API sets the cosigner to Uniswap Labs, though this could be updated in the future.
-:::
+</Callout>
 
 ## Arbitrum: Dutch Auction
 

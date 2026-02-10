@@ -1,7 +1,6 @@
 ---
 id: swaps
 title: Swaps
-sidebar_position: 2
 ---
 
 ## Introduction

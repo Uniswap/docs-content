@@ -6,11 +6,11 @@ title: Executing a Trade
 
 This guide will build off our [quoting guide](./quoting) and show how to use a quote to construct and execute a trade on the Uniswap V3 protocol. It is based on the [Trading code example](https://github.com/Uniswap/examples/tree/main/v3-sdk/trading), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/trading/README.md) and follow the setup instructions.
 
-:::info
+<Callout type="note">
 If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../../overview) page!
 
 To get started with local development, also check out the [local development guide](../getting-started).
-:::
+</Callout>
 
 In this example we will trade between two ERC20 tokens: **WETH and USDC**. The tokens, amount of input token, and the fee level can be configured as inputs.
 
@@ -22,9 +22,9 @@ The guide will **cover**:
 
 At the end of the guide, we should be able to create and execute a trade between any two ERC20 tokens using the example's included UI.
 
-:::note
+<Callout type="note">
 Included in the example application is functionality to wrap/unwrap ETH as needed to fund the example `WETH` to `USDC` swap directly from an `ETH` balance.
-:::
+</Callout>
 
 For this guide, the following Uniswap packages are used:
 

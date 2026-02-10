@@ -9,10 +9,10 @@ This guide will cover how single-side liquidity provisioning can be used to exec
 An example to showcase this concept can be found in the [Range Order example](https://github.com/Uniswap/examples/tree/main/v3-sdk/range-order), in the Uniswap code examples [repository](https://github.com/Uniswap/example).
 To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/price-oracle/README.md) and follow the setup instructions.
 
-:::info
+<Callout type="note">
 This guide builds on top of the [Pooling Liquidity guides](./getting-started).
 We recommend going through this section of the docs before imnplementing Range Orders.
-:::
+</Callout>
 
 In this example we will create a single-side liquidity position with the [NonfungiblePositionManager](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol) contract.
 We will then use **ethers JS** to observe the price of the Pool on new blocks and withdraw the liquidity when our target is reached.
@@ -68,7 +68,7 @@ If a new Position is created and the Tick Range of the position does not include
 
 We will call this a **Single Side Liquidity Position**.
 
-<img src={require('./images/range-order.png').default} alt="RangeOrder" box-shadow="none"/>
+![RangeOrder](./images/range-order.png)
 
 When the current Tick of the Pool moves across the Position, the ratio of `token0` and `token1` will change, and ultimately inverse if the current Tick moves out of the position on the other side.
 
@@ -112,9 +112,9 @@ Be aware that the `numerator` and `denominator` parameters are ordered different
 
 We have calculated our target Price but we still need to find the **nearest usable tick** to create our Position.
 
-:::info
+<Callout type="note">
 As Positions can only start and end at initializable Ticks of the Pool, so we can only create a Range Order to a Price that exactly matches an initializable Tick.
-:::
+</Callout>
 
 We use the `priceToClosestTick` function to find the closest tick to our targetPrice. 
 We then use the `nearestUsableTick` function to find the closest initializable Tick for the `tickSpacing` of the `Pool`.

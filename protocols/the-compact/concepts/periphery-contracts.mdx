@@ -109,13 +109,13 @@ Emitted when a sponsor assigns or changes an emissary via `assignEmissary`.
 
 Tribunal is a framework for processing cross-chain swap settlements against PGA (priority gas auction) blockchains. It ensures that tokens are transferred according to the mandate specified by the originating sponsor and enforces that a single party is able to perform the settlement in the event of a dispute.
 
-:::note About Tribunal
+<Callout title="About Tribunal" type="note">
 Tribunal is a reference implementation, not part of The Compact core protocol. The Compact itself is an unopinionated primitive that doesn't depend on or have awareness of any specific settlement engine. Tribunal is included in this documentation as an example that demonstrates how developers can build cross-chain settlement systems on top of The Compact.
-<br/>
+
 Other teams can (and should) build their own settlement engines with different trust assumptions, auction mechanisms, or cross-chain messaging approaches. Tribunal simply shows one proven pattern for orchestrating cross-chain fills and settlements using The Compact's resource locks.
-<br/>
+
 **Status**: Tribunal is actively under development. For the latest updates and implementation details, see the [Tribunal repository](https://github.com/Uniswap/Tribunal).
-:::
+</Callout>
 
 ### How Tribunal Works
 

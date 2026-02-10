@@ -246,7 +246,7 @@ const results: bigint[] = (await multicallProvider.all(calls)).map(
 
 A great visualization of what the bitMaps look like can be found in the [Uniswap v3 development book](https://uniswapv3book.com/docs/milestone_2/tick-bitmap-index/](https://uniswapv3book.com/milestone_2/tick-bitmap-index.html):
 
-<img src={require('./images/tickBitmap_cut.png').default} alt="TickBitmap" box-shadow="none"/>
+![TickBitmap](./images/tickBitmap_cut.png)
 
 We encourage anyone trying to get a deeper understanding of the Uniswap protocol to read the Book.
 

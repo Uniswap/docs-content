@@ -1,7 +1,6 @@
 ---
 id: price-discovery
 title: Price discovery
-sidebar_position: 5
 ---
 
 # Entering price discovery

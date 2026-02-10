@@ -41,9 +41,9 @@ This documentation contains specific integration guides for each chain. Choose y
 - **Arbitrum** - Direct Dutch auction with 0.25s blocks
 - **Unichain, Base** - Priority gas auctions
 
-:::note Auction Types
-To learn about the different auction mechanics, please see the [Auction Types Overview](../../protocols/uniswapx/concepts/auction-types) page. 
-:::
+<Callout title="Auction Types" type="note">
+To learn about the different auction mechanics, please see the [Auction Types Overview](../../protocols/uniswapx/concepts/auction-types) page.
+</Callout>
 
 Fillers should start with polling for orders and rate limit at 6rps. If after polling, a filler's performance is degraded due to the polling rate limit, please see the [Webhook Support](../../liquidity/uniswapx-filling/webhooks) documentation to learn about registering webhooks for orders.
 

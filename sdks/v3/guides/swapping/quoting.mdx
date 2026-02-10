@@ -7,9 +7,9 @@ title: Getting a Quote
 
 This guide will cover how to get the current quotes for any token pair on the Uniswap protocol. It is based on the [Quoting code example](https://github.com/Uniswap/examples/tree/main/v3-sdk/quoting), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the examples's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/quoting/README.md) and follow the setup instructions.
 
-:::info
+<Callout type="note">
 If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../overview) page!
-:::
+</Callout>
 
 In this example we will use `quoteExactInputSingle` to get a quote for the pair **USDC - WETH**.
 The inputs are the **token in**, the **token out**, the **amount in** and the **fee**.
@@ -159,9 +159,9 @@ The return values of these methods will become inputs to the quote fetching func
 The `token0` and `token1` variables are the addresses of the tokens in the Pool and should not be mistaken for `Token` objects from the sdk.
 For the full code, check out [`getPoolConstants()`](https://github.com/Uniswap/examples/blob/main/v3-sdk/quoting/src/libs/quote.ts#L35) in `quote.ts`.
 
-:::note
+<Callout type="note">
 In this example, the metadata we fetch is already present in our inputs. This guide fetches this information first in order to show how to fetch any metadata, which will be expanded on in future guides.
-:::
+</Callout>
 
 ## Referencing the Quoter contract and getting a quote
 

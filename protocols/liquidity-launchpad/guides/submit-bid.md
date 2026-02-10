@@ -1,7 +1,6 @@
 ---
 id: submit-bid
 title: Submitting a bid
-sidebar_position: 4
 ---
 
 # Submitting a bid

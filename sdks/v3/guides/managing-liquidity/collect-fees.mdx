@@ -7,9 +7,9 @@ title: Collecting Fees
 
 This guide will cover how to collect fees from a liquidity position on the Uniswap V3 protocol. It is based on the [collecting fees code example](https://github.com/Uniswap/examples/tree/main/v3-sdk/collecting-fees), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the examples's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/collecting-fees/README.md) and follow the setup instructions.
 
-:::info
+<Callout type="note">
 If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../../background) page!
-:::
+</Callout>
 
 In the Uniswap V3 protocol, liquidity positions are represented using non-fungible tokens. In this guide we will use the `NonfungiblePositionManager` class to help us mint a liquidity position for the  **USDC - DAI** pair. We will then attempt to collect any fees that the position has accrued from those trading against our provisioned liquidity. The inputs to our guide are the **two tokens** that we are pooling for, the **amount** of each token we are pooling for, the Pool **fee** and the **max amount of accrued fees** we want to collect for each token.
 
@@ -27,11 +27,11 @@ For this guide, the following Uniswap packages are used:
 
 The core code of this guide can be found in [`collectFees()`](https://github.com/Uniswap/examples/blob/main/v3-sdk/collecting-fees/src/libs/liquidity.ts#L35).
 
-:::note
+<Callout type="note">
 This guide assumes you are familiar with our [Minting a Position](./position-minting) guide. A minted position is required to add or remove liquidity from, so the buttons will be disabled until a position is minted.
 
 Also note that we do not need to give approval to the `NonfungiblePositionManager` to transfer our tokens as we will have already done that when minting our position.
-:::
+</Callout>
 
 ## Setting up our fee collection
 

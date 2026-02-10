@@ -1,7 +1,6 @@
 ---
 id: exit-bid
 title: Exit and claim tokens
-sidebar_position: 6
 ---
 
 # Exit and claim tokens

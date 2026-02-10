@@ -7,9 +7,9 @@ title: Active Liquidity
 
 This guide will cover how to fetch and compute the active liquidity in the specific Tick ranges of a pool. It is based on the [Liquidity Density example](https://github.com/Uniswap/examples/tree/main/v3-sdk/pool-data) and can be seen used in production, albeit in a more sophisticated way, in the [Uniswap Analytics](https://info.uniswap.org/#/pools) website.
 
-:::info
+<Callout type="note">
 If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../overview) page!
-:::
+</Callout>
 
 In this guide, we will use the V3 subgraph to fetch all ticks from **theGraph** and compute the active liquidity our Pool can use at each Tick. We then use `recharts` to draw a chart that visualizes our Pool's liqudity density.
 
@@ -40,7 +40,7 @@ The pool understands the position as **liquidity between the lower and upper Tic
 Looking at this [visualization](https://www.desmos.com/calculator/oduetjzfp4) of multiple positions in a V3 Pool, we can see that the liquidity available for a swap does not change inside a position, but when crossing into the next position.
 This is what the **Initialized Ticks** of a Pool represent - they are a representation of the start or end of one or more positions.
 
-<img src={require('./images/liquidityNetComparison.png').default} alt="LiquidityNet1" box-shadow="none"/>
+![LiquidityNet1](./images/liquidityNetComparison.png)
 
 When entering or leaving a position, its liquidity is added or removed from the **active liquidity available** for a Swap.
 The initialized Ticks store this **change in available liquidity** in the `liquidityNet` field.
@@ -86,9 +86,9 @@ axios.post(
 
 We only fetch the ticks that **have liquidity**, and we convert the poolAddress to **lower case** for the subgraph to work with. To make sure the Ticks are ordered correctly, we also define the **order direction** in the query.
 
-:::note
+<Callout type="note">
 GraphQL is only able to fetch 1000 records at a time. If a pool has more than 1000 initialized ticks, multiple calls are necessary to get all of them.
-:::
+</Callout>
 
 The ticks we got from **theGraph** have this format:
 

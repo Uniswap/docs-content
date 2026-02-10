@@ -110,12 +110,12 @@ Deposits and withdrawals against an ERC20 resource lock are handled by:
 ### Fee-on-Transfer Tokens
 The Compact correctly handles fee-on-transfer tokens for both deposits and withdrawals. The amount of ERC6909 tokens minted or burned is based on the *actual balance change* in The Compact contract, not just the specified amount.
 
-:::warning Important Integration Notice
+<Callout title="Important Integration Notice" type="warn">
 
 In order to support fee-on-transfer tokens, The Compact does not fully adhere to the Checks-Effects-Interactions (CEI) paradigm as part of deposits and withdrawals.
-<br/>
+
 If you are integrating with The Compact, particularly as an allocator, and are reading ERC6909 token balances, be aware that those balances may subsequently increase or decrease as part of the same transaction if the call executes a deposit, withdrawal, or claim against The Compact that in turn triggers a nested call to the integrator in question.
-<br/>
+
 To ensure that all balances are fully "settled," integrators should first ensure that the reentrancy guard on The Compact is not set via:
 
 ```solidity
@@ -126,8 +126,7 @@ require(
 ```
 
 *Note: Use `extsload` instead of `exttload` on chains without `tstore` support.*
-
-:::
+</Callout>
 
 ### Rebasing Tokens
 **Rebasing tokens (e.g., stETH) are NOT supported in The Compact V1.** Any yield or other balance changes occurring after deposit will not accrue to the depositor's ERC6909 tokens. For such assets, use their wrapped, non-rebasing counterparts (e.g., wstETH).

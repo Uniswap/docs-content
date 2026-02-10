@@ -1,7 +1,6 @@
 ---
 id: local-deployment
 title: Create a local deployment
-sidebar_position: 2
 ---
 
 # Create a local deployment

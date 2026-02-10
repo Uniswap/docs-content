@@ -1,7 +1,6 @@
 ---
 id: process
 title: Process
-sidebar_position: 2
 ---
 
 This is a living document which represents the current process guidelines for developing and advancing Uniswap Governance Proposals. It was last updated September 2024.
