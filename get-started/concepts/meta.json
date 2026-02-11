@@ -5,10 +5,8 @@
     "ecosystem-participants",
     "liquidity-providers",
     "traders",
-    "developers",
     "fees",
-    "hooks",
-    "integration-issues"
+    "hooks"
   ],
   "defaultOpen": false
 }

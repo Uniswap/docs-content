@@ -1,11 +1,12 @@
 ---
 id: how-uniswap-works
 title: How Uniswap works
+description: Learn how Uniswap AMMs work across all protocol versions.
 ---
 
 ![](./images/anatomy.jpg)
 
-Uniswap is an _automated liquidity protocol_ powered by a [constant product formula](../glossary#constant-product-formula)
+Uniswap is an automated liquidity protocol powered by the constant product formula
 and implemented in a system of non-upgradeable smart contracts on the [Ethereum](https://ethereum.org/) blockchain.
 It obviates the need for trusted intermediaries, prioritizing **decentralization**, **censorship resistance**,
 and **security**. Uniswap is **open-source software** licensed under the
@@ -25,8 +26,27 @@ In practice, Uniswap applies a 0.30% fee to trades, which is added to reserves. 
 
 Because the relative price of the two pair assets can only be changed through trading, divergences between the Uniswap price and external prices create arbitrage opportunities. This mechanism ensures that Uniswap prices always trend toward the market-clearing price.
 
-## Further reading
+## How does the Uniswap protocol compare to a typical market?
 
-To see how token swaps work in practice, and to walk through the lifecycle of a swap, check out [Swaps](../../protocols/v2/concepts/swapping). Or, to see how liquidity pools work, see [Pools](../../protocols/v2/concepts/pools).
+To understand how the Uniswap protocol differs from a traditional exchange, it is helpful to first look at two subjects: how the Automated Market Maker design deviates from traditional central limit order book-based exchanges, and how permissionless systems depart from conventional permissioned systems.
 
-Ultimately, of course, the Uniswap protocol is just smart contract code running on Ethereum. To understand how they work, head over to [Uniswap V2 Architecture](../../protocols/v2/concepts/architecture).
+### Order Book VS AMM
+
+Most publicly accessible markets use a central limit [order book](https://www.investopedia.com/terms/o/order-book.asp) style of exchange, where buyers and sellers create orders organized by price level that are progressively filled as demand shifts. Anyone who has traded stocks through brokerage firms will be familiar with an order book system.
+
+The Uniswap protocol takes a different approach, using an Automated Market Maker (AMM), sometimes referred to as a Constant Function Market Maker, in place of an order book. Through its evolution, the protocol has enhanced this model: [v3](/docs/protocols/v3/overview) introduced concentrated liquidity for capital efficiency, and [v4](/docs/protocols/v4/overview)'s singleton pool architecture and hooks system enable unprecedented customization of pool behavior while maintaining the core AMM principles.
+
+At a very high level, an AMM replaces the buy and sell orders in an order book market with a liquidity pool of two assets, both valued relative to each other. As one asset is traded for the other, the relative prices of the two assets shift, and a new market rate for both is determined. In this dynamic, a buyer or seller trades directly with the pool, rather than with specific orders left by other parties. The advantages and disadvantages of Automated Market Makers versus their traditional order book counterparts are under active research by a growing number of parties. We have collected some notable examples on our [research page](/docs/get-started/research).
+
+### Permissionless Systems
+
+The second departure from traditional markets is the permissionless and immutable design of the Uniswap protocol. These design decisions were inspired by Ethereum's core tenets, and our commitment to the ideals of permissionless access and immutability as indispensable components of a future in which anyone in the world can access financial services without fear of discrimination or counter-party risk.
+
+Permissionless design means that the protocol's services are entirely open for public use, with no ability to selectively restrict who can or cannot use them. Anyone can swap, provide liquidity, or create new markets at will. This is a departure from traditional financial services, which typically restrict access based on geography, wealth status, and age.
+
+The protocol is also immutable, in other words not upgradeable. No party is able to pause the contracts, reverse trade execution, or otherwise change the behavior of the protocol in any way. It is worth noting that Uniswap Governance has the right (but no obligation) to divert a percentage of swap fees on any pool to a specified address. However, this capability is known to all participants in advance, and to prevent abuse, the percentage is constrained between 10% and 25%.
+
+## Where to go from here
+
+- To go deeper on the AMM model, see [concentrated liquidity](/docs/get-started/concepts/liquidity-providers/concentrated-liquidity) (v3) and [hooks](/docs/get-started/concepts/hooks) (v4) or visit our [research page](/docs/get-started/research). 
+- Ready to build? Start with [your first swap](/docs/get-started/quickstart), or visit the [API](/docs/api/overview) to integrate.

@@ -1,6 +1,7 @@
 ---
 id: lp-calculations
 title: LP Calculations
+description: Find liquidity provider calculation tools for position math fee estimation and liquidity modeling.
 ---
 
 This page will be periodically updated with helpful resources for calculations and software design as they are made available.
