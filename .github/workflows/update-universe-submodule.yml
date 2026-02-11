@@ -1,0 +1,247 @@
+name: Update universe submodule reference
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - '**/*.md'
+      - '**/*.mdx'
+      - '**/*.json'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.jpeg'
+      - '**/*.svg'
+      - '**/*.gif'
+      - '**/*.webp'
+      - '**/*.yaml'
+      - '**/*.yml'
+      # Exclude infra/tooling — GitHub does not allow both paths and paths-ignore,
+      # so we negate patterns instead
+      - '!.github/**'
+      - '!README.md'
+      - '!LICENSE*'
+      - '!CONTRIBUTING.md'
+      - '!scripts/**'
+      - '!**/*.sh'
+      - '!**/*.js'
+      - '!**/*.ts'
+  workflow_dispatch:
+
+concurrency:
+  group: docs-submodule-update
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  update-submodule:
+    name: Update docs-content submodule in universe
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 0. Generate short-lived token from GitHub App ──
+      - name: Generate GitHub App token
+        id: app_token
+        uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69 # v1.11.0
+        with:
+          app-id: ${{ secrets.DOCS_SYNC_APP_ID }}
+          private-key: ${{ secrets.DOCS_SYNC_APP_PRIVATE_KEY }}
+          owner: Uniswap
+          repositories: universe
+
+      # ── 1. Checkout docs-content (this repo) for commit history ──
+      - name: Checkout docs-content
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
+        with:
+          fetch-depth: 0
+          path: docs-content
+
+      # ── 2. Shallow clone universe (just need the tree, not history) ──
+      - name: Checkout universe monorepo (shallow)
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
+        with:
+          repository: Uniswap/universe
+          token: ${{ steps.app_token.outputs.token }}
+          fetch-depth: 1
+          path: universe
+
+      # ── 3. Read what SHA universe currently points the submodule at ──
+      - name: Get current submodule ref
+        id: current_ref
+        working-directory: universe
+        run: |
+          # Read the submodule pointer from the git tree (no submodule clone needed)
+          CURRENT_REF=$(git ls-tree HEAD apps/dev-portal/content/docs | awk '{print $3}')
+          echo "sha=$CURRENT_REF" >> "$GITHUB_OUTPUT"
+          echo "Current submodule ref: $CURRENT_REF"
+
+      # ── 4. Compare with latest docs-content main ──
+      - name: Check for changes
+        id: update
+        working-directory: docs-content
+        run: |
+          LATEST_REF=$(git rev-parse HEAD)
+          echo "new_sha=$LATEST_REF" >> "$GITHUB_OUTPUT"
+
+          if [ "$LATEST_REF" = "${{ steps.current_ref.outputs.sha }}" ]; then
+            echo "Submodule already up to date at $LATEST_REF"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Will update from ${{ steps.current_ref.outputs.sha }} to $LATEST_REF"
+          fi
+
+      # ── 5. Build commit table from docs-content history ──
+      - name: Collect commit details
+        if: steps.update.outputs.changed == 'true'
+        id: commits
+        working-directory: docs-content
+        run: |
+          OLD_REF="${{ steps.current_ref.outputs.sha }}"
+          NEW_REF="${{ steps.update.outputs.new_sha }}"
+
+          # Check if old ref is an ancestor of new ref (normal fast-forward case)
+          if git merge-base --is-ancestor "$OLD_REF" "$NEW_REF" 2>/dev/null; then
+            RANGE="${OLD_REF}..${NEW_REF}"
+          else
+            # First run or history rewrite — just show recent commits
+            RANGE="$(git rev-list --max-count=20 "$NEW_REF" | tail -1)..${NEW_REF}"
+          fi
+
+          # Build markdown table rows
+          TABLE_ROWS=""
+          COMMIT_COUNT=0
+
+          while IFS= read -r line; do
+            SHA=$(echo "$line" | cut -d'§' -f1)
+            AUTHOR=$(echo "$line" | cut -d'§' -f2)
+            MESSAGE=$(echo "$line" | cut -d'§' -f3-)
+            SHORT_SHA=$(echo "$SHA" | cut -c1-7)
+            # Escape pipe characters in message to avoid breaking the markdown table
+            MESSAGE=$(echo "$MESSAGE" | sed 's/|/\\|/g')
+            TABLE_ROWS="${TABLE_ROWS}| [\`${SHORT_SHA}\`](https://github.com/Uniswap/docs-content/commit/${SHA}) | ${AUTHOR} | ${MESSAGE} |
+          "
+            COMMIT_COUNT=$((COMMIT_COUNT + 1))
+          done < <(git log --format='%H§%an§%s' "$RANGE" --)
+
+          # Count changed files
+          FILE_COUNT=$(git diff --name-only "$OLD_REF" "$NEW_REF" -- 2>/dev/null | wc -l | tr -d ' ')
+
+          # Handle edge case where no commits found
+          if [ "$COMMIT_COUNT" -eq 0 ]; then
+            SHORT_NEW=$(echo "$NEW_REF" | cut -c1-7)
+            TABLE_ROWS="| [\`${SHORT_NEW}\`](https://github.com/Uniswap/docs-content/commit/${NEW_REF}) | — | Initial submodule update |
+          "
+            COMMIT_COUNT=1
+            FILE_COUNT=0
+          fi
+
+          # Write to file to avoid shell escaping issues
+          echo "$TABLE_ROWS" > /tmp/table_rows.txt
+          echo "commit_count=$COMMIT_COUNT" >> "$GITHUB_OUTPUT"
+          echo "file_count=$FILE_COUNT" >> "$GITHUB_OUTPUT"
+
+      # ── 6. Build the PR body ──
+      - name: Build PR body
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          TABLE_ROWS=$(cat /tmp/table_rows.txt)
+          TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+          WORKFLOW_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          WORKFLOW_FILE_URL="${{ github.server_url }}/${{ github.repository }}/blob/main/.github/workflows/update-universe-submodule.yml"
+
+          {
+            echo "## Docs Content Update"
+            echo ""
+            echo "Automated update of the \`docs-content\` submodule reference."
+            echo ""
+            echo "### Commits included"
+            echo ""
+            echo "| Commit | Author | Message |"
+            echo "|--------|--------|---------|"
+            printf '%s' "$TABLE_ROWS"
+            echo ""
+            echo "### Summary"
+            echo "- ${{ steps.commits.outputs.file_count }} files changed across ${{ steps.commits.outputs.commit_count }} commits"
+            echo "- Submodule: \`${{ steps.current_ref.outputs.sha }}\` → \`${{ steps.update.outputs.new_sha }}\`"
+            echo "- Last updated: ${TIMESTAMP}"
+            echo ""
+            echo "---"
+            echo "> This PR is automatically maintained by the [docs-content sync workflow](${WORKFLOW_FILE_URL})."
+            echo "> It accumulates docs changes and can be merged when ready."
+            echo "> [Latest workflow run](${WORKFLOW_URL})"
+          } > /tmp/pr_body.md
+
+      # ── 7. Update submodule pointer in universe and push ──
+      - name: Configure git
+        if: steps.update.outputs.changed == 'true'
+        working-directory: universe
+        run: |
+          git config user.name "UL Service Account"
+          git config user.email "hello-happy-puppy@users.noreply.github.com"
+
+      - name: Update submodule pointer and commit
+        if: steps.update.outputs.changed == 'true'
+        working-directory: universe
+        run: |
+          BRANCH="chore/update-docs-content"
+          NEW_REF="${{ steps.update.outputs.new_sha }}"
+
+          # Create branch from HEAD (shallow main)
+          git checkout -B "$BRANCH"
+
+          # Update the submodule pointer without cloning the submodule
+          git update-index --cacheinfo 160000,"$NEW_REF",apps/dev-portal/content/docs
+
+          # Check if there's actually something to commit
+          if git diff --cached --quiet; then
+            echo "No changes to commit — submodule already at target ref"
+            echo "skip_push=true" >> "$GITHUB_ENV"
+          else
+            git commit -m "chore: update docs-content submodule" \
+              -m "Updates apps/dev-portal/content/docs to ${NEW_REF}"
+            echo "skip_push=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Push branch
+        if: steps.update.outputs.changed == 'true' && env.skip_push != 'true'
+        working-directory: universe
+        run: |
+          git push --force origin "chore/update-docs-content"
+
+      # ── 8. Create or update PR ──
+      - name: Create or update PR
+        if: steps.update.outputs.changed == 'true' && env.skip_push != 'true'
+        working-directory: universe
+        env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+        run: |
+          BRANCH="chore/update-docs-content"
+          PR_BODY=$(cat /tmp/pr_body.md)
+
+          # Check for existing open PR from this branch
+          EXISTING_PR=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+
+          # Ensure labels exist (gh label create is idempotent — no error if already exists)
+          gh label create "automated" --description "Automated PR" --color "0E8A16" 2>/dev/null || true
+          gh label create "docs" --description "Documentation changes" --color "0075CA" 2>/dev/null || true
+          gh label create "submodule-update" --description "Submodule reference update" --color "D4C5F9" 2>/dev/null || true
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "Updating existing PR #${EXISTING_PR}"
+            gh pr edit "$EXISTING_PR" \
+              --body "$PR_BODY"
+          else
+            echo "Creating new PR"
+            gh pr create \
+              --base main \
+              --head "$BRANCH" \
+              --title "chore: update docs-content submodule" \
+              --body "$PR_BODY" \
+              --label "automated" \
+              --label "docs" \
+              --label "submodule-update"
+          fi
