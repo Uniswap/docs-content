@@ -42,16 +42,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ── 0. Generate short-lived token from GitHub App ──
-      - name: Generate GitHub App token
-        id: app_token
-        uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69 # v1.11.0
-        with:
-          app-id: ${{ secrets.DOCS_SYNC_APP_ID }}
-          private-key: ${{ secrets.DOCS_SYNC_APP_PRIVATE_KEY }}
-          owner: Uniswap
-          repositories: universe
-
       # ── 1. Checkout docs-content (this repo) for commit history ──
       - name: Checkout docs-content
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
@@ -64,7 +54,7 @@ jobs:
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
         with:
           repository: Uniswap/universe
-          token: ${{ steps.app_token.outputs.token }}
+          token: ${{ secrets.DOCS_SYNC_TOKEN }}
           fetch-depth: 1
           path: universe
 
@@ -217,7 +207,7 @@ jobs:
         if: steps.update.outputs.changed == 'true' && env.skip_push != 'true'
         working-directory: universe
         env:
-          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+          GH_TOKEN: ${{ secrets.DOCS_SYNC_TOKEN }}
         run: |
           BRANCH="chore/update-docs-content"
           PR_BODY=$(cat /tmp/pr_body.md)
