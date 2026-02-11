@@ -1,0 +1,271 @@
+---
+title: "Quick Start: Your First Swap"
+description: Execute a token swap in under 5 minutes. Choose your preferred implementation below.
+---
+
+<ImplementationTabs>
+
+<ImplementationTab value="api">
+
+<Callout type="info" title="Why REST API?">
+The REST API is the fastest way to integrate Uniswap. It handles routing, calldata generation, and can provide gasless swaps via UniswapX — all through simple HTTP calls from any language.
+</Callout>
+
+### Step 1: Get Your API Key
+
+Sign up at [developers.uniswap.org/dashboard](https://developers.uniswap.org/dashboard) to get your free API key.
+
+<Callout type="info">
+API keys are free for development. Production usage may require additional setup.
+</Callout>
+
+### Step 2: Check Token Approval
+
+Before swapping, verify the user has approved Permit2 to spend their tokens:
+
+```bash
+curl -X POST https://trade-api.gateway.uniswap.org/v1/check_approval \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "walletAddress": "0xYourWalletAddress",
+    "token": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "amount": "1000000000",
+    "chainId": 1
+  }'
+```
+
+If approval is needed, the response includes a transaction for the user to sign.
+
+### Step 3: Request a Quote
+
+Get the best price for your swap across all available liquidity sources:
+
+```bash
+curl -X POST https://trade-api.gateway.uniswap.org/v1/quote \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "EXACT_INPUT",
+    "tokenIn": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "tokenOut": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "tokenInChainId": 1,
+    "tokenOutChainId": 1,
+    "amount": "1000000000",
+    "swapper": "0xYourWalletAddress",
+    "slippageTolerance": 0.5
+  }'
+```
+
+The response includes the best route, expected output, and routing type (CLASSIC or DUTCH_V2/V3).
+
+### Step 4: Execute the Swap
+
+Based on the `routing` field in the quote response:
+
+- **CLASSIC**: Call `/swap` to get transaction calldata
+- **DUTCH_V2 or DUTCH_V3**: Call `/order` for gasless execution via UniswapX
+
+```bash
+# For CLASSIC routing
+curl -X POST https://trade-api.gateway.uniswap.org/v1/swap \
+  -H "x-api-key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "quote": { /* quote object from previous response */ },
+    "signature": "0xYourPermit2Signature..."
+  }'
+```
+
+The response contains ready-to-broadcast transaction calldata. Your user signs it with their wallet, and the swap executes on-chain.
+
+</ImplementationTab>
+
+<ImplementationTab value="sdk">
+
+<Callout type="info" title="SDK vs REST API">
+The SDK provides type-safe interfaces and direct wallet integration, but requires more setup. For most use cases, the REST API is simpler and provides better routing through UniswapX.
+</Callout>
+
+### Step 1: Install the SDK
+
+Install the Uniswap SDK packages:
+
+```bash
+npm install @uniswap/sdk-core @uniswap/v3-sdk @uniswap/smart-order-router ethers
+```
+
+### Step 2: Set Up Your Provider
+
+Initialize your Ethereum provider and router:
+
+```typescript
+import { ethers } from 'ethers'
+import { AlphaRouter, SwapType } from '@uniswap/smart-order-router'
+import { Token, CurrencyAmount, TradeType, Percent } from '@uniswap/sdk-core'
+
+// Connect to a provider
+const provider = new ethers.providers.JsonRpcProvider(
+  'https://mainnet.infura.io/v3/YOUR_INFURA_KEY'
+)
+
+// Initialize the router
+const router = new AlphaRouter({
+  chainId: 1,
+  provider,
+})
+```
+
+### Step 3: Define Your Tokens
+
+Create token instances for the swap:
+
+```typescript
+const USDC = new Token(
+  1,                                              // chainId
+  '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',  // address
+  6,                                              // decimals
+  'USDC',                                         // symbol
+  'USD Coin'                                      // name
+)
+
+const WETH = new Token(
+  1,
+  '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+  18,
+  'WETH',
+  'Wrapped Ether'
+)
+
+const inputAmount = CurrencyAmount.fromRawAmount(USDC, '1000000000') // 1000 USDC
+```
+
+### Step 4: Get a Route and Execute
+
+Use the router to find the best path and execute:
+
+```typescript
+const route = await router.route(
+  inputAmount,
+  WETH,
+  TradeType.EXACT_INPUT,
+  {
+    recipient: '0xYourWalletAddress',
+    slippageTolerance: new Percent(50, 10_000), // 0.5%
+    deadline: Math.floor(Date.now() / 1000) + 1800, // 30 min
+    type: SwapType.SWAP_ROUTER_02,
+  }
+)
+
+if (route) {
+  console.log(`Quote: ${route.quote.toFixed(6)} WETH`)
+  console.log(`Gas estimate: ${route.estimatedGasUsed.toString()}`)
+
+  // Execute with your signer
+  const tx = await signer.sendTransaction({
+    to: route.methodParameters?.to,
+    data: route.methodParameters?.calldata,
+    value: route.methodParameters?.value,
+  })
+
+  await tx.wait()
+}
+```
+
+</ImplementationTab>
+
+<ImplementationTab value="solidity">
+
+<Callout type="info" title="When to Use Solidity">
+Use Solidity integration when you need on-chain composability, flash swaps, or are building a protocol that must execute swaps atomically within a transaction.
+</Callout>
+
+### Step 1: Import the Interfaces
+
+Add the Uniswap interfaces to your project:
+
+```bash
+forge install Uniswap/v4-core Uniswap/v4-periphery
+```
+
+### Step 2: Set Up Your Contract
+
+Create a contract that interacts with the Universal Router:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import {IUniversalRouter} from "@uniswap/universal-router/contracts/interfaces/IUniversalRouter.sol";
+import {Commands} from "@uniswap/universal-router/contracts/libraries/Commands.sol";
+
+contract SwapExample {
+    IUniversalRouter public immutable router;
+
+    constructor(address _router) {
+        router = IUniversalRouter(_router);
+    }
+}
+```
+
+### Step 3: Build the Swap Command
+
+Encode the swap parameters for the Universal Router:
+
+```solidity
+function swapExactInputSingle(
+    address tokenIn,
+    address tokenOut,
+    uint24 fee,
+    uint256 amountIn,
+    uint256 amountOutMin
+) external {
+    // Approve tokens first (or use Permit2)
+    IERC20(tokenIn).approve(address(router), amountIn);
+
+    // Build command
+    bytes memory commands = abi.encodePacked(
+        uint8(Commands.V3_SWAP_EXACT_IN)
+    );
+
+    // Build inputs for the command
+    bytes[] memory inputs = new bytes[](1);
+    inputs[0] = abi.encode(
+        address(this),  // recipient
+        amountIn,
+        amountOutMin,
+        abi.encodePacked(tokenIn, fee, tokenOut), // path
+        true            // payerIsUser
+    );
+
+    // Execute
+    router.execute(commands, inputs, block.timestamp + 300);
+}
+```
+
+### Step 4: Deploy and Test
+
+Deploy to a testnet and verify:
+
+```bash
+# Deploy to Sepolia
+forge create src/SwapExample.sol:SwapExample \
+  --rpc-url $SEPOLIA_RPC \
+  --private-key $PRIVATE_KEY \
+  --constructor-args 0x3a9d48ab9751398bbfa63ad67599bb04e4bdf98b
+```
+
+<Callout type="warn" title="Gas Costs">
+On-chain swaps require you to pay gas. Consider using the REST API with UniswapX for gasless execution when possible.
+</Callout>
+
+</ImplementationTab>
+
+</ImplementationTabs>
+
+## Next Steps
+
+<Cards>
+  <Card title="Swap Workflow" href="/docs/api/guides/swapping/getting-started" description="Deep dive into each step of the swap process" />
+  <Card title="SDK Guides" href="/docs/sdks/v3/guides/swapping/quoting" description="Detailed SDK integration guides for quoting and routing" />
+</Cards>
