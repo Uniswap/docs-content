@@ -1,5 +1,6 @@
 {
   "title": "Getting Started",
   "root": true,
-  "pages": ["index", "glossary", "concepts", "research"]
+  "pages": ["index", "quickstart", "glossary", "concepts", "research"],
+  "defaultOpen": false
 }
