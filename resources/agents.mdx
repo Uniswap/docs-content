@@ -37,9 +37,13 @@ This works with any AI coding agent that supports skill files — not just Claud
 
 ### Install as a Claude Code plugin
 
-If you use [Claude Code](https://claude.ai/code), you can install the toolkit directly from the marketplace:
+If you use [Claude Code](https://claude.ai/code), first add the Uniswap marketplace, then install individual plugins:
 
 ```bash
+# Add the Uniswap marketplace
+/plugin marketplace add uniswap/uniswap-ai
+
+# Install individual plugins
 claude plugin add uniswap-hooks     # v4 hook development
 claude plugin add uniswap-trading   # Swap integration
 claude plugin add uniswap-viem      # EVM / viem / wagmi
