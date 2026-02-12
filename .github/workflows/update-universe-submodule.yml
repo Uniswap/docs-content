@@ -49,6 +49,8 @@ jobs:
           fetch-depth: 0
           path: docs-content
 
+          persist-credentials: false
+
       # ── 2. Shallow clone universe (just need the tree, not history) ──
       - name: Checkout universe monorepo (shallow)
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
@@ -57,6 +59,8 @@ jobs:
           token: ${{ secrets.DOCS_SYNC_TOKEN }}
           fetch-depth: 1
           path: universe
+
+          persist-credentials: false
 
       # ── 3. Read what SHA universe currently points the submodule at ──
       - name: Get current submodule ref
@@ -76,13 +80,16 @@ jobs:
           LATEST_REF=$(git rev-parse HEAD)
           echo "new_sha=$LATEST_REF" >> "$GITHUB_OUTPUT"
 
-          if [ "$LATEST_REF" = "${{ steps.current_ref.outputs.sha }}" ]; then
+          if [ "$LATEST_REF" = "${STEPS_CURRENT_REF_OUTPUTS_SHA}" ]; then
             echo "Submodule already up to date at $LATEST_REF"
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "Will update from ${{ steps.current_ref.outputs.sha }} to $LATEST_REF"
+            echo "Will update from ${STEPS_CURRENT_REF_OUTPUTS_SHA} to $LATEST_REF"
           fi
+
+        env:
+          STEPS_CURRENT_REF_OUTPUTS_SHA: ${{ steps.current_ref.outputs.sha }}
 
       # ── 5. Build commit table from docs-content history ──
       - name: Collect commit details
@@ -90,8 +97,8 @@ jobs:
         id: commits
         working-directory: docs-content
         run: |
-          OLD_REF="${{ steps.current_ref.outputs.sha }}"
-          NEW_REF="${{ steps.update.outputs.new_sha }}"
+          OLD_REF="${STEPS_CURRENT_REF_OUTPUTS_SHA}"
+          NEW_REF="${STEPS_UPDATE_OUTPUTS_NEW_SHA}"
 
           # Check if old ref is an ancestor of new ref (normal fast-forward case)
           if git merge-base --is-ancestor "$OLD_REF" "$NEW_REF" 2>/dev/null; then
@@ -134,6 +141,11 @@ jobs:
           echo "commit_count=$COMMIT_COUNT" >> "$GITHUB_OUTPUT"
           echo "file_count=$FILE_COUNT" >> "$GITHUB_OUTPUT"
 
+        env:
+          STEPS_CURRENT_REF_OUTPUTS_SHA: ${{ steps.current_ref.outputs.sha }}
+
+          STEPS_UPDATE_OUTPUTS_NEW_SHA: ${{ steps.update.outputs.new_sha }}
+
       # ── 6. Build the PR body ──
       - name: Build PR body
         if: steps.update.outputs.changed == 'true'
@@ -155,8 +167,8 @@ jobs:
             printf '%s' "$TABLE_ROWS"
             echo ""
             echo "### Summary"
-            echo "- ${{ steps.commits.outputs.file_count }} files changed across ${{ steps.commits.outputs.commit_count }} commits"
-            echo "- Submodule: \`${{ steps.current_ref.outputs.sha }}\` → \`${{ steps.update.outputs.new_sha }}\`"
+            echo "- ${STEPS_COMMITS_OUTPUTS_FILE_COUNT} files changed across ${STEPS_COMMITS_OUTPUTS_COMMIT_COUNT} commits"
+            echo "- Submodule: \`${STEPS_CURRENT_REF_OUTPUTS_SHA}\` → \`${STEPS_UPDATE_OUTPUTS_NEW_SHA}\`"
             echo "- Last updated: ${TIMESTAMP}"
             echo ""
             echo "---"
@@ -164,6 +176,15 @@ jobs:
             echo "> It accumulates docs changes and can be merged when ready."
             echo "> [Latest workflow run](${WORKFLOW_URL})"
           } > /tmp/pr_body.md
+
+        env:
+          STEPS_COMMITS_OUTPUTS_FILE_COUNT: ${{ steps.commits.outputs.file_count }}
+
+          STEPS_COMMITS_OUTPUTS_COMMIT_COUNT: ${{ steps.commits.outputs.commit_count }}
+
+          STEPS_CURRENT_REF_OUTPUTS_SHA: ${{ steps.current_ref.outputs.sha }}
+
+          STEPS_UPDATE_OUTPUTS_NEW_SHA: ${{ steps.update.outputs.new_sha }}
 
       # ── 7. Update submodule pointer in universe and push ──
       - name: Configure git
@@ -178,7 +199,7 @@ jobs:
         working-directory: universe
         run: |
           BRANCH="chore/update-docs-content"
-          NEW_REF="${{ steps.update.outputs.new_sha }}"
+          NEW_REF="${STEPS_UPDATE_OUTPUTS_NEW_SHA}"
 
           # Create branch from HEAD (shallow main)
           git checkout -B "$BRANCH"
@@ -195,6 +216,8 @@ jobs:
               -m "Updates apps/dev-portal/content/docs to ${NEW_REF}"
             echo "skip_push=false" >> "$GITHUB_ENV"
           fi
+        env:
+          STEPS_UPDATE_OUTPUTS_NEW_SHA: ${{ steps.update.outputs.new_sha }}
 
       - name: Push branch
         if: steps.update.outputs.changed == 'true' && env.skip_push != 'true'
