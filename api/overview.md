@@ -1,6 +1,6 @@
 ---
 id: Introduction
-title: "Getting Started with Uniswap APIs"
+title: "Getting Started"
 ---
 
 ## What Are Uniswap APIs?
@@ -21,7 +21,7 @@ The APIs are designed for institutional and professional customers to directly i
 
 ## How Do I Get Started?
 
-To use the Uniswap APIs requires an API key. To get an API key, please visit https://hub.uniswap.org/ and fill out the intake form. While your intake form is processed, familiarize yourself with the workflows for token trading and liquidity staking in the following pages. All documentation for these flows, including code samples, can be found on this site.
+To use the Uniswap APIs requires an API key. To get an API key, please visit the [Developer Dashboard](https://developers.uniswap.org/dashboard) and fill out the intake form. While your intake form is processed, familiarize yourself with the workflows for token trading and liquidity staking in the following pages. All documentation for these flows, including code samples, can be found on this site.
 
 If you are a market maker interested in filling UniswapX orders, visit our [UniswapX quoter API documentation](/docs/liquidity/uniswapx-filling/become-a-quoter) for more information.
 
