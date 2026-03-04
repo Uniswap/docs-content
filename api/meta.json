@@ -1,5 +1,7 @@
 {
   "title": "API",
+  "icon": "cloud",
   "root": true,
+  "collapsible": false,
   "pages": ["overview", "concepts", "guides", "endpoints"]
 }
