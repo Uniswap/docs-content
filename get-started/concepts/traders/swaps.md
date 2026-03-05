@@ -1,28 +1,40 @@
 ---
 id: swaps
 title: Swaps
-description:  Learn how swaps work on Uniswap including price impact liquidity pools and trade execution.
+description: Learn how swaps work on Uniswap, including price impact, liquidity pools, and trade execution.
 ---
 
-## Introduction
+## How Swaps Work
 
-Swaps are the most common way of interacting with the Uniswap protocol. For end-users, swapping is straightforward: a user selects an ERC-20 token that they own and a token they would like to trade it for. Executing a swap sells the currently owned tokens for the proportional[^1] amount of the tokens desired, minus the swap fee, which is awarded to liquidity providers[^2]. Swapping with the Uniswap protocol is a permissionless process.
+Swaps are the most common way of interacting with the Uniswap protocol. For end-users, swapping is straightforward: a user selects an ERC-20 token that they own and a token they would like to trade it for. Executing a swap sells the currently owned tokens for a proportional amount of the desired token, minus the swap fee, which is awarded to liquidity providers. Swapping with the Uniswap protocol is a permissionless process.
 
-> note: Using web interfaces (websites) to swap via the Uniswap protocol can introduce additional permission structures, and may result in different execution behavior compared to using the Uniswap protocol directly. To learn more about the differences between the protocol and a web interface, see What is Uniswap.
+<Callout type="note">
+Using web interfaces to swap through the Uniswap protocol can introduce additional permission structures and may result in different execution behavior compared to direct protocol interactions.
+</Callout>
 
-Swaps using the Uniswap protocol are different from traditional order book trades in that they are not executed against discrete orders on a first-in-first-out basis — rather, swaps execute against a passive pool of liquidity, with liquidity providers earning fees proportional to their capital committed
+Swaps using the Uniswap protocol differ from traditional order book trades. They are not executed against discrete orders on a first-in-first-out basis. Instead, swaps execute against a passive pool of liquidity, with liquidity providers earning fees proportional to capital committed.
+
+## Protocol-Level Execution
+
+At the smart contract level, swaps include safety and accounting checks that differ by version:
+
+- **Uniswap v2**: pair contracts enforce input/output constraints and the constant product invariant after fees. If these checks fail, the swap reverts.
+- **Uniswap v3**: swaps move through ticks and enforce a price limit (`sqrtPriceLimitX96`). The pool collects payment through `uniswapV3SwapCallback`.
+- **Uniswap v4**: swaps execute through `PoolManager` with `unlock` and final balance settlement, and hooks can run custom logic before and after swaps.
+
+Integrations usually add user-level guards on top of these protocol checks, such as minimum output, maximum input, and transaction deadlines.
 
 ## Price Impact
 
 In a traditional order-book market, a sizeable market-buy order may deplete the available liquidity of a prior limit-sell and continue to execute against a subsequent limit-sell order at a higher price. The result is the final execution price of the order is somewhere in between the two limit-sell prices against which the order was filled.
 
-Price impact affects the execution price of a swap similarly but is a result of a different dynamic. When using an automated market maker, the relative value of one asset in terms of the other continuously shifts during the execution of a swap, leaving the final execution price somewhere between where the relative price started - and ended.
+Price impact affects swap execution similarly, but through a different mechanism. In an automated market maker, the relative value of one asset in terms of the other continuously shifts during swap execution, leaving the final execution price somewhere between where the relative price started and ended.
 
 This dynamic affects every swap using the Uniswap protocol, as it is an inextricable part of AMM design.
 
 As the amount of liquidity available at different price points can vary, the price impact for a given swap size will change relative to the amount of liquidity available at any given point in price space. The greater the liquidity available at a given price, the lower the price impact for a given swap size. The lesser the liquidity available, the higher the price impact.
 
-Approximate[^3] price impact is anticipated in real-time via the Uniswap interface, and warnings appear if unusually high price impact will occur during a swap. Anyone executing a swap will have the ability to assess the circumstances of price impact when needed.
+Approximate price impact is anticipated in real-time via the Uniswap interface, and warnings appear if unusually high price impact will occur during a swap. Anyone executing a swap can assess price impact before confirming execution.
 
 ## Slippage
 
@@ -36,16 +48,12 @@ A comparable situation in a traditional market would be a market-buy order execu
 
 ## Safety Checks
 
-Price impact and slippage can both change while a transaction is pending, which is why we have built numerous safety checks into the Uniswap protocol to protect end-users from drastic changes in the execution environment of their swap. Some of the most commonly encountered safety checks:
+Price impact and slippage can both change while a transaction is pending, so the Uniswap protocol and Uniswap interface include safety checks to protect users from drastic execution changes. Common examples include:
 
 - **Expired** : A transaction error that occurs if a swap is pending longer than a predetermined deadline. The deadline is a point in time after which the swap will be canceled to protect against unusually long pending periods and the changes in price that typically accompany the passage of time.
 
 - **INSUFFICIENT_OUTPUT_AMOUNT** : When a user submits a swap, the Uniswap interface will send an estimate of how much of the purchased token the user should expect to receive. If the anticipated output amount of a swap does not match the estimate within a certain margin of error (the slippage tolerance), the swap will be canceled. This attempts to protect the user from any drastic and unfavorable price changes while their transaction is pending.
 
-## Where to go from here
+## Where to Go Next
 
-Ready to integrate swaps into your application? See the [Trading guides](/docs/trading/overview) for quickstarts covering v2, v3, and v4 swap patterns.
-
-[^1]: Proportional in this instance takes into account many factors, including the relative price of one token in terms of the other, slippage, price impact, and other factors related to the open and adversarial nature of Ethereum.
-[^2]: For information about liquidity provision, see the liquidity user guide
-[^3]: The Uniswap interface informs the user about the circumstances of their swap, but it is not guaranteed.
+Ready to integrate swaps into your application? See the [trading guides](/docs/trading/overview) for quickstarts covering v2, v3, and v4 swap patterns, and the [liquidity section](/docs/liquidity/overview) for LP concepts.
