@@ -1,7 +1,6 @@
 {
   "title": "Liquidity",
   "icon": "pools",
-  "root": true,
   "collapsible": false,
   "pages": ["overview", "...quickstart", "uniswapx-filling"]
 }

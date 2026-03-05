@@ -1,7 +1,6 @@
 {
   "title": "Unichain",
   "icon": "unichain",
-  "root": true,
   "collapsible": false,
   "pages": ["index", "getting-started", "building-on-unichain", "technical-information", "tools"]
 }

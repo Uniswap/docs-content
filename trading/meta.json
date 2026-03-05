@@ -1,7 +1,6 @@
 {
   "title": "Trade",
   "icon": "swap-coin",
-  "root": true,
   "collapsible": false,
   "pages": ["overview", "...quickstart"]
 }

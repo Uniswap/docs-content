@@ -1,7 +1,6 @@
 {
   "title": "Get Started",
   "icon": "rocket-launch",
-  "root": true,
   "collapsible": false,
   "pages": ["index", "quickstart", "concepts", "glossary", "research"],
   "defaultOpen": false

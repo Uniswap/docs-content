@@ -1,7 +1,6 @@
 {
   "title": "Ecosystem",
   "icon": "globe",
-  "root": true,
   "collapsible": false,
   "pages": ["agents", "builder-support", "governance", "subgraphs"]
 }

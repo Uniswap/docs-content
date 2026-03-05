@@ -1,7 +1,6 @@
 {
   "title": "Protocols",
   "icon": "code",
-  "root": true,
   "collapsible": false,
   "pages": [
     "overview",

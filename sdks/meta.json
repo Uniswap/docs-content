@@ -1,7 +1,6 @@
 {
   "title": "SDKs",
   "icon": "layers",
-  "root": true,
   "collapsible": false,
   "pages": ["overview", "v4", "v3", "v2"]
 }
