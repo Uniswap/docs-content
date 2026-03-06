@@ -1,0 +1,6 @@
+{
+  "title": "AI Toolkit",
+  "icon": "robot",
+  "collapsible": false,
+  "pages": ["overview", "skills", "evals", "contributions"]
+}
