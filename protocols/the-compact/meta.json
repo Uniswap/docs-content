@@ -1,5 +1,5 @@
 {
   "title": "The Compact",
-  "pages": ["overview", "concepts", "deployments", "security"],
+  "pages": ["overview", "concepts", "resources"],
   "defaultOpen": false
 }
