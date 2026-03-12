@@ -3,17 +3,14 @@ id: filleroverview
 title: Filler Overview
 ---
 
-UniswapX is a permissionless auction-based protocol where fillers compete to execute user swaps at the best prices. Anyone can participate as a filler by winning these auctions.
-
-This overview covers:
+UniswapX is a permissionless auction-based protocol where fillers compete to execute user swaps at the best prices. Anyone can participate as a filler by winning these auctions. This overview covers:
 - The difference between quoters (Ethereum) and fillers (all chains)
 - How to get started quoting or filling orders
 - Common questions and troubleshooting
 
-**Getting Started:**
-- Join our [Announcements Channel](https://t.me/uniswapx_fillers) on Telegram for updates
-- Join our [Fillers Group](https://t.me/UniswapXdiscussion) on Telegram for discussion
-- To quote on Ethereum, join the [waitlist](https://uniswap.typeform.com/to/UiPDKgY6) or [email](mailto:quoters@uniswap.org)
+## How it works
+
+When a user submits a swap through the Uniswap interface, UniswapX creates a signed order specifying the tokens, amounts, and a Dutch auction decay curve. Fillers monitor for these orders and compete to fill them, using their own liquidity sources (onchain pools, CEX inventory, private market makers, etc.).
 
 ## Quoters vs. Fillers
 
@@ -32,20 +29,29 @@ This design ensures optimal price discovery: Ethereum needs off-chain quoting to
 ### Become a Quoter
 In the current Uniswap Labs interface implementation of UniswapX, some fillers may choose to help parameterize orders on Ethereum by participating as quoters. These fillers can *only* win a quote if they guarantee improved swap execution over Uniswap v2, v3 or v4 liquidity pools. Fillers who win a quote will receive execution priority for a limited period to fill orders for which they submitted winning quotes.
 
-To ensure a smooth swapping experience for traders, the set of quoters are vetted by Uniswap Labs. To read about expectations for quoters, please see the Become a Quoter documentation. If you are interested in participating as a quoter, please reach out [here](mailto:quoters@uniswap.org) or join the [waitlist](https://uniswap.typeform.com/to/UiPDKgY6).
+To ensure a smooth swapping experience for traders, the set of quoters are vetted by Uniswap Labs. To read about expectations for quoters, please see the [Become a Quoter](/docs/liquidity/uniswapx-filling/mainnet/become-a-quoter) documentation. If you are interested in participating as a quoter, please reach out [here](mailto:quoters@uniswap.org) or join the [waitlist](https://uniswap.typeform.com/to/UiPDKgY6).
 
 ### Become a Filler 
 This documentation contains specific integration guides for each chain. Choose your chain to see specific integration details:
 
-- **Ethereum** - RFQ system with exclusive fill periods
-- **Arbitrum** - Direct Dutch auction with 0.25s blocks
-- **Unichain, Base** - Priority gas auctions
+- [**Ethereum**](/docs/liquidity/uniswapx-filling/mainnet/filling-on-mainnet) - RFQ system with exclusive fill periods
+- [**Arbitrum**](/docs/liquidity/uniswapx-filling/arbitrum/filling-on-arbitrum) - Direct Dutch auction with 0.25s blocks
+- [**Unichain, Base**](/docs/liquidity/uniswapx-filling/priority-chain/filling-on-op-stack) - Priority gas auctions
 
 <Callout title="Auction Types" type="note">
-To learn about the different auction mechanics, please see the [Auction Types Overview](../../protocols/uniswapx/concepts/auction-types) page.
+To learn about the different auction mechanics, please see the [Auction Types Overview](/docs/protocols/uniswapx/concepts/auction-types) page.
 </Callout>
 
-Fillers should start with polling for orders and rate limit at 6rps. If after polling, a filler's performance is degraded due to the polling rate limit, please see the [Webhook Support](../../liquidity/uniswapx-filling/webhooks) documentation to learn about registering webhooks for orders.
+## Getting started
+
+1. **Join the community** — the [Announcements Channel](https://t.me/uniswapx_fillers) on Telegram for updates, and the [Fillers Group](https://t.me/UniswapXdiscussion) for discussion.
+
+2. **Poll for orders** — start by polling the UniswapX orders API for open orders. Rate limit at 6 requests per second. If your performance degrades due to the polling rate limit, register a [webhook](/docs/liquidity/uniswapx-filling/webhooks) for order notifications.
+
+3. **Build your filler** — when you find a profitable order, submit a transaction to fill it onchain. The fill must execute the swap at the specified output amount (or better).
+
+4. **Quoting on Ethereum** (optional) — to participate in the RFQ system on Ethereum mainnet, join the [waitlist](https://uniswap.typeform.com/to/UiPDKgY6) or [email quoters@uniswap.org](mailto:quoters@uniswap.org). See [Become a Quoter](/docs/liquidity/uniswapx-filling/mainnet/become-a-quoter) for requirements.
+
 
 ## Filler FAQ
 
@@ -70,7 +76,7 @@ Fillers should start with polling for orders and rate limit at 6rps. If after po
 
     On Ethereum, we use RFQ to accurately parameterize the order which often results in exclusive orders. On L2s, we don’t use RFQ and instead parameterize the auction solely based on the AMM price. As a result, we will only notify fillers of orders that are ready to be executed via the orders API or your registered webhook endpoint. Fill out this [onboarding form](https://forms.gle/FtqVhSinod9fZDNH8) if you would like your endpoint to be notified via webhook, but it is recommended that fillers try polling first and only pursue a webhook as needed. 
     <br/>
-    For more information, please see our [Webhook Support Page](./webhooks).
+    For more information, please see our [Webhook Support Page](/docs/liquidity/uniswapx-filling/webhooks).
 
 </details>
 
@@ -143,7 +149,7 @@ Fillers should start with polling for orders and rate limit at 6rps. If after po
 <details>
   <summary>How is the OrderHash generated? Is it guaranteed to be unique?</summary>
     
-    OrderHashes are generated from the hash of the witness information from the order, and are thus guarenteed to be cryptographically unique. 
+    OrderHashes are generated from the hash of the witness information from the order, and are thus guaranteed to be cryptographically unique. 
 
 </details>
 
