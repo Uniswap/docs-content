@@ -1,5 +1,12 @@
 {
   "title": "Swapping",
-  "pages": ["getting-started", "swapping", "integration-guide", "common-errors"],
+  "pages": [
+    "getting-started",
+    "building-prerequisites",
+    "integration-guide",
+    "swapping-code-examples",
+    "common-errors",
+    "faqs"
+  ],
   "defaultOpen": false
 }
