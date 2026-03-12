@@ -1,32 +1,19 @@
 ---
 id: Introduction
-title: "Getting Started"
+title: "Getting Started with Uniswap APIs"
 ---
 
-## What Are Uniswap APIs?
-Uniswap Labs provides API endpoints which support easy integration of swapping and liquidity providing features to your application. These APIs abstract away many of the complexities of interacting with smart contracts and they allow you to leverage Uniswap's powerful routing logic and intent-based swapping systems.
+## What Are the Uniswap APIs?
+The Uniswap APIs are a suite of endpoints which make it easy to integrate swapping, lping, and more through a traditional RESTful integration. These APIs abstract away many of the complexities of interacting with smart contracts by exposing swap routing logic, intent-based swapping, and calldata generation. 
 
-The APIs have two main feature groups:
-
-1. **Swapping:** Swapping is the ability to swap one token for another token (e.g. trade), to bridge a token from one chain to another chain, and to wrap and unwrap tokens. The swapping endpoints include support for limit orders, batched actions ([EIP-5792](https://eips.ethereum.org/EIPS/eip-5792)), and smart wallets ([EIP-7702](https://eips.ethereum.org/EIPS/eip-7702)).
-2. **Liquidity Providing (LPing):** LPing includes the ability to create, modify, and remove liquidity positions from Uniswap protocol pools, to migrate positions between protocol versions, and to claim liquidity providing fees.
-
-## Why Integrate with Uniswap APIs?
-The APIs are designed for institutional and professional customers to directly integrate swapping and LPing into their existing systems. Direct integration can support a UI, for example to support LPing from a wallet, or it can support a program, for example an algorithmic trading bot. The benefits of integrating with the APIs include:
-- Access to public, private, and off-chain liquidity through the [UniswapX RFQ protocol](https://blog.uniswap.org/uniswapx-protocol), with high-accuracy mid-market pricing and built-in MEV protection.
-- Integrated routing which finds the most cost-efficient path to perform a swap
-- Request-specific generation of appropriate, validated approvals and transaction calldata.
-- Access to swap and provide liquidity on thousands of swapping pairs across 13 blockchains
-- Robust, scalable, and performant architecture (used to power Uniswap's UIs) which is trusted by millions of users and hundreds of professional market participants.
+The API has four main suites groups:
+* **Swapping:** Swapping is the ability to swap one token for another token, to bridge a token from one chain to another chain, and to wrap and unwrap tokens. The swapping endpoints externalize Uniswap's powerful routing service, helping to find the most efficient path to swap a token across Uniswap AMMs and UniswapX liquidity.
+* **Liquidity Providing (LPing):** LPing includes the ability to create, modify, and remove liquidity positions from Uniswap protocol pools, to migrate positions between protocol versions, and to claim liquidity providing fees.
+* **Reference Data:** These endpoints provide useful data so that you do not need to integrate additional data sources. These endpoints can provide pool information and provide lists of tokens and their metadata.
+* **Utility Endpoints:** These endpoints can generate validated calldata or perform contract information lookup for common use cases, such as sending tokens from one wallet to another wallet or checking if a wallet has an EIP-7702 delegation.
 
 ## How Do I Get Started?
-
-To use the Uniswap APIs requires an API key. To get an API key, please visit the [Developer Dashboard](https://developers.uniswap.org/dashboard) and fill out the intake form. While your intake form is processed, familiarize yourself with the workflows for token trading and liquidity staking in the following pages. All documentation for these flows, including code samples, can be found on this site.
+If you are ready to build, you can grab an API key from the [Uniswap Developer Portal](https://developers.uniswap.org/dashboard/). To get familiar with how to build a swapping app quickly, we recommend first reading the [Building Prerequisites](/docs/api/guides/swapping/building-prerequisites) and then starting to code with the [Integration Guide](/docs/api/guides/swapping/integration-guide).
 
 If you are a market maker interested in filling UniswapX orders, visit our [UniswapX quoter API documentation](/docs/liquidity/uniswapx-filling/become-a-quoter) for more information.
 
-## Common Terms
-Before you dive further into the documentation, there are a few terms used throughout these documents which are helpful to understand:
-- **Uniswap Protocols** refers to the pools of liquidity created through [protocol smart contracts](/docs/get-started/concepts/amms). These are sometimes referred to as **V2**, **V3**, and **V4** pools. (V1 is not supported by the APIs.) In rare instances these protocols collectively are called **Classic**.
-- **UniswapX** refers to the intent-based RFQ swap mechanism. UniswapX has two versions: **UniswapX_V2** and **UniswapX_V3**. UniswapX is alternately referred to as **DutchQuoteV2** and **DutchQuoteV3** (respectively) in the API documentation. Additionally, UniswapX_V2 can be referred to as a **PriorityQuote** (when a UniswapX_V2 request is made on Base or Unichain chains).
-- **Permit2** is a smart contract which simplifies sharing and managing token approvals. [All Uniswap workflows utilize Permit2](/api/concepts/permit2), with Uniswap Protocols taking advantage of the AllowanceTransfer properties of Permit2 and UniswapX taking advantage of the SignatureTransfer properties of Permit2. In short, users sign Permit2 messages which allow the Permit2 contract to spend tokens from the user's wallet. Permit2 messages can include permissions including limiting spending to one transaction, to a time window, and to a specific amount of tokens. [Click here to read a more detailed explanation of how Permit2 works](https://github.com/dragonfly-xyz/useful-solidity-patterns/tree/main/patterns/permit2).
