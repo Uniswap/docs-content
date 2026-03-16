@@ -10,7 +10,7 @@ You can use these docs to learn about the v3 Protocol Smart Contracts and develo
 
 ## Guides
 
-If you are new to the Uniswap Protocol, we recommend you start with the [basic concepts](/docs/get-started/concepts/amms) first.
+If you are new to the Uniswap Protocol, we recommend you start with the [basic concepts](/docs/get-started/concepts/how-uniswap-works) first.
 
 You can then setup your [local environment](./guides/getting-started) and execute your [first swap](./guides/swapping/single-hop-swapping).
 

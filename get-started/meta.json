@@ -1,6 +1,5 @@
 {
   "title": "Getting Started",
   "root": true,
-  "pages": ["index", "quickstart", "concepts", "glossary", "research"],
-  "defaultOpen": false
+  "pages": ["index", "your-first-swap", "concepts", "glossary"]
 }
