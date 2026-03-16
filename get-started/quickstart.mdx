@@ -1,6 +1,6 @@
 ---
 title: "Your First Swap"
-description: Execute your first token swap on Uniswap in under 5 minutes using the Uniswap API, SDK, or Solidity.
+description: Make your first token swap on Uniswap in under 5 minutes using the Uniswap API, SDK, or Solidity.
 ---
 
 ## Choose Your Implementation Path
@@ -41,7 +41,7 @@ If approval is needed, the response includes a transaction for the user to sign.
 
 ### Step 3: Request a Quote
 
-Get the best price for your swap across all available liquidity sources:
+Get the most competitive price for your swap across all available liquidity sources:
 
 ```bash
 curl -X POST https://trade-api.gateway.uniswap.org/v1/quote \
@@ -61,7 +61,7 @@ curl -X POST https://trade-api.gateway.uniswap.org/v1/quote \
 
 The response includes the best route, expected output, and routing type (CLASSIC or DUTCH_V2/V3).
 
-### Step 4: Execute the Swap
+### Step 4: Execute the Swap with Your Signer
 
 Based on the `routing` field in the quote response:
 
@@ -86,7 +86,7 @@ The response contains ready-to-broadcast transaction calldata. Your user signs i
 <ImplementationTab value="sdk">
 
 <Callout type="info" title="SDK vs Uniswap API">
-The SDK provides type-safe interfaces and direct wallet integration, but requires more setup. For most use cases, the Uniswap API is simpler and provides better routing through UniswapX.
+The SDK provides type-safe interfaces and direct wallet integration, but requires more setup. For most use cases, the Uniswap API is simpler and offers more efficient routing plus additional routing options through UniswapX.
 </Callout>
 
 ### Step 1: Install the SDK
@@ -142,7 +142,7 @@ const WETH = new Token(
 const inputAmount = CurrencyAmount.fromRawAmount(USDC, '1000000000') // 1000 USDC
 ```
 
-### Step 4: Get a Route and Execute
+### Step 4: Get a Route and Execute with Your Signer
 
 Use the router to find the best path and execute:
 

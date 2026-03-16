@@ -83,8 +83,6 @@ Authors: Joseph Clark
 ## Where to Go Next
 
 Research initiatives:
-
-Research Initiatives:
 - [TLDR (The Latest in DeFi Research):](https://www.thelatestindefi.org/) empowers engineers, academics, and students through research fellowships with grants and expert mentorship, culminating in an annual conference to showcase groundbreaking work.
 - [CBER CtCe (Crafting the Cryptoeconomy):](https://x.com/UniswapFND/status/1859719158763749514) developed to generate and promote practical yet rigorous research in cryptoeconomics by connecting researchers, economists and practitioners through workshops, grants and conferences.
 - [DEX Analytics Portal:](https://dexanalytics.org/) accurate, verified, and ergonomic DEX and Uniswap datasets to save researchers time.

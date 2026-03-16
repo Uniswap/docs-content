@@ -22,7 +22,7 @@ Uniswap v2 has a single fee: 0.30% on every pool.
 
 Uniswap v3 introduced **fee tiers**, allowing multiple pools for the same token pair, each with a different fee. The standard v3 tiers are 0.05%, 0.30%, and 1%. Additional fee tiers can be enabled by UNI [governance](https://vote.uniswapfoundation.org/proposals/9).
 
-Uniswap v4 removes fixed tiers entirely. Pool creators can set any fee from 0% to 100%, and pools can use [dynamic fees](/docs/protocols/v4/concepts/dynamic-fees) that adjust in real time through [hooks](/docs/protocols/v4/concepts/hooks).
+Uniswap v4 removes fixed tiers entirely. Pool creators can set any fee from 0% to 100% in 0.0001% increments (hundredths of a bip), and pools can use [dynamic fees](/docs/protocols/v4/concepts/dynamic-fees) that adjust in real time through [hooks](/docs/protocols/v4/concepts/hooks).
 
 ## In-Range Liquidity and Fee Accrual
 
@@ -34,7 +34,9 @@ This means LP fee income depends on two factors: how much liquidity you provide,
 
 Protocol fees are a portion of swap fees directed to the protocol rather than to LPs. They are distinct from the swap fee that accrues to liquidity providers.
 
-With the passage of the [UNIfication governance proposal](https://vote.uniswapfoundation.org/proposals/93) in December 2025, protocol fees are now active on all v2 pools and select v3 pools (At initial enablement, protocol fee activation focused on v2 and selected v3 pools. v4 fee adapter flows are part of the broader protocol-fees architecture and can be enabled through governance-driven expansion). Collected fees flow into a unified onchain system that programmatically burns UNI tokens.
+With the passage of the [UNIfication governance proposal](https://vote.uniswapfoundation.org/proposals/93) in December 2025, protocol fees are now active on all v2 pools and select v3 pools. v4 fee adapter flows are part of the broader protocol-fees architecture and can be enabled through governance. Collected fees accumulate in onchain collection contracts. Independent searchers can claim these assets by burning a required amount of UNI tokens, creating an economic incentive that converts protocol revenue into UNI burns.
+
+At launch, protocol fees are set to approximately 1/6 of the swap fee on enabled pools. These values are governance-configurable and may change over time.
 
 | Version | Fee tier | LP fee | Protocol fee |
 |---------|----------|--------|--------------|
@@ -44,7 +46,7 @@ With the passage of the [UNIfication governance proposal](https://vote.uniswapfo
 | v3      | 0.30%    | 0.25%  | 0.05%       |
 | v3      | 1.00%    | 0.8334% | 0.1666%   |
 
-For v2, fees are hardcoded and can only be enabled or disabled across all pools at once. A full list of v3 pools included in the initial rollout is available [here](https://github.com/Uniswap/protocol-fees/blob/main/merkle-generator/data/merkle-tree.json). 
+For v2, the protocol fee rate is fixed in the pair contracts at 1/6 of the swap fee (0.05% of the 0.30% total). Protocol fees are enabled or disabled globally by setting the `feeTo` address on the v2 factory through governance. A full list of v3 pools included in the initial rollout is available [here](https://github.com/Uniswap/protocol-fees/blob/main/merkle-generator/data/merkle-tree.json).
 
 For technical details on how protocol fees are collected and converted, see the [protocol fee contracts](https://github.com/Uniswap/protocol-fees). 
 

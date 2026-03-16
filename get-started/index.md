@@ -8,8 +8,9 @@ description: Learn Uniswap fundamentals and choose the right path for swaps, liq
 
 The Uniswap protocol is a peer-to-peer system for exchanging cryptocurrencies ([ERC-20 tokens](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)) on [Ethereum](https://ethereum.org/). It is implemented as persistent, non-upgradable smart contracts designed for censorship resistance, security, and self-custody without trusted intermediaries.
 
-There are currently four versions of the Uniswap protocol. v1 and v2 are open source and licensed under GPL. v3 introduced concentrated liquidity and is open source with slight modifications. v4 introduces singleton architecture and hooks for pool-level customization. Once deployed, each version will function in perpetuity, with 100% uptime, provided the continued 
-existence of the Ethereum blockchain.
+There are currently four versions of the Uniswap protocol. v1 and v2 are open source and licensed under GPL. v3 introduced concentrated liquidity and is open source with slight modifications. v4 introduces singleton architecture and hooks for pool-level customization. Once deployed, each version will function in perpetuity, with 100% uptime, provided the continued existence of the Ethereum blockchain.
+
+For a deeper look at the protocol's design, see [How Uniswap Works](/docs/get-started/concepts/amms).
 
 ## Protocol, Interface, Labs
 
@@ -24,14 +25,14 @@ These terms are often used interchangeably, but they refer to different parts of
 
 ## Choose Your Path
 
-### Execute your first swap
-Start with the [quickstart guide](/docs/get-started/quickstart) to execute your first swap.
+### Make your first swap
+Start with the [quickstart guide](/docs/get-started/quickstart) to make your first swap.
 
 ### Learn core concepts
 Use the [concepts section](/docs/get-started/concepts/amms) to understand AMMs, fees, hooks, and participant roles.
 
 ### Build trading integrations
-Use the [trading guides](/docs/trading/overview) and the [Uniswap API](/docs/api/overview) to implement swap execution flows.
+Use the [trading guides](/docs/trading/overview) and the [Uniswap API](/docs/api/overview) to implement swap flows.
 
 ### Build liquidity integrations
 Use the [liquidity section](/docs/liquidity/overview) to implement pool creation and position management workflows.
@@ -41,3 +42,5 @@ Start with the [Uniswap v4 protocol docs](/docs/protocols/v4/overview) to build 
 
 ### Explore ecosystem resources
 Use [Unichain docs](/docs/unichain/) and [builder resources](/docs/resources/agents) for deployment paths and support tooling.
+
+

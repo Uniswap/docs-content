@@ -22,29 +22,33 @@ These terms are used throughout the Uniswap docs:
 
 - A **pool** is a contract deployed by the v4 factory that pairs two ERC-20 assets. Different pools may have different fees despite containing the same token pair. Pools were previously called Pairs before the introduction of multiple fee options.
 
-- **liquidity** are digital assets that are stored in a Uniswap pool contract, and are able to be traded against by traders.
+- **Liquidity** are digital assets that are stored in a Uniswap pool contract, and are able to be traded against by traders.
 
-- **liquidity provider (LP)** is someone who deposits ERC20 tokens into a given liquidity pool. Liquidity providers take on price risk and are compensated with trading fees.
+- **Liquidity provider (LP)** is someone who deposits ERC20 tokens into a given liquidity pool. Liquidity providers take on price risk and are compensated with trading fees.
 
-- **concentrated liquidity** is liquidity allocated to a specific price range.
+- **Concentrated liquidity** is liquidity allocated to a specific price range.
 
 - A **position** is an instance of liquidity defined by lower and upper ticks and the liquidity amount assigned to that range.
 
-- **Swap** is the act of exchanging one token for another through a liquidity pool.
+- **swap** is the act of exchanging one token for another through a liquidity pool.
 
 - **swap fees** are fees collected during swaps and distributed to liquidity providers according to pool rules.
 
-- **protocol fees** are the fees that are rewarded to the protocol itself, rather than to liquidity providers.
+- **Protocol fees** are the fees that are rewarded to the protocol itself, rather than to liquidity providers.
 
-- **price impact** is the difference between the mid-price and the execution price **caused by your trade size relative to the pool’s liquidity**. This is an expected result of the constant product formula in AMMs.
+- **Price impact** is the difference between the mid-price and the execution price **caused by your trade size relative to the pool’s liquidity**. This is an expected result of the constant product formula in AMMs.
 
-- **slippage** is the total difference between the expected price at the time of submitting a transaction and the actual execution price, which may include price impact and other market movements that occur before the transaction is mined.
+- **Slippage** is the total difference between the expected price at the time of submitting a transaction and the actual execution price, which may include price impact and other market movements that occur before the transaction is mined.
 
-- **impermanent loss** is the opportunity cost experienced by liquidity providers when token prices change relative to simply holding the tokens.
+- **Impermanent loss** is the opportunity cost experienced by liquidity providers when token prices change relative to simply holding the tokens.
 
-- A **tick** is a boundary between discrete price points. A **tick interval** is the price space between two nearest active ticks.
+- **Tick** is a boundary between discrete price points.
 
-- A **range** is any interval between two ticks. A **range order** approximates a limit order by providing a single asset as liquidity across a specified range and converting exposure as spot price crosses that range.
+- **Tick interval** is the price space between the two nearest active ticks.
+
+- **Range** is any interval between two ticks.
+
+- **Range order** approximates a limit order by providing a single asset as liquidity across a specified range and converting exposure as spot price crosses that range.
 
 - **reserves** refers to liquidity balances in a pool context, especially in constant-product models.
 
@@ -56,7 +60,7 @@ These terms are used throughout the Uniswap docs:
 
 - [**Universal Router**](https://github.com/Uniswap/universal-router) is a routing contract that enables complex, multi-step token operations across different Uniswap systems in a single transaction.
 
-- **factory** is a smart contract that initializes pool instances for token pairs according to version-specific rules.
+- **Factory** is a smart contract that initializes pool instances for token pairs according to version-specific rules.
 
 
 ## Uniswap v4 Concepts
@@ -65,9 +69,9 @@ These terms are used throughout the Uniswap docs:
 
 - **PoolManager** is the central contract in v4 responsible for managing all pools within the singleton architecture.
 
-- **hooks** are customizable smart contracts that execute logic before or after pool actions such as swaps or liquidity modifications.
+- **Hooks** are customizable smart contracts that execute logic before or after pool actions such as swaps or liquidity modifications.
 
-- **Flash Accounting** is a v4 mechanism that allows temporary token imbalances within a transaction, provided all balances settle correctly by the end of execution.
+- **flash accounting** is a v4 mechanism that allows temporary token imbalances within a transaction, provided all balances settle correctly by the end of execution.
 
 ## Token Standards
 
@@ -79,7 +83,7 @@ These terms are used throughout the Uniswap docs:
 
 ## Trading Infrastructure
 
-- **Flash Swap** is a swap where tokens are received before repayment, provided the borrowed tokens are returned within the same transaction.
+- **flash swap** is a swap where tokens are received before repayment, provided the borrowed tokens are returned within the same transaction.
 
 - **Routing** in API responses, the `routing` field describes the execution mechanism used for a quote, such as Classic pools or UniswapX Dutch auctions.
 
@@ -87,7 +91,7 @@ These terms are used throughout the Uniswap docs:
 
 - **Unichain** is an EVM-compatible chain designed to support high-performance DeFi applications and Uniswap-native infrastructure.
 
-- **UNI token** is the governance token that enables for participation in Uniswap governance decisions.
+- **UNI token** is the governance token that enables participation in Uniswap governance decisions.
 
 
 

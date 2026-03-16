@@ -6,11 +6,11 @@ description: Discover Uniswap v4 hooks and how custom smart contract logic exten
 
 ## Introduction
 
-Uniswap v4 keeps concentrated liquidity from Uniswap v3 and adds a hook system and singleton architecture. Together, these changes expand pool customization and improve execution efficiency.
+Uniswap v4 inherits all of the capital efficiency gains of Uniswap v3 while introducing major architectural improvements. The key innovations are the Hook System and Singleton Architecture, which together enable unprecedented protocol customization and gas optimization.
 
 ## How Hooks Work
 
-Hooks are external smart contracts attached to pools. They let developers customize pool behavior by running logic before and/or after core actions.
+Hooks allow developers to customize and extend the behavior of liquidity pools. They are external smart contracts that can be attached to individual pools to intercept and modify the execution flow at specific points during pool-related actions.
 
 Hook callbacks can run around major operations such as pool initialization, liquidity changes, swaps, and donations.
 
@@ -27,6 +27,6 @@ The hook system in v4 is built on singleton architecture. Unlike previous versio
 
 These core features are just the beginning of what's possible with Uniswap v4.
 
-To explore flash accounting, native ETH support, dynamic fees, and custom accounting in depth, see the [v4 whitepaper](https://uniswap.org/whitepaper-v4.pdf).
+To explore conceptually how flash accounting, native ETH support, dynamic fees, and custom accounting are enabled by v4, read the [v4 whitepaper](https://uniswap.org/whitepaper-v4.pdf).
 
 For technical implementations and detailed guides, visit the [v4 documentation](/docs/protocols/v4/overview).

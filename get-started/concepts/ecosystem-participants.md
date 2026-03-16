@@ -20,7 +20,7 @@ Interactions between these groups support deeper liquidity, better price discove
 
 Liquidity providers, or LPs, are not a homogeneous group:
 
-- Passive LPs are token holders who wish to passively invest their assets to accumulate trading fees.
+- Passive LPs are token holders who wish to passively deposit their assets to accumulate trading fees.
 - Professional LPs are focused on market making as their primary strategy. They usually develop custom tools and ways of tracking their liquidity positions across different DeFi projects.
 - Token projects sometimes choose to become LPs to create a liquid marketplace for their token. This allows tokens to be bought and sold more easily, and unlocks interoperability with other DeFi projects through Uniswap.
 - Finally, some DeFi teams explore advanced liquidity strategies such as incentives, collateralized liquidity, and other experimental mechanisms. With UniswapX, a participant class called [fillers](/docs/liquidity/uniswapx-filling/overview) can provide liquidity by filling user orders offchain.
@@ -30,7 +30,7 @@ Liquidity providers, or LPs, are not a homogeneous group:
 There are several categories of traders in the protocol ecosystem:
 
 - Speculators use a variety of community-built tools and products to swap tokens using liquidity sourced from the Uniswap protocol.
-- Arbitrage bots compare prices across platforms and execute trades when price gaps appear. This activity helps equalize prices across broader Ethereum markets.
+- Arbitrage bots compare prices across platforms and make trades when price gaps appear. This activity helps equalize prices across broader Ethereum markets and maintain price consistency.
 - dApp users buy tokens on Uniswap for use in other applications on Ethereum.
 - Smart contract systems execute trades on the protocol by implementing swap functionality, from DEX aggregators to custom Solidity scripts.
 
