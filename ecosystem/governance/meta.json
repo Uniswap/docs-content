@@ -1,5 +1,4 @@
 {
   "title": "Governance",
-  "pages": ["overview", "governance-process", "adversarial-circumstances", "glossary"],
-  "defaultOpen": false
+  "pages": ["overview", "governance-process", "guide-to-voting", "adversarial-circumstances", "glossary"]
 }
