@@ -16,7 +16,7 @@ In this guide, we’ll look at what happens during a swap at the protocol level 
 
 Swaps in Uniswap are different from trades on traditional platforms. Uniswap does not use an order book to represent liquidity or determine prices. Uniswap uses an automated market maker mechanism to provide instant feedback on rates and slippage.
 
-As we learned in [Protocol Overview](/docs/get-started/concepts/amms), each pair on Uniswap is actually underpinned by a liquidity pool. Liquidity pools are smart contracts that hold balances of two unique tokens and enforces rules around depositing and withdrawing them.
+As we learned in [Protocol Overview](/docs/get-started/concepts/how-uniswap-works), each pair on Uniswap is actually underpinned by a liquidity pool. Liquidity pools are smart contracts that hold balances of two unique tokens and enforces rules around depositing and withdrawing them.
 
 This rule is the [constant product formula](/docs/get-started/glossary#constant-product-formula). When either token is withdrawn (purchased), a proportional amount of the other must be deposited (sold), in order to maintain the constant.
 

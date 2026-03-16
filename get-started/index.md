@@ -10,7 +10,7 @@ The Uniswap protocol is a peer-to-peer system for exchanging cryptocurrencies ([
 
 There are currently four versions of the Uniswap protocol. v1 and v2 are open source and licensed under GPL. v3 introduced concentrated liquidity and is open source with slight modifications. v4 introduces singleton architecture and hooks for pool-level customization. Once deployed, each version will function in perpetuity, with 100% uptime, provided the continued existence of the Ethereum blockchain.
 
-For a deeper look at the protocol's design, see [How Uniswap Works](/docs/get-started/concepts/amms).
+For a deeper look at the protocol's design, see [How Uniswap Works](/docs/get-started/concepts/how-uniswap-works).
 
 ## Protocol, Interface, Labs
 
@@ -26,10 +26,10 @@ These terms are often used interchangeably, but they refer to different parts of
 ## Choose Your Path
 
 ### Make your first swap
-Start with the [quickstart guide](/docs/get-started/quickstart) to make your first swap.
+Start with the [quickstart guide](/docs/get-started/your-first-swap) to make your first swap.
 
 ### Learn core concepts
-Use the [concepts section](/docs/get-started/concepts/amms) to understand AMMs, fees, hooks, and participant roles.
+Use the [concepts section](/docs/get-started/concepts/how-uniswap-works) to understand AMMs, fees, hooks, and participant roles.
 
 ### Build trading integrations
 Use the [trading guides](/docs/trading/overview) and the [Uniswap API](/docs/api/overview) to implement swap flows.
@@ -41,6 +41,6 @@ Use the [liquidity section](/docs/liquidity/overview) to implement pool creation
 Start with the [Uniswap v4 protocol docs](/docs/protocols/v4/overview) to build contract-level integrations.
 
 ### Explore ecosystem resources
-Use [Unichain docs](/docs/unichain/) and [builder resources](/docs/resources/agents) for deployment paths and support tooling.
+Use [Unichain docs](/docs/unichain/) and [builder resources](/docs/ecosystem/builder-support/get-funded) for deployment paths and support tooling.
 
 

@@ -7,7 +7,7 @@ Welcome to the Uniswap protocol v2 docs.
 
 The pages here contain conceptual and technical documentation of the Uniswap v2 protocol.
 
-If you are new to Uniswap, you might want to check out the [Protocol overview](/docs/get-started/concepts/amms) first.
+If you are new to Uniswap, you might want to check out the [Protocol overview](/docs/get-started/concepts/how-uniswap-works) first.
 
 You can also take a look at the v2 Protocol <a href='https://uniswap.org/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>Whitepaper</a>.
 
