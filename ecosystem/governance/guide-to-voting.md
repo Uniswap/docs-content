@@ -1,6 +1,7 @@
 ---
 id: guide-to-voting
-title: Beginners' Guide to Voting
+title: Guide to Voting
+description: Learn how to delegate UNI tokens and vote on Uniswap governance proposals.
 ---
 
 This guide contains everything you need to start voting in Uniswap Governance.

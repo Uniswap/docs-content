@@ -1,11 +1,12 @@
 ---
 id: queries
 title: Queries
+description: Common GraphQL query patterns for the Uniswap v2 subgraph.
 ---
 
-The subgraph can be queried to retrieve important information about Uniswap, pairs, tokens, transactions, users, and more. This page will provide examples for common queries.
+The subgraph can be queried to retrieve information about Uniswap pairs, tokens, transactions, users, and more. This page provides examples for common queries.
 
-To try these queries and run your own visit the [subgraph sandbox](https://thegraph.com/explorer/subgraph/uniswap/uniswap-v2).
+To try these queries and run your own visit the [subgraph sandbox](https://thegraph.com/explorer/subgraphs/A3Np3RQbaBA6oKJgiwDJeo5T3zrYfGHPWFYayMwtNDum?view=Query&chain=arbitrum-one).
 
 ### Global Data
 
@@ -27,7 +28,7 @@ All time volume in USD, total liquidity in USD, all time transaction count.
 
 #### Global Historical lookup
 
-To get a snapshot of past state, use The Graph's block query feature and query at a previous block. See this post to get more information about [fetching block numbers from timestamps](https://blocklytics.org/blog/ethereum-blocks-subgraph-made-for-time-travel/). This can be used to calculate things like 24hr volume.
+To get a snapshot of past state, use The Graph's block query feature and query at a previous block. See [time travel queries](https://thegraph.com/docs/en/subgraphs/querying/graphql-api/#time-travel-queries-example) for more information. This can be used to calculate things like 24hr volume.
 
 ```
 {

@@ -1,11 +1,12 @@
 ---
 id: entities
 title: Entities
+description: Schema reference for the Uniswap v2 subgraph entities and their fields.
 ---
 
-Entities define the schema of the subgraph, and represent the data that can be queried. Within each entity are sets of fields that store useful information related to the entity. Below is a list of the available entities within the Uniswap Subgraph, and descriptions for the available fields.
+Entities define the schema of the subgraph, and represent the data that can be queried. Below is a reference for all entities in the Uniswap v2 subgraph, with descriptions for each field.
 
-To see an interactive sandbox of all entities see the [Graph Explorer](https://thegraph.com/explorer/subgraph/uniswap/uniswap-v2).
+To see an interactive sandbox of all entities see the [Graph Explorer](https://thegraph.com/explorer/subgraphs/A3Np3RQbaBA6oKJgiwDJeo5T3zrYfGHPWFYayMwtNDum?view=Query&chain=arbitrum-one).
 
 Each entity is defined with a value type, which will always be a base AssemblyScript type, or a custom type provided by The Graph's custom TypeScript library. For more information on value types see [here](https://thegraph.com/docs/en/developing/assemblyscript-api/#api-reference).
 
@@ -178,7 +179,7 @@ be used in other places in the subgraph.
 
 ## Historical Entities
 
-The subgraph tracks aggregated information grouped by days to provide insights to daily activity on Uniswap. While [time travel queries](https://blocklytics.org/blog/ethereum-blocks-subgraph-made-for-time-travel/) can be used for direct comparison against values in the past, it is much more expensive to query grouped data. For this reason the subgraph tracks information grouped in daily buckets, using timestamps provided by contract events. These entities can be used to query things like total volume on a given day, price of a token on a given day, etc.
+The subgraph tracks aggregated information grouped by days to provide insights to daily activity on Uniswap. While [time travel queries](https://thegraph.com/docs/en/subgraphs/querying/graphql-api/#time-travel-queries-example) can be used for direct comparison against values in the past, it is much more expensive to query grouped data. For this reason the subgraph tracks information grouped in daily buckets, using timestamps provided by contract events. These entities can be used to query things like total volume on a given day, price of a token on a given day, etc.
 
 For each DayData type, a new entity is created each day.
 

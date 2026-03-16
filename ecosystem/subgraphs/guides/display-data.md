@@ -1,6 +1,7 @@
 ---
 id: using-the-api
-title: 'Using the API'
+title: Using the API
+description: Build a web interface that queries and displays data from the Uniswap subgraph.
 ---
 
 In this guide we will create a web interface that consumes and displays data from the Uniswap Subgraph. The goal is to provide a quick overview of a setup that you can extend to create your own UIs and analytics around Uniswap data.

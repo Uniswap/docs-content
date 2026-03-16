@@ -1,5 +1,5 @@
 {
   "title": "v4",
-  "pages": ["queries"],
+  "pages": ["entities", "queries"],
   "defaultOpen": false
 }

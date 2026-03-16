@@ -1,6 +1,7 @@
 ---
 id: adversarial-circumstances
 title: Adversarial Circumstances
+description: Explore adversarial scenarios and safeguards in Uniswap governance design.
 ---
 
 This document explores some adversarial circumstances which Uniswap Governance may encounter in the future. Its goal is to help those interested in Uniswap Governance understand the reasoning behind some of its design, its limitations, and potential avenues for growth.
