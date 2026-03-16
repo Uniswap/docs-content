@@ -1,6 +1,6 @@
 ---
-title: Building a Subgraph
-description: Learn how to build a subgraph to query Unichain data
+title: Build a Subgraph
+description: Build and publish a subgraph for Unichain, then query it from your app.
 ---
 
 Getting historical data on smart contracts can be frustrating when building a dapp. With [The Graph](https://thegraph.com/) anyone can create or query subgraphs, making the data available to the entire ecosystem.
@@ -49,7 +49,7 @@ Simply verify your contract on the block explorer, and the CLI will
 automatically obtain the ABI and set up your subgraph. The default settings will
 generate an entity for each event.
 
-## 2. Deploy and Publish
+## Step 2: Deploy and publish
 
 ### Deploy to Subgraph Studio
 
@@ -100,7 +100,7 @@ ensure that it is indexed and available for querying as soon as possible.
 > your subgraph is indexing data from Unichain
 > [supported chain](https://thegraph.com/docs/en/developing/supported-networks/).
 
-## 3. Query Your Subgraph
+## Step 3: Query your subgraph
 
 Congratulations! You can now query your subgraph on the decentralized network!
 
@@ -115,14 +115,14 @@ by Messari:
 
 The query URL for this subgraph is:
 
-```
-https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/HdVdERFUe8h61vm2fDyycgxjsde5PbB832NHgJfZNqK
+```text
+https://gateway-arbitrum.network.thegraph.com/api/[api-key]/subgraphs/id/HdVdERFUe8h61vm2fDyycHgxjsde5PbB832NHgJfZNqK
 ```
 
 Now, you simply need to fill in your own API Key to start sending GraphQL
 queries to this endpoint.
 
-### Get Your Own API key
+### Get your own API key
 
 In Subgraph Studio, you'll see the "API Keys" menu at the top of the page. Here,
 you can create API Keys.
@@ -146,7 +146,7 @@ This query shows the most expensive CryptoPunks sold.
 
 Passing this into the query URL returns this result:
 
-```
+```json
 {
   "data": {
     "trades": [

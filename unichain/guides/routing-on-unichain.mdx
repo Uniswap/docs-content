@@ -1,13 +1,13 @@
 ---
 title: Routing on Unichain
-description: Learn how to access and route liquidity across Unichain using Tycho
+description: Route liquidity across Unichain with Tycho and simulate swaps across Uniswap v2, v3, and v4.
 ---
 
 ## Access Liquidity
 
 Indexing, simulating, and encoding swaps across the [many liquidity sources](https://www.unichain.org/explore) on Unichain can be challenging.
 
-Tycho, built on Subtreams, gives you all simulation and execution logic for Unichain liquidity in a convenient open source library.
+Tycho, built on Substreams, gives you simulation and routing logic for Unichain liquidity in a convenient open source library.
 
 ## Quickstart: Trade on Unichain Liquidity
 
@@ -30,7 +30,7 @@ cargo run --release --example quickstart -- --sell-token "0x078D782b760474a361dD
   More options for [public RPCs](https://chainlist.org/chain/130).
 </Callout>
 
-In the above example, you're selling 10 USDC for WETH, at the best price available across all Uniswap pools on Unichain (v2, v3, and v4).
+In the example above, you're selling 10 USDC for WETH at the most competitive price available across Uniswap pools on Unichain (v2, v3, and v4).
 
 ## How it works
 
@@ -38,8 +38,8 @@ Tycho:
 
 - Fetches all protocol states and finds all WETH/USDC Uniswap pools.
 - Simulates a swap of 10 USDC to WETH on every pool.
-- Encodes a swap for the pool that has the best price right now.
-- If you approve, it automatically sets the right approval against the pool and executes your swap for you.
+- Encodes a swap for the pool that has the most competitive price at that moment.
+- If you approve, it submits the required approval and then submits the swap transaction with your signer.
 
 Example output:
 
