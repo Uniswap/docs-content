@@ -361,7 +361,63 @@ When auditing an existing page:
 - Section entry: use `overview.md` or `index.md` (not both in the same directory)
 - Filename equals URL slug. Choose descriptive, keyword-rich names.
 
-## 12. Migration Workflow (docs.uniswap + api-docs + docs.unichain)
+## 12. Navigation and Routing Conventions (MANDATORY)
+
+### meta.json Structure
+
+Every directory that should appear in the sidebar needs a `meta.json` file.
+
+| Property | Required | Notes |
+|---|---|---|
+| `title` | Yes | Display name in the sidebar |
+| `root` | Only for top-level sections | Set `true` for sections listed in the root `meta.json` |
+| `pages` | Yes | Ordered array of slugs matching filenames (without extension) or subdirectory names |
+| `defaultOpen` | No | Omit entirely. `false` is the default behavior. Only set `true` if you need the section expanded. |
+
+### Filename-to-Route Mapping
+
+The filename determines the URL slug. The `title` frontmatter controls the display name. These are independent.
+
+```
+File:  get-started/your-first-swap.mdx
+Route: /docs/get-started/your-first-swap
+Title: "Your First Swap" (from frontmatter)
+```
+
+### Renaming Routes
+
+When renaming a file (and therefore its route):
+
+1. Rename the file
+2. Update the `pages` array in the parent `meta.json`
+3. Search the entire repo for internal links to the old path and update them all
+4. Verify with `grep -r "/docs/old-path" .` that zero references remain
+
+### Route Naming Rules
+
+- Use lowercase, hyphenated slugs: `how-uniswap-works`, `your-first-swap`, `using-the-api`
+- Slugs should be descriptive and keyword-rich, not generic (`overview` is acceptable for section entry points)
+- Filename should match what the page is about, not legacy or internal names
+- If a page has an `id:` in frontmatter that differs from the filename, the framework may use the `id` for routing. Keep both aligned or remove the `id` if it conflicts.
+
+### Internal Link Rules
+
+- Always use absolute paths: `/docs/ecosystem/governance/overview`, not `../governance/overview`
+- After any rename, audit all files for stale references to the old path
+- Never link to `/docs/resources/` (legacy), always `/docs/ecosystem/`
+- Cross-reference checklist: quickstart paths, concept paths, guide paths, glossary paths
+
+### Top-level Section Order
+
+The root `meta.json` defines the global sidebar order. Current canonical order:
+
+```json
+["get-started", "trading", "liquidity", "ai-toolkit", "api", "protocols", "sdks", "unichain", "ecosystem"]
+```
+
+Changes to this order require team review.
+
+## 13. Migration Workflow (docs.uniswap + api-docs + docs.unichain)
 
 For each migrated page:
 1. Classify source page type (Overview / Concept / Guide / Reference).
@@ -392,7 +448,7 @@ A migrated item is done only when:
 - It passes QA + migration consistency checks
 - It does not require readers to rely on legacy source pages for core understanding
 
-## Migration Safety and Validation Workflow (MANDATORY)
+## 14. Migration Safety and Validation Workflow (MANDATORY)
 
 This skill must not remove guide code wholesale. 
 
