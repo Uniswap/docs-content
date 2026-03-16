@@ -1,14 +1,16 @@
 ---
 title: "Your First Swap"
-description: Execute a token swap in under 5 minutes. Choose your preferred implementation below.
+description: Make your first token swap on Uniswap in under 5 minutes using the Uniswap API, SDK, or Solidity.
 ---
+
+## Choose Your Implementation Path
 
 <ImplementationTabs>
 
 <ImplementationTab value="api">
 
-<Callout type="info" title="Why REST API?">
-The REST API is the fastest way to integrate Uniswap. It handles routing, calldata generation, and can provide gasless swaps via UniswapX — all through simple HTTP calls from any language.
+<Callout type="info" title="Why Uniswap API?">
+The Uniswap API is the fastest way to integrate Uniswap. It handles routing, calldata generation, and can provide gasless swaps via UniswapX through simple HTTP calls from any language.
 </Callout>
 
 ### Step 1: Get Your API Key
@@ -39,7 +41,7 @@ If approval is needed, the response includes a transaction for the user to sign.
 
 ### Step 3: Request a Quote
 
-Get the best price for your swap across all available liquidity sources:
+Get the most competitive price for your swap across all available liquidity sources:
 
 ```bash
 curl -X POST https://trade-api.gateway.uniswap.org/v1/quote \
@@ -59,7 +61,7 @@ curl -X POST https://trade-api.gateway.uniswap.org/v1/quote \
 
 The response includes the best route, expected output, and routing type (CLASSIC or DUTCH_V2/V3).
 
-### Step 4: Execute the Swap
+### Step 4: Execute the Swap with Your Signer
 
 Based on the `routing` field in the quote response:
 
@@ -77,14 +79,14 @@ curl -X POST https://trade-api.gateway.uniswap.org/v1/swap \
   }'
 ```
 
-The response contains ready-to-broadcast transaction calldata. Your user signs it with their wallet, and the swap executes on-chain.
+The response contains ready-to-broadcast transaction calldata. Your user signs it with their wallet, and the swap executes onchain.
 
 </ImplementationTab>
 
 <ImplementationTab value="sdk">
 
-<Callout type="info" title="SDK vs REST API">
-The SDK provides type-safe interfaces and direct wallet integration, but requires more setup. For most use cases, the REST API is simpler and provides better routing through UniswapX.
+<Callout type="info" title="SDK vs Uniswap API">
+The SDK provides type-safe interfaces and direct wallet integration, but requires more setup. For most use cases, the Uniswap API is simpler and offers more efficient routing plus additional routing options through UniswapX.
 </Callout>
 
 ### Step 1: Install the SDK
@@ -140,7 +142,7 @@ const WETH = new Token(
 const inputAmount = CurrencyAmount.fromRawAmount(USDC, '1000000000') // 1000 USDC
 ```
 
-### Step 4: Get a Route and Execute
+### Step 4: Get a Route and Execute with Your Signer
 
 Use the router to find the best path and execute:
 
@@ -177,7 +179,7 @@ if (route) {
 <ImplementationTab value="solidity">
 
 <Callout type="info" title="When to Use Solidity">
-Use Solidity integration when you need on-chain composability, flash swaps, or are building a protocol that must execute swaps atomically within a transaction.
+Use Solidity integration when you need onchain composability, flash swaps, or are building a protocol that must execute swaps atomically within a transaction.
 </Callout>
 
 ### Step 1: Import the Interfaces
@@ -256,16 +258,14 @@ forge create src/SwapExample.sol:SwapExample \
 ```
 
 <Callout type="warn" title="Gas Costs">
-On-chain swaps require you to pay gas. Consider using the REST API with UniswapX for gasless execution when possible.
+Onchain swaps require you to pay gas. Consider using the Uniswap API with UniswapX for gasless execution when possible.
 </Callout>
 
 </ImplementationTab>
 
 </ImplementationTabs>
 
-## Next Steps
+## Where to Go Next
 
-<Cards>
-  <Card title="Swap Workflow" href="/docs/api/guides/swapping/getting-started" description="Deep dive into each step of the swap process" />
-  <Card title="SDK Guides" href="/docs/sdks/v3/guides/swapping/quoting" description="Detailed SDK integration guides for quoting and routing" />
-</Cards>
+- [Explore swap workflow with the Uniswap API](/docs/api/guides/swapping/getting-started)
+- [Explore quoting and routing with the Uniswap SDK](/docs/sdks/v4/guides/swapping/quoting)

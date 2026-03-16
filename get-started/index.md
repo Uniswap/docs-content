@@ -1,30 +1,46 @@
 ---
 title: Uniswap
-description: An introduction to the Uniswap protocol, its AMM design, permissionless architecture, and protocol versions.
+description: Learn Uniswap fundamentals and choose the right path for swaps, liquidity, protocol, and Uniswap API integrations.
+
 ---
 
 ## What is Uniswap?
 
-The Uniswap protocol is a peer-to-peer system designed for exchanging cryptocurrencies ([ERC-20 Tokens](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)) on the [Ethereum](https://ethereum.org/) blockchain. The protocol is implemented as a set of persistent, non-upgradable smart contracts; designed to prioritize censorship resistance, security, self-custody, and to function without any trusted intermediaries who may selectively restrict access.
+The Uniswap protocol is a peer-to-peer system for exchanging cryptocurrencies ([ERC-20 tokens](https://ethereum.org/en/developers/docs/standards/tokens/erc-20/)) on [Ethereum](https://ethereum.org/). It is implemented as persistent, non-upgradable smart contracts designed for censorship resistance, security, and self-custody without trusted intermediaries.
 
-There are currently four versions of the Uniswap protocol. v1 and v2 are open source and licensed under GPL. v3 introduced concentrated liquidity and is open source with slight modifications. v4 introduces the singleton pool architecture and hooks system, enabling unprecedented protocol customization. Each version of Uniswap, once deployed, will function in perpetuity, with 100% uptime, provided the continued existence of the Ethereum blockchain.
+There are currently four versions of the Uniswap protocol. v1 and v2 are open source and licensed under GPL. v3 introduced concentrated liquidity and is open source with slight modifications. v4 introduces singleton architecture and hooks for pool-level customization. Once deployed, each version will function in perpetuity, with 100% uptime, provided the continued existence of the Ethereum blockchain.
+
+For a deeper look at the protocol's design, see [How Uniswap Works](/docs/get-started/concepts/amms).
 
 ## Protocol, Interface, Labs
 
-To begin, we should make clear the distinctions between the different areas of "Uniswap", some of which may confuse new users.
+These terms are often used interchangeably, but they refer to different parts of the ecosystem:
 
-- **[Uniswap Labs](https://x.com/Uniswap)**: The company which developed the Uniswap protocol, along with the web interface.
+- **[Uniswap Labs](https://x.com/Uniswap)**: The company that developed the Uniswap protocol and the web interface.
 - **[Uniswap Foundation](https://x.com/Uniswapfnd)**: A non-profit organization that supports the development of the Uniswap protocol and its DeFi ecosystem.
 - **[Uniswap Protocol](https://github.com/Uniswap/contracts)**: A suite of persistent, non-upgradable smart contracts that together create an automated market maker, a protocol that facilitates peer-to-peer market making and swapping of ERC-20 tokens on the Ethereum blockchain.
 - **[Uniswap Interface](https://app.uniswap.org/)**: A web interface that allows for easy interaction with the Uniswap protocol. The interface is only one of many ways one may interact with the Uniswap protocol.
-- **[Uniswap Governance](https://gov.uniswap.org/)**: A governance system for governing the Uniswap Protocol, enabled by the UNI token.
+- **[Uniswap Governance](https://gov.uniswap.org/)**: A governance system for the Uniswap protocol, enabled by the UNI token.
+- **[Uniswap API](/docs/api/overview)**: A developer API that enables integrators to access deep, aggregated liquidity and tap into reliable onchain execution rails without building or maintaining custom routing or infrastructure.
 
-## Where to go from here
+## Choose Your Path
 
-- To execute your first swap, see [your first swap](/docs/get-started/quickstart) guide.
-- For core protocol concepts like AMMs, fees, and hooks, see [concepts](/docs/get-started/concepts/amms).
-- Ready to trade or integrate swaps? Visit the [trading guides](/docs/trading/overview) or the [API reference](/docs/api/overview).
-- Want to provide liquidity or build LP tooling? Explore the [liquidity section](/docs/liquidity/overview).
-- Building on the protocol? Start with [protocols](/docs/protocols/v4/overview) (v4 recommended for new integrations), or explore UniswapX, Liquidity Launchpad, and more.
-- Deploying or building on Unichain? Visit [unichain](/docs/unichain/).
-- Looking for builder support, AI tools, and ecosystem resources? Explore [resources](/docs/resources/agents).
+### Make your first swap
+Start with the [quickstart guide](/docs/get-started/quickstart) to make your first swap.
+
+### Learn core concepts
+Use the [concepts section](/docs/get-started/concepts/amms) to understand AMMs, fees, hooks, and participant roles.
+
+### Build trading integrations
+Use the [trading guides](/docs/trading/overview) and the [Uniswap API](/docs/api/overview) to implement swap flows.
+
+### Build liquidity integrations
+Use the [liquidity section](/docs/liquidity/overview) to implement pool creation and position management workflows.
+
+### Integrate protocol contracts
+Start with the [Uniswap v4 protocol docs](/docs/protocols/v4/overview) to build contract-level integrations.
+
+### Explore ecosystem resources
+Use [Unichain docs](/docs/unichain/) and [builder resources](/docs/resources/agents) for deployment paths and support tooling.
+
+

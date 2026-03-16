@@ -3,9 +3,9 @@ title: Research
 description: Academic and ecosystem research on AMMs, MEV, liquidity design and decentralized exchange economics across the Uniswap ecosystem.
 ---
 
-The [Uniswap Foundation](https://www.uniswapfoundation.org/) supports the protocol's growth and decentralization through strategic research initiatives, empowering our community with grants and resources to conduct groundbreaking research and develop practical implementations that advance the frontier DeFi. 
+The [Uniswap Foundation](https://www.uniswapfoundation.org/) supports protocol research through grants, programs, and ecosystem collaborations focused on practical DeFi research and implementation.
 
-Featured research from our community:
+Featured research from the community:
 
 ### Layer 2 be or Layer not 2 be: Scaling on Uniswap v3
 
@@ -80,9 +80,9 @@ Authors: Joseph Clark
 
 [The Replicating Portfolio of a Constant Product Market [Jun 2020]](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3550601)
 
-### Where to go from here
+## Where to Go Next
 
-Research Initiatives:
+Research initiatives:
 - [TLDR (The Latest in DeFi Research):](https://www.thelatestindefi.org/) empowers engineers, academics, and students through research fellowships with grants and expert mentorship, culminating in an annual conference to showcase groundbreaking work.
 - [CBER CtCe (Crafting the Cryptoeconomy):](https://x.com/UniswapFND/status/1859719158763749514) developed to generate and promote practical yet rigorous research in cryptoeconomics by connecting researchers, economists and practitioners through workshops, grants and conferences.
 - [DEX Analytics Portal:](https://dexanalytics.org/) accurate, verified, and ergonomic DEX and Uniswap datasets to save researchers time.
