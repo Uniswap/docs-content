@@ -67,7 +67,7 @@ description: "One action-oriented sentence, 60-160 chars. Include primary keywor
 |---|---|---|---|
 | `title` | Yes | Title Case. 60 chars max. No trailing period. Brief enough for sidebar. | Renders as `<title>` and H1. Parsed by LLMs for context. |
 | `description` | Yes | 60-160 chars. Action verb start. Include "Uniswap" and version when relevant. | Renders as `<meta name="description">`. Used by search engines and LLM context files. |
-| `id` | Conditional | Use only when required for stable routing, migration compatibility, or slug collision avoidance. Otherwise prefer filename slug. | Balances maintainability with backward compatibility.|
+| `id` | Conditional | If an `id:` already exists, keep it. If it doesn't exist, don't add one. IDs are useful for stable routing and migration compatibility. | Balances maintainability with backward compatibility.|
 
 ### Description Formula
 
@@ -324,7 +324,7 @@ Run this checklist when auditing or creating any page:
 
 - [ ] `title:` present, Title Case, 60 chars max, includes primary keyword, 35 chars ideal for sidebar
 - [ ] `description:` present, 60-160 chars, action-oriented, includes "Uniswap" and version
-- [ ] No `id:` field in frontmatter (use filename slug)
+- [ ] If `id:` exists, keep it. If absent, don't add one.
 - [ ] No `#` (H1) in body. Only `##` and below.
 - [ ] Heading hierarchy is sequential (H2 then H3 then H4, no skips)
 - [ ] Headings are descriptive and keyword-rich (not "Introduction" or "Details")
@@ -341,7 +341,7 @@ Run this checklist when auditing or creating any page:
 
 When auditing an existing page:
 
-1. Frontmatter: title + description present and formatted correctly? id removed?
+1. Frontmatter: title + description present and formatted correctly? Existing id preserved?
 2. Headings: No H1 in body? Proper hierarchy? Proper casing? Keyword-rich?
 3. Opening: First paragraph immediately states what + why? No "Welcome to..."?
 4. Word count: Under 1500 words? If over, can sections be split or cross-linked?
