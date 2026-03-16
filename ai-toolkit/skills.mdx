@@ -2,3 +2,74 @@
 title: Skills
 description: Browse available Uniswap AI skills for swap integration, hook development, liquidity management, and more.
 ---
+
+Use Uniswap AI skills to run specialized workflows for swap integration, hook development, EVM interactions, and liquidity planning.
+
+## Uniswap Skills
+
+These are the official skills currently available in the installer:
+
+- `configurator`
+- `deployer`
+- `liquidity-planner`
+- `swap-integration`
+- `swap-planner`
+- `v4-security-foundations`
+- `viem-integration`
+
+## Available plugins
+
+| Plugin | Skill | What it helps with | Invocation |
+|---|---|---|---|
+| `uniswap-hooks` | `v4-security-foundations` | Review v4 hook architecture and security risks before implementation | `/v4-security-foundations` |
+| `uniswap-cca` | `configurator` | Configure CCA auction parameters for a new deployment | `/configurator` |
+| `uniswap-cca` | `deployer` | Deploy CCA contracts using the factory deployment pattern | `/deployer` |
+| `uniswap-trading` | `swap-integration` | Integrate swaps using the Uniswap API, Universal Router, or direct smart contract calls | `/swap-integration` |
+| `uniswap-viem` | `viem-integration` | Set up EVM clients and contract interactions with viem and wagmi | `/viem-integration` |
+| `uniswap-driver` | `swap-planner` | Plan token swaps and generate interface deep links | `/swap-planner` |
+| `uniswap-driver` | `liquidity-planner` | Plan LP positions and generate interface deep links | `/liquidity-planner` |
+
+## Install skills
+
+Install Uniswap AI skills with the Skills CLI:
+
+```bash
+npx skills add uniswap/uniswap-ai
+```
+
+If your environment supports interactive selection, you can choose specific skills from the install prompt.
+
+## Use skills
+
+### Direct invocation
+
+Invoke a skill explicitly with a slash command:
+
+```text
+/v4-security-foundations
+```
+
+### Contextual activation
+
+Skills also activate contextually when your prompt matches the skill domain:
+
+```text
+What are the security risks of beforeSwapReturnDelta?
+```
+
+In this example, the assistant can activate the v4 security foundations skill automatically.
+
+## Skill structure
+
+Each skill is defined in a `SKILL.md` file and typically includes:
+
+- Frontmatter metadata (`name`, `description`, and plugin metadata)
+- Step-by-step instructions for the agent
+- Optional references in a `references/` directory
+
+## Add a new skill
+
+1. Create the skill folder under `packages/plugins/<plugin>/skills/<skill-name>/`
+2. Add a `SKILL.md` file with frontmatter and clear instructions
+3. Register the skill in the plugin manifest (`plugin.json`)
+4. Add a corresponding eval suite in `evals/suites/<skill-name>/`
