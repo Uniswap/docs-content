@@ -1,5 +1,5 @@
 {
   "title": "Concepts",
-  "pages": ["amms", "ecosystem-participants", "liquidity-providers", "traders", "fees", "hooks"],
+  "pages": ["how-uniswap-works", "ecosystem-participants", "liquidity-providers", "traders", "fees", "hooks"],
   "defaultOpen": false
 }
