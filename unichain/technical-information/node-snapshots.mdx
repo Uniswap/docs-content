@@ -1,13 +1,13 @@
 ---
-title: "Unichain Node Snapshots"
-description: "Use snapshots to quickly bootstrap Unichain nodes without full blockchain sync"
+title: Unichain Node Snapshots
+description: Use snapshots to quickly bootstrap Unichain nodes without a full blockchain sync.
 ---
 
-Starting a new Unichain node from scratch requires a full blockchain sync, which can take 4-8 hours for mainnet and 2-4 hours for testnet. Using a snapshot significantly reduces this initial sync time to just a few minutes.
+Starting a new Unichain node from scratch requires a full blockchain sync, which can take 4 to 8 hours for mainnet and 2 to 4 hours for testnet. A snapshot can reduce this initial sync time to a few minutes.
 
 ## Snapshot Sources
 
-Allnodes provides regularly updated snapshots for both Unichain networks. Additionally, we host hourly differential updates for nodes that need to catch up quickly without downloading a full snapshot.
+Allnodes provides regularly updated snapshots for both Unichain networks. Hourly differential updates are also available for nodes that need to catch up quickly without downloading a full snapshot.
 
 | Network | Base image | 24 Snapshot | Hourly Diff |
 | :---- | :---- | :---- | :---- |
@@ -16,7 +16,7 @@ Allnodes provides regularly updated snapshots for both Unichain networks. Additi
 
 ## Snapshot Restoration Process
 
-These instructions assume you're working in the cloned unichain-node directory containing the docker-compose.yml file. You can find instructions on how to set up a node [here](/docs/unichain/getting-started/set-up-a-node) if you don't already have one running.
+These instructions assume you're working in the cloned `unichain-node` directory that contains `docker-compose.yml`. If you do not have a node running yet, follow [Set Up a Node](/docs/unichain/getting-started/set-up-a-node).
 
 ### 1. Prepare the Data Directory
 
@@ -26,7 +26,7 @@ Create the data directory that will store your blockchain data:
 mkdir ./geth-data
 ```
 
-For existing installations: If you've previously run the node, stop it first and clear the existing data:
+For existing installations, if you have previously run the node, stop it first and clear the existing data:
 
 ```bash
 docker compose down
@@ -44,7 +44,7 @@ Visit the appropriate Allnodes link from the table above and download the snapsh
 Extract the downloaded snapshot file:
 
 ```bash
-tar -xzvf <downloaded-snapshot-filename.tar.gz>
+tar -I lz4 -xvf <downloaded-snapshot-filename.tar.lz4>
 ```
 
 ### 4. Organize the Data
@@ -56,7 +56,7 @@ mv ./geth/* ./geth-data/
 rm -rf ./geth
 ```
 
-**Expected result**: The ./geth-data/ directory should contain blockchain data folders (chaindata, nodes, etc.) directly, without additional nesting.
+**Expected result**: The `./geth-data/` directory should contain blockchain data folders (`chaindata`, `nodes`, and others) directly, without additional nesting.
 
 ### 5. Start the Node
 

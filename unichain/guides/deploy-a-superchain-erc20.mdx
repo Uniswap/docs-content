@@ -1,9 +1,9 @@
 ---
 title: Deploy a SuperchainERC20 Token
-description: Learn how to deploy a SuperchainERC20 contract on Unichain
+description: Deploy a SuperchainERC20 contract on Unichain and prepare it for trading on Uniswap v4.
 ---
 
-Deploying a `SuperchainERC20` token on Unichain is as simple as deploying a smart contract. For additional reading, developers should see [deploy a smart contract](/docs/unichain/building-on-unichain/deploy-a-smart-contract)
+Deploying a `SuperchainERC20` token on Unichain is as simple as deploying a smart contract. For additional reading, see [Deploy a Smart Contract](/docs/unichain/guides/deploy-a-smart-contract).
 
 Unichain's cross-chain interoperability standard is built on `SuperchainERC20`, a token implementation that extends traditional ERC20 functionality with cross-chain capabilities. While maintaining full ERC20 compatibility, it enables seamless token movement across the OP Stack ecosystem.
 
@@ -27,7 +27,7 @@ For more information about compatible tokens and implementations, see <a href="h
 ## Requirements
 
 <Callout type="info">
-ETH on Unichain is required, see [Funding a Wallet](/docs/unichain/getting-started/get-funds-on-unichain)
+ETH on Unichain is required. See [Get Funds on Unichain](/docs/unichain/getting-started/get-funds-on-unichain).
 </Callout>
 
 1. The guide uses [foundry](https://book.getfoundry.sh) for deployments. Install it by running:
@@ -65,7 +65,7 @@ Other community ERC20 implementations are available such as:
 
 ### 1. Define the Token Contract
 
-Most tokens _inherit_ an existing ERC-20 implementation. For this guide, we use Optimism's SuperchainERC20 implementation to deploy a token with crosschain-interoperability.
+Most tokens _inherit_ an existing ERC-20 implementation. This guide uses Optimism's SuperchainERC20 implementation to deploy a token with cross-chain interoperability.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -135,7 +135,7 @@ forge script script/Deploy.s.sol:Deploy \
     --broadcast
 ```
 
-> See [deploy a smart contract](/docs/unichain/building-on-unichain/deploy-a-smart-contract) for more information
+> See [Deploy a Smart Contract](/docs/unichain/guides/deploy-a-smart-contract) for more information.
 
 ### 3. Transferring Tokens (Optional)
 
@@ -158,5 +158,5 @@ cast send {TOKEN_ADDRESS} "transfer(address,uint256)" {RECIPIENT_ADDRESS} {AMOUN
 
 This step is also optional, but developers enable trading of their new token on Uniswap v4:
 
-- [Create a Pool & Add Liquidity](/docs/unichain/building-on-unichain/create-a-pool#create-a-pool--add-liquidity)
-- [Create a Pool Only](/docs/unichain/building-on-unichain/create-a-pool#create-a-pool-only)
+- [Create a Pool and Add Liquidity](/docs/unichain/guides/create-a-pool#create-a-pool--add-liquidity)
+- [Create a Pool Only](/docs/unichain/guides/create-a-pool#create-a-pool-only)

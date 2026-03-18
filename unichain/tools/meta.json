@@ -6,6 +6,7 @@
     "bridges",
     "cross-chain",
     "data-indexers",
+    "data-feeds",
     "development-tools",
     "faucets",
     "node-providers",

@@ -1,9 +1,9 @@
 ---
 title: Integrating Flashblocks
-description: Learn how to integrate Flashblocks for lightning-fast transaction confirmations on Unichain, with preconfirmations in just 200 milliseconds
+description: Integrate Flashblocks on Unichain to use preconfirmation data and reduce transaction confirmation latency.
 ---
 
-Experience lightning-fast transaction confirmations on Unichain with Flashblocks. Get preconfirmations in just 200 milliseconds—designed for maximally efficient DeFi and seamless user experiences.
+Flashblocks provide transaction preconfirmations on Unichain in about 200 milliseconds, so apps can show faster transaction feedback.
 
 ## What are Flashblocks?
 
@@ -11,7 +11,7 @@ Flashblocks enable ultra-fast transaction confirmations on Unichain by providing
 
 ### Key Benefits
 
-- **5x Faster Confirmations**: Reduce perceived latency from 1 seconds to 200ms
+- **5x faster confirmations**: Reduce perceived latency from 1 second to 200 milliseconds
 - **Seamless Integration**: Works with many existing Ethereum JSON-RPC methods using the `pending` tag
 - **No Protocol Changes**: Built as an "out-of-protocol" extension that doesn't modify Unichain's core consensus
 - **Incremental Updates**: Receive partial block updates as transactions are processed
@@ -32,7 +32,7 @@ These updates are propagated to RPC providers who maintain a preconfirmation cac
 - **DeFi Applications**: Instant swap confirmations and liquidity updates
 - **Marketplaces**: Immediate purchase confirmations
 - **Payment Systems**: Instant payment verification
-- **Apps**: User experiences become without the normal crypto wait times
+- **Apps**: Deliver more responsive UX without typical blockchain wait times
 
 ## Integrating Flashblocks (Apps)
 
@@ -47,7 +47,7 @@ Use these Flashblocks-aware RPC endpoints for development and testing:
 | Unichain Mainnet | `https://mainnet.unichain.org` |
 | Unichain Sepolia | `https://sepolia.unichain.org` |
 
-> **Production Note**: These public endpoints are rate-limited. For production applications, see our [node providers](#using-flashblocks-with-a-node-provider) that support Flashblocks below.
+> **Production note**: These public endpoints are rate-limited. For production applications, see [node providers](#using-flashblocks-with-a-node-provider) that support Flashblocks.
 
 ### Supported RPC Methods
 
@@ -91,12 +91,12 @@ Use the preconfirmation cache state to return the call result:
 curl https://sepolia.unichain.org \
   -X POST \
   -H "Content-Type: application/json" \
-  -d `{
+  -d '{
     "jsonrpc": "2.0",
     "method": "eth_call",
     "params": [{"to": "0x...", "data": "0x..."}, "pending"],  // Transaction call object and block parameter
     "id": 1
-  }`
+  }'
 ```
 
 #### `eth_getTransactionReceipt`
@@ -182,7 +182,7 @@ async function sendFastTransaction() {
 #### Viem
 
 ```javascript
-import { createWalletClient, createPublicClient, http } from 'viem';
+import { createWalletClient, createPublicClient, http, parseEther } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { unichain } from 'viem/chains';
 
@@ -293,23 +293,23 @@ class WalletProvider {
 
 ## Using Flashblocks with a Node Provider
 
-For production use cases, consider using a Node provider that is supporting Flashblocks on Unichain!
+For production use cases, consider using a node provider that supports Flashblocks on Unichain.
 
 - **Alchemy:** https://www.alchemy.com/docs/reference/unichain-flashblocks-api-quickstart
 - **Quicknode:** https://www.quicknode.com/docs/Unichain/flashblocks/overview
 
 ## Integrating Flashblocks (Node Operators)
 
-Flashblocks are published via a websockets API. Any `op-reth` node can then subscribe to the websocket
+Flashblocks are published via a WebSocket API. Any `op-reth` node can subscribe to the WebSocket
 stream and serve pending data. [Supported RPC Methods](#supported-rpc-methods).
 
 Run the docker image `ghcr.io/base/node-reth:latest` with the binary name `./base-node-reth` like a typical
 op-reth node with the additional flag `--websocket-url=wss://mainnet-flashblocks.unichain.org/ws`
 (or the Unichain Sepolia URL if you are running a Unichain Sepolia node).
 
-### Websocket API
+### WebSocket API
 
-You can subscribe the the flashblocks data on the following URLs. The content is brotli compressed.
+You can subscribe to Flashblocks data on the following URLs. The content is Brotli-compressed.
 
 | Network | URL |
 | :------ | :-- |
@@ -321,7 +321,7 @@ You can subscribe the the flashblocks data on the following URLs. The content is
 The initial response contains the base block. Diff responses only contain the transactions that occurred in that
 flashblock to reduce how much data is sent in each response.
 
-```
+```json
 {
   "base": {
     "base_fee_per_gas": "0xa581a9",
@@ -373,7 +373,7 @@ flashblock to reduce how much data is sent in each response.
 
 #### Example Diff Response
 
-```
+```json
 {
   "diff": {
     "block_hash": "0xd7cad1e127fc967c9454d56aa7d97e862ccb7eff83405d79e2be371cb1b6e9d8",
@@ -457,4 +457,4 @@ flashblock to reduce how much data is sent in each response.
 
 
 ## Getting Help
-[Join our Discord](https://discord.com/invite/uniswap) and look for the Unichain channel.
+[Join the Uniswap Discord](https://discord.com/invite/uniswap) and look for the Unichain channel.

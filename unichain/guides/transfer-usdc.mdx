@@ -1,13 +1,13 @@
 ---
-title: Using USDC on Unichain
-description: Learn how to set up and transfer USDC on Unichain
+title: Transfer USDC on Unichain
+description: Build a dApp that transfers USDC on Unichain using Next.js and viem.
 ---
 
 ## Quickstart: Set up and transfer USDC on Unichain
 
 This guide walks you through the process of creating a dApp for transferring USDC on the Unichain Network.
 
-<img src="https://i.imgur.com/DzmfGKk.png" />
+<img src="https://i.imgur.com/DzmfGKk.png" alt="USDC transfer app preview" />
 
 ## What is USDC?
 
@@ -23,7 +23,7 @@ You can find the complete source code for the sample application in the [GitHub 
 
 Before you begin:
 
-- Create a Uniswap Wallet
+- Set up a wallet on Unichain
 - Have ETH and USDC on Unichain testnet
 - Use the [USDC Faucet](https://faucet.circle.com/) if needed
 - Use the USDC testnet token contract on Unichain Sepolia: `0x31d0220469e10c4E71834a79b1f276d740d3768F`
@@ -46,7 +46,7 @@ npm install viem @radix-ui/react-slot @radix-ui/react-tabs lucide-react
 
 3. Create directory structure
 
-```
+```text
 app/
   features/
 	wallet/
@@ -175,7 +175,7 @@ export function useWallet() {
     // Convert the value from USDC to the smallest unit (wei)
     const valueInWei = BigInt(parseFloat(value) * 10 ** 6);
 
-    // Encode the function call data for the transfer function
+    // Encode calldata for the transfer function
     const data = encodeFunctionData({
       abi: USDC_ABI,
       functionName: 'transfer',
