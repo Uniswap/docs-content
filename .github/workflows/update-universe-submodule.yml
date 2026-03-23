@@ -122,17 +122,18 @@ jobs:
           TABLE_ROWS=""
           COMMIT_COUNT=0
 
+          SEP=$'\x1f'
           while IFS= read -r line; do
-            SHA=$(echo "$line" | cut -d'§' -f1)
-            AUTHOR=$(echo "$line" | cut -d'§' -f2)
-            MESSAGE=$(echo "$line" | cut -d'§' -f3-)
+            SHA=$(echo "$line" | cut -d"$SEP" -f1)
+            AUTHOR=$(echo "$line" | cut -d"$SEP" -f2)
+            MESSAGE=$(echo "$line" | cut -d"$SEP" -f3-)
             SHORT_SHA=$(echo "$SHA" | cut -c1-7)
             # Escape pipe characters in message to avoid breaking the markdown table
             MESSAGE=$(echo "$MESSAGE" | sed 's/|/\\|/g')
             TABLE_ROWS="${TABLE_ROWS}| [\`${SHORT_SHA}\`](https://github.com/Uniswap/docs-content/commit/${SHA}) | ${AUTHOR} | ${MESSAGE} |
           "
             COMMIT_COUNT=$((COMMIT_COUNT + 1))
-          done < <(git log --format='%H§%an§%s' "$RANGE" --)
+          done < <(git log --format="%H${SEP}%an${SEP}%s" "$RANGE" --)
 
           # Count changed files
           FILE_COUNT=$(git diff --name-only "$OLD_REF" "$NEW_REF" -- 2>/dev/null | wc -l | tr -d ' ')
