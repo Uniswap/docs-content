@@ -96,6 +96,7 @@ pragma solidity 0.8.26;
 import {BaseHook} from "v4-periphery/src/utils/BaseHook.sol";
 import {Hooks} from "v4-core/src/libraries/Hooks.sol";
 import {IPoolManager} from "v4-core/src/interfaces/IPoolManager.sol";
+import {SwapParams} from "v4-core/src/types/PoolOperation.sol";
 import {PoolKey} from "v4-core/src/types/PoolKey.sol";
 import {Currency} from "v4-core/src/types/Currency.sol";
 import {BeforeSwapDelta, toBeforeSwapDelta} from "v4-core/src/types/BeforeSwapDelta.sol";
@@ -138,7 +139,7 @@ Now, let's implement our `beforeSwap` function:
 function _beforeSwap(
     address,
     PoolKey calldata key,
-    IPoolManager.SwapParams calldata params,
+    SwapParams calldata params,
     bytes calldata
 ) internal override returns (bytes4, BeforeSwapDelta, uint24) {
     // Implementation details will be explained in the following sub-steps
@@ -337,6 +338,7 @@ function _afterSwap(
         poolManager.take(feeCurrency, address(this), feeAmount);
 
         return (BaseHook.afterSwap.selector, int128(int256(feeAmount)));
+    }
 ```
 
 ### Complete afterSwap contract:

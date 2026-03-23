@@ -33,7 +33,7 @@ contract AccessSenderHook is BaseHook {
     // constructor, state, interface, etc
     // ...
 
-    function _beforeSwap(address sender, PoolKey calldata, IPoolManager.SwapParams calldata, bytes calldata)
+    function _beforeSwap(address sender, PoolKey calldata, SwapParams calldata, bytes calldata)
         internal
         override
         returns (bytes4, BeforeSwapDelta, uint24)
@@ -96,7 +96,7 @@ This function allows the hook to remove the router from the list of trusted rout
 Now that we have implemented a basic hook and have added necessary functions, let us implement the beforeSwap function:
 
 ```solidity
-function _beforeSwap(address sender, PoolKey calldata, IPoolManager.SwapParams calldata, bytes calldata)
+function _beforeSwap(address sender, PoolKey calldata, SwapParams calldata, bytes calldata)
     internal
     override
     returns (bytes4, BeforeSwapDelta, uint24)
@@ -130,6 +130,7 @@ import {BaseHook} from "v4-periphery/src/utils/BaseHook.sol";
 
 import {Hooks} from "v4-core/src/libraries/Hooks.sol";
 import {IPoolManager} from "v4-core/src/interfaces/IPoolManager.sol";
+import {SwapParams} from "v4-core/src/types/PoolOperation.sol";
 import {PoolKey} from "v4-core/src/types/PoolKey.sol";
 import {PoolId, PoolIdLibrary} from "v4-core/src/types/PoolId.sol";
 import {BalanceDelta} from "v4-core/src/types/BalanceDelta.sol";
@@ -148,7 +149,7 @@ contract AccessSenderHook is BaseHook {
     function _beforeSwap(
         address sender,
         PoolKey calldata,
-        IPoolManager.SwapParams calldata,
+        SwapParams calldata,
         bytes calldata
     ) internal override returns (bytes4, BeforeSwapDelta, uint24) {
 
