@@ -5,7 +5,8 @@
     "mainnet",
     "arbitrum",
     "priority-chain",
-    "webhooks"
+    "webhooks",
+    "faq"
   ],
   "defaultOpen": false
 }

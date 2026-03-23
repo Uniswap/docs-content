@@ -1,6 +1,7 @@
 ---
 id: priorityorderreactor
 title: Filling on Priority Chains
+description: Fill UniswapX Priority orders on Unichain and Base using priority-fee bidding and reactor execution patterns.
 ---
 
 The [Priority Order Reactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol) is a UniswapX reactor built specifically for chains that utilize Priority Gas Auctions (PGA) for ordering transactions. This reactor type, which is based on research presented in [Priority is All you Need](https://www.paradigm.xyz/2024/06/priority-is-all-you-need), allows fillers to bid on orders during fulfillment through setting custom priority fees. 
@@ -8,22 +9,22 @@ The [Priority Order Reactor](https://github.com/Uniswap/UniswapX/blob/main/src/r
 ## Example Implementation
 Alice submits a PriorityOrder offering 1 ETH in exchange for a minimum of 1000 USDC. The fair market rate for the order is 1100 USDC, resulting in around 100 USDC in potential profit. 
 
-If we assume a filler has a desired margin of 10% of the total profit, the best price is 1090 USDC. This would be 900 bps of improvement. This filler would convert bps to mps (see below for details) to get 900 * 1000 = 900,000 mps of improvement. Thus they would set priorityFee of 900,000 wei on their fill transaction. Keep in mind that this is additional to the base fee.
+If a filler assumes a desired margin of 10% of the total profit, a competitive price is 1090 USDC. This would be 900 bps of improvement. The filler would convert bps to mps (see below for details) to get 900 * 1000 = 900,000 mps of improvement. Thus they would set priorityFee of 900,000 wei on their fill transaction. Keep in mind that this is additional to the base fee.
 
-## Important considerations
+## Important Considerations
 - The PriorityOrderReactor is only meant to be used on chains which order transactions by priority fee. 
-- We do not plan to run any preliminary auctions for the start price of these orders, rather we set a minimum price that each order must be executed at.
-- Each order is only executable after a certain block specified by the user. This block will be a few blocks in the future from when the order is made available through the UniswapX orders endpoint. To ensure the best UX for our users, Uniswap Labs has the ability to make the start block earlier by cosigning the order.
-- Only the fill transaction with the highest priority fee will win the order, all other transactions will revert on chain.
-- To minimize the gas used on reverting transactions, we revert early if the order is already filled or is not fillable yet.
+- Preliminary auctions for the start price of these orders are not planned. Instead, a minimum price is set at which each order must be executed.
+- Each order is only executable after a certain block specified by the user. This block will be a few blocks in the future from when the order is made available through the UniswapX orders endpoint. To improve user experience, Uniswap Labs can make the start block earlier by cosigning the order.
+- Only the fill transaction with the highest priority fee will win the order, all other transactions will revert onchain.
+- To minimize the gas used on reverting transactions, reversion happens early if the order is already filled or is not fillable yet.
 - For every wei of priority fee above a certain threshold (an optional value specified in the order), the user is owed 1 milli-bps more of their output token (or less of their input token). 
 - Milli-bps (or MPS) are one-thousandth of a basis point.
 - Unichain supports specifying a target block and has revert protection. For more information, please see the [Unichain Docs](https://docs.unichain.org/docs/technical-information/advanced-txn).
 
 ## Retrieving and Executing Signed Orders
-All signed Priority Orders created through the Uniswap UI will be available via the UniswapX Orders Endpoint. We have [swagger documentation](https://api.uniswap.org/v2/uniswapx/docs) but see below for a quick example curl.
+All signed Priority Orders created through the Uniswap UI are available via the UniswapX Orders Endpoint. [Swagger documentation](https://api.uniswap.org/v2/uniswapx/docs) is available, but see below for a quick example curl.
 
-```
+```bash
 GET https://api.uniswap.org/v2/orders?orderStatus=open&orderType=Priority
 ```
 
@@ -44,12 +45,12 @@ const orderData = order.info;
 const orderHash = order.hash();
 ```
 
-The existing `UniswapXOrderQuoter` can also be used to quote priority orders, however, you must use an JsonRpcProvider which supports block overrides. Without block overrides, the SDK quoter cannot validate the entire order as the block number is checked first in the contract.
+The existing `UniswapXOrderQuoter` can also be used to quote priority orders, however, you must use a `JsonRpcProvider` that supports block overrides. Without block overrides, the SDK quoter cannot validate the entire order as the block number is checked first in the contract.
 
-## Executing an order
+## Executing an Order
 The [PriorityOrderReactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol) shares the same interface as all other existing UniswapX reactors. Orders are executed against the `execute` and `executeBatch` functions, and optionally a callback is available via `executeWithCallback` and `executeBatchWithCallback`.
 
-## Deployment addresses
+## Deployment Addresses
 The PriorityOrderReactor is deployed on the following chains:
 
 | Chain | Source                                                                                                        | Address                                                                                                               |
@@ -59,4 +60,4 @@ The PriorityOrderReactor is deployed on the following chains:
 
 
 ## Timeline
-The Priority Order Reactor is live on Unichain and Base. Join the [UniswapX Fillers Channel](https://t.me/UniswapXdiscussion) for more details. 
+The Priority Order Reactor is live on Unichain and Base. Join the [UniswapX Fillers Chat](https://t.me/UniswapXdiscussion) for more details.
