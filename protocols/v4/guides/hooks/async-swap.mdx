@@ -32,8 +32,8 @@ contract AsyncSwapHook is BaseHook {
             afterAddLiquidity: false,
             beforeRemoveLiquidity: false,
             afterRemoveLiquidity: false,
-            beforeSwap: false,
-            afterSwap: true,
+            beforeSwap: true,
+            afterSwap: false,
             beforeDonate: false,
             afterDonate: false,
             beforeSwapReturnDelta: true,
@@ -64,7 +64,7 @@ The funds' movements are as follows:
 contract AsyncSwapHook is BaseHook {
      // ...
 
-    function _beforeSwap(address, PoolKey calldata key, IPoolManager.SwapParams calldata params, bytes calldata)
+    function _beforeSwap(address, PoolKey calldata key, SwapParams calldata params, bytes calldata)
         internal
         override
         returns (bytes4, BeforeSwapDelta, uint24)
@@ -80,7 +80,7 @@ contract AsyncSwapHook is BaseHook {
             return (BaseHook.beforeSwap.selector, toBeforeSwapDelta(amountTaken.toInt128(), 0), 0);
         }
         else {
-            return (BaseHook.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO, 0);
+            return (BaseHook.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO_DELTA, 0);
         }
 
     }
