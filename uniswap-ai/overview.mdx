@@ -1,19 +1,19 @@
 ---
 title: Overview
-description: Explore AI-powered tools, plugins, and LLM context files to build on Uniswap faster.
+description: Get started with Uniswap AI plugins, skills, and LLM context for external developers.
 ---
 
-Uniswap provides AI-powered development tools that help you integrate swaps, build v4 hooks, provide liquidity, and interact with the EVM, all from within your code editor.
+Use Uniswap AI to speed up swap integration, hook development, and EVM workflows with tools designed for external developers.
 
 ## Uniswap AI
 
-The [Uniswap AI](https://github.com/uniswap/uniswap-ai) is an open-source collection of plugins and skills that give AI coding agents deep knowledge of Uniswap protocols, APIs, and smart contracts. Instead of relying on general training data, these tools provide agents with up-to-date, protocol-specific guidance, including code patterns, security best practices, and deployment workflows.
+The [Uniswap AI](https://github.com/uniswap/uniswap-ai) repository is an open-source collection of plugins and skills for coding agents. It provides protocol-specific guidance for Uniswap APIs and smart contracts.
 
 ### Available plugins
 
 | Plugin | Description |
 | --- | --- |
-| **uniswap-trading** | Integrate swaps via the [Uniswap API](https://developers.uniswap.org/dashboard), Universal Router SDK, or direct contract calls. Includes the `pay-with-any-token` skill for 402 challenge (supports x402 and MPP). |
+| **uniswap-trading** | Integrate swaps via the [Uniswap API](https://developers.uniswap.org/dashboard), Universal Router SDK, or direct contract calls. |
 | **uniswap-hooks** | Security-first guidance for building Uniswap v4 hooks. |
 | **uniswap-viem** | EVM integration with viem and wagmi. |
 | **uniswap-driver** | Token discovery and swap/liquidity planning with deep links. |
@@ -26,24 +26,23 @@ These are the official skills currently published in Uniswap AI:
 - `configurator`
 - `deployer`
 - `liquidity-planner`
+- `pay-with-any-token`
 - `swap-integration`
 - `swap-planner`
 - `v4-security-foundations`
 - `viem-integration`
 
-### Install with the Skills CLI
+## Install Uniswap AI
 
-Uniswap AI is available through [skills.sh](https://skills.sh), a cross-platform CLI for installing AI agent skills:
+### Skills CLI (any agent)
 
 ```bash
 npx skills add Uniswap/uniswap-ai
 ```
 
-This works with any AI coding agent that supports skill files, not just Claude Code.
+### Claude Code marketplace
 
-### Install as a Claude Code plugin
-
-If you use [Claude Code](https://claude.ai/code), first add the Uniswap marketplace, then install individual plugins:
+If you use [Claude Code](https://claude.ai/code), add the marketplace and install plugins:
 
 ```bash
 # Add the Uniswap marketplace
