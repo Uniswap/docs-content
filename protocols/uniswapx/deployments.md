@@ -1,6 +1,6 @@
 ---
 id: deployment
-title: Deployments Addresses
+title: Deployment Addresses
 ---
 
 ## Mainnet

@@ -1,6 +1,7 @@
 ---
 id: createfiller
 title: Filling on Mainnet
+description: Integrate a UniswapX filler on Ethereum mainnet, retrieve open orders, and execute Dutch and limit fills safely.
 ---
 
 There are two components to integrating as a filler: defining a filler execution strategy and retrieving & executing discovered orders.
@@ -36,17 +37,17 @@ bytes fillData = /* Call data to be sent to your executor contract */;
 executor.execute(order, fillData);
 ```
 
-For convenience, we’ve provided an [example Executor Contract](https://github.com/Uniswap/UniswapX/tree/v1.1.0/src/sample-executors) which demonstrates how a filler could implement a strategy that executes a UniswapX order against a Uniswap V3 pool. These contracts should be deployed to each chain that the filler would like to support.
+For convenience, an [example Executor Contract](https://github.com/Uniswap/UniswapX/tree/v1.1.0/src/sample-executors) is available to demonstrate how a filler can implement a strategy that executes a UniswapX order against a Uniswap v3 pool. These contracts should be deployed to each chain that the filler would like to support.
 
 ## 2A. Retrieve & Execute Signed Dutch Orders
 
-All signed Dutch Orders created through the Uniswap UI will be available via the UniswapX Orders Endpoint. We have [swagger documentation](https://api.uniswap.org/v2/uniswapx/docs) but see below for a quick example curl.
+All signed Dutch Orders created through the Uniswap UI are available via the UniswapX Orders Endpoint. [Swagger documentation](https://api.uniswap.org/v2/uniswapx/docs) is available, but see below for a quick example curl.
 
-```
+```bash
 GET https://api.uniswap.org/v2/orders?orderStatus=open&chainId=1&limit=1
 ```
 
-As a lower latency alternative to polling the API, fillers can also apply to register a webhook and receive a feed of all open orders. See details for registering [here](./webhooks). 
+As a lower latency alternative to polling the API, fillers can also apply to register a webhook and receive a feed of all open orders. See details for registering [here](/docs/liquidity/uniswapx-filling/webhooks). 
 
 It’s up to the individual filler to architect their own systems for finding and executing profitable orders, but the basic flow is as follows:
 
@@ -62,9 +63,8 @@ The process for retrieving and executing limit orders is the same as Dutch Order
 2. Decode returned orders using the [UniswapX SDK](https://github.com/Uniswap/UniswapX-sdk/#parsing-orders)
 3. Send a new transaction to the [execute](https://github.com/Uniswap/UniswapX/blob/a2025e3306312fc284a29daebdcabb88b50037c2/src/reactors/BaseReactor.sol#L29) or [executeBatch](https://github.com/Uniswap/UniswapX/blob/a2025e3306312fc284a29daebdcabb88b50037c2/src/reactors/BaseReactor.sol#L37) methods of the [Exclusive Dutch Order Reactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/ExclusiveDutchOrderReactor.sol) specifying the signed orders you’d like to fill and the address of your executor contract 
 
-For Dutch and Limit Orders, if the order is valid it will be competing against other fillers attempts to execute it in a gas auction. For this reason, we recommend submitting these transactions through a service like [Flashbots Protect](https://docs.flashbots.net/flashbots-protect/overview).
+For Dutch and Limit Orders, if the order is valid it will compete against other filler attempts to execute it in a gas auction. For this reason, it is recommended to submit these transactions through a service like [Flashbots Protect](https://docs.flashbots.net/flashbots-protect/overview).
 
 ## Helpful Links
 
-- [UniswapX Fillers - Announcements channel](https://t.me/uniswapx_fillers)
-- [UniswapX Fillers - Discussion](https://t.me/UniswapXdiscussion)
+- [UniswapX Fillers Chat](https://t.me/UniswapXdiscussion)

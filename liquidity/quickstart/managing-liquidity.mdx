@@ -1,5 +1,5 @@
 ---
-title: Managing liquidity
+title: Managing Liquidity
 description: Mint, increase, decrease, and collect fees on Uniswap v4 liquidity positions using the PositionManager.
 ---
 
@@ -25,7 +25,7 @@ import {Actions} from "v4-periphery/src/libraries/Actions.sol";
 IPositionManager posm = IPositionManager(<address>);
 ```
 
-## Minting a position
+## Minting a Position
 
 Minting creates a new ERC-721 liquidity position in a specific pool and tick range.
 
@@ -87,7 +87,7 @@ posm.modifyLiquidities{value: valueToPass}(
 );
 ```
 
-## Increasing liquidity
+## Increasing Liquidity
 
 Add more tokens to an existing position. In v4, fee revenue is automatically credited when increasing liquidity.
 
@@ -138,7 +138,7 @@ posm.modifyLiquidities(
 );
 ```
 
-## Decreasing liquidity
+## Decreasing Liquidity
 
 Remove tokens from an existing position. Fee revenue is automatically debited when decreasing liquidity.
 
@@ -179,7 +179,7 @@ posm.modifyLiquidities(
 );
 ```
 
-## Collecting fees
+## Collecting Fees
 
 There is no dedicated `COLLECT` command. To collect fees, decrease liquidity by zero:
 
@@ -219,9 +219,9 @@ posm.modifyLiquidities(
 
 To determine how many fee tokens were collected, read the token balances of the `recipient` before and after calling `modifyLiquidities()`.
 
-## Next steps
+## Next Steps
 
-- [Creating a pool](/docs/liquidity/quickstart/creating-a-pool) -- initialize a new v4 pool
-- [Burn liquidity](/docs/protocols/v4/guides/managing-liquidity/burn-liquidity) -- close a position entirely
-- [Batch liquidity](/docs/protocols/v4/guides/managing-liquidity/batch-liquidity) -- manage multiple positions in a single transaction
-- [PositionManager reference](/docs/protocols/v4/guides/position-manager) -- full API reference
+- [Creating a pool](/docs/liquidity/quickstart/creating-a-pool): initialize a new v4 pool
+- [Burn liquidity](/docs/protocols/v4/guides/managing-liquidity/burn-liquidity): close a position entirely
+- [Batch liquidity](/docs/protocols/v4/guides/managing-liquidity/batch-liquidity): manage multiple positions in a single transaction
+- [PositionManager reference](/docs/protocols/v4/guides/position-manager): full API reference

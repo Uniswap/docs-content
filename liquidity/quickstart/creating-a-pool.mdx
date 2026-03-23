@@ -1,12 +1,12 @@
 ---
-title: Creating a pool
+title: Creating a Pool
 description: Initialize a new Uniswap v4 pool with or without initial liquidity.
 ---
 
 Creating a pool on Uniswap v4 is permissionless and enables trading of any token pair. This guide covers two approaches:
 
-1. **Create a pool only** -- initialize the pool without liquidity
-2. **Create a pool and add initial liquidity** -- initialize and fund the pool in a single transaction
+1. **Create a pool only**: initialize the pool without liquidity
+2. **Create a pool and add initial liquidity**: initialize and fund the pool in a single transaction
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ forge install uniswap/v4-core
 forge install uniswap/v4-periphery
 ```
 
-## Guide: Create a pool only
+## Guide: Create a Pool Only
 
 To initialize a pool without initial liquidity, call `PoolManager.initialize()`. This is useful for reserving a pool for future use or when external market makers will provide the starting liquidity.
 
@@ -64,7 +64,7 @@ The `startingPrice` is expressed as `sqrtPriceX96`: `floor(sqrt(token1 / token0)
 
 For a 1:1 pool, the starting price is `79228162514264337593543950336`.
 
-## Guide: Create a pool and add liquidity
+## Guide: Create a Pool and Add Liquidity
 
 The v4 PositionManager supports atomic pool creation and initial liquidity via `multicall`. This creates a trading pool with liquidity in a single transaction.
 
@@ -183,8 +183,8 @@ PositionManager(posm).multicall{value: ethToSend}(params);
 Excess Ether is **not** refunded unless you encode a `SWEEP` action in the actions parameter.
 </Callout>
 
-## Next steps
+## Next Steps
 
-- [Managing liquidity](/docs/liquidity/quickstart/managing-liquidity) -- increase, decrease, and collect fees on positions
-- [Mint position guide](/docs/protocols/v4/guides/managing-liquidity/mint-position) -- detailed PositionManager mint reference
-- [v4-template scripts](https://github.com/uniswapfoundation/v4-template/tree/main/script) -- end-to-end Foundry scripts
+- [Managing liquidity](/docs/liquidity/quickstart/managing-liquidity): increase, decrease, and collect fees on positions
+- [Mint position guide](/docs/protocols/v4/guides/managing-liquidity/mint-position): detailed PositionManager mint reference
+- [v4-template scripts](https://github.com/uniswapfoundation/v4-template/tree/main/script): end-to-end Foundry scripts

@@ -2,11 +2,11 @@
   "title": "UniswapX Filling",
   "pages": [
     "overview",
-    "become-a-quoter",
-    "filling-on-mainnet",
-    "filling-on-arbitrum",
-    "filling-on-op-stack",
-    "webhooks"
+    "mainnet",
+    "arbitrum",
+    "priority-chain",
+    "webhooks",
+    "faq"
   ],
   "defaultOpen": false
 }
