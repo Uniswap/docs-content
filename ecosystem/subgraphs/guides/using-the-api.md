@@ -1,5 +1,4 @@
 ---
-id: using-the-api
 title: Using the API
 description: Build a web interface that queries and displays data from the Uniswap subgraph.
 ---
@@ -8,7 +7,7 @@ In this guide we will create a web interface that consumes and displays data fro
 
 Many different libraries can be used to create an interface and a connection to the subgraph graphql endpoint, but in this guide we will use [React](https://reactjs.org/) for the interface, and [Apollo Client](https://www.apollographql.com/docs/react/) for sending queries. We'll also be using yarn for dependency management.
 
-### Setup and Installs
+## Setup
 
 We'll need to create the basic skeleton for the application. We'll use [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) for this. We'll also add the dependencies we need. Navigate to your root location in your command line and run:
 
@@ -32,7 +31,7 @@ function App() {
 export default App
 ```
 
-### Graphql Client
+### GraphQL client
 
 We need to set up some middleware in order to make requests to the Uniswap subgraph and receive data. To do this we'll use Apollo and create a graphql client to handle this.
 
@@ -79,7 +78,7 @@ ReactDOM.render(
 registerServiceWorker()
 ```
 
-### Writing the queries
+## Query data
 
 Next we'll construct our query and fetch data. For this example we will fetch some data about the Dai token on Uniswap V2. We'll get the current price, and total liquidity across all pairs. We'll be using the Dai address as an id in this query. We'll also fetch the USD price of ETH to help create USD conversion for Dai data.
 
@@ -129,7 +128,7 @@ const {
 
 Notice we're using the Dai token address to fetch data about Dai.
 
-### Formatting Response
+## Render data
 
 Now that we have our data we can format it and display it in the UI. First, we parse the return data to get the actual data that we want. Then we'll use it to get the USD price of Dai. Lastly we'll insert this data into the UI itself.
 
@@ -143,7 +142,7 @@ const daiTotalLiquidity = daiData && daiData.tokens[0].totalLiquidity
 const ethPriceInUSD = ethPriceData && ethPriceData.bundles[0].ethPrice
 ```
 
-### Displaying in the UI
+### Display in the UI
 
 Finally we can use our parsed response data to hydrate the UI. We'll do this in two steps.
 
@@ -175,13 +174,13 @@ return (
 )
 ```
 
-### Next steps
+## Next steps
 
 This should render a very basic page with these two stats about the Dai token within Uniswap. This is a very basic example of what you can do with the Uniswap subgraph and we encourage you to build out more complex and interesting tools!
 
 You can visit our [analytics site](https://uniswap.info/) to see a more advanced analytics page, or visit [the github](https://github.com/Uniswap/uniswap-info) for more detailed examples of using the Uniswap subgraph to create UIs.
 
-### Review
+## Review
 
 In the end your `App.js` file should look like this:
 

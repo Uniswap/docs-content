@@ -1,97 +1,96 @@
 ---
 id: process
-title: Process
+title: Governance Process
+description: Understand the three-phase Uniswap governance lifecycle, including RFC, Temperature Check, and onchain voting.
 ---
 
-This is a living document which represents the current process guidelines for developing and advancing Uniswap Governance Proposals. It was last updated September 2024.
-
-## Tools
-
-Uniswap Governance takes place in several venues. Each serves its own particular purpose.
-
-1.  [_Governance Forum_](https://gov.uniswap.org/)
-
-A Discourse-hosted forum for governance-related discussion. Community members must register for an account before sharing or liking posts. New members must read 4 topics and a combined 15 posts over the course of at least 10 minutes before they may  post themselves.
-
-2. [_Snapshot_](https://snapshot.box/#/s:uniswapgovernance.eth)
-
-A simple voting interface that allows users to signal sentiment off-chain. Votes on Snapshot are weighted by the number of UNI delegated to the address used to vote.
-
-3. [_Uniswap Agora_](https://vote.uniswapfoundation.org)
-
-The [Uniswap Foundation](https://www.uniswapfoundation.org) supports this voting and delegation interface. [Tally](https://www.tally.xyz/gov/uniswap) is another excellent app that supports proposal creation, delegation, and voting.
-
+This section is a living document which represents the current process guidelines for developing and advancing proposals through the Uniswap Governance system. It was last updated in January 2026.
 
 ## Process
 
-Below we outline the current Uniswap governance process, detailing where these venues fit in. These processes are subject to change according to feedback from the Uniswap community.
+The Uniswap governance process ensures that proposals receive thorough community review before being executed onchain. Below is the three-phase framework that every proposal must complete.
 
-### Phase 1: Request for Comment (RFC)
+## Phase 1: Request for Comment (RFC)
 
-_Timeframe_: At least 7 days
+- **Duration:** Minimum 7 days
+- **Location:** [Governance Forum](https://gov.uniswap.org)
+- **Purpose:** Introduce your proposal and gather initial feedback
 
-_Form_: [Governance Forum](https://gov.uniswap.org/) Post
+### What to do
 
-As a proposer, you should use the RFC phase to introduce the community to your proposal. Your post should detail exactly what you are asking delegates to vote on as well as your rationale for why it is a good idea. You should be prepared to answer questions about your proposal. Willingness to adjust based on community feedback is a hallmark of successful past proposals.
+1. Create a forum post titled `RFC - [Your Title Here]`.
+2. Clearly explain what you are proposing and why it benefits Uniswap.
+3. Engage with the community by responding to questions and feedback.
+4. Iterate on your idea based on community input before moving to Phase 2.
 
-To post a RFC, label your post “RFC - [Your Title Here]”. Prior to moving to Phase 2, give the community at least 7 days to read and comment on the RFC. Please respond to questions in the comments, and take feedback into account in the next iteration of the proposal posted in Phase 2.
+Allow at least 7 days for discussion before moving to Phase 2. Successful proposals demonstrate willingness to adapt based on community feedback. If general community consensus or approval is not clear by the end of the 7-day period, the proposal should not move to Phase 2: Temperature Check.
 
-### Phase 2: Temperature Check
+## Phase 2: Temperature Check
 
-_Timeframe_: 5 days
+- **Duration:** 5 days
+- **Location:** [Snapshot](https://snapshot.org/#/uniswap)
+- **Requirement:** 10M UNI voting `for` to advance
+- **Purpose:** Gauge community sentiment through an offchain vote
 
-_Quorum_: 10M UNI
+### What to do
 
-_Form_: [Snapshot Poll](https://snapshot.box/#/s:uniswapgovernance.eth)
+1. Refine your proposal using feedback from the RFC phase.
+2. Create a Snapshot poll with a brief overview of your proposal from the RFC, calling out key components and any changes from RFC to Snapshot phase. The poll lasts for 5 days and voters have the option to vote `for`, `against`, or `abstain`.
+3. Update your forum post with the Snapshot poll link for ease of access.
 
-The purpose of the Temperature Check is to signal community sentiment on a proposal prior to moving towards an onchain vote.
+### Advancement criteria
 
-To create a Temperature Check:
+The proposal must receive at least 10M UNI in `for` votes to move to the next phase. If `against` wins, the proposal does not advance.
 
-1. Incorporate the community feedback from the RFC phase into the proposal.
+## Phase 3: Onchain Governance Proposal
 
-2. Create and post this version of the proposal in the [Governance Forum](https://gov.uniswap.org/) with the title “Temperature Check — [Your Title Here]”. Include a link to the RFC post. You will update the post to include a link to the Snapshot poll after you’ve posted that.
+![](/docs/ecosystem/governance/images/Proposal_Flow.png)
 
-3. Create a [Snapshot poll](https://snapshot.box/#/s:uniswapgovernance.eth). The voting options should consist of those which have gained support in the RFC Phase. This poll can be either binary or multiple choice but must include a `No change` option. Set the poll duration to 5 days. Include a link to the Forum Temperature Check post.
+- **Duration:** 2-day waiting period, 7-day voting period, 2-day timelock (if passed)
+- **Location:** [Agora](https://vote.uniswapfoundation.org/) or [Tally](https://www.tally.xyz/gov/uniswap)
+- **Requirements:**
+  - 1M UNI delegated to submit the proposal
+  - 40M UNI voting in favor to pass
+- **Purpose:** Execute binding, onchain changes to Uniswap
 
-4. Update the Forum post with a link to the Snapshot Poll.
+### What to do
 
-At the end of 5 days, the option with the majority of votes wins. There must be at least 10M UNI `Yes` votes to move onto Phase 3. If the “No change” option wins, the proposal will not move onto the Phase 3.
+1. Make any final refinements based on Temperature Check feedback.
+2. Prepare your proposal code:
+   - Use an interface like Agora or Tally for standard proposals.
+   - Write custom calldata for complex logic.
+3. Check Seatbelt:
+   - Seatbelt is a governance helper tool that simulates the calldata in your proposal. If the proposal were to pass as written, Seatbelt shows expected onchain state changes and emitted events.
+   - As of winter 2026, both Agora and Tally have integrated Seatbelt simulations into their proposal posting flows. If building calldata and posting locally, Seatbelt is available on the [Uniswap Foundation's GitHub](https://github.com/uniswapfoundation/governance-seatbelt).
+4. Submit the proposal:
+   - Ensure your address has 1M UNI delegated, or
+   - Partner with a delegate who meets this threshold to post.
+5. Wait for the process to complete:
+   - 2-day voting delay before voting begins
+   - 7-day voting period for the community to vote
+   - 2-day timelock before execution (if passed)
 
-### Phase 3: Governance Proposal
+### What happens next
 
-_Timeframe_: 2 day waiting period, 7 day voting period, 2 day timelock
-
- _Threshold_: 1M UNI
-
-_Quorum_: 40M UNI votes in favor
-
-Form: [Governance Proposal](https://vote.uniswapfoundation.org/)
-
-![](./images/Proposal_Flow.png)
-
-Phase 3 is the final step of the governance process. If this vote passes, then a change will be enacted onchain.
-
-To create an onchain Governance Proposal:
-
-1. Incorporate any last iterations to your proposal based on feedback prior to posting.
-
-2. Create a topic in the [Governance Forum](https://gov.uniswap.org/) titled "Governance Proposal — [Your Title Here]" and link to previous forum posts and the Temperature Check Snapshot poll.
-
-3. Create your proposal. This can be done either through an interface (e.g. [Tally](https://tally.xyz/gov/uniswap)) or through writing the calldata for more complicated proposal logic. If the proposal passed, this calldata will execute. If writing the calldata yourself, please review the logic with a qualified Uniswap community member prior to posting the proposal.
-
-4. Ensure that at least 1 million UNI is delegated to your address in order to submit a proposal, or find a delegate who has enough delegated UNI to meet the proposal threshold to propose on your behalf.
-
-5. Once you submit the proposal, a two-day voting delay will start. After the voting delay finishes, a ~seven-day voting period begins. If the proposal passes, a two-day timelock must pass before you can execute the proposed code.
+If the proposal receives 40M UNI in favor votes and passes, the associated onchain actions are queued for anyone to execute after the timelock period ends.
 
 ## Changes to the Governance Process
 
-Timeframe: 7 days
-
-_Quorum_: 40M UNI
-
-Form: [Snapshot Poll](https://snapshot.box/#/s:uniswapgovernance.eth)
+- **Duration:** 7 days
+- **Location:** [Snapshot](https://snapshot.org/#/uniswap)
+- **Requirement:** 40M UNI quorum
 
 In the future, the community governance process above may need to undergo additional changes to continue to meet the needs of the Uniswap community. While an onchain vote is not required to change the majority of this process, a clear display of community support and acceptance is important for process changes to have legitimacy.
 
-Thus, changes to all off-chain community governance processes should be voted on through an off-chain Snapshot vote. There should be a 7-day voting period and 40M UNI quorum.
+Thus, changes to all offchain community governance processes should be voted on through an offchain Snapshot vote. There should be a 7-day voting period and 40M UNI quorum.
+
+## Tools
+
+Uniswap Governance follows a three-phase process and takes place across several platforms:
+
+- [Governance Forum](https://gov.uniswap.org/)
+  - A Discourse-hosted forum for governance-related discussion. All governance proposals start in the forum. Community members register accounts and can post, like, and comment on topics.
+- [Snapshot](https://snapshot.org/#/uniswap)
+  - A voting interface that allows users to signal sentiment offchain before a proposal moves to a final onchain vote. Votes on Snapshot are weighted by UNI delegated to the voting address.
+- Onchain voting interfaces
+  - [Agora](https://vote.uniswapfoundation.org/) and [Tally](https://www.tally.xyz/gov/uniswap) are the primary interfaces for delegation and voting. Both teams are funded by grants, with Agora funding from the [Uniswap Foundation](https://www.uniswapfoundation.org/) and Tally funding from [DUNI](https://www.tally.xyz/gov/uniswap/proposal/74).
