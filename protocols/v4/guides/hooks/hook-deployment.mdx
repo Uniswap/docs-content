@@ -45,13 +45,13 @@ For local testing, `deployCodeTo` cheatcode in Foundry can be used to deploy hoo
 But when deploying hooks to an actual network, address mining is required to find the proper deployment address
 There is a helper library [`HookMiner.sol`](https://github.com/Uniswap/v4-periphery/blob/main/src/utils/HookMiner.sol) that can be used to mine for correct addresses.
 
-Let's see it in action for a Foundry script. We will make use of the example - Points Hook from [Building Your First Hook](./your-first-hook).
+Let's see it in action for a Foundry script. We will make use of the example - Points Hook from [Building Your First Hook](./your-first-hook.mdx).
 
 First we set up the contract for Foundry script and import the relevant dependencies:
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.24;
 
 import "forge-std/Script.sol";
 import {Hooks} from "v4-core/src/libraries/Hooks.sol";
@@ -103,7 +103,7 @@ require(address(pointsHook) == hookAddress, "PointsHookScript: hook address mism
 
 ```solidity
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.24;
 
 import "forge-std/Script.sol";
 import {Hooks} from "v4-core/src/libraries/Hooks.sol";
@@ -119,10 +119,7 @@ contract PointsHookScript is Script, Constants {
 
     function run() public {
         // hook contracts must have specific flags encoded in the address
-        uint160 flags = uint160(
-            Hooks.BEFORE_SWAP_FLAG | Hooks.AFTER_SWAP_FLAG | Hooks.BEFORE_ADD_LIQUIDITY_FLAG
-                | Hooks.BEFORE_REMOVE_LIQUIDITY_FLAG
-        );
+        uint160 flags = uint160(Hooks.AFTER_ADD_LIQUIDITY_FLAG | Hooks.AFTER_SWAP_FLAG);
 
         // Mine a salt that will produce a hook address with the correct flags
         bytes memory constructorArgs = abi.encode(POOLMANAGER);
