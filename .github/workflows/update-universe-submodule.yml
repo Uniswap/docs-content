@@ -233,7 +233,10 @@ jobs:
         if: steps.update.outputs.changed == 'true' && env.skip_push != 'true'
         working-directory: universe
         run: |
+          git remote set-url origin "https://x-access-token:${APP_TOKEN}@github.com/Uniswap/universe.git"
           git push --force origin "chore/update-docs-content"
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
 
       # ── 8. Create or update PR ──
       - name: Create or update PR
