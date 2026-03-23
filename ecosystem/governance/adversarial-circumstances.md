@@ -12,9 +12,9 @@ A good faith proposal is brought to vote but is found to have an exploitable edg
 
 ### Circumvention
 
-UNI voting power must be delegated to an address either entirely before a proposal has been submitted or during the proposal delay period. For now, the proposal delay is set to one block, which is about 15 seconds. A proposal delay of one block leaves no opportunity for a third party to find an exploitable edge case and opportunistically purchase uni, self delegate and sway the vote.
+UNI voting power must be delegated to an address either entirely before a proposal has been submitted or during the proposal delay period. For now, the proposal delay is set to one block, which is about 15 seconds. A proposal delay of one block leaves no opportunity for a third party to find an exploitable edge case and opportunistically purchase UNI, self delegate, and sway the vote.
 
-In the future, Uniswap Governance may vote to increase the proposal delay. While there are obvious benefits to an increased proposal delay, It may introduce some potential adverse outcomes such as opportunistic edge case exploitation.
+In the future, Uniswap Governance may vote to increase the proposal delay. While there are obvious benefits to an increased proposal delay, it may introduce some potential adverse outcomes such as opportunistic edge case exploitation.
 
 ## Scenario 2
 
@@ -28,13 +28,13 @@ If a group somehow achieved a bad faith takeover, Timelock's delay would give af
 
 ## Scenario 3
 
-A single party uses a flash loan to push through a proposal, potentially creating a pseudo-DDOS attack by spamming governance with proposals and preventing effective use.
+A single party uses a flash loan to push through a proposal, potentially creating a pseudo-DDoS attack by spamming governance with proposals and preventing effective use.
 
 ### Circumvention
 
-A delegated balance of 2.5 million UNI is required to submit a vote, but the balance check is set exactly one block in the past. This prevents any flash loan proposals from being created, as flash loans cannot execute outside of a single block.
+A delegated balance that meets the active proposal threshold is required to submit a proposal, and the balance check is set exactly one block in the past. This prevents flash loan-based proposal creation because flash loans cannot execute outside a single block.
 
-The proposer must also maintain a minimum balance of 2.5 million UNI throughout the voting period, or anyone may cancel the proposal. This balance maintenance check prevents many highly leveraged proposal techniques that may span several blocks.
+The proposer must also maintain the required delegated balance throughout the voting period, or anyone may cancel the proposal. This balance maintenance check prevents many highly leveraged proposal techniques that may span several blocks.
 
 ## Scenario 4
 
