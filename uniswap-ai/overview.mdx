@@ -13,11 +13,11 @@ The [Uniswap AI](https://github.com/uniswap/uniswap-ai) is an open-source collec
 
 | Plugin | Description |
 | --- | --- |
-| **uniswap-trading** | Integrate Uniswap swaps via the Uniswap API, Universal Router SDK, or direct smart contract calls. Covers Permit2 patterns, ERC-4337 smart accounts, and multi-chain support. |
-| **uniswap-hooks** | Security-first guidance for building Uniswap v4 hooks. Includes vulnerability patterns (NoOp attacks, delta accounting), permission flag risk matrices, and aggregator hook templates for routing through external DEX liquidity. |
-| **uniswap-viem** | EVM blockchain integration using [viem](https://viem.sh) and [wagmi](https://wagmi.sh). Covers client setup, contract interactions, account management, and React hooks. |
-| **uniswap-driver** | Discover tokens and plan Uniswap swaps or liquidity positions. Generates deep links that open directly in the Uniswap interface with parameters pre-filled. |
-| **uniswap-cca** | Configure and deploy Continuous Clearing Auction (CCA) smart contracts for token distribution. Interactive configuration, validation, and Foundry deployment scripts. |
+| **uniswap-trading** | Integrate swaps via the [Uniswap API](https://developers.uniswap.org/dashboard), Universal Router SDK, or direct contract calls. Includes the `pay-with-any-token` skill for 402 challenge (supports x402 and MPP). |
+| **uniswap-hooks** | Security-first guidance for building Uniswap v4 hooks. |
+| **uniswap-viem** | EVM integration with viem and wagmi. |
+| **uniswap-driver** | Token discovery and swap/liquidity planning with deep links. |
+| **uniswap-cca** | Configure and deploy CCA contracts for token distribution. |
 
 ### Official skills
 
@@ -36,7 +36,7 @@ These are the official skills currently published in Uniswap AI:
 Uniswap AI is available through [skills.sh](https://skills.sh), a cross-platform CLI for installing AI agent skills:
 
 ```bash
-npx skills add uniswap/uniswap-ai
+npx skills add Uniswap/uniswap-ai
 ```
 
 This works with any AI coding agent that supports skill files, not just Claude Code.
@@ -50,11 +50,11 @@ If you use [Claude Code](https://claude.ai/code), first add the Uniswap marketpl
 /plugin marketplace add uniswap/uniswap-ai
 
 # Install individual plugins
-claude plugin add uniswap-hooks     # v4 hook development
-claude plugin add uniswap-trading   # Swap integration
-claude plugin add uniswap-viem      # EVM / viem / wagmi
-claude plugin add uniswap-driver    # Token discovery & deep links
-claude plugin add uniswap-cca       # CCA auction configuration
+/plugin install uniswap-hooks      # v4 hook development
+/plugin install uniswap-trading    # Swap integration (+ pay-with-any-token skill)
+/plugin install uniswap-viem       # EVM / viem / wagmi
+/plugin install uniswap-driver     # Token discovery & deep links
+/plugin install uniswap-cca        # CCA auction configuration
 ```
 
 Once installed, the plugins activate automatically when relevant to your task. You can also invoke specific skills directly, for example, `/uniswap-hooks:v4-security-foundations` for a security-first walkthrough of hook development.
@@ -107,6 +107,6 @@ Install the Uniswap AI plugins (see [above](#install-as-a-claude-code-plugin)) f
 
 ## Where to Go Next
 
-- [Browse official skills](/docs/ai-toolkit/skills)
-- [Run and write eval suites](/docs/ai-toolkit/evals)
-- [Contribute to Uniswap AI](/docs/ai-toolkit/contributions)
+- [Browse official skills](/docs/uniswap-ai/skills)
+- [Contribute to Uniswap AI](/docs/uniswap-ai/contributions)
+- [View the Uniswap AI repository](https://github.com/Uniswap/uniswap-ai)

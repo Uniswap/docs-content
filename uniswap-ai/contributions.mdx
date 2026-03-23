@@ -1,6 +1,6 @@
 ---
 title: Contributions
-description: Contribute skills, evals, and improvements to the Uniswap AI toolkit.
+description: Contribute skills, plugins, and improvements to Uniswap AI.
 ---
 
 Thank you for your interest in contributing to Uniswap AI! This guide will help you get started.
@@ -135,19 +135,7 @@ mkdir -p packages/plugins/uniswap-hooks/skills/my-skill
 Each skill needs:
 
 - `SKILL.md` - The skill definition
-- Corresponding eval suite in `evals/suites/`
-
-## Eval Requirements
-
-All new skills **must** have corresponding evaluation suites:
-
-```bash
-# Create eval suite for new skill
-mkdir -p evals/suites/my-skill/cases
-mkdir -p evals/suites/my-skill/expected
-```
-
-See [Evals](/docs/ai-toolkit/evals) for details.
+- Validation through lint, tests, and documentation updates
 
 ## PR workflow highlights
 
@@ -157,7 +145,7 @@ Use descriptive branch names:
 
 ```text
 feature/add-v4-security-skill
-fix/eval-timeout-issue
+fix/plugin-timeout-issue
 docs/update-installation-guide
 ```
 
@@ -167,7 +155,7 @@ Use Conventional Commits for both commit messages and PR titles:
 
 ```text
 feat(hooks): add dynamic fee hook skill
-fix(evals): increase timeout for slow tests
+fix(trading): improve swap integration guidance
 docs: update installation guide
 ```
 
@@ -180,7 +168,6 @@ Typical checks include:
 - Format
 - Tests
 - Plugin validation
-- Eval coverage for new skills
 
 ## Commit Message Format
 
@@ -213,7 +200,6 @@ We use [Conventional Commits](https://www.conventionalcommits.org/):
 - `trading` - uniswap-trading plugin
 - `viem` - uniswap-viem plugin
 - `driver` - uniswap-driver plugin
-- `evals` - Evaluation framework
 - `docs` - Documentation
 - `ci` - CI/CD workflows
 

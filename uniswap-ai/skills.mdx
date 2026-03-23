@@ -12,6 +12,7 @@ These are the official skills currently available in the installer:
 - `configurator`
 - `deployer`
 - `liquidity-planner`
+- `pay-with-any-token`
 - `swap-integration`
 - `swap-planner`
 - `v4-security-foundations`
@@ -25,6 +26,7 @@ These are the official skills currently available in the installer:
 | `uniswap-cca` | `configurator` | Configure CCA auction parameters for a new deployment | `/configurator` |
 | `uniswap-cca` | `deployer` | Deploy CCA contracts using the factory deployment pattern | `/deployer` |
 | `uniswap-trading` | `swap-integration` | Integrate swaps using the Uniswap API, Universal Router, or direct smart contract calls | `/swap-integration` |
+| `uniswap-trading` | `pay-with-any-token` | Pay HTTP 402 challenges (x402 and MPP) using tokens via Uniswap swaps | `/pay-with-any-token` |
 | `uniswap-viem` | `viem-integration` | Set up EVM clients and contract interactions with viem and wagmi | `/viem-integration` |
 | `uniswap-driver` | `swap-planner` | Plan token swaps and generate interface deep links | `/swap-planner` |
 | `uniswap-driver` | `liquidity-planner` | Plan LP positions and generate interface deep links | `/liquidity-planner` |
@@ -34,7 +36,7 @@ These are the official skills currently available in the installer:
 Install Uniswap AI skills with the Skills CLI:
 
 ```bash
-npx skills add uniswap/uniswap-ai
+npx skills add Uniswap/uniswap-ai
 ```
 
 If your environment supports interactive selection, you can choose specific skills from the install prompt.
@@ -72,4 +74,4 @@ Each skill is defined in a `SKILL.md` file and typically includes:
 1. Create the skill folder under `packages/plugins/<plugin>/skills/<skill-name>/`
 2. Add a `SKILL.md` file with frontmatter and clear instructions
 3. Register the skill in the plugin manifest (`plugin.json`)
-4. Add a corresponding eval suite in `evals/suites/<skill-name>/`
+4. Validate the skill with lint and test checks before opening a PR
