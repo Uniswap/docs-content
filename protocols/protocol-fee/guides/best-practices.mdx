@@ -1,7 +1,7 @@
 ---
 title: Best Practices
+description: Apply practical safeguards when integrating with the Uniswap Protocol Fee contracts and release flow.
 ---
-# Best Practices
 
 Below, please find a list of best practices when interacting with the Uniswap Protocol Fee system.
 
@@ -45,7 +45,7 @@ In the safe pattern, the caller is responsible for reading the `Firepit.nonce()`
 
 ## Collect Uniswap v3 Fees
 
-For further reading, please see [Read Asset Balance](./read-asset-balance)
+For further reading, please see [Read Asset Balances](./read-asset-balances)
 
 In the Uniswap Protocol Fee system, Uniswap v3 fees *must be collected* to the `AssetSink` before they are eligible for release.
 
@@ -89,7 +89,7 @@ Because the Uniswap Protocol Fee system can release native tokens (Ether), recip
 
 ## Pricing Uniswap v2 ERC-20 Tokens
 
-For further reading, please see [Read Asset Balance](./read-asset-balance#uniswap-v2-pool-protocol-fees)
+For further reading, please see [Read Asset Balances](./read-asset-balances#uniswap-v2-pool-protocol-fees)
 
 Uniswap v2 Protocol Fees are automatically pushed to the `AssetSink` contract, but are represented as ERC-20 LP tokens. These ERC-20 LP tokens represent a combination of `token0` and `token1`
 

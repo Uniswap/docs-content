@@ -1,6 +1,7 @@
 ---
 id: increase-liquidity
-title: Increase Liquidity
+title: Increase Liquidity (v3)
+description: Increase an existing Uniswap v3 position using PositionManager while preserving the position range.
 ---
 
 ## Increase Liquidity Within The Current Range

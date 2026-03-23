@@ -1,15 +1,15 @@
 ---
 id: price-discovery
-title: Price discovery
+title: Price Discovery
+description: Learn how a Uniswap Continuous Clearing Auction discovers clearing prices as new bids enter each block.
 ---
 
-# Entering price discovery
 This section will walk you through how a CCA auction discovers new prices over time.
 
 ## Prerequisites
-Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](./submit-bid) where we submitted our first bid.
+Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/protocols/liquidity-launchpad/guides/submit-bid) where we submitted our first bid.
 
-## Summary
+## Step 1: Review the current auction state
 Currently we have a CCA contract deployed which we have submitted a bid to. We'll now modify our script to show how the price of the auction can change over time.
 
 To summarize the current relative parameters:
@@ -21,10 +21,10 @@ To summarize the current relative parameters:
 
 And the total supply to sell is 1 billion tokens.
 
-## Discovering a new price
+## Step 2: Submit a bid that moves the clearing price
 In the last section we showed how the auction updates its internal state via checkpointing when a new bid is submitted. The bid that we submitted had two main parts: a max price and an amount.
 
-The [whitepaper](https://uniswap.org/whitepaper.pdf) is the best resource to understand the mechanics of the auction but at a high level this is how the auction's mechanism works:
+The [whitepaper](https://docs.uniswap.org/whitepaper_cca.pdf) is the most complete resource to understand the auction mechanics, but at a high level this is how the mechanism works:
 - Given that each bid is willing to purchase tokens until some _maximum price_, there exists a price for which no one is willing to participate in the auction.
 - A less extreme version of the idea above is that there exists a _clearing price_ for which all of the demand (ex. ETH) in the auction can purchase all of the tokens that are being sold.
 - This equilibrium can only change if a new bid is submitted into the auction.
@@ -70,8 +70,10 @@ AUCTION_ADDRESS=<auction address> forge script scripts/ExampleCCABidScript.s.sol
 --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --broadcast -vvvv --slow
 ```
 
+## Verification
+
 The output should look like this:
-```
+```text
 [335278] 0x1fE7eaE06ef5c6b5f7eeA526Ca1fc1945153dF58::submitBid{value: 1999999999999999909496}(158456325028528668016640 [1.584e23], 1999999999999999909496 [1.999e21], RIPEMD-160: [0x0000000000000000000000000000000000000003], 0x)
     ├─ emit ClearingPriceUpdated(blockNumber: 3, clearingPrice: 79228162514264334008320 [7.922e22])
     ├─ emit CheckpointUpdated(blockNumber: 3, clearingPrice: 79228162514264334008320 [7.922e22], cumulativeMps: 60000 [6e4])
@@ -93,5 +95,5 @@ This follows our intuition from the previous section, where the auction finds th
 
 We also see that the new Checkpoint created in block #4 has the updated clearing price.
 
-## Next steps
+## Next Steps
 In the next section we'll cover how a bid can be exited and how tokens can be claimed.
