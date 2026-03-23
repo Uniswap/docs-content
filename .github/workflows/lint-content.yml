@@ -1,0 +1,123 @@
+name: Lint content
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '**/*.md'
+      - '**/*.mdx'
+      - '**/meta.json'
+
+permissions:
+  contents: read
+
+env:
+  # Content directories to lint (excludes root-level files like README.md, docs-skill.md)
+  CONTENT_DIRS: api changelog ecosystem get-started liquidity protocols sdks trading unichain uniswap-ai
+
+jobs:
+  lint:
+    name: Lint docs content
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
+        with:
+          persist-credentials: false
+
+      - name: Check for absolute image paths
+        run: |
+          VIOLATIONS=$(grep -rn --include='*.md' --include='*.mdx' -E '!\[.*\]\(/' $CONTENT_DIRS || true)
+          if [ -n "$VIOLATIONS" ]; then
+            echo "::error::Found absolute image paths — use relative paths instead (e.g. ./images/foo.png)"
+            echo "$VIOLATIONS"
+            exit 1
+          fi
+
+      - name: Check for broken image references
+        run: |
+          while IFS= read -r file; do
+            DIR=$(dirname "$file")
+            grep -oP '!\[.*?\]\(\K[^)]+' "$file" | while IFS= read -r img_path; do
+              # Skip URLs
+              if echo "$img_path" | grep -qE '^https?://'; then
+                continue
+              fi
+              # Strip any anchor or query string
+              img_path=$(echo "$img_path" | sed 's/[?#].*//')
+              RESOLVED="${DIR}/${img_path}"
+              if [ ! -f "$RESOLVED" ]; then
+                echo "::error file=${file}::Broken image reference: ${img_path}"
+                touch /tmp/lint_failed
+              fi
+            done
+          done < <(find $CONTENT_DIRS -name '*.md' -o -name '*.mdx')
+          if [ -f /tmp/lint_failed ]; then
+            exit 1
+          fi
+
+      - name: Check frontmatter has required fields
+        run: |
+          while IFS= read -r file; do
+            FRONTMATTER=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
+            if [ -z "$FRONTMATTER" ]; then
+              echo "::error file=${file}::Missing frontmatter"
+              touch /tmp/lint_failed
+              continue
+            fi
+            if ! echo "$FRONTMATTER" | grep -q '^title:'; then
+              echo "::error file=${file}::Missing required frontmatter field: title"
+              touch /tmp/lint_failed
+            fi
+            if ! echo "$FRONTMATTER" | grep -q '^description:'; then
+              echo "::error file=${file}::Missing required frontmatter field: description"
+              touch /tmp/lint_failed
+            fi
+          done < <(find $CONTENT_DIRS -name '*.md' -o -name '*.mdx')
+          if [ -f /tmp/lint_failed ]; then
+            exit 1
+          fi
+
+      - name: Check for unclosed Callout components
+        run: |
+          while IFS= read -r file; do
+            OPENS=$(grep -c '<Callout' "$file" || true)
+            CLOSES=$(grep -c '</Callout>' "$file" || true)
+            if [ "$OPENS" -ne "$CLOSES" ]; then
+              echo "::error file=${file}::Mismatched Callout tags (${OPENS} opens, ${CLOSES} closes)"
+              touch /tmp/lint_failed
+            fi
+          done < <(find $CONTENT_DIRS -name '*.mdx')
+          if [ -f /tmp/lint_failed ]; then
+            exit 1
+          fi
+
+      - name: Validate meta.json files
+        run: |
+          while IFS= read -r file; do
+            DIR=$(dirname "$file")
+            if ! python3 -m json.tool "$file" > /dev/null 2>&1; then
+              echo "::error file=${file}::Invalid JSON"
+              touch /tmp/lint_failed
+              continue
+            fi
+            python3 -c "
+          import json, os, sys
+          with open('$file') as f:
+            data = json.load(f)
+          if not isinstance(data, list):
+            sys.exit(0)
+          for entry in data:
+            slug = entry if isinstance(entry, str) else entry.get('slug', entry.get('title', ''))
+            if not slug or slug.startswith('http'):
+              continue
+            base = '${DIR}/' + slug
+            if not any(os.path.exists(p) for p in [base + '.md', base + '.mdx', base]):
+              print(f'::error file=${file}::meta.json references \"{slug}\" but no matching file or directory found')
+              open('/tmp/lint_failed', 'w').close()
+          " || true
+          done < <(find $CONTENT_DIRS -name 'meta.json')
+          if [ -f /tmp/lint_failed ]; then
+            exit 1
+          fi
