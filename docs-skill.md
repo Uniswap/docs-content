@@ -297,26 +297,61 @@ Lowercase "v" is a prose rule only. Preserve uppercase protocol versions in any 
 
 These rules come from Uniswap Labs legal team review. They are non-negotiable and apply to all docs content.
 
-#### Execution language
+#### Goals
 
-The Uniswap API helps with trade execution but does not itself execute trades. Uniswap Labs does not take part in trade execution. Always make clear that the user (or their signer) performs the final execution.
+- Assume every public word is official. Be clear, transparent, and technically precise.
+- Highlight Uniswap Labs contributions accurately. Do not use hype, guarantees, or language that overstates Labs' role.
+
+#### Principles
+
+##### 1) Execution Language
+
+The Uniswap API helps with routing and transaction preparation but does not execute trades. The user (or signer) performs final transaction submission onchain.
 
 | Do | Do Not |
 |---|---|
 | "Submit the transaction with your signer" | "Execute the trade" / "The API executes the swap" |
-| "The API facilitates swap routing" | "The API executes swaps" |
+| "The API provides routing and calldata" | "The API handles execution" |
 | "Send the transaction onchain with your signer" | "Uniswap executes the transaction for you" |
-| "The API returns calldata you sign and submit" | "The API handles execution" |
+| "Use the most efficient route based on current inputs" | "Best execution", "best pricing", "cheapest" |
+| "Use reliable routing logic (where accurate)" | Guaranteed outcomes language |
 
 Rules:
-- Never use "execute" with the Uniswap API as the subject. The API provides quotes, routes, and calldata. The user's signer submits the transaction.
-- When describing the swap flow end-to-end, always include the signer step: "...then sign and submit the transaction with your signer."
-- Never imply Uniswap Labs acts as an intermediary or custodian in trade execution.
+- Never use "execute" with the Uniswap API as the subject.
+- Never imply auto-routing or automatic execution on behalf of the user.
+- Always include signer responsibility in end-to-end flow descriptions.
+- Prefer "most efficient" when discussing route quality. Avoid language implying guaranteed outcomes.
 
-#### Comparative language
+##### 2) Entity Separation and Naming
 
-- Never use "best" to describe quotes, prices, or routing outcomes. Use "most competitive" instead.
-- Never use "better" to compare routing or integration paths. Use "more efficient" instead.
+- Avoid promoting "Uniswap" or "Unichain" generally.
+- Use "Uniswap Labs" for company actions and product names where applicable (for example: "Uniswap Wallet", "Uniswap Trading Protocol").
+- Keep protocol statements factual and scoped to protocol behavior, not marketing claims.
+
+##### 3) No Trading Outcome Claims
+
+- Do not imply Uniswap Labs determines execution outcomes on behalf of users.
+- Do not imply custody, discretion, or intermediary execution by Labs.
+- Use precise phrasing: "The API returns quotes/routes/calldata; users sign and submit."
+
+##### 4) Comparisons
+
+- Neutral factual references are allowed (for example: "Uniswap v2, v3, v4").
+- Do not use unsubstantiated value judgments ("superior to competitors", "best in class").
+- Avoid promotional comparative claims about the Uniswap protocol.
+
+##### 5) Avoid Loaded Terms
+
+- Avoid ambiguous terms such as "fairness" unless explicitly defined.
+- Prefer objective, verifiable phrasing.
+
+#### Legal Review Examples
+
+- Issue: "best execution" plus "auto-routing" can imply Labs determines outcomes for users.
+  - Preferred: "most efficient route based on current inputs" and "users sign and submit the transaction."
+
+- Issue: "fairness" can be interpreted in multiple legal/market senses.
+  - Preferred: "Anyone will be able to verify blocks were built by priority ordering on Unichain."
 
 ## 9. SEO and LLM Checklist (Per Page)
 
