@@ -1,29 +1,44 @@
 ---
-title: Uniswap v2 Overview
+title: Overview
 description: Get started with Uniswap v2 concepts, guides, deployments, and security references for protocol integrations.
 ---
 
-Use this section to understand Uniswap v2 architecture, swap mechanics, liquidity behavior, and integration patterns.
+Use this page to navigate the v2 section by topic and integration type.
 
-If you are new to Uniswap, start with the [Protocol overview](/docs/get-started/concepts/how-uniswap-works), then continue with v2 concepts and guides.
+## Concepts
 
-You can also review the <a href='https://uniswap.org/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>Uniswap v2 whitepaper</a>.
+- [Architecture](/docs/protocols/v2/concepts/architecture)
+- [Swapping](/docs/protocols/v2/concepts/swapping)
+- [Oracles](/docs/protocols/v2/concepts/oracles)
+
+## Guides
+
+If you are new to Uniswap, start with [basic concepts](/docs/get-started/concepts/how-uniswap-works).
+
+Then continue with [Getting Started](/docs/protocols/v2/guides/getting-started), [Implement a Swap](/docs/protocols/v2/guides/swapping), and [Providing Liquidity](/docs/protocols/v2/guides/providing-liquidity).
 
 ## Repositories
-
-Uniswap v2 protocol contracts are separated across two repositories:
 
 - [`uniswap-v2-core`](https://github.com/Uniswap/uniswap-v2-core)
 - [`uniswap-v2-periphery`](https://github.com/Uniswap/uniswap-v2-periphery)
 
-The v2 SDK repositories are:
+## SDKs
 
-- [`uniswap-sdk`](https://github.com/Uniswap/uniswap-v2-sdk)
-- [`uniswap-sdk-core`](https://github.com/Uniswap/uniswap-sdk-core)
+- [v2 SDK docs](/docs/sdks/v2/overview)
+- [`uniswap-v2-sdk`](https://github.com/Uniswap/uniswap-v2-sdk)
+- [`uniswap-sdk-core`](https://github.com/Uniswap/sdk-core)
 
-## Where to Go Next
+## Audits
 
-- Read [Swaps](/docs/protocols/v2/concepts/swapping) for execution behavior.
-- Read [Pricing](/docs/protocols/v2/concepts/pricing) and [Oracles](/docs/protocols/v2/concepts/oracles) for price data usage.
-- Use [Smart Contract Quick start](/docs/protocols/v2/guides/getting-started) to build your first integration.
+- [v2 Core audit report](https://github.com/Uniswap/v2-core/blob/master/audit.pdf)
+
+## Deployments
+
+- [Uniswap v2 deployment addresses](/docs/protocols/v2/deployments)
+
+## Security
+
+Uniswap Labs maintains an active bug bounty program on Cantina for eligible vulnerability disclosures. Program scope, severity criteria, and reward details are available on the program page.
+
+> [View the program](https://cantina.xyz/bounties/f9df94db-c7b1-434b-bb06-d1360abdd1be)
 

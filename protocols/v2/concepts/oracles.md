@@ -1,5 +1,4 @@
 ---
-id: oracles
 title: Oracles
 description: Understand Uniswap v2 oracle design and use cumulative prices to build manipulation-resistant TWAP feeds.
 ---
@@ -49,7 +48,7 @@ In the meantime, check out our [example implementation](https://github.com/Unisw
 
 The cost of manipulating the price for a specific time period can be roughly estimated as the amount lost to arbitrage and fees every block for the entire period. For larger liquidity pools and over longer time periods, this attack is impractical, as the cost of manipulation typically exceeds the value at stake.
 
-Other factors, such as network congestion, can reduce the cost of attack. For more information about Uniswap v2 security considerations, see the [Security](/docs/protocols/v2/security) documentation.
+Other factors, such as network congestion, can reduce the cost of attack. For more information about Uniswap v2 security considerations, see the [Security section](/docs/protocols/v2/overview#security).
 
 ## Building an oracle
 
