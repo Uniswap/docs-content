@@ -1,13 +1,20 @@
 ---
 id: overview
-title: Overview
+title: Smart Wallet Overview
+description: Learn how Uniswap smart wallet uses the Calibur implementation with EIP-7702 delegation across supported networks.
 ---
 
-Uniswap smart wallet features are powered by the Calibur contract which is meant to be used alongside [EIP-7702.](https://eips.ethereum.org/EIPS/eip-7702)
+Uniswap smart wallet features are powered by Calibur, a contract implementation designed for [EIP-7702](https://eips.ethereum.org/EIPS/eip-7702).
 
-Calibur is a singular contract which has been deployed to the same address across all supported networks. For more details, see the [Deployments](./deployments) page below. It is non upgradeable and has no owner.
+## What Calibur Is
 
-Curious about the name? 
+Calibur is deployed to the same address across supported networks. It is non-upgradeable and has no owner.
 
-> Introducing Calibur, a derivation of *Excalibur* and a nod to the mythical sword's reputation as a symbol of rightful authority and exceptional power.
->
+## Deployment Model
+
+Users delegate to the implementation through EIP-7702 and then use smart wallet features while keeping the same EOA address.
+
+## Where to Go Next
+
+- Review contract addresses and versions in [Deployments](/docs/protocols/smart-wallet/deployments).
+- Learn key security caveats in [Integration Caveats](/docs/protocols/smart-wallet/guides/best-practices).
