@@ -1,7 +1,9 @@
 ---
-id: deployment
-title: Deployment Addresses
+title: UniswapX Deployment Addresses
+description: Find UniswapX reactor, quoter, and Permit2 deployment addresses across Ethereum, Arbitrum, Unichain, and Base.
 ---
+
+Use this page as a reference for current UniswapX contract deployments by chain.
 
 ## Mainnet
 
