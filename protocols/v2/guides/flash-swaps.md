@@ -1,9 +1,10 @@
 ---
 id: using-flash-swaps
 title: Flash Swaps
+description: Implement Uniswap v2 flash swaps by handling callbacks, validating pair context, and repaying with required fees.
 ---
 
-Flash swaps are an integral feature of Uniswap V2. In fact, under the hood, all swaps are actually flash swaps! This simply means that pair contracts send output tokens to the recipient _before_ enforcing that enough input tokens have been received. This is slightly atypical, as one might expect a pair to ensure it's received payment before delivery. However, because Ethereum transactions are _atomic_, we can roll back the entire swap if it turns out that the contract hasn't received enough tokens to make itself whole by the end of the transaction.
+Flash swaps are an integral feature of Uniswap v2. In fact, under the hood, all swaps are actually flash swaps! This simply means that pair contracts send output tokens to the recipient _before_ enforcing that enough input tokens have been received. This is slightly atypical, as one might expect a pair to ensure it's received payment before delivery. However, because Ethereum transactions are _atomic_, we can roll back the entire swap if it turns out that the contract hasn't received enough tokens to make itself whole by the end of the transaction.
 
 To see how this all works, let's start by examining the interface of the `swap` function:
 
@@ -33,12 +34,12 @@ There are several conditions that should be checked in all `uniswapV2Call` funct
 function uniswapV2Call(address sender, uint amount0, uint amount1, bytes calldata data) {
   address token0 = IUniswapV2Pair(msg.sender).token0(); // fetch the address of token0
   address token1 = IUniswapV2Pair(msg.sender).token1(); // fetch the address of token1
-  assert(msg.sender == IUniswapV2Factory(factoryV2).getPair(token0, token1)); // ensure that msg.sender is a V2 pair
+  assert(msg.sender == IUniswapV2Factory(factoryV2).getPair(token0, token1)); // ensure that msg.sender is a v2 pair
   // rest of the function goes here!
 }
 ```
 
-The first 2 lines simply fetch the token addresses from the pair, and the 3rd ensures that the `msg.sender` is an actual Uniswap V2 pair address.
+The first 2 lines simply fetch the token addresses from the pair, and the 3rd ensures that the `msg.sender` is an actual Uniswap v2 pair address.
 
 ## Repayment
 

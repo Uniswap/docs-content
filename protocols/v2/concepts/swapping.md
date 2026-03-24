@@ -2,6 +2,7 @@
 id: swaps
 title: Swaps
 subtitle: Learn about the core functionality of the uniswap protocol. Token Swaps.
+description: Understand how Uniswap v2 swaps move reserves and how token transfers are validated during execution.
 ---
 
 ![](./images/trade.jpg)
@@ -22,7 +23,7 @@ This rule is the [constant product formula](/docs/get-started/glossary#constant-
 
 ## Anatomy of a swap
 
-At the most basic level, all swaps in Uniswap V2 happen within a single function, aptly named `swap`:
+At the most basic level, all swaps in Uniswap v2 happen within a single function, aptly named `swap`:
 
 ```solidity
 function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data);
@@ -34,11 +35,11 @@ As is probably clear from the function signature, Uniswap requires `swap` caller
 
 ## Sending Tokens
 
-What’s not as clear is how Uniswap _receives_ tokens as payment for the swap. Typically, smart contracts which need tokens to perform some functionality require callers to first make an approval on the token contract, then call a function that in turn calls transferFrom on the token contract. This is _not_ how V2 pairs accept tokens. Instead, pairs check their token balances at the _end_ of every interaction. Then, at the beginning of the _next_ interaction, current balances are differenced against the stored values to determine the amount of tokens that were sent by the current interactor. See the <a href='https://uniswap.org/whitepaper.pdf' rel='noopener noreferrer'>whitepaper</a> for a justification of why this is the case.
+What’s not as clear is how Uniswap _receives_ tokens as payment for the swap. Typically, smart contracts which need tokens to perform some functionality require callers to first make an approval on the token contract, then call a function that in turn calls transferFrom on the token contract. This is _not_ how v2 pairs accept tokens. Instead, pairs check their token balances at the _end_ of every interaction. Then, at the beginning of the _next_ interaction, current balances are differenced against the stored values to determine the amount of tokens that were sent by the current interactor. See the <a href='https://uniswap.org/whitepaper.pdf' rel='noopener noreferrer'>whitepaper</a> for a justification of why this is the case.
 
-The takeaway is that **tokens must be transferred to pairs before swap is called** (the one exception to this rule is [Flash Swaps](./flash-swap)). This means that to safely use the `swap` function, it must be called from _another smart contract_. The alternative (transferring tokens to the pair and then calling `swap`) is not safe to do non-atomically because the sent tokens would be vulnerable to arbitrage.
+The takeaway is that **tokens must be transferred to pairs before swap is called** (the one exception to this rule is [Flash Swaps](/docs/protocols/v2/concepts/flash-swap)). This means that to safely use the `swap` function, it must be called from _another smart contract_. The alternative (transferring tokens to the pair and then calling `swap`) is not safe to do non-atomically because the sent tokens would be vulnerable to arbitrage.
 
 ## Developer resources
 
-- To see how to implement token swaps in a smart contract read the [v2 swapping guide](../guides/swapping).
+- To see how to implement token swaps in a smart contract read the [v2 swapping guide](/docs/protocols/v2/guides/swapping).
 - To see how to execute a swap from an interface read [Trading (SDK)](/docs/sdks/v2/guides/swapping)

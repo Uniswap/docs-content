@@ -1,24 +1,29 @@
 ---
-id: overview
-title: Overview
+title: Uniswap v2 Overview
+description: Get started with Uniswap v2 concepts, guides, deployments, and security references for protocol integrations.
 ---
 
-Welcome to the Uniswap protocol v2 docs.
+Use this section to understand Uniswap v2 architecture, swap mechanics, liquidity behavior, and integration patterns.
 
-The pages here contain conceptual and technical documentation of the Uniswap v2 protocol.
+If you are new to Uniswap, start with the [Protocol overview](/docs/get-started/concepts/how-uniswap-works), then continue with v2 concepts and guides.
 
-If you are new to Uniswap, you might want to check out the [Protocol overview](/docs/get-started/concepts/how-uniswap-works) first.
+You can also review the <a href='https://uniswap.org/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>Uniswap v2 whitepaper</a>.
 
-You can also take a look at the v2 Protocol <a href='https://uniswap.org/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>Whitepaper</a>.
+## Repositories
 
-## Developer links
-
-The v2 Uniswap protocol is separated across two repositories
+Uniswap v2 protocol contracts are separated across two repositories:
 
 - [`uniswap-v2-core`](https://github.com/Uniswap/uniswap-v2-core)
 - [`uniswap-v2-periphery`](https://github.com/Uniswap/uniswap-v2-periphery)
 
-The v2 SDK, which can assist developers when interacting with the Uniswap v2 Protocol can be found here.
+The v2 SDK repositories are:
 
 - [`uniswap-sdk`](https://github.com/Uniswap/uniswap-v2-sdk)
 - [`uniswap-sdk-core`](https://github.com/Uniswap/uniswap-sdk-core)
+
+## Where to Go Next
+
+- Read [Swaps](/docs/protocols/v2/concepts/swapping) for execution behavior.
+- Read [Pricing](/docs/protocols/v2/concepts/pricing) and [Oracles](/docs/protocols/v2/concepts/oracles) for price data usage.
+- Use [Smart Contract Quick start](/docs/protocols/v2/guides/getting-started) to build your first integration.
+

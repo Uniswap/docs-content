@@ -1,9 +1,10 @@
 ---
 id: v2-deployments
-title: V2 Deployment Addresses
+title: Uniswap v2 Deployment Addresses
+description: Find Uniswap v2 factory and router deployment addresses across supported networks.
 ---
 
-Contract addresses for the [`Uniswap V2 Factory`](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Factory.sol) and the [`Uniswap V2Router02`](https://github.com/Uniswap/v2-periphery/blob/master/contracts/UniswapV2Router02.sol)
+Contract addresses for the [`Uniswap v2 Factory`](https://github.com/Uniswap/v2-core/blob/master/contracts/UniswapV2Factory.sol) and the [`Uniswap v2 Router02`](https://github.com/Uniswap/v2-periphery/blob/master/contracts/UniswapV2Router02.sol).
 
 | Network                                              | Factory Contract Address                     | V2Router02 Contract Address                  |
 | ---------------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
