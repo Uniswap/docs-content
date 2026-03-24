@@ -1,6 +1,6 @@
 ---
-id: signature-transfer
-title: SignatureTransfer
+title: Signature Transfer
+description: Learn Uniswap Permit2 signature-based transfer flows, witness signing, and unordered nonce bitmap protection.
 ---
 
 > [**Source Code**](https://github.com/Uniswap/permit2/blob/main/src/SignatureTransfer.sol)
@@ -199,7 +199,7 @@ And the `witnessTypeString` to be passed in should be:
 string constant witnessTypeString = "ExampleTrade witness)ExampleTrade(address exampleTokenAddress,uint256 exampleMinimumAmountOut)TokenPermissions(address token,uint256 amount)"
 ```
 
-It’s important to note that when hashing multiple typed structs, the ordering of the structs in the type string matters. Referencing EIP-721:
+It’s important to note that when hashing multiple typed structs, the ordering of the structs in the type string matters. Referencing EIP-712:
 
 > If the struct type references other struct types (and these in turn reference even more struct types), then the set of referenced struct types is collected, sorted by name and appended to the encoding. An example encoding is `Transaction(Person from,Person to,Asset tx)Asset(address token,uint256 amount)Person(address wallet,string name)`
 > 
