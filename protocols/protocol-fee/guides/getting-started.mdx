@@ -4,15 +4,14 @@ description: Follow a complete step-by-step flow to call `Firepit.release()` in 
 ---
 
 
-In the current version of the Uniswap Protocol Fee system, searchers can *permissionlessly* capture value from the system
-by receiving assets valued greater than the UNI tokens provided to the system.
+In the current version of the Uniswap Protocol Fee system, participants can call `Firepit.release()` when releasable asset value exceeds the required UNI amount.
 
-The simplest way to interact with the system is calling [`Firepit.release()`](/docs/protocols/protocol-fee/overview#release) from a wallet
+The simplest way to interact with the system is calling [`Firepit.release()`](/docs/protocols/protocol-fee/overview#release) from a wallet.
 
 <Callout type="note">
 It is possible to interact with the `Firepit` contract via a custom smart contract to enable:
 * slippage / balance checks
-* Uniswap v3 Fee [collection](./best-practices#collect-uniswap-v3-fees)
+* Uniswap v3 Fee [collection](/docs/protocols/protocol-fee/guides/best-practices#collect-uniswap-v3-fees)
 * Uniswap v2 LP Token [redemptions](/docs/protocols/protocol-fee/guides/read-asset-balances#uniswap-v2-pool-protocol-fees)
 * UNI token flash loans
 </Callout>
@@ -53,7 +52,7 @@ cast send 0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984 \
 
 ## Step 3: Read the nonce
 
-The `Firepit` contract uses a `nonce` as a safety mechanism to avoid malicious front-running. The value is provided to `release(...)` must be equal
+The `Firepit` contract uses a `nonce` as a safety mechanism to avoid malicious front-running. The value provided to `release(...)` must be equal
 to the value in contract storage
 
 ```solidity [solidity]

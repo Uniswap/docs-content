@@ -46,3 +46,13 @@ See the Releaser contract source for more.
 - When the top *N* assets in the *TokenJar* are worth slightly more than 100 UNI, **anyone** is incentivized to use the `Firepit.release()` contract to:
     1. Burn 100 UNI
     2. Withdraw the top *N* assets, *valued* at slightly more than 100 UNI
+
+## Firepit Mechanics
+
+### Threshold
+
+`Firepit.threshold()` is the minimum UNI amount required to call `release()`. Governance can update this threshold through the configured governance flow.
+
+### Release
+
+`Firepit.release()` is user-triggered. The caller submits the transaction with their signer and burns the required UNI amount to withdraw configured assets from the releaser flow.
