@@ -1,6 +1,7 @@
 ---
 id: core-interfaces
 title: Core Interfaces
+description: Reference key Uniswap The Compact interfaces for deposits, registration, claims, allocator checks, and emissary verification.
 ---
 
 The Compact protocol is composed of several key interfaces that define its functionality.
@@ -388,7 +389,7 @@ interface IAllocator {
         uint256 amount
     ) external returns (bytes4);
     
-    // Called during claim processing for on-chain authorization
+    // Called during claim processing for onchain authorization
     function authorizeClaim(
         bytes32 claimHash,
         address arbiter,
@@ -399,7 +400,7 @@ interface IAllocator {
         bytes calldata allocatorData
     ) external returns (bytes4);
     
-    // Off-chain view function
+    // Offchain view function
     function isClaimAuthorized(
         bytes32 claimHash,
         address arbiter,

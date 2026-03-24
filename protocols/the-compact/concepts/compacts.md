@@ -1,6 +1,7 @@
 ---
 id: compacts-eip712
 title: Compacts & EIP-712
+description: Understand Uniswap The Compact agreement formats, witness data, and EIP-712 signing or registration workflows.
 ---
 
 A **compact** is an agreement created by a sponsor that allows their locked resources to be claimed under specified conditions. The Compact protocol uses EIP-712 typed structured data for creating and verifying signatures for these agreements.
@@ -83,7 +84,7 @@ The `witnessTypestring` provided during a claim should be the arguments *inside*
 EIP-712 requires nested structs to be ordered alphanumerically after the top-level struct in the typestring. Prefix nested structs with "Mandate" (e.g., `MandateCondition`) to ensure correct ordering.
 
 Example witness typestring:
-```
+```text
 MandateCondition condition,uint256 arg)MandateCondition(bool flag,uint256 val
 ```
 
