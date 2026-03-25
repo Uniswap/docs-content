@@ -1,14 +1,13 @@
 ---
-id: technical-reference
-title: Integration Caveats
-description: Review critical security caveats when integrating Uniswap smart wallet Calibur features into production flows.
+title: Best Practices
+description: Apply practical security best practices when integrating Uniswap smart wallet Calibur features into production flows.
 ---
 
 For more details, see the [technical reference](https://github.com/Uniswap/calibur/tree/main/docs).
 
-## Important Integration Callouts
+## Integration Best Practices
 
-Calibur contracts are open-sourced and MIT licensed. Integrators should still protect against known integration pitfalls.
+Calibur contracts are open-sourced and MIT licensed. Integrators should still protect against known integration risks.
 
 - By default, registered keys do not expire and they do not have any hooks attached to them. While they are not admin keys and thus cannot self-call (callback into the Calibur contract), they can still spend any token and ETH balances.
 - An admin key added to the account can add other keys with any expiration or admin status
