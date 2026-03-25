@@ -1,9 +1,7 @@
 ---
-id: position-fetching
+description: Fetch Uniswap v4 position details and map position metadata for SDK-driven workflows.
 title: Fetching Positions
 ---
-
-## Introduction
 
 This guide covers how to fetch and analyze liquidity positions in Uniswap v4 using the v4-sdk.
 

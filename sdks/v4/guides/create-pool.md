@@ -1,9 +1,7 @@
 ---
-id: create-pool
+description: Create and initialize a Uniswap v4 pool using SDK utilities and pool key configuration.
 title: Create Pool
 ---
-
-## Introduction
 
 In this example we will use **ethers.js** and the **Uniswap v4 SDK** to create pools on Uniswap v4. Uniswap v4 is a popular destination for creating markets due to its:
 
@@ -13,7 +11,7 @@ In this example we will use **ethers.js** and the **Uniswap v4 SDK** to create p
 - Gas-efficient architecture
 - Integrations with alternative trading venues
 
-For more information, developers should see [Uniswap v4 Overview](../../../protocols/v4/overview)
+For more information, developers should see [Uniswap v4 Overview](/docs/protocols/v4/overview)
 
 For this guide, the following Uniswap packages are used:
   
@@ -80,7 +78,7 @@ const poolManager = new ethers.Contract(
 )
 ```
 
-We get the `POOL_MANAGER_ADDRESS` for our chain from [Uniswap Deployments](../../../protocols/v4/deployments).
+We get the `POOL_MANAGER_ADDRESS` for our chain from [Uniswap Deployments](/docs/protocols/v4/deployments).
 
 Pools are initialized with a starting price
 

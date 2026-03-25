@@ -1,5 +1,7 @@
 {
   "title": "v4",
-  "pages": ["overview", "guides"],
-  "defaultOpen": false
+  "pages": [
+    "overview",
+    "guides"
+  ]
 }

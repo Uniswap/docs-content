@@ -1,13 +1,11 @@
 ---
-id: pricing
+description: Calculate mid price and execution price with the Uniswap v2 SDK for swap integrations.
 title: Pricing
 ---
 
-> Looking for a [quickstart](quick-start)?
-
 Let's talk pricing. This guide will focus on the two most important Uniswap prices: the **mid price** and the **execution price**.
 
-# Mid Price
+## Mid Price
 
 The mid price, in the context of Uniswap, is the price that reflects the _ratio of reserves in one or more pairs_. There are three ways we can think about this price. Perhaps most simply, it defines the relative value of one token in terms of the other. It also represents the price at which you could theoretically trade an infinitesimal amount (ε) of one token for the other. Finally, it can be interpreted as the current _market-clearing or fair value price_ of the assets.
 
@@ -59,7 +57,7 @@ console.log(route.midPrice.toSignificant(6)) // 1896.34
 console.log(route.midPrice.invert().toSignificant(6)) // 0.000527331
 ```
 
-# Execution Price
+## Execution Price
 
 Mid prices are great representations of the _current_ state of a route, but what about trades? It turns out that it makes sense to define another price, the _execution_ price of a trade, as the ratio of assets sent/received.
 

@@ -1,9 +1,7 @@
 ---
-id: position-minting
+description: Mint a Uniswap v4 liquidity position using SDK position objects and mint call parameters.
 title: Minting a position
 ---
-
-## Introduction
 
 This guide will introduce us to liquidity positions in Uniswap v4 and present the v4-sdk classes and contracts used to interact with the protocol.
 
@@ -17,7 +15,7 @@ For this guide, the following Uniswap packages are used:
 
 Uniswap v4 introduces a new PositionManager contract and a corresponding v4 SDK to manage liquidity positions. Like v3, liquidity positions are represented as NFTs, but v4 uses a command-based interface for bundling actions (e.g., minting liquidity and transferring tokens) into a single transaction.
 
-The v4 SDK provides high-level classes – Pool, Position, and v4PositionManager – to help construct these transactions in JavaScript/TypeScript. This guide explains how to create (mint) a new liquidity position using the Uniswap v4 SDK.
+The v4 SDK provides high-level classes - Pool, Position, and v4PositionManager - to help construct these transactions in JavaScript/TypeScript. This guide explains how to create (mint) a new liquidity position using the Uniswap v4 SDK.
 
 We will cover:
 
@@ -27,7 +25,7 @@ We will cover:
 
 ## Preparing Pool and Position Objects
 
-Before minting, you need a Pool instance reflecting the current on-chain state and a Position defining your desired liquidity parameters:
+Before minting, you need a Pool instance reflecting the current onchain state and a Position defining your desired liquidity parameters:
 
 ### Step 1: Define Token Information
 
@@ -278,7 +276,7 @@ const mintOptions: MintOptions = {
 
 ### Using Permit2 for Gasless Approvals (Optional)
 
-The `batchPermit` option allows users to sign a message off-chain to grant token approval, avoiding separate approve transactions. Here's how to implement it:
+The `batchPermit` option allows users to sign a message offchain to grant token approval, avoiding separate approve transactions. Here's how to implement it:
 
 ```typescript
 // Constants and imports needed for Permit2
@@ -403,7 +401,7 @@ console.log('Value:', value)
 Under the hood, `addCallParameters` builds the necessary function calls to the PositionManager contract:
 
 - It encodes a MINT_POSITION command with your position parameters (pool key, tickLower, tickUpper, liquidity) and a SETTLE_PAIR command to pull in the tokens.
-- The slippageTolerance is applied to calculate amount0Max and amount1Max – these are the maximum token amounts the contract is allowed to take.
+- The slippageTolerance is applied to calculate amount0Max and amount1Max - these are the maximum token amounts the contract is allowed to take.
 - If useNative was true, it would also append a SWEEP command for the native token. In case of solidity, please read this [report](https://reports.electisec.com/reports/04-2025-Sickle#2-high---uniswapv4connectoraddliquidity-does-not-reclaim-excess-eth) carefully.
 - If batchPermit is provided, the SDK will prepend the permit call using the contract's multicall capability.
 

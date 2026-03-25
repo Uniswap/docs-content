@@ -1,5 +1,8 @@
 {
   "title": "Swapping",
-  "pages": ["quoting", "single-hop-swapping", "multi-hop-swapping"],
-  "defaultOpen": false
+  "pages": [
+    "quoting",
+    "single-hop-swapping",
+    "multi-hop-swapping"
+  ]
 }

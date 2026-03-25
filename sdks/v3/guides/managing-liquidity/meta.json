@@ -9,6 +9,5 @@
     "swap-and-add",
     "active-liquidity",
     "range-orders"
-  ],
-  "defaultOpen": false
+  ]
 }
