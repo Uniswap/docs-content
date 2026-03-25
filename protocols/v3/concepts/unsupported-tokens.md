@@ -1,6 +1,7 @@
 ---
 id: integration-issues
 title: Token Integration Issues
+description: Understand Uniswap v3 token integration issues and how non-standard token behavior affects pool interactions.
 ---
 
 Fee-on-transfer and rebasing tokens will not function correctly on v3.

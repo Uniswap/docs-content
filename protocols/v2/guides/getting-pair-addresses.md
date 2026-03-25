@@ -1,6 +1,7 @@
 ---
 id: getting-pair-addresses
 title: Pair Addresses
+description: Compute deterministic Uniswap v2 pair addresses with CREATE2 and verify pair ordering and factory inputs.
 ---
 
 ## getPair
@@ -8,11 +9,11 @@ title: Pair Addresses
 The most obvious way to get the address for a pair is to call `getPair` on the factory. If the pair exists, this function will return its address, else `address(0)` (`0x0000000000000000000000000000000000000000`).
 
 - The "canonical" way to determine whether or not a pair exists.
-- Requires an on-chain lookup.
+- Requires an onchain lookup.
 
 ## CREATE2
 
-Thanks to some [fancy footwork in the factory](https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2Factory.sol#L32), we can also compute pair addresses _without any on-chain lookups_ because of [CREATE2](https://eips.ethereum.org/EIPS/eip-1014). The following values are required for this technique:
+Thanks to some [fancy footwork in the factory](https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2Factory.sol#L32), we can also compute pair addresses _without any onchain lookups_ because of [CREATE2](https://eips.ethereum.org/EIPS/eip-1014). The following values are required for this technique:
 
 |                        |                                                                        |
 | :--------------------- | :--------------------------------------------------------------------- |

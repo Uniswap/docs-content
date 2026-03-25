@@ -9,6 +9,5 @@
     "collect-fees",
     "burn-liquidity",
     "batch-liquidity"
-  ],
-  "defaultOpen": false
+  ]
 }

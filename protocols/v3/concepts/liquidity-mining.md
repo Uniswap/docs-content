@@ -1,6 +1,7 @@
 ---
 id: overview
 title: Overview
+description: Learn how liquidity mining works with Uniswap v3 positions and external incentive distribution contracts.
 ---
 
 ## Introduction

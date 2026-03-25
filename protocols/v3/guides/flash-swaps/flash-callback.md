@@ -1,6 +1,7 @@
 ---
 id: flash-callback
 title: The Flash Callback
+description: Implement the Uniswap v3 flash callback to settle borrowed amounts and fees correctly.
 ---
 
 ## Setting Up The Callback

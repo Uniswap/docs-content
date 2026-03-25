@@ -1,10 +1,14 @@
 ---
-title: Custom Error Selectors
+id: troubleshooting
+title: Troubleshooting
+description: Review common Uniswap v4 custom error selectors to debug integration and runtime failures.
 ---
 
 These are custom error selectors for Uniswap v4 contracts.
 
-## IPoolManager.sol
+## Core manager and hook selectors
+
+### IPoolManager.sol
 
 | Error Selector                                      | Hex Value    |
 |-----------------------------------------------------|--------------|
@@ -19,7 +23,7 @@ These are custom error selectors for Uniswap v4 contracts.
 | `IPoolManager.SwapAmountCannotBeZero.selector`      | `0xbe8b8507` |
 | `IPoolManager.NonZeroNativeValue.selector`          | `0x19d245cf` |
 
-## Hooks.sol
+### Hooks.sol
 
 | Error Selector                                      | Hex Value    |
 |-----------------------------------------------------|--------------|
@@ -28,7 +32,7 @@ These are custom error selectors for Uniswap v4 contracts.
 | `Hooks.FailedHookCall.selector`                     | `0x36bc48c5` |
 | `Hooks.HookDeltaExceedsSwapAmount.selector`         | `0xfa0b71d6` |
 
-## Pool.sol
+### Pool.sol
 
 | Error Selector                                      | Hex Value    |
 |-----------------------------------------------------|--------------|
@@ -44,7 +48,9 @@ These are custom error selectors for Uniswap v4 contracts.
 | `Pool.NoLiquidityToReceiveFees.selector`            | `0xa74f97ab` |
 | `Pool.InvalidFeeForExactOut.selector`               | `0x96206246` |
 
-## IProtocolFees.sol
+## Fee, position, and reserve selectors
+
+### IProtocolFees.sol
 
 | Error Selector                                      | Hex Value    |
 |-----------------------------------------------------|--------------|
@@ -52,25 +58,27 @@ These are custom error selectors for Uniswap v4 contracts.
 | `IProtocolFees.InvalidProtocolFee.selector`         | `0xba97f838` |
 | `IProtocolFees.InvalidCaller.selector`              | `0x48f5c3ed` |
 
-## LPFeeLibrary.sol
+### LPFeeLibrary.sol
 
 | Error Selector                                      | Hex Value    |
 |-----------------------------------------------------|--------------|
 | `LPFeeLibrary.FeeTooLarge.selector`                 | `0xfc5bee12` |
 
-## Position.sol
+### Position.sol
 
 | Error Selector                                      | Hex Value      |
 |-----------------------------------------------------|----------------|
 | `Position.CannotUpdateEmptyPosition.selector`       | `0xaefeb924`   |
 
-## Reserves.sol
+### Reserves.sol
 
 | Error Selector                                      | Hex Value      |
 |-----------------------------------------------------|----------------|
 | `Reserves.ReservesMustBeSynced.selector`            | `0x8774be48`   |
 
-## SqrtPriceMath.sol
+## Math and tick selectors
+
+### SqrtPriceMath.sol
 
 | Error Selector                                      | Hex Value    |
 |-----------------------------------------------------|--------------|
@@ -79,13 +87,13 @@ These are custom error selectors for Uniswap v4 contracts.
 | `SqrtPriceMath.NotEnoughLiquidity.selector`         | `0x4323a555` |
 | `SqrtPriceMath.PriceOverflow.selector`              | `0xf5c787f1` |
 
-## TickBitmap.sol
+### TickBitmap.sol
 
 | Error Selector                                      | Hex Value    |
 |-----------------------------------------------------|--------------|
 | `TickBitmap.TickMisaligned.selector`                | `0xd4d8f3e6` |
 
-## TickMath.sol
+### TickMath.sol
 
 | Error Selector                                      | Hex Value    |
 |-----------------------------------------------------|--------------|

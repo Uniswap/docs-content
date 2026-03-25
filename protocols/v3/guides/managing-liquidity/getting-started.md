@@ -1,6 +1,7 @@
 ---
 id: setting-up
 title: Set Up Your Contract
+description: Set up a Uniswap v3 liquidity management contract workflow with position lifecycle prerequisites.
 ---
 
 ## Setting up the Contract
@@ -175,3 +176,11 @@ contract LiquidityExamples is IERC721Receiver {
     }
 }
 ```
+
+## Where to Go Next
+
+- [Mint a New Position](/docs/protocols/v3/guides/managing-liquidity/mint-a-position)
+- [Increase Liquidity](/docs/protocols/v3/guides/managing-liquidity/increase-liquidity)
+- [Decrease Liquidity](/docs/protocols/v3/guides/managing-liquidity/decrease-liquidity)
+- [Collecting Fees](/docs/protocols/v3/guides/managing-liquidity/collect-fees)
+- [The Full Contract](/docs/protocols/v3/guides/managing-liquidity/the-full-contract)

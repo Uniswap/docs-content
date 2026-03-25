@@ -1,5 +1,4 @@
 {
   "title": "The Compact",
-  "pages": ["overview", "concepts", "resources"],
-  "defaultOpen": false
+  "pages": ["overview", "concepts", "resources"]
 }

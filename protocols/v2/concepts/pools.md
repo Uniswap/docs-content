@@ -1,6 +1,7 @@
 ---
 id: pools
 title: Pools
+description: Understand Uniswap v2 pools, LP shares, and how reserve balances and fees affect liquidity outcomes.
 ---
 
 ![](./images/anatomy.jpg)
@@ -25,7 +26,7 @@ As liquidity tokens are themselves tradable assets, liquidity providers may sell
 
 > Learn more with advanced topics:
 
-- [Understanding Returns](./understanding-returns)
+- [Understanding Returns](/docs/protocols/v2/concepts/understanding-returns)
 - [Fees](/docs/get-started/concepts/fees)
 
 ## Why pools?
@@ -46,4 +47,4 @@ Just how end-users can interact with the Uniswap protocol through the Interface 
 
 ## Developer resources
 
-- To see how to pool tokens in a smart contract read [Providing Liquidity](../guides/providing-liquidity).
+- To see how to pool tokens in a smart contract read [Providing Liquidity](/docs/protocols/v2/guides/providing-liquidity).

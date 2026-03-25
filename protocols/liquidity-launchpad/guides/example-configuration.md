@@ -1,15 +1,15 @@
 ---
 id: example-configuration
-title: Example configuration
+title: Example Configuration
+description: Configure Uniswap Continuous Clearing Auction parameters and deploy an example auction with a local script.
 ---
 
-# Configuring a CCA auction
-This section will walk you through each parameter of a CCA auction and an example configuration. For more details please refer to the [CCA auction mechanism](../concepts/cca).
+This section will walk you through each parameter of a CCA auction and an example configuration. For more details please refer to the [CCA auction mechanism](/docs/protocols/liquidity-launchpad/concepts/cca).
 
-### Prerequisites
-Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](./local-deployment).
+## Prerequisites
+Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/protocols/liquidity-launchpad/guides/local-deployment).
 
-## Auction Parameters
+## Step 1: Define auction parameters
 The `AuctionParameters` struct parameterizes a new CCA auction. It is encoded and passed to the `ContinuousClearingAuctionFactory` contract when deploying a new auction. The struct definition is as follows:
 
 ```solidity
@@ -29,77 +29,34 @@ struct AuctionParameters {
 }
 ```
 
-We'll cover each parameter in detail below.
+We'll cover each parameter group below.
 
-### currency
-The `currency` parameter is the address of the token that will be used to raise funds for the auction. This can be any ERC20 token or the native token of the chain (address(0)).
+### Auction participants and recipients
 
-### tokensRecipient
-The `tokensRecipient` parameter is the address that will receive the leftover tokens after the auction is complete. Depending on the implementation, this may be a trusted EOA address or a strategy contract address if the auction is being used to bootstrap a liquidity pool.
+- **`currency`**: token address used to raise funds. Use `address(0)` for native ETH.
+- **`tokensRecipient`**: address that receives leftover tokens after the auction.
+- **`fundsRecipient`**: address that receives raised funds.
 
-### fundsRecipient
-The `fundsRecipient` parameter is the address that will receive the funds raised during the auction. Again, depending on the implementation, this may be a trusted EOA address or a strategy contract address if the auction is being used to bootstrap a liquidity pool.
+### Auction timing and pricing
 
-### startBlock
-The `startBlock` parameter is the block number at which the auction will start. Once the auction starts, the supply schedule will begin and bids will be accepted. Note that `startBlock` is inclusive so the auction will start exactly on the block specified.
+- **`startBlock`**: inclusive block where bidding and supply schedule begin.
+- **`endBlock`**: exclusive block where bidding stops.
+- **`claimBlock`**: block when purchased tokens can be claimed; must be at or after `endBlock`.
+- **`tickSpacing`**: minimum bid-price increment. It reduces infinitesimal outbids and improves pricing loop efficiency.
+- **`floorPrice`**: minimum accepted price at auction start.
 
-### endBlock
-The `endBlock` parameter is the block number at which the auction will end. Note that `endBlock` is exclusive so the auction will end on the block specified. No more bids are accepted at and after the end block.
+Prices are represented as a `currency/token` ratio in Q96 fixed-point format. For example, a floor price of 1000 is represented as `1000 << 96` or `1000 * 2^96`.
 
-### claimBlock
-The `claimBlock` parameter is the block number at which purchased tokens can be claimed. It must be at or after the `endBlock`.
+### Validation and distribution controls
 
-### tickSpacing
-The `tickSpacing` parameter denotes the **minimum** price increment for bids. It is used to prevent users from being outbid by others by infinitesimally small amounts and for gas efficiency in finding new clearing prices. Generally integrators should choose a tick spacing of AT LEAST 1 basis point of the floor price. 1% or 10% is also reasonable.
+- **`validationHook`**: optional contract used to validate bids before acceptance. Use `address(0)` to disable hook-based checks.
+- **`requiredCurrencyRaised`**: graduation threshold. If unmet, bidders can withdraw and no tokens are sold.
+- **`auctionStepsData`**: packed bytes schedule describing token issuance per block (`uint64` rate + block span).
 
-Bids can only be placed at increments of tickSpacing, but the auction may clear at any price. 
+For more details about auction steps, refer to [CCA auction mechanism](/docs/protocols/liquidity-launchpad/concepts/cca).
 
-### validationHook
-The `validationHook` parameter is an optional contract that can be used to validate bids before they are accepted. It is called before a bid is accepted and can be used to reject bids that do not meet certain criteria. It must implement the `IValidationHook` interface. Use `address(0)` to opt-out of validation.
-
-### floorPrice
-The `floorPrice` parameter is the starting floor price for the auction. It is the minimum price at which bids will be accepted.
-
-All prices in the auction are represented as the ratio of `currency` to `token`. For example, a floor price with an integer component of 1000 means that 1000 `currency` is required to purchase 1 `token`. Additionally, the price is represented as a Q96 fixed-point number to allow for fractional prices. For more details about the Q-number format please refer to this wikipedia [article](https://en.wikipedia.org/wiki/Q_(number_format)).
-
-Using the above example, a floor price of 1000 would be represented as `1000 << 96` or `1000 * 2^96`.
-
-### requiredCurrencyRaised
-The `requiredCurrencyRaised` parameter is the amount of `currency` required to be raised for the auction to graduate. If the auction does not raise this amount, the auction will not graduate and all bidders will be able to withdraw their initial bid amounts. No tokens will be sold and the `totalSupply` will be swept back to the `tokensRecipient`.
-
-### auctionStepsData
-The `auctionStepsData` parameter is a packed bytes array that describes the token issuance schedule. It is used to determine the amount of tokens that will be sold in each block. It is a series of `uint64` values that represent the per-block issuance rate in MPS (milli-bips), and the number of blocks to sell over.
-
-For more details about the auction steps please refer to the [CCA auction mechanism](../concepts/cca).
-
-## Example configuration
-Let's create an example configuration for a CCA auction. We'll use the script we started in the [previous section](./local-deployment).
-
-Here's the script copy and pasted for convenience:
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
-import {Script} from "forge-std/Script.sol";
-import {ContinuousClearingAuctionFactory} from "../src/ContinuousClearingAuctionFactory.sol";
-import {IDistributionContract} from "../src/interfaces/external/IDistributionContract.sol";
-import {console2} from "forge-std/console2.sol";
-
-contract ExampleCCADeploymentScript is Script {
-    function setUp() public {}
-
-    function run() public {
-        vm.startBroadcast();
-        ContinuousClearingAuctionFactory factory = new ContinuousClearingAuctionFactory();
-        console2.log("Factory deployed to:", address(factory));
-
-        // TODO: configure the auction and deploy it via `initializeDistribution()`
-
-        vm.stopBroadcast();
-    }
-}
-```
+## Step 2: Build and run an example configuration
+Let's create an example configuration for a CCA auction. We'll use the script from the [previous section](/docs/protocols/liquidity-launchpad/guides/local-deployment).
 
 First, make sure to import the `AuctionParameters` struct from the `IContinuousClearingAuction` interface:
 
@@ -127,7 +84,7 @@ AuctionParameters memory parameters = AuctionParameters({
 });
 ```
 
-Let's build the auction steps data. For simplicity, we'll sell tokens following a monotonically increasing schedule. We'll sell 10% over 50 blocks, 49% over 49 blocks, and the final 41% in the last block. See the [note about auction steps](../concepts/cca#auction-steps) for more details about the rationale behind this example schedule.
+Let's build the auction steps data. For simplicity, we'll sell tokens following a monotonically increasing schedule. We'll sell 10% over 50 blocks, 49% over 49 blocks, and the final 41% in the last block. See the [CCA auction mechanism](/docs/protocols/liquidity-launchpad/concepts/cca) for more details about this schedule design.
 
 To derive the steps:
 - First tranche: 10% over 50 blocks
@@ -152,9 +109,7 @@ bytes memory auctionStepsData = abi.encodePacked(firstTranche, secondTranche, th
 parameters.auctionStepsData = auctionStepsData;
 ```
 
-You can leverage the [AuctionStepsBuilder](https://github.com/Uniswap/continuous-clearing-auction/blob/main/test/utils/AuctionStepsBuilder.sol) helper library to build the auction steps data.
-
-Before we can finish the script we need to deploy a MockERC20 token to use in the auction. You can use the `ERC20Mock` contract in `@openzeppelin/contracts/mocks/token/ERC20Mock.sol`, or any other MockERC20 token you prefer.
+Before finishing the script, deploy a MockERC20 token. You can use `ERC20Mock` from `@openzeppelin/contracts/mocks/token/ERC20Mock.sol`.
 
 ```solidity
 import {ERC20Mock} from '@openzeppelin/contracts/mocks/token/ERC20Mock.sol';
@@ -269,7 +224,9 @@ forge script scripts/ExampleCCADeploymentScript.s.sol:ExampleCCADeploymentScript
 --rpc-url http://localhost:8545 --private-key <your-private-key> --broadcast
 ```
 
+## Verification
+
 The deployment should be successful and you should see the factory and auction contract addresses logged to the console.
 
-### Next steps
+## Next Steps
 In the next section we'll write some scripts to interact with the deployed auction contract.

@@ -1,6 +1,7 @@
 ---
 id: overview
 title: Overview
+description: Understand Uniswap v3 architecture, including core contracts, factory design, and pool interaction patterns.
 ---
 
 Uniswap v3 is a binary smart contract system comprised of many libraries, which together make the Core and Periphery.

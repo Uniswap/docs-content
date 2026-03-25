@@ -1,5 +1,6 @@
 ---
 title: PoolManager
+description: Understand the Uniswap v4 PoolManager singleton architecture and its role in swaps and liquidity.
 ---
 
 In Uniswap v3, each liquidity pool was represented by a separate smart contract deployed through the Uniswapv3Factory contract. While this approach provided flexibility, it also led to increased gas costs for pool creation and multi-hop swaps.
@@ -81,7 +82,7 @@ The primary purpose of the `PoolManager` is to:
 - Tokens are moved into the `PoolManager` contract, and all subsequent actions are performed within the contract's context
 - Only the final output tokens are withdrawn from the `PoolManager` at the end of the transaction
 
-### Transient Storage
+#### Transient storage
 
 - The `PoolManager` utilizes transient storage (EIP-1153) to store temporary data during complex operations
 - Transient storage reduces gas costs by avoiding regular storage operations for data only needed within a single transaction

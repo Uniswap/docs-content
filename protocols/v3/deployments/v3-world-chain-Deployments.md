@@ -1,6 +1,7 @@
 ---
 id: WorldChain-deployments
 title: WorldChain Deployments
+description: Review Uniswap v3 deployment addresses and contract references for World Chain integrations.
 ---
 
 The latest version of `@uniswap/v3-core`, `@uniswap/v3-periphery`, and `@uniswap/swap-router-contracts` are deployed at the addresses listed below. Integrators should **no longer assume that they are deployed to the same addresses across chains** and be extremely careful to confirm mappings below.

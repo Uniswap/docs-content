@@ -1,6 +1,7 @@
 ---
 id: architecture
-title: Architecture
+title: UniswapX Architecture
+description: Understand UniswapX reactors, fill contracts, and direct fill settlement paths across supported order formats.
 ---
 
 import uniswapxArch from './images/UniswapX.png'
@@ -9,7 +10,7 @@ import uniswapxArch from './images/UniswapX.png'
 
 ## Reactors
 
-Order Reactors _settle_ UniswapX orders. They are responsible for validating orders of a specific type, resolving them into inputs and outputs, executing them against the filler's strategy, and verifying that the order was successfully fulfilled.
+Order Reactors _settle_ UniswapX orders. They validate a specific order type, resolve inputs and outputs, execute against a filler strategy, and verify fulfillment.
 
 Reactors process orders using the following steps:
 - Validate the order
@@ -33,6 +34,8 @@ Order fillContracts _fill_ UniswapX orders. They specify the filler's strategy f
 
 Some sample fillContract implementations are provided in this repository:
 - [SwapRouter02Executor](https://github.com/Uniswap/UniswapX/blob/main/src/sample-executors/SwapRouter02Executor.sol): A fillContract that uses UniswapV2 and UniswapV3 via the SwapRouter02 router
+
+For filler implementation and operational guidance, see [/docs/liquidity/uniswapx-filling/overview](/docs/liquidity/uniswapx-filling/overview).
 
 ## Direct Fill
 

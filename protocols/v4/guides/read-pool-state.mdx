@@ -1,5 +1,6 @@
 ---
 title: Reading Pool State
+description: Read Uniswap v4 pool state safely using StateLibrary patterns and extsload access.
 ---
 
 ## Introduction
@@ -62,7 +63,7 @@ struct State {
 
 This complex structure allows for efficient storage of multiple pools and their associated data within a single contract. However, it also means that traditional getter functions would be inefficient or impractical for accessing this data, especially for nested mappings like `ticks` and `positions`.
 
-To address this, Uniswap V4 introduces the StateLibrary and the concept of using `extsload` for reading pool state. These mechanisms provide efficient ways to access the data stored in this complex structure.
+To address this, Uniswap v4 introduces the StateLibrary and the concept of using `extsload` for reading pool state. These mechanisms provide efficient ways to access the data stored in this complex structure.
 
 ### The StateLibrary and `extsload`
 

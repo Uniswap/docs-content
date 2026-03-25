@@ -1,5 +1,4 @@
 {
   "title": "UniswapX",
-  "pages": ["overview", "concepts", "deployments"],
-  "defaultOpen": false
+  "pages": ["overview", "concepts", "deployments"]
 }

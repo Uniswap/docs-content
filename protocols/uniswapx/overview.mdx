@@ -1,13 +1,14 @@
 ---
 id: overview
-title: Overview
+title: UniswapX Overview
+description: Learn how UniswapX uses signed orders and auctions to route swaps across liquidity sources without user gas payments.
 ---
 
 import uniswapxGraph from './images/Uniswapx_graph.png'
 
-UniswapX is a permissionless, open source, auction-based swapping protocol for trading across AMMs and other liquidity sources. It improves swapping in several ways:
+UniswapX is a permissionless, open source, auction-based swapping protocol for trading across AMMs and other liquidity sources. It supports:
 
-- Better prices by aggregating liquidity sources
+- Competitive pricing through auction competition across liquidity sources
 - Gas-free swapping
 - Protection against MEV (Maximal Extractable Value)
 - No cost for failed transactions
@@ -21,17 +22,22 @@ For example, the graphic below illustrates a Dutch Auction, one type of auction 
 
 <img src={uniswapxGraph} alt="UniswapX" style={{ width: '90%', margin: '0 auto' }} />
 
-Instead of submitting these orders directly onchain, swappers sign a message that uses Permit2 to allow the transfer of tokens to complete the trade as long as the number of tokens sent and received matches what is specified in the decay curve. These signed order messages are broadcast publicly and available to be executed by anyone who wants to be a "filler."
+Instead of submitting these orders directly onchain, swappers sign a message that uses Permit2 to allow token transfer as long as the sent and received amounts match the decay curve. These signed order messages are broadcast publicly and can be filled by anyone acting as a filler.
 
-Once an order is broadcast, fillers race to submit these orders onchain as soon as it is economically profitable for them to do so. The realized price for an order is based on when the order is filled by the first successful filler within the auction timeline. Some auctions use the block timestamp to determine the price, and some use the block number.
+Once an order is broadcast, fillers compete to submit it onchain when it becomes economically viable. The realized price depends on when the first successful filler settles within the auction timeline. Some auctions use block timestamp decay, while others use block number decay.
 
 <Callout title="Auction Types" type="note">
 Different chains use different auction mechanisms. See our [Auction Types Overview](/docs/protocols/uniswapx/concepts/auction-types) for details.
 </Callout>
 
 ## Fillers on UniswapX
-As mentioned above, UniswapX introduces a new participant in the Uniswap ecosystem, the Filler. Fillers are sophisticated entities who perform complex calculations and employ MEV-protected strategies to pick up signed orders and execute them to achieve the most profitable fill. 
+UniswapX introduces fillers as specialized participants that monitor signed orders and compete to settle them with their own execution strategies.
 
 <Callout title="Getting Started as a Filler" type="note">
-Anyone can fill orders on UniswapX. Get started by reading the [Filler Integration Overview](/docs/liquidity/uniswapx-filling/overview).
+Anyone can fill orders on UniswapX. For implementation details, workflows, and operational guidance, use the [Filler Integration Overview](/docs/liquidity/uniswapx-filling/overview).
 </Callout>
+
+## Where to Go Next
+
+- Explore market design in [Concepts](/docs/protocols/uniswapx/concepts/architecture)
+- Review chain-specific addresses in [Deployments](/docs/protocols/uniswapx/deployments)

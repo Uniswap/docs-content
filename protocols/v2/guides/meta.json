@@ -7,7 +7,6 @@
     "flash-swaps",
     "getting-pair-addresses",
     "building-an-oracle",
-    "common-errors"
-  ],
-  "defaultOpen": false
+    "troubleshooting"
+  ]
 }
