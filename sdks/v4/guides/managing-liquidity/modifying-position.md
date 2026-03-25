@@ -1,15 +1,13 @@
 ---
-id: add-remove-liquidity
+description: Add or remove liquidity from Uniswap v4 positions using SDK multicall parameters.
 title: Adding and Removing Liquidity
 ---
 
-## Introduction
-
 This guide will cover:
 
-1. **Setting up liquidity operations** – Preparing to add/remove liquidity from v4 positions, including fetching position details, handling native ETH vs ERC20 tokens, and configuring Permit2 for ERC20 token approvals.
-2. **Adding liquidity to existing positions** – Using the v4 SDK to increase liquidity with `addCallParameters`, handling native ETH positions, and executing transactions via PositionManager multicall.
-3. **Removing liquidity from positions** – Using `removeCallParameters` to decrease or fully exit positions, handling proportional withdrawals, and token collection.
+1. **Setting up liquidity operations** - Preparing to add/remove liquidity from v4 positions, including fetching position details, handling native ETH vs ERC20 tokens, and configuring Permit2 for ERC20 token approvals.
+2. **Adding liquidity to existing positions** - Using the v4 SDK to increase liquidity with `addCallParameters`, handling native ETH positions, and executing transactions via PositionManager multicall.
+3. **Removing liquidity from positions** - Using `removeCallParameters` to decrease or fully exit positions, handling proportional withdrawals, and token collection.
 
 For this guide, the following Uniswap packages are used:
 

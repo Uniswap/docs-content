@@ -1,5 +1,8 @@
 {
   "title": "Swapping",
-  "pages": ["quoting", "routing", "swapping"],
-  "defaultOpen": false
+  "pages": [
+    "quoting",
+    "routing",
+    "swapping"
+  ]
 }

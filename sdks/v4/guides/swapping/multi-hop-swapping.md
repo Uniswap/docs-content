@@ -1,13 +1,11 @@
 ---
-id: multi-hop-swapping
+description: Execute multi-hop swaps on Uniswap v4 with SDK path encoding and router calldata.
 title: Executing Multi-Hop Swaps
 ---
 
-## Introduction
+This guide demonstrates how to execute multi-hop swaps on Uniswap v4, allowing you to trade between tokens that might not share a direct pool. Multi-hop swaps route through multiple pools to achieve the desired token exchange, often providing better pricing than attempting direct swaps through less liquid pools.
 
-This guide demonstrates how to execute multi-hop swaps on Uniswap V4, allowing you to trade between tokens that might not share a direct pool. Multi-hop swaps route through multiple pools to achieve the desired token exchange, often providing better pricing than attempting direct swaps through less liquid pools.
-
-Building on our [single-hop swap guide](./single-hop-swapping), this guide will show you how to construct routing paths and execute them efficiently.
+Building on our [single-hop swap guide](/docs/sdks/v4/guides/swapping/single-hop-swapping), this guide will show you how to construct routing paths and execute them efficiently.
 
 The guide will cover:
 
@@ -57,7 +55,7 @@ export const CurrentConfig: SwapExactIn = {
 }
 ```
 
-Uniswap V4 uses a specific format for encoding multi-hop paths. Each hop in the path requires:
+Uniswap v4 uses a specific format for encoding multi-hop paths. Each hop in the path requires:
 
 ```typescript
 type PathKey = {
@@ -151,8 +149,8 @@ const receipt = await tx.wait()
 console.log('Multi-hop swap completed! Transaction hash:', receipt.transactionHash)
 ```
 
-The token approvals for ERC20 token swaps remain the same as the [single-hop swapping guide](./single-hop-swapping).
+The token approvals for ERC20 token swaps remain the same as the [single-hop swapping guide](/docs/sdks/v4/guides/swapping/single-hop-swapping).
 
-## Next Steps
+## Where to Go Next
 
-Now that you're familiar with trading, consider checking out our next guides on [pooling liquidity](../pool-data) to Uniswap!
+Now that you're familiar with trading, consider checking out our next guides on [pooling liquidity](/docs/sdks/v4/guides/pool-data) to Uniswap!

@@ -1,14 +1,12 @@
 ---
-id: collect-fees
+description: Collect fees from Uniswap v4 positions by generating and submitting SDK collect calldata.
 title: Collecting Fee
 ---
 
-## Introduction
-
 This guide will cover:
 
-1. **Setting up our fee collection** – Preparing to collect fees from a v4 position, including fetching position details, computing the `poolId`, using `StateView` to read fee growth data, and calculating the unclaimed fees off-chain.
-2. **Submitting our fee collection transaction** – Using the v4 SDK to create the transaction calldata (with `collectCallParameters`), executing the call (via a multicall on the PositionManager).
+1. **Setting up our fee collection** - Preparing to collect fees from a v4 position, including fetching position details, computing the `poolId`, using `StateView` to read fee growth data, and calculating the unclaimed fees offchain.
+2. **Submitting our fee collection transaction** - Using the v4 SDK to create the transaction calldata (with `collectCallParameters`), executing the call (via a multicall on the PositionManager).
 
 For this guide, the following Uniswap packages are used:
 
@@ -32,7 +30,7 @@ const Q128 = 2n ** 128n
 unclaimedFees = ((feeGrowthCurrent - feeGrowthLast) * liquidity) / Q128
 ```
 
-**Compute unclaimed fees off-chain using the v4 formula:**
+**Compute unclaimed fees offchain using the v4 formula:**
 
 - `feeGrowthInsideCurrentX128` (for token0 and token1): the total fee growth inside the range as of now.
 - `feeGrowthInsideLastX128` (for token0 and token1): the fee growth inside the range at the last time the position's state was updated (recorded in the position info).
@@ -100,7 +98,7 @@ Total fees = Collected + Unclaimed
 
 ### Fee Accrual and Credit Changes
 
-**Fee Accrual and Credit:** Uniswap v4 changes how fee accrual is handled when modifying liquidity. In v3, adding or removing liquidity didn't automatically claim fees – you had to call a separate `collect` function to pull out accrued fees. In v4, **accrued fees act like a credit** that is automatically applied or required depending on liquidity changes. Increasing a position's liquidity will **roll any unclaimed fees into the position's liquidity**, and decreasing liquidity will **automatically withdraw** the proportional unclaimed fees for that position. This means that partially removing liquidity in v4 will force-claim the fees earned by that liquidity portion. However, if you want to claim fees without changing liquidity, you can perform a liquidity change of zero (as we'll do in this guide).
+**Fee Accrual and Credit:** Uniswap v4 changes how fee accrual is handled when modifying liquidity. In v3, adding or removing liquidity didn't automatically claim fees - you had to call a separate `collect` function to pull out accrued fees. In v4, **accrued fees act like a credit** that is automatically applied or required depending on liquidity changes. Increasing a position's liquidity will **roll any unclaimed fees into the position's liquidity**, and decreasing liquidity will **automatically withdraw** the proportional unclaimed fees for that position. This means that partially removing liquidity in v4 will force-claim the fees earned by that liquidity portion. However, if you want to claim fees without changing liquidity, you can perform a liquidity change of zero (as we'll do in this guide).
 
 ### Why StateView is Required
 
@@ -217,7 +215,7 @@ async function collectFeesViaMulticall(tokenId, userAddress) {
 
 Let's break this down: we created a `Position` object using the pool and position parameters. We then specify `collectOptions` including the NFT `tokenId`, a `recipient` address (fees will be sent to this address), and a `deadline`. Because fee collection is not really subject to price slippage, we can set slippage tolerance to 0 and simply expect whatever fees are available. The SDK's `collectCallParameters` returns an object with `calldata` (the encoded bytes to send to the PositionManager) and `value` (the ETH value to send with the transaction, if needed). In our case, `value` will typically be `0` because we are not providing any additional ETH; we are only withdrawing. (The `value` would be non-zero if one of the actions required sending ETH to the contract, e.g. if adding liquidity to an ETH pair.)
 
-**Under the hood:** The `calldata` produced encodes exactly two actions in `modifyLiquidities`: `Actions.DECREASE_LIQUIDITY` followed by `Actions.TAKE_PAIR`. The first action includes our `tokenId` and zeros for liquidity and min amounts, and the second action includes the two token currencies and the recipient address. Using a zero liquidity decrease is a trick to trigger the pool to calculate fees owed without actually changing the liquidity. The `TAKE_PAIR` then instructs the contract to transfer both token0 and token1 fee amounts out to us. (If our pool involved native ETH, one of the `Currency` entries in this param will be `Currency.wrap(0)` as shown, which signals the contract to send ETH. No manual WETH unwrap is needed – v4 handles it natively.)
+**Under the hood:** The `calldata` produced encodes exactly two actions in `modifyLiquidities`: `Actions.DECREASE_LIQUIDITY` followed by `Actions.TAKE_PAIR`. The first action includes our `tokenId` and zeros for liquidity and min amounts, and the second action includes the two token currencies and the recipient address. Using a zero liquidity decrease is a trick to trigger the pool to calculate fees owed without actually changing the liquidity. The `TAKE_PAIR` then instructs the contract to transfer both token0 and token1 fee amounts out to us. (If our pool involved native ETH, one of the `Currency` entries in this param will be `Currency.wrap(0)` as shown, which signals the contract to send ETH. No manual WETH unwrap is needed - v4 handles it natively.)
 
 ### Phase 3: Verify the Fees Were Collected
 
@@ -245,7 +243,7 @@ async function verifyFeeCollection(receipt, userAddress, positionDetails, ethBal
 
 ### Check Your Token Balances
 
-You can simply measuring the balance change in your wallet before vs. after the call. For example, read your token balances (and ETH balance) prior to calling, then after the transaction confirm the increases. Because v4 might auto-wrap or unwrap ETH, if one of the tokens was ETH you should check your ETH balance difference. In ETH pools, no ERC-20 transfer event will fire for the ETH – the ETH will be sent directly to you (as an internal transfer), which is why checking the balance or the transaction's internal traces is necessary to confirm the amount.
+You can simply measuring the balance change in your wallet before vs. after the call. For example, read your token balances (and ETH balance) prior to calling, then after the transaction confirm the increases. Because v4 might auto-wrap or unwrap ETH, if one of the tokens was ETH you should check your ETH balance difference. In ETH pools, no ERC-20 transfer event will fire for the ETH - the ETH will be sent directly to you (as an internal transfer), which is why checking the balance or the transaction's internal traces is necessary to confirm the amount.
 
 ```typescript
 // Check native ETH balance changes
