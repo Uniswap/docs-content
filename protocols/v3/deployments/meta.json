@@ -16,6 +16,5 @@
     "v3-world-chain-deployments",
     "v3-zksync-deployments",
     "v3-zora-deployments"
-  ],
-  "defaultOpen": false
+  ]
 }

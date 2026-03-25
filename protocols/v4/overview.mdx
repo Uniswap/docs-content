@@ -1,55 +1,48 @@
 ---
 id: overview
 title: Overview
+description: Navigate Uniswap v4 concepts, framework guidance, and references for protocol integrations.
 ---
 
-Uniswap v4 inherits all of the capital efficiency gains of Uniswap v3, but provides flexibility via *hooks* and gas optimizations across the entire lifecycle.
+Use this page to navigate the v4 section by topic and integration type.
 
-For additional information, see the [Uniswap v4 whitepaper](https://app.uniswap.org/whitepaper-v4.pdf)
+## Concepts
 
-## Hooks
+- [Hooks](/docs/protocols/v4/concepts/hooks)
+- [Flash Accounting](/docs/protocols/v4/concepts/flash-accounting)
+- [Dynamic Fees](/docs/protocols/v4/concepts/dynamic-fees)
 
-Developers can attach solidity logic to the _swap lifecycle_ through Hooks. The logic is executed before and/or after major operations such as
-pool creation, liquidity addition and removal, swapping, and donations. Hooks are deployed contracts, and are called by the Uniswap v4 PoolManager,
-for permissionless execution.
+## Guides
 
-The flexibility of hooks can enable: 
-* Limit orders
-* Custom oracles
-* Fee management
-* Automated liquidity management
+If you are new to Uniswap, start with [basic concepts](/docs/get-started/concepts/how-uniswap-works).
 
-## Dynamic Fees
+Then continue with [Set Up Local Environment](/docs/protocols/v4/guides/hooks/getting-started), [Building Your First Hook](/docs/protocols/v4/guides/hooks/your-first-hook), and [Security Framework](/docs/protocols/v4/security/security-framework).
 
-Uniswap v4 supports dynamic fees, allowing pools to adjust their fees up or down. While other AMMs may have hard-coded logic for dynamic fees,
-v4 provides no opinionated calculation of the fee. The frequency of *liquidity fee* updates is also flexible and determined by the developer. Fee updates can
-occur on every swap, every block, or on an arbitrary schedule (weekly, monthly, yearly, etc).
+## Repositories
 
-Dynamic fees open up the design space for fee optimization, value redistribution, and research.
+- [`v4-core`](https://github.com/Uniswap/v4-core)
+- [`v4-periphery`](https://github.com/Uniswap/v4-periphery)
+- [`security-framework`](https://github.com/uniswapfoundation/security-framework)
 
+## SDKs
 
-## Singleton Design
+- [v4 SDK docs](/docs/sdks/v4/overview)
+- [`sdks`](https://github.com/Uniswap/sdks)
+- [`sdk-core`](https://github.com/Uniswap/sdk-core)
 
-Architecturally, all pool state and operations are managed by a single contract -- `PoolManager.sol`. The singleton design provides major gas
-savings. For example, creating a pool is now a state update instead of the deployment of a new contract. Swapping through multiple pools no longer requires
-transferring tokens for intermediate pools.
+## Audits
 
-## Flash Accounting
+- [v4 Core audit reports](https://github.com/Uniswap/v4-core/tree/main/audits)
+- [v4 Periphery audit reports](https://github.com/Uniswap/v4-periphery/tree/main/audits)
 
-By leveraging EIP-1153 Transient Storage, v4 provides an optimization referred to as *flash accounting*. Swapping, liquidity modification, and donations
-incur *balance changes*, i.e. tokens to be sent in and tokens to be taken out. With *flash accounting* these balance changes are efficiently recorded in transient storage and
-netted against each other. This system allows users to only pay the final balance change, without the need for resolving intermediate balance changes.
+## Deployments
 
-## Native ETH
+- [Uniswap v4 deployment addresses](/docs/protocols/v4/deployments)
 
-Uniswap v4 supports native token assets (Ether), without the need to wrap/unwrap the native token to Wrapped Ether (WETH9).
+## Security
 
-## Custom Accounting
+Uniswap Labs maintains an active bug bounty program on Cantina for eligible vulnerability disclosures. Program scope, severity criteria, and reward details are available on the program page.
 
-The flexibility of custom accounting allows developers to alter token amounts for swaps and liquidity modifications. The feature opens up the design
-space for hooks to charge fees or forgo the underlying concentrated liquidity model.
+> [View the program](https://cantina.xyz/bounties/f9df94db-c7b1-434b-bb06-d1360abdd1be)
 
-Example use-cases:
-* Custom curves, opt-out of the concentrated liquidity curve in favor of an entirely independent pricing mechanism
-* Hook swap fees, charge and collect fees on swaps
-* Liquidity withdrawal fees, penalize and/or redistribute fee revenue
+For a structured risk assessment model for hooks, see the [Security Framework](/docs/protocols/v4/security/security-framework).

@@ -1,5 +1,4 @@
 ---
-id: overview
 title: Overview
 description: Get started with Uniswap v3 concepts, guides, and security references for protocol integrations.
 ---

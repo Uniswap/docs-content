@@ -1,7 +1,5 @@
 ---
-id: swaps
 title: Swaps
-subtitle: Learn about the core functionality of the uniswap protocol. Token Swaps.
 description: Understand how Uniswap v2 swaps move reserves and how token transfers are validated during execution.
 ---
 

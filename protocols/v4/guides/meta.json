@@ -1,6 +1,7 @@
 {
   "title": "Guides",
   "pages": [
+    "getting-started",
     "create-pool",
     "swapping",
     "managing-liquidity",
@@ -13,7 +14,6 @@
     "state-view",
     "erc-6909",
     "subscriber",
-    "common-errors"
-  ],
-  "defaultOpen": false
+    "troubleshooting"
+  ]
 }

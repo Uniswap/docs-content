@@ -203,3 +203,12 @@ Learn more about compiling and deploying contracts using Foundry
 [here](https://book.getfoundry.sh/reference/forge/forge-build) and
 [here](https://book.getfoundry.sh/reference/forge/forge-script) respectively.
 
+## Where to Go Next
+
+- [Swapping](/docs/protocols/v2/guides/swapping)
+- [Providing Liquidity](/docs/protocols/v2/guides/providing-liquidity)
+- [Flash Swaps](/docs/protocols/v2/guides/flash-swaps)
+- [Getting Pair Addresses](/docs/protocols/v2/guides/getting-pair-addresses)
+- [Building an Oracle](/docs/protocols/v2/guides/building-an-oracle)
+- [Troubleshooting](/docs/protocols/v2/guides/troubleshooting)
+

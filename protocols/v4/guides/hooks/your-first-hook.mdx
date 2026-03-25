@@ -1,5 +1,6 @@
 ---
 title: Building Your First Hook
+description: Build and test a basic points hook in Uniswap v4 using Foundry.
 ---
 
 ## Introduction
@@ -10,7 +11,7 @@ In this guide, we’ll be conceptualizing, understanding and building a basic po
 
 ## What are we building?
 
-Let’s start by conceptualizing what we’re building today and why. Let’s say you have a token named `TOKEN` that you want to incentivize people to buy. One way of doing so is awarding people points when they buy your token. Prior to v4, you’d have to do this off-chain or via your own helper contract outside of the swap logic, but in v4 you can enable universal access using hooks.
+Let's start by conceptualizing what we're building today and why. Let's say you have a token named `TOKEN` that you want to incentivize people to buy. One way of doing so is awarding people points when they buy your token. Prior to v4, you'd have to do this offchain or via your own helper contract outside of swap logic, but in v4 you can enable universal access using hooks.
 
 Let’s start by defining when users will be rewarded with these points:
 
@@ -278,7 +279,7 @@ Let’s start with the most basic ones. We want the user to be swapping in the `
 
 That middle section about figuring out how much `ETH` the user spent seems a little fishy, what’s going on there? Let’s break it down.
 
-When `amountSpecified` is less than 0, it means this is an `exact input for output` swap, essentially where the user is coming in with an exact amount of ETH. In the other case, it’s an `exact output for input` swap, where the user is expecting a specific amount out. In our case, we get this from the precalculated `delta` that Uniswap V4 gives us as a part of the `afterSwap` hook.
+When `amountSpecified` is less than 0, it means this is an `exact input for output` swap, essentially where the user is coming in with an exact amount of ETH. In the other case, it's an `exact output for input` swap, where the user is expecting a specific amount out. In our case, we get this from the precalculated `delta` that Uniswap v4 gives us as part of the `afterSwap` hook.
 
 #### Hook Logic: `afterAddLiquidity`
 
@@ -321,7 +322,7 @@ We’re using Foundry for building our hook, and we’ll continue using it to wr
 
 ### Test Suite
 
-The v4-template repo you cloned includes a Foundry harness (`BaseTest`, deploy helpers, and a V4 swap router). Create `test/PointsHook.t.sol` and extend that base test—for example:
+The v4-template repo you cloned includes a Foundry harness (`BaseTest`, deploy helpers, and a v4 swap router). Create `test/PointsHook.t.sol` and extend that base test, for example:
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -434,7 +435,7 @@ Now, let’s write our test. We’ll start by testing the points awarded during 
         // So, we'll subtract those from the total points to get the points awarded for this swap.
         uint256 startingPoints = pointsToken.balanceOf(address(this));
 
-        // Let's swap some ETH for the token (single-pool swap on the V4 router; send ETH with the call).
+        // Let's swap some ETH for the token (single-pool swap on the v4 router; send ETH with the call).
         bool zeroForOne = true;
         int256 amountSpecified = -1e18; // negative number indicates exact input swap!
         swapRouter.swap{value: uint256(-amountSpecified)}({
@@ -501,4 +502,4 @@ This test case looks very similar to the `afterSwap` one, except we’re testing
 
 ## Next Steps
 
-Congratulations on building your very first hook! You could explore further by going to [Hook Deployment](./hook-deployment.mdx) to learn about how hook flags work and see how we will deploy a hook in action.
+Congratulations on building your very first hook! You could explore further by going to [Hook Deployment](/docs/protocols/v4/guides/hooks/hook-deployment) to learn how hook flags work and see how to deploy a hook in action.

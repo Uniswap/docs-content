@@ -229,9 +229,20 @@ When you DO add it:
 ```
 
 Rules:
-- 2-3 links maximum
+- Default to 2-3 links for non-getting-started pages
 - Use action phrases, not raw page titles: "Create your first pool" not "Create Pool"
 - Links should follow logical reading order
+
+### 5.1 Getting Started Navigation Coverage (MANDATORY)
+
+For any `getting-started` page inside a `guides/` section, the `## Where to Go Next` section must cover all sibling pages in the nearest `meta.json` `pages` array, excluding the current `getting-started` page.
+
+Rules:
+- Resolve siblings from the nearest directory `meta.json`.
+- Include every sibling slug exactly once in `Where to Go Next`.
+- If a sibling is a subsection directory (for example `swapping`), link to that subsection's `getting-started` page when it exists; otherwise link to the subsection entry route.
+- Apply this coverage rule only within `guides/` trees.
+- During audits, verify there are no missing or extra `Where to Go Next` links versus `meta.json`.
 ## 6. Language and Tone
 
 | Rule | Do | Do Not |

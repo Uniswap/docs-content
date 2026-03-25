@@ -1,5 +1,5 @@
 ---
-title: Smart contracts
+title: Architecture
 description: Understand Uniswap v2 core and periphery contracts and the design decisions behind pair behavior and routing.
 ---
 
