@@ -51,11 +51,8 @@ Review the architecture and implementation details in [Liquidity Strategies](/do
 4. **Seeding Liquidity**: call `migrate()` after `migrationBlock` to initialize the Uniswap v4 pool and liquidity positions.
 5. **After Migration**: participants claim tokens after `claimBlock`, and strategy/auction balances are swept by configuration.
 
-## Next Steps
+## Where to Go Next
 
-- Learn about the [Continuous Clearing Auction](/docs/protocols/liquidity-launchpad/concepts/cca) mechanism.
-- Read the [CCA whitepaper](https://docs.uniswap.org/whitepaper_cca.pdf).
-
-## Smart Contracts
-
-For full address tables and versions, see [Deployments](/docs/protocols/liquidity-launchpad/deployments).
+- Learn about the [Continuous Clearing Auction](/docs/protocols/liquidity-launchpad/concepts/cca) mechanism
+- Read the [CCA whitepaper](https://docs.uniswap.org/whitepaper_cca.pdf)
+- For full address tables and versions, see [Deployments](/docs/protocols/liquidity-launchpad/deployments)

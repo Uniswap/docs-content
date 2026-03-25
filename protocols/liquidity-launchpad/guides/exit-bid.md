@@ -246,7 +246,7 @@ The output shows raised currency swept to `fundsRecipient`.
 Confirm each lifecycle action succeeds in order: `exitPartiallyFilledBid`, `exitBid`, `claimTokens`, `sweepUnsoldTokens`, and `sweepCurrency`.
 
 ## Next Steps
-This concludes the quickstart guide for the CCA auction mechanism! We covered:
+This concludes the getting started guide for the CCA auction mechanism. We covered:
 - How to setup a local development environment
 - How to configure a CCA auction
 - Submitting a bid and understanding price discovery

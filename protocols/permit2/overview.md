@@ -22,4 +22,9 @@ To maximize Permit2 utility, users can choose a max approval on the contract whe
 totalAmount = type(uint256).max;
 ```
 
+## Where to Go Next
+
+- Learn allowance flows in [Allowance Transfer](/docs/protocols/permit2/concepts/allowance-transfer)
+- Learn signature flows in [Signature Transfer](/docs/protocols/permit2/concepts/signature-transfer)
+
 

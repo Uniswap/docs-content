@@ -1,6 +1,5 @@
 ---
-id: overview
-title: Universal Router Overview
+title: Overview
 description: Learn how Uniswap Universal Router composes v2, v3, and v4 swaps with Permit2-based approvals in one transaction.
 ---
 
@@ -27,7 +26,8 @@ You call `execute(...)` with a `commands` byte string and a parallel `inputs` ar
 
 See [Permit2 documentation](/docs/protocols/permit2/overview) for allowance and signature-transfer patterns.
 
-## Resources
+## Where to Go Next
 
-- [UniversalRouter GitHub Repository](https://github.com/Uniswap/universal-router)
-- [Universal Router Commands](/docs/protocols/universal-router/concepts/commands)
+- Review command encoding in [Universal Router Commands](/docs/protocols/universal-router/concepts/commands)
+- Review token approval patterns in [Permit2](/docs/protocols/permit2/overview)
+- Review [UniversalRouter GitHub Repository](https://github.com/Uniswap/universal-router)

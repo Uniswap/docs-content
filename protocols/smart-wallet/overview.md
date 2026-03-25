@@ -16,5 +16,6 @@ Users delegate to the implementation through EIP-7702 and then use smart wallet 
 
 ## Where to Go Next
 
+- Explore core smart wallet patterns in [Concepts](/docs/protocols/smart-wallet/concepts/delegation).
+- Follow integration guidance in [Guides](/docs/protocols/smart-wallet/guides/best-practices).
 - Review contract addresses and versions in [Deployments](/docs/protocols/smart-wallet/deployments).
-- Learn key security caveats in [Integration Caveats](/docs/protocols/smart-wallet/guides/best-practices).
