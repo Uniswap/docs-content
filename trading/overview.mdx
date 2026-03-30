@@ -5,15 +5,17 @@ description: Understand swap integration paths on Uniswap v4 using the Uniswap A
 
 Uniswap offers three distinct methods for integrating swapping functionality into your application. Choosing the right approach depends on your specific needs regarding customization, control, and development resources.
 
-| Approach | Best For | Description | Complexity |
-| :--- | :--- | :--- | :--- |
-| **Uniswap API** | DApps, Wallets, Bots | A hosted API that handles routing, quoting, and transaction construction for you. | Low |
-| **Uniswap SDK** | Front-ends, Custom interactions | JavaScript/TypeScript libraries to compute routes and quotes locally on the client side. | Medium |
-| **Smart Contracts** | Onchain integrations, Arbitrage | Interacting directly with Router or Pool contracts via Solidity. | High |
+| Approach | Best For | Description | Complexity | Get Started |
+| :--- | :--- | :--- | :--- | :--- |
+| **Uniswap API** | DApps, Wallets, Bots | A hosted API that handles routing, quoting, and transaction construction for you. | Low | [Here](/docs/api/guides/swapping/getting-started) |
+| **Uniswap SDK** | Front-ends, Custom interactions | JavaScript/TypeScript libraries to compute routes and quotes locally on the client side. | Medium | [Here](/docs/sdks/v4/guides/swapping/quoting) |
+| **Smart Contracts** | Onchain integrations, Arbitrage | Interacting directly with Router or Pool contracts via Solidity. | High | [Here](/docs/protocols/v4/guides/swapping/swapping) |
 
 ## The Uniswap API (Easiest)
 
 The Uniswap API provides a straightforward path to integration. It abstracts away the complexity of finding a competitive route (splitting and hopping between Uniswap v2, v3, v4, and UniswapX) and constructing the transaction calldata.
+
+[Get started with the API](/docs/api/guides/swapping/getting-started).
 
 ### How it works
 1. **Check Approval**: Use `/check_approval` to see if the user has authorized Permit2 or the router.
@@ -48,11 +50,11 @@ You do not need to compile Solidity or manage pool state. You simply handle JSON
 }
 ```
 
-[Get started with the API](/docs/api/guides/swapping/getting-started).
-
 ## The Uniswap SDK (Flexible)
 
 If you need offline computation, custom routing logic, or cannot rely on a hosted service, the TypeScript SDK is the standard client-side solution. The SDK provides utility classes for constructing pool keys, computing quotes, and encoding swap parameters, but it does **not** execute trades. You use the SDK's output to build transactions that you submit via a library like Ethers.js or Viem.
+
+[Get started with the SDK](/docs/sdks/v4/guides/swapping/quoting).
 
 ### How it works
 
@@ -93,8 +95,6 @@ const result = await quoterContract.callStatic.quoteExactInputSingle({
 console.log(`Expected output: ${formatUnits(result.amountOut, USDC_TOKEN.decimals)} USDC`)
 ```
 
-[Get started with the SDK](/docs/sdks/v4/guides/swapping/quoting).
-
 ## Smart Contracts (Native)
 
 Building directly against the Uniswap v4 smart contracts gives you maximum control and composability. There are two distinct build paths depending on your goal:
@@ -102,6 +102,8 @@ Building directly against the Uniswap v4 smart contracts gives you maximum contr
 ### Path A: Executing Swaps
 
 If your goal is to **perform swaps from an onchain contract**, for example, as part of an arbitrage bot, a vault strategy, or a DeFi protocol that needs to swap tokens during its operations, you interact with the `Universal Router` or the `PoolManager` directly.
+
+[Get started with smart contracts](/docs/protocols/v4/guides/swapping/swapping).
 
 The Universal Router is the recommended entry point. It uses a command-encoding pattern where you pack a sequence of actions (swap, settle input tokens, take output tokens) into byte arrays and execute them in a single transaction.
 
@@ -136,11 +138,11 @@ router.execute(commands, inputs, deadline);
 
 > **Safety Note**: When trading from smart contracts, you **must** enforce slippage limits via `amountOutMinimum` or use an onchain price oracle. Setting this to zero makes your contract vulnerable to sandwich attacks and price manipulation.
 
-[Get started with direct protocol integration](/docs/protocols/v4/guides/swapping/swapping).
-
 ### Path B: Customizing Swaps with Hooks
 
 If your goal is to **extend or modify swap behavior itself**, for example, to implement dynamic fees, on-swap oracles, limit orders, or access control, you write a **Hook** contract.
+
+[Get started with hooks](/docs/protocols/v4/guides/hooks/swap-hooks).
 
 Hooks are external contracts that a Uniswap v4 pool calls at specific points during its lifecycle. For swaps, two hook functions are available:
 
@@ -148,5 +150,3 @@ Hooks are external contracts that a Uniswap v4 pool calls at specific points dur
 - **`afterSwap`**: called after the swap executes. Receives the resulting `BalanceDelta` and can perform follow-up logic.
 
 A hook contract declares which lifecycle points it implements via `getHookPermissions()`, and is associated with a pool during deployment.
-
-[Get started with hooks](/docs/protocols/v4/guides/hooks/swap-hooks).

@@ -15,9 +15,7 @@ All signed Dutch Orders on Arbitrum, created through the Uniswap UI, are availab
 GET https://api.uniswap.org/v2/orders?orderStatus=open&chainId=42161&limit=1000
 ```
 
-Use the [UniswapX SDK](https://github.com/Uniswap/sdks/tree/main/sdks/uniswapx-sdk) to parse the `encodedOrder` field returned from endpoint. Each one of these `Orders` represents a fillable user trader. 
-
-As a lower latency alternative to polling the API, fillers can also apply to register a webhook and receive a feed of all open orders. See details for registering [here](/docs/liquidity/uniswapx-filling/webhooks)
+Use the [UniswapX SDK](https://github.com/Uniswap/sdks/tree/main/sdks/uniswapx-sdk) to parse the `encodedOrder` field returned from endpoint. Each one of these `Orders` represents a fillable user trade. 
 
 ## Filling Orders
 To execute a discovered order, a filler needs to call the [execute](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/BaseReactor.sol#L31) method of the Reactor specified in the retrieved `encodedOrder` body. The Reactor used by the Uniswap interface is located at:  
@@ -68,7 +66,6 @@ DutchV3 orders use a block-based decay mechanism. This design takes advantage of
 | OrderType | Contract Address | Reactor Specification | Example Filler Implementation |
 |-----------|------------------|----------------------|------------------------------|
 | DutchV3 | `0xB274d5F4b833b61B340b654d600A864fB604a87c` | [V3DutchOrderReactor.sol](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/V3DutchOrderReactor.sol) | [dutchv3_strategy.rs](https://github.com/Uniswap/uniswapx-artemis/blob/main/src/strategies/dutchv3_strategy.rs) |
-| DutchV2 (deprecated April 15, 2025) | `0x1bd1aAdc9E230626C44a139d7E70d842749351eb` | [V2DutchOrderReactor.sol](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/V2DutchOrderReactor.sol) | [uniswapx_strategy.rs](https://github.com/Uniswap/uniswapx-artemis/blob/main/src/strategies/uniswapx_strategy.rs) |
 
 
 ## Get in Touch
