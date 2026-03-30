@@ -1,5 +1,4 @@
 {
   "title": "Uniswap V4",
-  "pages": ["overview", "concepts", "guides", "deployments", "security"],
-  "defaultOpen": false
+  "pages": ["overview", "concepts", "guides", "deployments", "security"]
 }
