@@ -3,10 +3,6 @@ id: overview
 title: Overview
 ---
 
-# The Uniswap v4 SDK
-
-> **Welcome to the v4 Uniswap SDK!**
-
 The Uniswap v4 SDK provides abstractions to assist you with interacting with the Uniswap v4 smart contracts in a Typescript/Javascript environment (e.g. websites, node scripts). It makes use of the [**Core SDK**](https://github.com/Uniswap/sdk-core) to gain access to abstractions that are common amongst the Uniswap SDKs. With the SDK, you can add/remove liquidity, collect fees like what you will usually do with v3 SDK, but more with the extra functionalities from hooks introduced in v4!
 
 For complete documentation of the SDK's offerings, see the [**v4 SDK GitHub**](https://github.com/Uniswap/sdks/tree/main/sdks/v4-sdk).
