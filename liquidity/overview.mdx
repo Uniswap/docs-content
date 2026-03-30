@@ -11,7 +11,7 @@ There are three principal ways to participate in Uniswap as a liquidity provider
 | Workflow | What You Do | Who It's For | Get Started |
 | :--- | :--- | :--- | :--- |
 | **Liquidity Provisioning (LP)** | Deposit token pairs into Uniswap V2, V3, or V4 pools and earn fees from trades. | DeFi developers, treasury managers, yield strategists | [Here](/docs/api/guides/managing-liquidity/getting-started) |
-| **UniswapX Filling** | Compete in permissionless auctions to fill user swap orders off-chain or cross-chain. | Market makers, MEV searchers, trading firms | [Here](/docs/protocols/uniswapx/overview) |
+| **UniswapX Filling** | Compete in permissionless auctions to fill user swap orders off-chain or cross-chain. | Market makers, MEV searchers, trading firms | [Here](/docs/liquidity/uniswapx/overview) |
 | **Liquidity Launchpad (CCA)** | Bootstrap initial liquidity for a new token using a Continuous Clearing Auction and seed a V4 pool at the discovered price. | Token launchers, new projects, DAOs | [Here](/docs/protocols/liquidity-launchpad/overview) |
 
 ---
@@ -80,7 +80,7 @@ posm.modifyLiquidities(abi.encode(actions, params), deadline);
 
 ## 2. UniswapX Filling
 
-UniswapX is an auction-based protocol where fillers (market makers) compete to execute user swap orders. Instead of swapping against a pool directly, users sign intent-based orders that fillers can fill from any liquidity source — their own inventory, private pools, cross-chain bridges, or on-chain AMMs. [Become a UniswapX filler](/docs/liquidity/uniswapx-filling).
+UniswapX is an auction-based protocol where fillers (market makers) compete to execute user swap orders. Instead of swapping against a pool directly, users sign intent-based orders that fillers can fill from any liquidity source — their own inventory, private pools, cross-chain bridges, or on-chain AMMs. [Become a UniswapX filler](/docs/liquidity/uniswapx/filling).
 
 Filling is a fundamentally different activity from LP provisioning. As a filler, you are not depositing capital into a pool. You are running infrastructure to monitor, evaluate, and execute orders profitably.
 

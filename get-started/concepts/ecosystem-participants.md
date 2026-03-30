@@ -23,7 +23,7 @@ Liquidity providers, or LPs, are not a homogeneous group:
 - Passive LPs are token holders who wish to passively deposit their assets to accumulate trading fees.
 - Professional LPs are focused on market making as their primary strategy. They usually develop custom tools and ways of tracking their liquidity positions across different DeFi projects.
 - Token projects sometimes choose to become LPs to create a liquid marketplace for their token. This allows tokens to be bought and sold more easily, and unlocks interoperability with other DeFi projects through Uniswap.
-- Finally, some DeFi teams explore advanced liquidity strategies such as incentives, collateralized liquidity, and other experimental mechanisms. With UniswapX, a participant class called [fillers](/docs/liquidity/uniswapx-filling/overview) can provide liquidity by filling user orders offchain.
+- Finally, some DeFi teams explore advanced liquidity strategies such as incentives, collateralized liquidity, and other experimental mechanisms. With UniswapX, a participant class called [fillers](/docs/liquidity/uniswapx/filling/overview) can provide liquidity by filling user orders offchain.
 
 ## Traders
 

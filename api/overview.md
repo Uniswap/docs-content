@@ -15,5 +15,5 @@ The API has four main suites groups:
 ## How Do I Get Started?
 If you are ready to build, you can grab an API key from the [Uniswap Developer Portal](https://developers.uniswap.org/dashboard/). To get familiar with how to build a swapping app quickly, we recommend first reading the [Building Prerequisites](/docs/api/guides/swapping/building-prerequisites) and then starting to code with the [Integration Guide](/docs/api/guides/swapping/integration-guide).
 
-If you are a market maker interested in filling UniswapX orders, visit our [UniswapX quoter API documentation](/docs/liquidity/uniswapx-filling/become-a-quoter) for more information.
+If you are a market maker interested in filling UniswapX orders, visit our [UniswapX quoter API documentation](/docs/liquidity/uniswapx/filling/become-a-quoter) for more information.
 
