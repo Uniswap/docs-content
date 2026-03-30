@@ -1,6 +1,6 @@
 ---
-title: 'API Integration Guide'
-description: 'A practical guide to building with the Uniswap Trading API'
+title: API Integration Guide
+description: A practical guide to building with the Uniswap API
 ---
 
 ### Authentication
@@ -48,7 +48,7 @@ Full code examples for completing a basic swap workflow are available in [Swappi
 
 ### Client-Side Responsibilities
 
-The Trading API is a quote and transaction building service augmented with useful validation checks. The API handles:
+The Uniswap API is a quote and transaction building service augmented with useful validation checks. The API handles:
 
 - **Route Finding**: Identifying the most efficient route using Uniswap AMM and UniswapX liquidity
 - **Transaction Creation**: Generation of validated transaction calldata, ready for signature by the user's wallet
@@ -81,11 +81,11 @@ User Request
     |
 Your Application
     |-- (Optionally) Check balances (via your RPC)
-    |-- Checks wallet approval for Permit2 (Trading API)
+    |-- Checks wallet approval for Permit2 (Uniswap API)
     |-- Get user signature for Permit2 approval (Wallet)
-    |-- Request quote (Trading API)
+    |-- Request quote (Uniswap API)
     |-- Approve Permit2 spending (Wallet)
-    |-- Build transaction (Trading API)
+    |-- Build transaction (Uniswap API)
     |-- Get user signature for swap (Wallet)
     |-- Manage nonce (your tracking)
     +-- Broadcast transaction (via your RPC)
@@ -155,13 +155,14 @@ interface TransactionRequest {
 
 The `data` field contains the encoded contract call and **must always be present** in swap transactions.
 
-<Callout title="Validation Requirements" type="warn">
+<Warning>
+**Validation Requirements**
 
 - **Never Empty**: The `data` field must be a non-empty hex string (not `""` or `"0x"`).
 - **Never Modify**: The API endpoints return pre-validated and correct data. Modifying its value may cause funds to be lost or on-chain transaction reverts.
 - **Always Validate**: Check `data` exists before broadcasting.
 
-</Callout>
+</Warning>
 
 ### PermitSingleData
 
@@ -596,11 +597,12 @@ if (permitData) {
 }
 ```
 
-<Callout title="EIP-712" type="warn">
+<Warning>
+**EIP-712**
 
 The API does not return every field that some libraries expect to generate an EIP-712 signature. You may need to add EIP712Domain or other fields in the function call to the signature library you are using.
 
-</Callout>
+</Warning>
 
 ## Limitations
 
@@ -612,7 +614,7 @@ The API does not return every field that some libraries expect to generate an EI
 
 ## Support
 
-For support, reach out via the help link in the [Uniswap Developer Portal](https://developers.uniswap.org/dashboard).
+For support, reach out via the help link in the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome?utm_medium=eco&utm_source=docs&utm_campaign=20260325-docs&utm_content=content&utm_term=self-serve).
 
 When reporting issues, include:
 - Request ID from API response
