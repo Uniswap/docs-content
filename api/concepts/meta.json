@@ -1,10 +1,8 @@
 {
   "title": "Concepts",
   "pages": [
-    "supported-chains",
     "permit2",
     "no-permit2-workflow",
     "swap-routing"
-  ],
-  "defaultOpen": false
+  ]
 }
