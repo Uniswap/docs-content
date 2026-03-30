@@ -6,7 +6,7 @@ description: Learn how Uniswap AMMs work across all protocol versions.
 
 Uniswap is a decentralized exchange protocol built on [Ethereum](https://ethereum.org/). 
 
-Instead of relying on order books, Uniswap is an **automated market maker (AMM)** or a set of smart contracts that let anyone [swap tokens](/docs/trading/quickstart/swapping), [provide liquidity](/docs/liquidity/overview), or [create new markets](/docs/liquidity/quickstart/creating-a-pool) directly onchain.
+Instead of relying on order books, Uniswap is an **automated market maker (AMM)** or a set of smart contracts that let anyone [swap tokens](/docs/trading/overview), [provide liquidity](/docs/liquidity/overview), or [create new markets](/docs/sdks/v4/guides/create-pool) directly onchain.
 
 The protocol is **open-source** ([GPL-licensed](https://en.wikipedia.org/wiki/GNU_General_Public_License)), non-upgradeable, and designed for **decentralization**, **censorship resistance**, and **self-custody**.
 
@@ -49,7 +49,7 @@ Most publicly accessible markets use a central limit [order book](https://www.in
 The Uniswap protocol takes a different approach, using an Automated Market Maker (AMM), sometimes called a constant function market maker, instead of an order book.
 Across versions, this model has evolved: Uniswap v3 introduced [concentrated liquidity](/docs/get-started/concepts/liquidity-providers/concentrated-liquidity), and Uniswap v4 keeps that model while adding major architectural and accounting changes such as singleton pools, flash accounting, and [hooks](/docs/get-started/concepts/hooks).
 
-At a high level, an AMM replaces buy and sell orders with a liquidity pool of two assets, both priced relative to each other. As one asset is traded for the other, the relative price shifts and the market rate updates. In this model, a trader interacts with the pool directly instead of matching against another user's posted order. AMMs and order books each have tradeoffs, and ongoing [research](/docs/get-started/research) compares their behavior across market conditions.
+At a high level, an AMM replaces buy and sell orders with a liquidity pool of two assets, both priced relative to each other. As one asset is traded for the other, the relative price shifts and the market rate updates. In this model, a trader interacts with the pool directly instead of matching against another user's posted order. AMMs and order books each have tradeoffs, and ongoing [research](/docs/ecosystem/research) compares their behavior across market conditions.
 
 ### Permissionless systems
 

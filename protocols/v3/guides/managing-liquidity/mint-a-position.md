@@ -74,7 +74,7 @@ Here we approve the `nonfungiblePositionManager` to use the contracts' tokens, t
 
 ## Updating The Deposit Mapping And Refunding The Calling Address
 
-Now we can call the internal function we previously wrote in [Setting Up Your Contract](./setting-up-your-contract). After that, we can take any liquidity leftover from minting and refund it to `msg.sender`.
+Now we can call the internal function we previously wrote in [Setting Up Your Contract](/docs/protocols/v3/guides/managing-liquidity/getting-started). After that, we can take any liquidity leftover from minting and refund it to `msg.sender`.
 
 ```solidity
         // Create a deposit

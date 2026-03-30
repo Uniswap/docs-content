@@ -4,7 +4,7 @@ title: Collecting Fees
 description: Collect accrued fees from Uniswap v3 positions using NonfungiblePositionManager flows.
 ---
 
-- Make sure to go through the [first guide](./setting-up-your-contract) before continuing to this section.
+- Make sure to go through the [first guide](/docs/protocols/v3/guides/managing-liquidity/getting-started) before continuing to this section.
 
 - For each of these liquidity interaction examples, our contract must be in possession of the liquidity position NFT. Therefore, in any example where the NFT deposit is not coded into a function, the contract is assumed to already be in possession of it.
 

@@ -1,6 +1,6 @@
 ---
 title: Filler FAQ
-description: Resolve common UniswapX filler and quoter issues, including RFQ behavior, webhook setup, and order execution errors.
+description: Resolve common UniswapX filler and quoter issues, including RFQ behavior and order execution errors.
 ---
 
 Common operational questions for UniswapX fillers and quoters.
@@ -14,20 +14,16 @@ Common operational questions for UniswapX fillers and quoters.
 
   **Beta Test Environment**
   - Quote requests: `3.135.148.114`
-  - Order notification webhooks: `3.129.136.245`
 
   **Production Environment**
   - Quote requests: `3.138.88.28`
-  - Order notification webhooks: `3.14.56.90`
 
 </details>
 
 <details>
   <summary>Why don't I get quote requests for Unichain/Base/Arbitrum?</summary>
 
-  On Ethereum, RFQ is used to parameterize the order, which often results in exclusive orders. On L2s, RFQ is not used and the auction is parameterized based on the AMM price. As a result, notifications are only sent for orders that are ready to be executed via the orders API or a registered webhook endpoint. Fill out this [onboarding form](https://forms.gle/FtqVhSinod9fZDNH8) if you would like your endpoint to be notified via webhook, but it is recommended that fillers try polling first and only pursue a webhook as needed.
-
-  For more information, see the [Webhook Support page](/docs/liquidity/uniswapx/filling/webhooks).
+  On Ethereum, RFQ is used to parameterize the order, which often results in exclusive orders. On L2s, RFQ is not used and the auction is parameterized based on the AMM price. As a result, notifications are only sent for orders that are ready to be executed via the orders API.
 
 </details>
 

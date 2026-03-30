@@ -53,7 +53,7 @@ To visualize liquidity in a graph, we will only need to consider the changes, so
 
 ### Fetching initialized Ticks
 
-To fetch all ticks of our Pool, we will use the [Uniswap v3 graph](/docs/api/subgraph/overview).
+To fetch all ticks of our Pool, we will use the [Uniswap v3 graph](/docs/ecosystem/subgraphs/overview).
 To visualize active liquidity, we need the **tickIdx**, the **liquidityGross** and the **liquidityNet**.
 
 We define our GraphQL query and [send a POST request](https://axios-http.com/docs/post_example) to the V3 subgraph API endpoint:
@@ -302,4 +302,4 @@ Depending on your use case, it may make sense to display this value. You can fin
 
 ## Where to Go Next
 
-Now that you are familiar with liquidity data, consider checking out our [next guide](/docs/sdks/v3/guides/managing-liquidity/price-oracle) on using Uniswap as a Price Oracle.
+Now that you are familiar with liquidity data, consider checking out our [next guide](/docs/sdks/v3/guides/price-oracle) on using Uniswap as a Price Oracle.

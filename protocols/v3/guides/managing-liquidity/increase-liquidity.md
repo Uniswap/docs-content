@@ -6,7 +6,7 @@ description: Increase an existing Uniswap v3 position using PositionManager whil
 
 ## Increase Liquidity Within The Current Range
 
-Make sure to go through the [first guide](./setting-up-your-contract) before continuing to this section
+Make sure to go through the [first guide](/docs/protocols/v3/guides/managing-liquidity/getting-started) before continuing to this section
 
 - This example assumes the contract already has custody of the NFT.
 

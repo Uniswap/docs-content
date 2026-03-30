@@ -7,11 +7,11 @@ description: Find answers to common Uniswap API integration questions about quot
 
 ### How Long Does It Take to Integrate the API?
 
-Integration of the API can be done in less than two weeks. We provide [sample code](/docs/api/guides/swapping/swapping-code-examples) to help get you off the ground quickly. To get started, reach out to request an API key. If you are not yet in touch with Uniswap Labs, register your interest in integrating the API through the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome?utm_medium=eco&utm_source=docs&utm_campaign=20260325-docs&utm_content=content&utm_term=self-serve). 
+Integration of the API can be done in less than two weeks. We provide [sample code](/docs/api/guides/swapping/swapping-code-examples) to help get you off the ground quickly. To get started, reach out to request an API key. If you are not yet in touch with Uniswap Labs, register your interest in integrating the API through the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome). 
 
 ### What Are the API Rate Limits?
 
-By default, each API key is rate limited to 3 requests per second. If a higher rate is needed, please reach out through the help button in the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome?utm_medium=eco&utm_source=docs&utm_campaign=20260325-docs&utm_content=content&utm_term=self-serve).
+By default, each API key is rate limited to 3 requests per second. If a higher rate is needed, please reach out through the help button in the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome).
 
 ### What Permit2 Address Do I Need to Whitelist for Approvals?
 
@@ -23,7 +23,7 @@ The Permit2 address for zkSync is: `0x0000000000225e31D15943971F47aD3022F714Fa`.
 
 ### What Parameter Determines If I Receive a Gasless Quote?
 
-When the [/quote](/docs/api-reference/swapping/quote) endpoint's `routingPreference` is set to `BEST_PRICE`, the endpoint will attempt to find a quote that nets users the best execution price for a trade. Assuming the `protocols` are not limited, the endpoint will attempt to get a gasless order and a Uniswap Protocol swap quote, calculate which is currently providing the best price to the user including transaction costs, and return that quote. 
+When the [/quote](/docs/api-reference/aggregator_quote) endpoint's `routingPreference` is set to `BEST_PRICE`, the endpoint will attempt to find a quote that nets users the best execution price for a trade. Assuming the `protocols` are not limited, the endpoint will attempt to get a gasless order and a Uniswap Protocol swap quote, calculate which is currently providing the best price to the user including transaction costs, and return that quote. 
 
 Integrators of the API who only want gasless quotes may limit the `protocols` considered to just gasless options (e.g. UniswapX - see [Swap Routing](/docs/api/concepts/swap-routing) for more details).
 
@@ -43,14 +43,14 @@ If a quote fails, the response includes helpful information to understand the pr
 
 ### How Do I Quote the Native Token?
 
-See [How Do I Swap Native Tokens?](/guides/supported_chains#how-do-i-swap-native-tokens). Note, to quote the native token via UniswapX you must set the [`x-erc20eth-enabled` header](/docs/api-reference/swapping/quote#parameter-x-erc20eth-enabled) in your quote request to `true`.
+See [How Do I Swap Native Tokens?](/docs/api/supported-chains#how-do-i-swap-native-tokens). Note, to quote the native token via UniswapX you must set the [`x-erc20eth-enabled` header](/docs/api-reference/aggregator_quote) in your quote request to `true`.
 
 ### Why am I getting "No Quotes Available" as a response?
 
 A quote response with "No Quotes Available" means that the Uniswap router was unable to find a route for the proposed swap. This can happen for a number of reasons, many of which can be easily avoided by understanding the API constraints. While not exhaustive, some of the most common issues are:
 * There is insufficient liquidity to fill the swap
-* If making a bridge request, the selected token cannot be bridged between the two selected networks (checxk [Supported Bridges](/docs/api-reference/reference_data/bridgeable_tokens))
-* If making a UniswapX-only request, the amount is less than 1000-USDC equivalent (see [Supported Chains](/docs/api/supported-chains#uniswapx-chain-support))
+* If making a bridge request, the selected token cannot be bridged between the two selected networks (check [Supported Bridges](/docs/api-reference/get_swappable_tokens))
+* If making a UniswapX-only request, the amount is less than 1000 USDC equivalent for L2s or less than 300 USDC for L1s (see [Supported Chains](/docs/api/supported-chains#uniswapx-chain-support))
 * The request is requesting a bridge and swap (currently not supported)
 
 
@@ -58,7 +58,7 @@ A quote response with "No Quotes Available" means that the Uniswap router was un
 
 ### How Can I Simulate a Swap Before Submitting It?
 
-Whenever you request a quote from our endpoints we will automatically simulate the quote to ensure that the result will be a viable route should you decide to proceed to the swap step. Further, when you make a request to the [`/swap`](/docs/api-reference/swapping/create_protocol_swap) endpoint, you may request that the calldata we generate be simulated to further ensure that it is valid and will be processed. (Note that simulation is not a guarantee that a swap will be successful on chain as factors including gas and slippage may change between the time of the /swap response and you placing the transaction on chain).
+Whenever you request a quote from our endpoints we will automatically simulate the quote to ensure that the result will be a viable route should you decide to proceed to the swap step. Further, when you make a request to the [`/swap`](/docs/api-reference/create_swap_transaction) endpoint, you may request that the calldata we generate be simulated to further ensure that it is valid and will be processed. (Note that simulation is not a guarantee that a swap will be successful on chain as factors including gas and slippage may change between the time of the /swap response and you placing the transaction on chain).
 
 ## Reference Data
 
@@ -81,7 +81,7 @@ UniswapX supports multiple auction types that take advantage of different proper
 - Mainnet: DutchV2
 - Arbitrum: DutchV3
 - Base: Priority
-In other words, a Priority quote is a specific UniswapX auction type. Uniswap will notify you of the auction type being used in the quote response. For more information on different auction types, check out [our docs here](https://docs.uniswap.org/contracts/uniswapx/auctiontypes).
+In other words, a Priority quote is a specific UniswapX auction type. Uniswap will notify you of the auction type being used in the quote response. For more information on different auction types, check out [our docs here](/docs/liquidity/uniswapx/concepts/auction-types).
 
 
 ## Commercial
@@ -96,7 +96,7 @@ The APIs do not offer a way to restrict which tokens may be requested to the API
 
 ### Can I Trial the API?
 
-Yes, sign up for a free developer account at [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome?utm_medium=eco&utm_source=docs&utm_campaign=20260325-docs&utm_content=content&utm_term=self-serve). From there you can generate API keys and test at your own speed.
+Yes, sign up for a free developer account at [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome). From there you can generate API keys and test at your own speed.
 
 
 ## Fees
@@ -107,7 +107,7 @@ No, the API is free to use.
 
 ### How Can I Set My Own Fees?
 
-API Integrators can set their own fee by providing the fee they will take from the swapper in their `/quote` request. See the [`integratorFees` fields](/docs/api-reference/swapping/quote#body-integrator-fees).
+API Integrators can set their own fee by providing the fee they will take from the swapper in their `/quote` request. See the [`integratorFees` fields](/docs/api-reference/aggregator_quote).
 
 ### Does Uniswap Take Positive Slippage as Fees?
 
@@ -118,7 +118,7 @@ No. Uniswap Labs never takes positive slippage. All price improvement achieved a
 
 ### Who Do I Contact for Technical Support?
 
-If you require technical support, please reach out via the help link in the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome?utm_medium=eco&utm_source=docs&utm_campaign=20260325-docs&utm_content=content&utm_term=self-serve). Note that we are unable to provide technical assistance with troubleshooting your code, deployment, or workflow.
+If you require technical support, please reach out via the help link in the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard). Note that we are unable to provide technical assistance with troubleshooting your code, deployment, or workflow.
 
 ### Is There A Sandbox Environment?
 

@@ -45,13 +45,13 @@ To swap native tokens, use the address `0x00000000000000000000000000000000000000
 
 Generally any two tokens on any supported chain can be swapped. However, Uniswap Labs maintains a list of "unsupported" tokens, for which we do not permit swapping through any method due to legal or regulatory restrictions. Those tokens and their chains are available here: https://unsupportedtokens.uniswap.org/. If one or both tokens in the swap pair are on the unsupported token list, no quote will be returned.
 
-Note that all tokens do not necessarily have regular or sufficient liquidity to perform a swap between any two tokens at any volume. We always recommend [submitting a quote](/api-reference/swapping/quote) request prior to performing a swap to confirm that there is an available route, or filler, to complete the swap and available liquidity.
+Note that all tokens do not necessarily have regular or sufficient liquidity to perform a swap between any two tokens at any volume. We always recommend [submitting a quote](/docs/api-reference/aggregator_quote) request prior to performing a swap to confirm that there is an available route, or filler, to complete the swap and available liquidity.
 
 We recommend that end users always do their own due diligence before swapping any tokens.
 
 ## Supported Tokens for Bridging
 
-To get a list of tokens which can be bridged, and the chains between which they can be bridged, please make a request to the [swappable_tokens endpoint](/api-reference/reference_data/bridgeable_tokens).
+To get a list of tokens which can be bridged, and the chains between which they can be bridged, make a request to the [swappable_tokens endpoint](/docs/api-reference/get_swappable_tokens).
 
 ## How Often Are New Tokens Added?
 

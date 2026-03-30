@@ -10,20 +10,20 @@ The Uniswap Protocol is made up of multiple contracts on many networks.
 
 Please do not assume contracts are deployed to the same addresses across chains, and be extremely careful to confirm addresses before using a contract.
 
-- [`Ethereum`](./Ethereum-Deployments)
-- [`Unichain`](./Unichain-Deployments)
-- [`Arbitrum`](./Arbitrum-Deployments)
-- [`Optimism`](./Optimism-Deployments)
-- [`Polygon`](./Polygon-Deployments)
-- [`Base`](./Base-Deployments)
-- [`BNB`](./BNB-Binance-Deployments)
-- [`Avalanche C-Chain`](./AVAX-Deployments)
-- [`CELO`](./Celo-Deployments)
-- [`Blast`](./Blast-Deployments)
-- [`ZKsync`](./ZKsync-Deployments)
-- [`Zora`](./Zora-Deployments)
-- [`WorldChain`](./WorldChain-Deployments)
-- [`Monad`](./Monad-Deployments)
+- [`Ethereum`](./v3-ethereum-deployments)
+- [`Unichain`](./v3-unichain-deployments)
+- [`Arbitrum`](./v3-arbitrum-deployments)
+- [`Optimism`](./v3-optimism-deployments)
+- [`Polygon`](./v3-polygon-deployments)
+- [`Base`](./v3-base-deployments)
+- [`BNB`](./v3-bnb-deployments)
+- [`Avalanche C-Chain`](./v3-avalanche-deployments)
+- [`CELO`](./v3-celo-deployments)
+- [`Blast`](./v3-blast-deployments)
+- [`ZKsync`](./v3-zksync-deployments)
+- [`Zora`](./v3-zora-deployments)
+- [`WorldChain`](./v3-world-chain-deployments)
+- [`Monad`](./v3-monad-deployments)
 
 These addresses are final and were deployed from these npm package versions:
 

@@ -4,7 +4,7 @@ description: Set up a Uniswap v2 smart contract development environment with Fou
 ---
 
 Developing smart contracts for Ethereum involves a variety of offchain tools used for producing and testing bytecode
-that runs on the [Ethereum Virtual Machine (EVM)](<https://eth.wiki/en/concepts/evm/ethereum-virtual-machine-(evm)-awesome-list>).
+that runs on the [Ethereum Virtual Machine (EVM)](https://eth.wiki/en/concepts/evm/ethereum-virtual-machine-(evm)-awesome-list).
 Some tools also include workflows for deploying this bytecode to the Ethereum network and testnets.
 There are many options for these tools. This guide walks you through writing and testing a simple smart contract that
 interacts with the Uniswap Protocol using one specific set of tools (`Foundry` + `npm`).

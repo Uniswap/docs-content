@@ -24,7 +24,7 @@ And the total supply to sell is 1 billion tokens.
 ## Step 2: Submit a bid that moves the clearing price
 In the last section we showed how the auction updates its internal state via checkpointing when a new bid is submitted. The bid that we submitted had two main parts: a max price and an amount.
 
-The [whitepaper](https://docs.uniswap.org/whitepaper_cca.pdf) is the most complete resource to understand the auction mechanics, but at a high level this is how the mechanism works:
+The [whitepaper](/docs/liquidity/liquidity-launchpad/guides/whitepaper_cca.pdf) is the most complete resource to understand the auction mechanics, but at a high level this is how the mechanism works:
 - Given that each bid is willing to purchase tokens until some _maximum price_, there exists a price for which no one is willing to participate in the auction.
 - A less extreme version of the idea above is that there exists a _clearing price_ for which all of the demand (ex. ETH) in the auction can purchase all of the tokens that are being sold.
 - This equilibrium can only change if a new bid is submitted into the auction.

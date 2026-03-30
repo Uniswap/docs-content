@@ -19,7 +19,7 @@ Priority chains use priority-fee bidding with `PriorityOrderReactor`. See [Filli
 
 ## How Filling Works
 
-1. Retrieve open orders from the Uniswap API, or register [webhooks](/docs/liquidity/uniswapx/filling/webhooks) for lower-latency notifications.
+1. Retrieve open orders from the Uniswap API.
 2. Decode and evaluate each order with your strategy, inventory checks, and risk controls.
 3. Submit `execute` transactions to the target reactor, ensuring required output amounts are met.
 

@@ -42,7 +42,7 @@ const quote = await response.json();
 
 AI builders can consume the full Open API Specification (OAS) at [https://trade-api.gateway.uniswap.org/v1/api.json](https://trade-api.gateway.uniswap.org/v1/api.json).
 
-Full code examples for completing a basic swap workflow are available in [Swapping Code Examples](/guides/swapping_code_examples).
+Full code examples for completing a basic swap workflow are available in [Swapping Code Examples](/docs/api/guides/swapping/swapping-code-examples).
 
 ## Architecture
 
@@ -53,9 +53,9 @@ The Uniswap API is a quote and transaction building service augmented with usefu
 - **Route Finding**: Identifying the most efficient route using Uniswap AMM and UniswapX liquidity
 - **Transaction Creation**: Generation of validated transaction calldata, ready for signature by the user's wallet
 - **Balance Checks**: Verify token balances before requesting quotes (checked during simulation)
-- **Allowance Management**: Check and request token approvals (via [Permit2](/guides/permit2))
+- **Allowance Management**: Check and request token approvals (via [Permit2](/docs/api/concepts/permit2))
 - **Gas Estimation**: Suggested gas usage
-- **Transaction Monitoring**: Track confirmations (see [Swap Status](/api-reference/swapping/get_protocol_swap) and [UniswapX Order Status](/api-reference/swapping/get_uniswapx_order))
+- **Transaction Monitoring**: Track confirmations (see [Swap Status](/docs/api-reference/get_swaps) and [UniswapX Order Status](/docs/api-reference/get_order))
 
 Your application handles:
 
@@ -72,7 +72,7 @@ Your integration must include:
 - **Web3 Library**: ethers.js, viem, or web3.js for transaction signing
 - **Wallet Integration**: Uniswap Wallet, MetaMask, or similar for user signing
 
-See the [Build Prerequisites](/guides/building_prerequisites) for more details.
+See the [Build Prerequisites](/docs/api/guides/swapping/building-prerequisites) for more details.
 
 ### Data Flow
 
@@ -99,19 +99,19 @@ Your Application
 
 | Endpoint | Description |
 |----------|-------------|
-| [POST /check_approval](/api-reference/swapping/approval) | Check if token approval is required |
-| [POST /quote](/api-reference/swapping/quote) | Generate a quote for a token swap |
-| [POST /swap](/api-reference/swapping/create_protocol_swap) | Convert an AMM quote into an unsigned transaction |
-| [POST /order](/api-reference/swapping/create_uniswapx_order) | Create a UniswapX order (gasless) |
-| [GET /swaps](/api-reference/swapping/get_protocol_swap) | Check status of an AMM transaction |
-| [GET /orders](/api-reference/swapping/get_uniswapx_order) | Check status of a UniswapX order |
+| [POST /check_approval](/docs/api-reference/check_approval) | Check if token approval is required |
+| [POST /quote](/docs/api-reference/aggregator_quote) | Generate a quote for a token swap |
+| [POST /swap](/docs/api-reference/create_swap_transaction) | Convert an AMM quote into an unsigned transaction |
+| [POST /order](/docs/api-reference/post_order) | Create a UniswapX order (gasless) |
+| [GET /swaps](/docs/api-reference/get_swaps) | Check status of an AMM transaction |
+| [GET /orders](/docs/api-reference/get_order) | Check status of a UniswapX order |
 
 ### Special Case Endpoints
 
 | Endpoint | Description |
 |----------|-------------|
-| [POST /swap_5792](/api-reference/swapping/create_protocol_batch_swap) | Generate batch transactions for EIP-5792 |
-| [POST /swap_7702](/api-reference/swapping/create_protocol_delegated_swap) | Generate transaction with EIP-7702 delegation |
+| [POST /swap_5792](/docs/api-reference/create_swap_5792_transaction) | Generate batch transactions for EIP-5792 |
+| [POST /swap_7702](/docs/api-reference/create_swap_7702_transaction) | Generate transaction with EIP-7702 delegation |
 
 ## Routing Types
 
@@ -155,14 +155,13 @@ interface TransactionRequest {
 
 The `data` field contains the encoded contract call and **must always be present** in swap transactions.
 
-<Warning>
-**Validation Requirements**
+<Callout title="Validation Requirements" type="warn">
 
 - **Never Empty**: The `data` field must be a non-empty hex string (not `""` or `"0x"`).
 - **Never Modify**: The API endpoints return pre-validated and correct data. Modifying its value may cause funds to be lost or on-chain transaction reverts.
 - **Always Validate**: Check `data` exists before broadcasting.
 
-</Warning>
+</Callout>
 
 ### PermitSingleData
 
@@ -303,7 +302,7 @@ interface ErrorResponse {
 
 **Solutions**:
 - Verify token addresses are correct and on the specified chain
-- Check chains are available for selected protocol (note [limited chain support for UniswapX](/guides/supported_chains))
+- Check chains are available for selected protocol (note [limited chain support for UniswapX](/docs/api/supported-chains))
 - Try different protocols or routing preferences
 - Reduce trade size
 
@@ -522,7 +521,7 @@ function logSwapAttempt(
 - Verify token addresses are valid for the specified chains
 - Confirm liquidity exists for the trading pair
 - Ensure the amount is within reasonable bounds
-- Verify chain IDs are [supported](/guides/supported_chains)
+- Verify chain IDs are [supported](/docs/api/supported-chains)
 - Check that specified protocols (if any) are available on the target chain
 
 **Problem**: Quote price seems incorrect
@@ -597,12 +596,11 @@ if (permitData) {
 }
 ```
 
-<Warning>
-**EIP-712**
+<Callout title="EIP-712" type="warn">
 
 The API does not return every field that some libraries expect to generate an EIP-712 signature. You may need to add EIP712Domain or other fields in the function call to the signature library you are using.
 
-</Warning>
+</Callout>
 
 ## Limitations
 
@@ -614,7 +612,7 @@ The API does not return every field that some libraries expect to generate an EI
 
 ## Support
 
-For support, reach out via the help link in the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome?utm_medium=eco&utm_source=docs&utm_campaign=20260325-docs&utm_content=content&utm_term=self-serve).
+For support, reach out via the help link in the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard).
 
 When reporting issues, include:
 - Request ID from API response
