@@ -19,7 +19,7 @@ If a filler assumes a desired margin of 10% of the total profit, a competitive p
 - To minimize the gas used on reverting transactions, reversion happens early if the order is already filled or is not fillable yet.
 - For every wei of priority fee above a certain threshold (an optional value specified in the order), the user is owed 1 milli-bps more of their output token (or less of their input token). 
 - Milli-bps (or MPS) are one-thousandth of a basis point.
-- Unichain supports specifying a target block and has revert protection. For more information, please see the [Unichain Docs](https://docs.unichain.org/docs/technical-information/advanced-txn).
+- Unichain supports specifying a target block and has revert protection. For more information, please see the [Unichain Docs](/docs/unichain/technical-information/advanced-txn).
 
 ## Retrieving and Executing Signed Orders
 All signed Priority Orders created through the Uniswap UI are available via the UniswapX Orders Endpoint. [Swagger documentation](https://api.uniswap.org/v2/uniswapx/docs) is available, but see below for a quick example curl.
@@ -27,8 +27,6 @@ All signed Priority Orders created through the Uniswap UI are available via the 
 ```bash
 GET https://api.uniswap.org/v2/orders?orderStatus=open&orderType=Priority
 ```
-
-As a lower latency alternative to polling the API, fillers can also apply to register a webhook and receive a feed of all open orders. See details for registering [here](/docs/liquidity/uniswapx-filling/webhooks). 
 
 After fetching orders, use the latest version of the [UniswapX SDK](https://github.com/Uniswap/sdks/tree/main/sdks/uniswapx-sdk#parsing-orders). Requires [2.1.0-beta.13](https://www.npmjs.com/package/@uniswap/uniswapx-sdk/v/2.1.0-beta.13) or later.
 
@@ -55,8 +53,8 @@ The PriorityOrderReactor is deployed on the following chains:
 
 | Chain | Source                                                                                                        | Address                                                                                                               |
 | ----- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------|
-| Unichain | [PriorityOrderReactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol) | [0x00000006021a6Bce796be7ba509BBBA71e956e37](https://uniscan.xyz/address/0x00000006021a6Bce796be7ba509BBBA71e956e37) |
-| Base  | [PriorityOrderReactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol)   | [0x000000001Ec5656dcdB24D90DFa42742738De729](https://basescan.org/address/0x000000001Ec5656dcdB24D90DFa42742738De729) |
+| Unichain | [PriorityOrderReactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol) | [0x00000006021a6Bce796be7ba509BBBA71e956e37](https://uniscan.xyz/address/0x00000006021a6Bce796be7ba509BBBA71e956e37#code) |
+| Base  | [PriorityOrderReactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol)   | [0x000000001Ec5656dcdB24D90DFa42742738De729](https://basescan.org/address/0x000000001Ec5656dcdB24D90DFa42742738De729#code) |
 
 
 ## Timeline
