@@ -1,7 +1,5 @@
 {
-  "title": "v3",
-  "pages": [
-    "overview",
-    "guides"
-  ]
+  "title": "Uniswap V3",
+  "pages": ["overview", "guides"],
+  "defaultOpen": false
 }
