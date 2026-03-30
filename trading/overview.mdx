@@ -7,13 +7,25 @@ Uniswap offers three distinct methods for integrating swapping functionality int
 
 | Approach | Best For | Description | Complexity | Get Started |
 | :--- | :--- | :--- | :--- | :--- |
+| **Custom Linking** | Simple Referrals | Directing users to the Uniswap Web App with pre-filled swap parameters. | Very Low | [Here](/docs/protocols/v2/concepts/custom-interface-links) |
 | **Uniswap API** | DApps, Wallets, Bots | A hosted API that handles routing, quoting, and transaction construction for you. | Low | [Here](/docs/api/guides/swapping/getting-started) |
 | **Uniswap SDK** | Front-ends, Custom interactions | JavaScript/TypeScript libraries to compute routes and quotes locally on the client side. | Medium | [Here](/docs/sdks/v4/guides/swapping/quoting) |
 | **Smart Contracts** | Onchain integrations, Arbitrage | Interacting directly with Router or Pool contracts via Solidity. | High | [Here](/docs/protocols/v4/guides/swapping/swapping) |
 
+## Custom Linking (Simplest)
+
+For applications that want to provide swapping capabilities without managing transactions, quoting, or a custom UI, you can link directly to the Uniswap interface using URL query parameters. This allows you to pre-fill the input/output tokens, the amount, and even the UI theme. [Get started with all custom linking parameters](/docs/protocols/v2/concepts/custom-interface-links).
+
+**How it works**
+By appending specific parameters to `https://app.uniswap.org/#/swap`, the Uniswap frontend will automatically configure the swap interface for the user.
+
+**Example Usage**
+To link to a swap of 10 units of a specific token as the input, you would use:
+`https://app.uniswap.org/#/swap?field=input&value=10&inputCurrency=0x0F5D2fB29fb7d3CFeE444a200298f468908cC942`
+
 ## The Uniswap API (Easiest)
 
-The Uniswap API provides a straightforward path to integration. It abstracts away the complexity of finding a competitive route (splitting and hopping between Uniswap v2, v3, v4, and UniswapX) and constructing the transaction calldata.
+The Uniswap API provides a straightforward path to integration. It abstracts away the complexity of finding a competitive route (splitting and hopping between Uniswap v2, v3, v4, and UniswapX) and constructing the transaction calldata. [Get started with the API](/docs/api/guides/swapping/getting-started).
 
 [Get started with the API](/docs/api/guides/swapping/getting-started).
 
@@ -52,7 +64,7 @@ You do not need to compile Solidity or manage pool state. You simply handle JSON
 
 ## The Uniswap SDK (Flexible)
 
-If you need offline computation, custom routing logic, or cannot rely on a hosted service, the TypeScript SDK is the standard client-side solution. The SDK provides utility classes for constructing pool keys, computing quotes, and encoding swap parameters, but it does **not** execute trades. You use the SDK's output to build transactions that you submit via a library like Ethers.js or Viem.
+If you need offline computation, custom routing logic, or cannot rely on a hosted service, the TypeScript SDK is the standard client-side solution. The SDK provides utility classes for constructing pool keys, computing quotes, and encoding swap parameters, but it does **not** execute trades. You use the SDK's output to build transactions that you submit via a library like Ethers.js or Viem. [Get started with the SDK](/docs/sdks/v4/guides/swapping/quoting).
 
 [Get started with the SDK](/docs/sdks/v4/guides/swapping/quoting).
 
@@ -101,7 +113,7 @@ Building directly against the Uniswap v4 smart contracts gives you maximum contr
 
 ### Path A: Executing Swaps
 
-If your goal is to **perform swaps from an onchain contract**, for example, as part of an arbitrage bot, a vault strategy, or a DeFi protocol that needs to swap tokens during its operations, you interact with the `Universal Router` or the `PoolManager` directly.
+If your goal is to **perform swaps from an onchain contract**, for example, as part of an arbitrage bot, a vault strategy, or a DeFi protocol that needs to swap tokens during its operations, you interact with the `Universal Router` or the `PoolManager` directly. [Get started with smart contracts](/docs/protocols/v4/guides/swapping/swapping).
 
 [Get started with smart contracts](/docs/protocols/v4/guides/swapping/swapping).
 
@@ -140,7 +152,7 @@ router.execute(commands, inputs, deadline);
 
 ### Path B: Customizing Swaps with Hooks
 
-If your goal is to **extend or modify swap behavior itself**, for example, to implement dynamic fees, on-swap oracles, limit orders, or access control, you write a **Hook** contract.
+If your goal is to **extend or modify swap behavior itself**, for example, to implement dynamic fees, on-swap oracles, limit orders, or access control, you write a **Hook** contract. [Get started with hooks](/docs/protocols/v4/guides/hooks/swap-hooks).
 
 [Get started with hooks](/docs/protocols/v4/guides/hooks/swap-hooks).
 
