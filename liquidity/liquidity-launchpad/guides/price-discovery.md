@@ -7,7 +7,7 @@ description: Learn how a Uniswap Continuous Clearing Auction discovers clearing 
 This section will walk you through how a CCA auction discovers new prices over time.
 
 ## Prerequisites
-Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/protocols/liquidity-launchpad/guides/submit-bid) where we submitted our first bid.
+Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/liquidity/liquidity-launchpad/guides/submit-bid) where we submitted our first bid.
 
 ## Step 1: Review the current auction state
 Currently we have a CCA contract deployed which we have submitted a bid to. We'll now modify our script to show how the price of the auction can change over time.

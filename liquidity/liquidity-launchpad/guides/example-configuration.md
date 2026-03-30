@@ -4,10 +4,10 @@ title: Example Configuration
 description: Configure Uniswap Continuous Clearing Auction parameters and deploy an example auction with a local script.
 ---
 
-This section will walk you through each parameter of a CCA auction and an example configuration. For more details please refer to the [CCA auction mechanism](/docs/protocols/liquidity-launchpad/concepts/cca).
+This section will walk you through each parameter of a CCA auction and an example configuration. For more details please refer to the [CCA auction mechanism](/docs/liquidity/liquidity-launchpad/concepts/cca).
 
 ## Prerequisites
-Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/protocols/liquidity-launchpad/guides/local-deployment).
+Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/liquidity/liquidity-launchpad/guides/local-deployment).
 
 ## Step 1: Define auction parameters
 The `AuctionParameters` struct parameterizes a new CCA auction. It is encoded and passed to the `ContinuousClearingAuctionFactory` contract when deploying a new auction. The struct definition is as follows:
@@ -53,10 +53,10 @@ Prices are represented as a `currency/token` ratio in Q96 fixed-point format. Fo
 - **`requiredCurrencyRaised`**: graduation threshold. If unmet, bidders can withdraw and no tokens are sold.
 - **`auctionStepsData`**: packed bytes schedule describing token issuance per block (`uint64` rate + block span).
 
-For more details about auction steps, refer to [CCA auction mechanism](/docs/protocols/liquidity-launchpad/concepts/cca).
+For more details about auction steps, refer to [CCA auction mechanism](/docs/liquidity/liquidity-launchpad/concepts/cca).
 
 ## Step 2: Build and run an example configuration
-Let's create an example configuration for a CCA auction. We'll use the script from the [previous section](/docs/protocols/liquidity-launchpad/guides/local-deployment).
+Let's create an example configuration for a CCA auction. We'll use the script from the [previous section](/docs/liquidity/liquidity-launchpad/guides/local-deployment).
 
 First, make sure to import the `AuctionParameters` struct from the `IContinuousClearingAuction` interface:
 
@@ -84,7 +84,7 @@ AuctionParameters memory parameters = AuctionParameters({
 });
 ```
 
-Let's build the auction steps data. For simplicity, we'll sell tokens following a monotonically increasing schedule. We'll sell 10% over 50 blocks, 49% over 49 blocks, and the final 41% in the last block. See the [CCA auction mechanism](/docs/protocols/liquidity-launchpad/concepts/cca) for more details about this schedule design.
+Let's build the auction steps data. For simplicity, we'll sell tokens following a monotonically increasing schedule. We'll sell 10% over 50 blocks, 49% over 49 blocks, and the final 41% in the last block. See the [CCA auction mechanism](/docs/liquidity/liquidity-launchpad/concepts/cca) for more details about this schedule design.
 
 To derive the steps:
 - First tranche: 10% over 50 blocks

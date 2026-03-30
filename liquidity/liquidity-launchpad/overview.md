@@ -33,7 +33,7 @@ The Uniswap Liquidity Launchpad framework is built on three coordinated componen
 
 1. **[Liquidity Launcher](https://github.com/Uniswap/liquidity-launcher)** coordinates distribution and liquidity deployment.
 2. **[Token Factory](https://github.com/Uniswap/uerc20-factory)** optionally creates new ERC-20 tokens with metadata.
-3. **Liquidity Strategies** define how auction outcomes migrate into pool liquidity. See [custom strategy guidance](/docs/protocols/liquidity-launchpad/concepts/liquidity-strategies#writing-a-custom-strategy).
+3. **Liquidity Strategies** define how auction outcomes migrate into pool liquidity. See [custom strategy guidance](/docs/liquidity/liquidity-launchpad/concepts/liquidity-strategies#writing-a-custom-strategy).
 
 Each component is composable and extensible so you can customize your launch flow while preserving clear onchain behavior.
 
@@ -41,7 +41,7 @@ Each component is composable and extensible so you can customize your launch flo
 
 ![Token Launcher Architecture](./images/TokenLauncherOverview.png)
 
-Review the architecture and implementation details in [Liquidity Strategies](/docs/protocols/liquidity-launchpad/concepts/liquidity-strategies) and [Deployments](/docs/protocols/liquidity-launchpad/deployments).
+Review the architecture and implementation details in [Liquidity Strategies](/docs/liquidity/liquidity-launchpad/concepts/liquidity-strategies) and [Deployments](/docs/liquidity/liquidity-launchpad/deployments).
 
 ### Example flow
 
@@ -53,6 +53,6 @@ Review the architecture and implementation details in [Liquidity Strategies](/do
 
 ## Where to Go Next
 
-- Learn about the [Continuous Clearing Auction](/docs/protocols/liquidity-launchpad/concepts/cca) mechanism
+- Learn about the [Continuous Clearing Auction](/docs/liquidity/liquidity-launchpad/concepts/cca) mechanism
 - Read the [CCA whitepaper](https://docs.uniswap.org/whitepaper_cca.pdf)
-- For full address tables and versions, see [Deployments](/docs/protocols/liquidity-launchpad/deployments)
+- For full address tables and versions, see [Deployments](/docs/liquidity/liquidity-launchpad/deployments)

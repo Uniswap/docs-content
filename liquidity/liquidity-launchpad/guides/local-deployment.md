@@ -10,7 +10,7 @@ This guide will walk you through deploying a Continuous Clearing Auction (CCA) i
 - [Foundry](https://getfoundry.sh/introduction/installation)
 - [Anvil](https://getfoundry.sh/anvil/overview)
 
-Also, please check out the [setup guide](/docs/protocols/liquidity-launchpad/guides/setup) for installation instructions.
+Also, please check out the [setup guide](/docs/liquidity/liquidity-launchpad/guides/setup) for installation instructions.
 
 ## Step 1: Choose a deployment method
 There are two main ways to deploy new CCA auctions:
