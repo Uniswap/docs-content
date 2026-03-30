@@ -1,70 +1,72 @@
 ---
 id: guide-to-voting
 title: Guide to Voting
-description: Learn how to delegate UNI tokens and vote on Uniswap governance proposals.
+description: Learn how to delegate UNI on Agora or Tally and vote on Uniswap governance proposals.
 ---
 
-This guide contains everything you need to start voting in Uniswap Governance.
-
-To participate you will need:
+To participate in a governance vote, you will need:
 
 - [UNI Tokens](https://uniswap.org/blog/uni/)
 - ETH for transaction costs
-- A wallet that supports the Ethereum protocol and holds UNI tokens. (We suggest the [Uniswap wallet](https://wallet.uniswap.org/)).
-- To [delegate](#delegation) your tokens before the vote is active.
+- An Ethereum-compatible wallet
 
-The governance [process](./governance-process) begins in the [Governance Forum](https://gov.uniswap.org/), where you can find proposals under consideration, gather information about community sentiment, and engage with the community.
+## Understanding Delegation
 
-Once a given proposal is ready for an onchain vote, it will appear in the Uniswap [voting dashboard](https://vote.uniswapfoundation.org/) - where you can view all current and former Uniswap proposals.
+UNI tokens have voting power in Uniswap Governance, but they must be delegated before you can use them to vote. Delegation binds your tokens' voting power to a specific address, either your own or someone else's who you trust to vote on your behalf.
 
-![](./images/Proposals_Overview.png)
+Important: You must delegate your tokens before a vote becomes active. Think of it like voter registration - it needs to happen in advance for your vote to count.
 
-Clicking a proposal will show all the necessary information, documentation, and discussion needed for a voter to make an informed decision, and help visualize how the voting transpired.
+## How to Delegate Your UNI on Agora
 
-![](./images/Proposal_Active.png)
+### Option 1: self-delegate (vote yourself)
 
-***Once a proposal has reached the voting stage it represents real, executable code which will alter the functionality of Uniswap Governance or anything under its jurisdiction. Proper care should be taken to ensure that the code represented in the proposal has been audited and is found to be in good faith.***
+1. Go to [Agora's Uniswap voting dashboard](https://vote.uniswap.org).
+2. Connect your wallet via the button at the top right.
+3. Click your wallet address at the top and select `make delegate profile` or `view my profile` if you have previously registered. If new to Agora, complete your bio and accept the terms to save your profile before proceeding to delegate.
+4. On your profile, click the `Delegate` button at bottom left.
+5. Confirm you are delegating your address in the popup.
+6. Approve and sign the transaction in your wallet.
+7. Wait for the transaction to process.
 
-## Delegation
+Once confirmed, the popup closes and your voting power appears on your profile.
 
-UNI is a tradable asset and functions like most other standard ERC20 tokens, except it has a deeper power as a voting mechanism. In order for UNI to be used as a vote, the owner must first go through the delegation process. Delegating UNI binds the voting power of your tokens to an address so it may be used to vote. This address could be yourself, or a trusted party who you believe will vote in the best interest of Uniswap Governance.
+### Option 2: delegate to someone else
 
-To submit a proposal, an address must have 1,000,000 UNI delegated to it.
+1. Go to [Agora's Uniswap voting dashboard](https://vote.uniswap.org).
+2. Connect your wallet.
+3. Browse the list of delegates under the `voters` tab.
+4. Select a delegate and view their profile.
+5. Click `Delegate` on your chosen delegate at bottom left.
+6. Approve and sign the transaction in your wallet.
+7. Wait for the transaction to process.
 
-For a proposal to pass, 40,000,000 UNI (from any number of addresses) must vote on it, and the majority must be in favor.
+Once confirmed, the popup closes and their new voting power appears on their profile.
 
-To delegate your UNI tokens, visit the [Uniswap voting dashboard](https://vote.uniswapfoundation.org/delegates). Connect your Wallet, browse delegates, and click "Delegate" on your chosen delegate.
+## How to Delegate Your UNI on Tally
 
-![](./images/Delegate_Selection.png)
+1. Open [Tally's Uniswap dashboard](https://www.tally.xyz/gov/uniswap/my-voting-power).
+2. Connect your wallet.
+3. Click your wallet address at the top and select `My Voting Power`.
+4. You should now see your UNI balance with the option to click `Delegate`.
+5. A popup prompts you to select between delegating to yourself and someone else. To yourself: select `Myself`. To someone else: select `Someone else` and paste their address.
+6. Approve and sign the transaction in your wallet.
+7. Wait for the transaction to process.
 
-![](./images/Delegate_Button.png)
+## Important Notes
 
-You can also delegate to yourself if you wish to participate in voting directly. After connecting your wallet, click your wallet address, then "view my profile." From there, you can click "Delegate" on your own profile to delegate your voting power to yourself.
-
-Once you click this button, you will see a screen that gives you the option to self delegate, or add a delegate address. If you wish to delegate your UNI voting power to your own address, click “Self Delegate”. You can also update your delegation at any time.
-
-![](./images/Delegate_To_Self.png)
-
-When you click “Self Delegate”, a transaction will pop up in your wallet.  If this doesn’t happen, double check that you have connected your wallet, turn off any popup blockers, and try again. Click "Confirm". When the transaction has processed, you will see that the updated voting power on your profile. Note that delegating your voting power is an event that is captured on chain, so setting and updating your delegation costs gas.
-
-An important note: much like voter registration in a larger democracy, for UNI to be used in a vote it must be delegated before both the voting period. This means if you want your vote to count, you must delegate it in anticipation of any proposal you may be interested in.
-
-If you are unsure of how best to vote and are interested in delegating your UNI voting power to another party, you can visit the [Delegation Pitch](https://gov.uniswap.org/c/delegation-pitch/6) section of the Governance Forum. Here parties participating in Uniswap Governance pitch their platform and voting agenda for users to read and discuss.
+- Delegation costs gas since it is recorded onchain, make sure you have ETH to cover this.
+- You can update your delegation at any time by repeating the process outlined above.
+- Delegation must happen before voting begins on any proposal you want to participate in.
+- Your tokens remain in your wallet - delegation only assigns voting power, you still own and control your UNI at all times.
 
 ## Voting
 
 If you have self delegated and there is an active proposal, you are ready to vote in Uniswap Governance.
 
-To cast your vote, navigate to the proposals page and click on an active proposal.
+To cast your vote, navigate to the proposals page on either Agora or Tally and click an active proposal.
 
-![](./images/Proposals_Overview.png)
+After reviewing the attached details and deciding your opinion, choose `Vote For` or `Vote Against`.
 
-After reviewing the attached details and deciding your opinion, choose “Vote For”, or “Vote Against”.
+Once you choose, a window pops up allowing you to execute the vote. When you click to cast your vote, your wallet pops up asking you to confirm your transaction.
 
-Once you’ve chosen, a window will pop up allowing you to execute the vote.
-
-When you click to cast your vote, your wallet will pop up asking you to confirm your transaction. Click “submit” or "confirm", wait a bit, and check that the transaction has been confirmed. You can view your votes from your profile, or on the proposal itself.
-
-![](./images/Vote_Confirmation.png)
-
-That’s it! Once your transaction has been confirmed, you will have cast your vote and participated in Uniswap Governance.
+Click `submit` or `confirm` and check that the transaction has been confirmed. You can view your votes from your profile, or on the proposal itself.

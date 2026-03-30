@@ -1,9 +1,8 @@
 ---
 id: Deployments
 title: Deployments
+description: Find Uniswap Liquidity Launchpad, CCA, and strategy contract deployments across supported chains.
 ---
-
-# Deployments
 View the changelogs for more details on differences between contract deployments: [continuous-clearing-auction](https://github.com/Uniswap/continuous-clearing-auction/blob/main/CHANGELOG.md) and [liquidity-launcher](https://github.com/Uniswap/liquidity-launcher/blob/main/CHANGELOG.md).
 
 ## ContinuousClearingAuctionFactory
@@ -16,7 +15,7 @@ The CCA factory has no constructor parameters so it can be deployed to the same 
 > \*v1.0.0-candidate is the initial version of CCA and is NOT recommended for production use. See the [Changelog](https://github.com/Uniswap/continuous-clearing-auction/blob/main/CHANGELOG.md) for more details.
 
 ## LiquidityLauncher
-The LiquidityLauncher is a singleton contract which is delployed to the same address across all compatible chains.
+The LiquidityLauncher is a singleton contract deployed to the same address across all compatible chains.
 
 | Version  | Address | Commit Hash |
 | -------- | ------------------------------------------ | ---------------------------------------- |

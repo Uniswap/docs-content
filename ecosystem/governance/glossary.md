@@ -1,19 +1,26 @@
 ---
 id: glossary
-title: Governance Glossary
+title: Glossary
 description: Key terms and definitions for Uniswap governance, including UNI delegation, proposals, quorum, and voting.
 ---
 
-- **UNI:** An ERC-20 token that designates the weight of a user's voting rights. The more UNI a user has in their wallet, the more weight their delegation or vote on a proposal holds.
+- **UNI:** An ERC-20 token and governance token of the Uniswap protocol.
+  UNI grants holders the right to participate in Uniswap governance by voting on proposals and protocol changes. When delegated, UNI determines the weight of voting power. The more UNI delegated to an address, the more influential that address's votes become.
 
-- **Delegation:** UNI holders cannot vote or create proposals until they delegate their voting rights to an address. Delegation can be given to one address at a time, including the holder's own address. Note that delegation does not lock tokens; it simply adds votes to the chosen delegation address.
+- **Delegation:** The process of assigning your UNI voting power to a specific Ethereum address.
+  Delegation activates UNI tokens for governance participation. Holders can delegate to their own address (self-delegation) to vote directly, or to another address they trust to vote on their behalf. Delegation does not lock, transfer, or restrict tokens. It only assigns voting rights. Delegation can be changed at any time, and UNI remains in the holder's wallet with full control.
 
-- **Proposal:** A proposal is executable code that modifies the governance contract or treasury and how they work. In order to create a proposal, a user must have at least 0.25% (2.5M UNI) of all UNI delegated to their address. Proposals are stored in the "proposals" mapping of the Governor smart contract. All proposals are subject to a 7-day voting period. If the proposer does not maintain their vote weight balance throughout the voting period, the proposal may be canceled by anyone.
+- **Proposal:** A formal suggestion for change that the community votes on.
+  In Uniswap governance, proposals are executable code that, if passed, modify the Uniswap protocol, governance contracts, or treasury. Proposals are the mechanism through which Uniswap evolves. Each proposal contains specific code that executes if approved by the community. Proposals are stored in the Governor smart contract and progress through a structured voting process.
 
-- **Quorum:** In order for a vote to pass, it must achieve quorum of 4% of all UNI (40M) voting in the affirmative. The purpose of the quorum is to ensure that the only measures that pass have adequate voter participation.
+- **Quorum:** The minimum number of votes required for a proposal to be valid and eligible to pass.
+  Quorum ensures that governance decisions have sufficient community participation and are not determined by a small subset of token holders. For Uniswap, quorum measures UNI votes cast in favor of a proposal, not total participation. Quorum is 40M UNI votes in favor.
 
-- **Voting:** Users can vote for or against single proposals once they have voting rights delegated to their address. Votes can be cast while a proposal is in the "Active" state. Votes can be submitted immediately using `castVote` or submitted later with `castVoteBySig` (for more info on `castVoteBySig` and offline signatures, see EIP-712). If the majority of votes (and a 4% quorum of UNI) vote for a proposal, the proposal may be queued in the Timelock.
+- **Voting:** The act of casting delegated UNI voting weight in favor of or against an active proposal.
+  Users can vote for or against proposals once they have voting rights delegated to their address. Votes can be cast while a proposal is in the `Active` state of both Temperature Check and onchain vote phases.
 
-- **Voting period:** Once a proposal has been put forward, Uniswap community members have a seven-day period (the voting period) to cast their votes.
+- **Voting period:** The window during which Uniswap community members can signal support or rejection of a proposal.
+  Temperature Check voting periods are 5 days, while onchain vote voting periods are 7 days.
 
-- **Timelock:** All governance and other administrative actions are required to sit in the Timelock for a minimum of 2 days, after which they can be implemented.
+- **Timelock:** A mandatory waiting period that delays execution of passed proposals, providing a security buffer for the community.
+  After a proposal passes, it enters the Timelock queue rather than executing immediately. This delay gives the community time to review approved changes and take action if needed. Once the timelock period expires, the proposal can be executed and its code modifies the protocol.

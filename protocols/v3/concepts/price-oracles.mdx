@@ -1,13 +1,13 @@
 ---
 title: Price Oracles
-description: How Uniswap v3 pools serve as on-chain price oracles, providing historical price and liquidity data.
+description: Understand how Uniswap v3 pools serve as onchain price oracles with historical price and liquidity data.
 ---
 
 <Callout type="note">
 Uniswap v4 does not include built-in oracle functionality. If you're unfamiliar with oracles, check out the Ethereum Foundation's [oracle overview](https://ethereum.org/en/developers/docs/oracles/).
 </Callout>
 
-All Uniswap v3 pools can serve as oracles, offering access to historical price and liquidity data. This capability unlocks a wide range of on-chain use cases.
+All Uniswap v3 pools can serve as oracles, offering access to historical price and liquidity data. This capability unlocks a wide range of onchain use cases.
 
 Historical data is stored as an array of observations. At first, each pool tracks only a single observation, overwriting it as blocks elapse. This limits how far into the past users may access data. However, any party willing to pay the transaction fees may increase the number of tracked observations (up to a maximum of `65535`), expanding the period of data availability to ~9 days or more.
 

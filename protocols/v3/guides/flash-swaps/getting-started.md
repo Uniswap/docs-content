@@ -1,6 +1,7 @@
 ---
 id: inheritance-constructors
 title: Getting Started
+description: Set up a Uniswap v3 flash swap environment and prepare the contract workflow end to end.
 ---
 
 In this guide, we will write a smart contract that calls `flash` on a V3 pool and swaps the full amount withdrawn of `token0` and `token1` in the corresponding pools with the same token pair - but different fee tiers. After the swap, the contract will pay back the first pool and transfer profits to the original calling address.
@@ -101,3 +102,9 @@ contract PairFlash is IUniswapV3FlashCallback, PeripheryPayments {
     }
 }
 ```
+
+## Where to Go Next
+
+- [Calling Flash](/docs/protocols/v3/guides/flash-swaps/calling-flash)
+- [The Flash Callback](/docs/protocols/v3/guides/flash-swaps/flash-callback)
+- [The Final Contract](/docs/protocols/v3/guides/flash-swaps/final-contract)

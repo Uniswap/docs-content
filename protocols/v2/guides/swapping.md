@@ -1,6 +1,7 @@
 ---
 id: trading-from-a-smart-contract
 title: Implement a Swap
+description: Implement Uniswap v2 swaps from smart contracts using router functions and external price safety checks.
 ---
 
 When trading from a smart contract, the most important thing to keep in mind is that access to an external price source is _required_. Without this, trades can be frontrun for considerable loss.
@@ -15,7 +16,7 @@ First you must use an external price source to calculate the safety parameters f
 
 It is also important to ensure that your contract controls enough ETH/tokens to make the swap, and has granted approval to the router to withdraw this many tokens.
 
-_Check out the [Pricing](../concepts/pricing#pricing-trades) page for a more in depth discussion on getting prices._
+_Check out the [Pricing](/docs/protocols/v2/concepts/pricing#pricing-trades) page for a more in depth discussion on getting prices._
 
 ## Example
 
@@ -54,6 +55,6 @@ UniswapV2Router02.swapExactTokensForETH(amountIn, amountOutMin, path, msg.sender
 
 Because Ethereum transactions occur in an adversarial environment, smart contracts that do not perform safety checks _can be exploited for profit_. If a smart contract assumes that the current price on Uniswap is a "fair" price without performing safety checks, _it is vulnerable to manipulation_. A bad actor could e.g. easily insert transactions before and after the swap (a "sandwich" attack) causing the smart contract to trade at a much worse price, profit from this at the trader's expense, and then return the contracts to their original state. (One important caveat is that these types of attacks are mitigated by trading in extremely liquid pools, and/or at low values.)
 
-The best way to protect against these attacks is to use an external price feed or "price oracle". The best "oracle" is simply _traders' off-chain observation of the current price_, which can be passed into the trade as a safety check. This strategy is best for situations _where users initiate trades on their own behalf_.
+The best way to protect against these attacks is to use an external price feed or "price oracle". The best "oracle" is simply _traders' offchain observation of the current price_, which can be passed into the trade as a safety check. This strategy is best for situations _where users initiate trades on their own behalf_.
 
-However, when an off-chain price can't be used, an on-chain oracle should be used instead. Determining the best oracle for a given situation is not a part of this guide, but for more details on the Uniswap V2 approach to oracles, see [Oracles](../concepts/oracles).
+However, when an offchain price can't be used, an onchain oracle should be used instead. Determining the best oracle for a given situation is not a part of this guide, but for more details on the Uniswap v2 approach to oracles, see [Oracles](/docs/protocols/v2/concepts/oracles).

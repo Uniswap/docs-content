@@ -1,6 +1,7 @@
 ---
 id: deployments
 title: Deployment Addresses
+description: Find official Uniswap v3 deployment addresses across supported networks and chain-specific references.
 ---
 
 ## Uniswap v3 Contract Deployments

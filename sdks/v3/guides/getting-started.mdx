@@ -1,9 +1,7 @@
 ---
-id: local-development
-title: Local Development
+description: Set up a local mainnet-fork workflow for the Uniswap v3 SDK using Foundry and Anvil.
+title: Getting Started
 ---
-
-## Introduction
 
 Developing your dApps or smart contracts requires some tinkering to get a proper setup that is both a good simulation of how Mainnet will behave,
 but also customizable enough to suit the needs of a development environment.
@@ -124,12 +122,11 @@ Using one of the private keys provided by anvil, you have access to enough ETH t
 If you need any other token, you now have the flexibility of swapping your ETH to any token that has a pool deployed on Mainnet.
 You basically take your fake ETH and swap it to the token you need.
 
-Check out one of the [guides about swapping](./swapping/swapping) and replace the RPC URL with your local anvil HTTP link as above.
+Check out one of the [guides about swapping](/docs/sdks/v3/guides/swapping/swapping) and replace the RPC URL with your local anvil HTTP link as above.
 
-## Next Steps
+## Where to Go Next
 
-Using the above you are fully equipped to continue following the guides about how to use Uniswap while testing everything locally before
-going on Mainnet. You will also be able to reuse what you have learned when you develop your own protocols or dApps.
-
-You can also continue tapping into other developer tools that make smart contract development easier like [forge](https://github.com/foundry-rs/foundry/tree/master/crates/forge) from foundry.
-To read more about foundry and their developer tooling, visit their [GitHub](https://github.com/foundry-rs/foundry) or the [foundry book](https://book.getfoundry.sh/).
+- Build route quotes in [Swapping Guides](/docs/sdks/v3/guides/swapping/quoting)
+- Continue with [Managing Liquidity Getting Started](/docs/sdks/v3/guides/managing-liquidity/getting-started)
+- Read pool snapshots in [Fetching Pool Data](/docs/sdks/v3/guides/pool-data)
+- Learn oracle math in [Uniswap as a Price Oracle](/docs/sdks/v3/guides/price-oracle)

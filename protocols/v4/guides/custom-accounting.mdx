@@ -1,5 +1,6 @@
 ---
 title: Custom Accounting
+description: Understand custom accounting patterns in Uniswap v4, including deltas, hook fees, and custom curves.
 ---
 
 ## Introduction
@@ -13,7 +14,7 @@ Before we dive into the details of custom accounting, hook fees, custom curves, 
 
 ### Delta Accounting in v4
 
-As described in [Flash Accounting](../concepts/flash-accounting) Uniswap v4 tracks net token transfers with transient storage. Unlike previous versions that tracked absolute token balances, v4 records changes to these balances (*deltas*). This approach is at the core of v4’s enhanced flexibility and efficiency.
+As described in [Flash Accounting](/docs/protocols/v4/concepts/flash-accounting), Uniswap v4 tracks net token transfers with transient storage. Unlike previous versions that tracked absolute token balances, v4 records changes to these balances (*deltas*). This approach is at the core of v4's enhanced flexibility and efficiency.
 
 In the v4 architecture, the `PoolManager` manages credits or debits per address. After a swap router contract interacts with the PoolManager, the core contract determines that the swap router owes input tokens and must claim output tokens. Token balances are tracked as accumulated deltas in transient storage; and only the final deltas incur token transfers
 
@@ -57,7 +58,7 @@ Keep reading because at the bottom we are providing a step by step guide on how 
 
 ### Custom Curves in v4
 
-Custom Curves in Uniswap v4 represent a big change in AMM design flexibility. Unlike [Uniswap v2](../../v2/overview) where the x*y=k formula was hardcoded, v4 allows developers to implement a wide variety of pricing models.
+Custom Curves in Uniswap v4 represent a big change in AMM design flexibility. Unlike [Uniswap v2](/docs/protocols/v2/overview) where the x*y=k formula was hardcoded, v4 allows developers to implement a wide variety of pricing models.
 
 This is made possible through the hook system, particularly hooks that can interact with the swap process. Custom curves allow developers to eject the native concentrated liquidity pricing mechanism. These hooks can intercept swap requests, apply custom pricing logic, and return modified swap parameters. This enables the creation of pools with unique characteristics, such as:
 
@@ -96,6 +97,7 @@ pragma solidity 0.8.26;
 import {BaseHook} from "v4-periphery/src/utils/BaseHook.sol";
 import {Hooks} from "v4-core/src/libraries/Hooks.sol";
 import {IPoolManager} from "v4-core/src/interfaces/IPoolManager.sol";
+import {SwapParams} from "v4-core/src/types/PoolOperation.sol";
 import {PoolKey} from "v4-core/src/types/PoolKey.sol";
 import {Currency} from "v4-core/src/types/Currency.sol";
 import {BeforeSwapDelta, toBeforeSwapDelta} from "v4-core/src/types/BeforeSwapDelta.sol";
@@ -138,7 +140,7 @@ Now, let's implement our `beforeSwap` function:
 function _beforeSwap(
     address,
     PoolKey calldata key,
-    IPoolManager.SwapParams calldata params,
+    SwapParams calldata params,
     bytes calldata
 ) internal override returns (bytes4, BeforeSwapDelta, uint24) {
     // Implementation details will be explained in the following sub-steps
@@ -337,6 +339,7 @@ function _afterSwap(
         poolManager.take(feeCurrency, address(this), feeAmount);
 
         return (BaseHook.afterSwap.selector, int128(int256(feeAmount)));
+    }
 ```
 
 ### Complete afterSwap contract:

@@ -1,11 +1,9 @@
 ---
 title: Reading Asset Balances
-description: How to read asset balances from the Uniswap Protocol Fee system
+description: Read releasable asset balances across AssetSink, Uniswap v2 LP tokens, and Uniswap v3 pools.
 ---
 
-# Reading Asset Balance
-
-As noted in [Best Practices](./best-practices), the `AssetSink's` available asset balance is observed in three places:
+As noted in [Best Practices](/docs/protocols/protocol-fee/guides/best-practices), the `AssetSink's` available asset balance is observed in three places:
 
 * the contract address of the `AssetSink` itself
 * the `UniswapV3Pool` contract addresses
@@ -78,7 +76,7 @@ Uniswap v2 protocol fees are automatically "pushed" to the `AssetSink` so no add
 However, Uniswap v2 protocol fees are accrued in the form of liquidity tokens (LP tokens) which are redeemable for underlying assets. Ownership of the LP
 token represents the proportional share of the pool's assets.
 
-```
+```text
 (LP Token Balance / LP Token Total Supply) * Pool Reserves
 ```
 

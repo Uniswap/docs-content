@@ -1,9 +1,10 @@
 ---
 id: building-an-oracle
 title: Building an Oracle
+description: Build a Uniswap v2 TWAP oracle using cumulative prices, observation windows, and resilient maintenance patterns.
 ---
 
-To build a price oracle on Uniswap V2, you must first understand the
+To build a price oracle on Uniswap v2, you must first understand the
 requirements for your use case. Once you understand the kind of price
 average you require, it is a matter of storing the cumulative price
 variable from the pair as often as necessary, and computing

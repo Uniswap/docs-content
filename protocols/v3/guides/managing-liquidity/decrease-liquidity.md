@@ -1,6 +1,7 @@
 ---
 id: decrease-liquidity
-title: Decrease Liquidity
+title: Decrease Liquidity (v3)
+description: Decrease an existing Uniswap v3 position and collect the returned token amounts with PositionManager.
 ---
 
 Make sure to go through the [Setting Up Your Contract](./setting-up-your-contract) before continuing to this section

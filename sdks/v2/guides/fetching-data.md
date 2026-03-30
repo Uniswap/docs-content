@@ -1,14 +1,12 @@
 ---
-id: fetching-data
+description: Fetch token and pair state with the Uniswap v2 SDK using reliable onchain data sources.
 title: Fetching Data
 ---
 
-> Looking for a [quickstart](quick-start)?
-
-While the SDK is fully self-contained, there are two cases where it needs _on-chain data_ to function.
+While the SDK is fully self-contained, there are two cases where it needs _onchain data_ to function.
 This guide will detail both of these cases, and offer a sample that you can use to fetch this data.
 
-# Case 1: Tokens
+## Case 1: Tokens
 
 Unsurprisingly, the SDK needs some notion of an ERC-20 token to be able to function. This immediately raises the question of _where data about tokens comes from_.
 
@@ -16,7 +14,7 @@ As an example, let's try to represent DAI in a format the SDK can work with. To 
 
 ## Identifying Data
 
-The first two pieces of data — **chainId** and **token address** — must be provided by us. Thinking about it, this makes sense, as there's really no other way to unambiguously identify a token.
+The first two pieces of data - **chainId** and **token address** - must be provided by us. Thinking about it, this makes sense, as there's really no other way to unambiguously identify a token.
 
 So, in the case of DAI, we know that the **chainId** is `1` (we're on mainnet), and the **token address** is `0x6B175474E89094C44Da98b954EedeAC495271d0F`. Note that it's very important to externally verify token addresses. Don't use addresses from sources you don't trust!
 
@@ -38,7 +36,7 @@ const decimals = 18
 const DAI = new Token(chainId, tokenAddress, decimals)
 ```
 
-If we don't know or don't want to hardcode the value, we could look it up ourselves via any method of retrieving on-chain data in a function that looks something like:
+If we don't know or don't want to hardcode the value, we could look it up ourselves via any method of retrieving onchain data in a function that looks something like:
 
 ```typescript
 import { ChainId } from '@uniswap/sdk-core'
@@ -60,7 +58,7 @@ import { ChainId, Token } from '@uniswap/sdk-core'
 const DAI = new Token(ChainId.MAINNET, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'Dai Stablecoin')
 ```
 
-# Case 2: Pairs
+## Case 2: Pairs
 
 Now that we've explored how to define a token, let's talk about pairs. To read more about what Uniswap pairs are, see Pair
 

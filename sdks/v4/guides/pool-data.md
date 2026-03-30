@@ -1,9 +1,7 @@
 ---
-id: pool-data
+description: Fetch and assemble Uniswap v4 pool state with StateView and SDK pool abstractions.
 title: Fetching Pool Data
 ---
-
-## Introduction
 
 In this example we will use **ethers JS** and **ethers-multicall** to construct a `Pool` object that we can use in the following guides.
 
@@ -84,7 +82,7 @@ const poolId = Pool.getPoolId(currency0, currency1, fee, tickSpacing, hooks);
 
 ## Referencing the StateView contract and fetching metadata
 
-Now that we have the `PoolId` of a **USDC - ETH** Pool, we need to call [StateView](../../../protocols/v4/guides/state-view) contract to get the pool state. In v4 you need to use `StateLibrary` to read pool state, but offchain systems—such as frontends or analytics services—require a deployed contract with view functions. This is where `StateView` comes in.
+Now that we have the `PoolId` of a **USDC - ETH** Pool, we need to call [StateView](/docs/protocols/v4/guides/state-view) contract to get the pool state. In v4 you need to use `StateLibrary` to read pool state, but offchain systems-such as frontends or analytics services-require a deployed contract with view functions. This is where `StateView` comes in.
 To construct the Contract we need to provide the address of the contract, its ABI and a provider connected to an RPC endpoint.
 
 ```typescript
@@ -100,7 +98,7 @@ const stateViewContract = new ethers.Contract(
 )
 ```
 
-We get the `STATE_VIEW_ADDRESS` for our chain from [Uniswap Deployments](../../../protocols/v4/deployments).
+We get the `STATE_VIEW_ADDRESS` for our chain from [Uniswap Deployments](/docs/protocols/v4/deployments).
 Once we have set up our reference to the contract, we can proceed to access its methods. To construct our offchain representation of the Pool, we need to fetch its liquidity, sqrtPrice, currently active tick and the full Tick data.
 We get the **liquidity**, **sqrtPrice** and **tick** directly from the blockchain by calling `getLiquidity()`and `getSlot0()` on the StateView contract:
 

@@ -7,6 +7,5 @@
     "decrease-liquidity",
     "collect-fees",
     "the-full-contract"
-  ],
-  "defaultOpen": false
+  ]
 }

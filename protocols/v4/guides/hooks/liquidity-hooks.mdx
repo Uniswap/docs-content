@@ -1,5 +1,6 @@
 ---
 title: Liquidity Hooks
+description: Build Uniswap v4 liquidity hooks around add and remove liquidity lifecycle events.
 ---
 
 This guide will walk through on an example of adding and removing liquidity. There are four hook functions available to customize and extend these behavior:
@@ -32,6 +33,7 @@ import {BaseHook} from "v4-periphery/src/utils/BaseHook.sol";
 
 import {Hooks} from "v4-core/src/libraries/Hooks.sol";
 import {IPoolManager} from "v4-core/src/interfaces/IPoolManager.sol";
+import {ModifyLiquidityParams} from "v4-core/src/types/PoolOperation.sol";
 import {PoolKey} from "v4-core/src/types/PoolKey.sol";
 import {PoolId, PoolIdLibrary} from "v4-core/src/types/PoolId.sol";
 import {BalanceDelta} from "v4-core/src/types/BalanceDelta.sol";
@@ -71,7 +73,7 @@ function getHookPermissions() public pure override returns (Hooks.Permissions me
         afterSwap: false,
         beforeDonate: false,
         afterDonate: false,
-        beforeAddLiquidityReturnDelta: false,
+        beforeSwapReturnDelta: false,
         afterSwapReturnDelta: false,
         afterAddLiquidityReturnDelta: false,
         afterRemoveLiquidityReturnDelta: false
@@ -87,7 +89,7 @@ Here the example shows that every time __before__ liquidity is added to a pool, 
 function _beforeAddLiquidity(
     address,
     PoolKey calldata key,
-    IPoolManager.ModifyLiquidityParams calldata,
+    ModifyLiquidityParams calldata,
     bytes calldata
 ) internal override returns (bytes4) {
     beforeAddLiquidityCount[key.toId()]++;
@@ -113,7 +115,7 @@ Similiar as above, every time __before__ liquidity is removed from a pool, `befo
 function _beforeRemoveLiquidity(
     address,
     PoolKey calldata key,
-    IPoolManager.ModifyLiquidityParams calldata,
+    ModifyLiquidityParams calldata,
     bytes calldata
 ) internal override returns (bytes4) {
     beforeRemoveLiquidityCount[key.toId()]++;
@@ -141,6 +143,7 @@ import {BaseHook} from "v4-periphery/src/utils/BaseHook.sol";
 
 import {Hooks} from "v4-core/src/libraries/Hooks.sol";
 import {IPoolManager} from "v4-core/src/interfaces/IPoolManager.sol";
+import {ModifyLiquidityParams} from "v4-core/src/types/PoolOperation.sol";
 import {PoolKey} from "v4-core/src/types/PoolKey.sol";
 import {PoolId, PoolIdLibrary} from "v4-core/src/types/PoolId.sol";
 import {BalanceDelta} from "v4-core/src/types/BalanceDelta.sol";
@@ -171,7 +174,7 @@ contract LiquidityHook is BaseHook {
             afterSwap: false,
             beforeDonate: false,
             afterDonate: false,
-            beforeAddLiquidityReturnDelta: false,
+            beforeSwapReturnDelta: false,
             afterSwapReturnDelta: false,
             afterAddLiquidityReturnDelta: false,
             afterRemoveLiquidityReturnDelta: false
@@ -185,7 +188,7 @@ contract LiquidityHook is BaseHook {
     function _beforeAddLiquidity(
         address,
         PoolKey calldata key,
-        IPoolManager.ModifyLiquidityParams calldata,
+        ModifyLiquidityParams calldata,
         bytes calldata
     ) internal override returns (bytes4) {
         beforeAddLiquidityCount[key.toId()]++;
@@ -195,7 +198,7 @@ contract LiquidityHook is BaseHook {
     function _beforeRemoveLiquidity(
         address,
         PoolKey calldata key,
-        IPoolManager.ModifyLiquidityParams calldata,
+        ModifyLiquidityParams calldata,
         bytes calldata
     ) internal override returns (bytes4) {
         beforeRemoveLiquidityCount[key.toId()]++;

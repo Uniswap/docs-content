@@ -42,6 +42,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # ── 0. Generate GitHub App installation token ──
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
+        with:
+          app-id: ${{ secrets.DOCS_SYNC_APP_ID }}
+          private-key: ${{ secrets.DOCS_SYNC_APP_PRIVATE_KEY }}
+          owner: Uniswap
+          repositories: universe
+
       # ── 1. Checkout docs-content (this repo) for commit history ──
       - name: Checkout docs-content
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
@@ -56,7 +66,7 @@ jobs:
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
         with:
           repository: Uniswap/universe
-          token: ${{ secrets.DOCS_SYNC_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 1
           path: universe
 
@@ -112,17 +122,18 @@ jobs:
           TABLE_ROWS=""
           COMMIT_COUNT=0
 
+          SEP=$'\x1f'
           while IFS= read -r line; do
-            SHA=$(echo "$line" | cut -d'§' -f1)
-            AUTHOR=$(echo "$line" | cut -d'§' -f2)
-            MESSAGE=$(echo "$line" | cut -d'§' -f3-)
+            SHA=$(echo "$line" | cut -d"$SEP" -f1)
+            AUTHOR=$(echo "$line" | cut -d"$SEP" -f2)
+            MESSAGE=$(echo "$line" | cut -d"$SEP" -f3-)
             SHORT_SHA=$(echo "$SHA" | cut -c1-7)
             # Escape pipe characters in message to avoid breaking the markdown table
             MESSAGE=$(echo "$MESSAGE" | sed 's/|/\\|/g')
             TABLE_ROWS="${TABLE_ROWS}| [\`${SHORT_SHA}\`](https://github.com/Uniswap/docs-content/commit/${SHA}) | ${AUTHOR} | ${MESSAGE} |
           "
             COMMIT_COUNT=$((COMMIT_COUNT + 1))
-          done < <(git log --format='%H§%an§%s' "$RANGE" --)
+          done < <(git log --format="%H${SEP}%an${SEP}%s" "$RANGE" --)
 
           # Count changed files
           FILE_COUNT=$(git diff --name-only "$OLD_REF" "$NEW_REF" -- 2>/dev/null | wc -l | tr -d ' ')
@@ -212,7 +223,7 @@ jobs:
             echo "No changes to commit — submodule already at target ref"
             echo "skip_push=true" >> "$GITHUB_ENV"
           else
-            git commit -m "chore: update docs-content submodule" \
+            git commit -m "chore(docs): update docs-content submodule" \
               -m "Updates apps/dev-portal/content/docs to ${NEW_REF}"
             echo "skip_push=false" >> "$GITHUB_ENV"
           fi
@@ -223,14 +234,17 @@ jobs:
         if: steps.update.outputs.changed == 'true' && env.skip_push != 'true'
         working-directory: universe
         run: |
+          git remote set-url origin "https://x-access-token:${APP_TOKEN}@github.com/Uniswap/universe.git"
           git push --force origin "chore/update-docs-content"
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
 
       # ── 8. Create or update PR ──
       - name: Create or update PR
         if: steps.update.outputs.changed == 'true' && env.skip_push != 'true'
         working-directory: universe
         env:
-          GH_TOKEN: ${{ secrets.DOCS_SYNC_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           BRANCH="chore/update-docs-content"
           PR_BODY=$(cat /tmp/pr_body.md)
@@ -252,7 +266,7 @@ jobs:
             gh pr create \
               --base main \
               --head "$BRANCH" \
-              --title "chore: update docs-content submodule" \
+              --title "chore(docs): update docs-content submodule" \
               --body "$PR_BODY" \
               --label "automated" \
               --label "docs" \

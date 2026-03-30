@@ -1,13 +1,12 @@
 ---
 id: Strategies
 title: Strategies
+description: Learn how Liquidity Launchpad strategy contracts deploy auctions and migrate proceeds into Uniswap v4 liquidity.
 ---
-
-# Understanding liquidity strategies
 
 Liquidity strategies are modular contracts for different price discovery and liquidity mechanisms. The stock contracts shipped with the Uniswap Liquidity Launchpad deploy new Continuous Clearing Auction (CCA) auctions and create Uniswap v4 LP pools with the proceeds.
 
-This is only one of many possible strategies. We expect there to be many different strategies for different use cases.
+This is only one of many possible strategies. Different strategies can support different launch, liquidity, and governance requirements.
 
 ## LBPStrategyBase
 The LBPStrategyBase is an abstract base contract for liquidity bootstrapping (LBP) strategies. It provides core functionality for deploying auctions and initializing LP pools.

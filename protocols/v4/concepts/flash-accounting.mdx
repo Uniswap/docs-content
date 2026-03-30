@@ -1,5 +1,6 @@
 ---
 title: Flash Accounting
+description: Understand flash accounting in Uniswap v4 and how deltas reduce transfer overhead.
 ---
 
 ## Flash Accounting
@@ -56,7 +57,7 @@ The balances resolved above is what we refer as the `delta`, a field held in the
 
 ## Swapping
 
-![Multi-hop swaps on V3 vs V4](./images/Uniswap_V4_Multihop_Swaps.png)
+![Multi-hop swaps on v3 vs v4](./images/Uniswap_V4_Multihop_Swaps.png)
 
 As shown in the above diagram, for example - let's say you want to swap `ETH` for `DAI`. Assuming this requires a multi-hop swap going from `ETH` to `USDC` and then from `USDC` to `DAI`.
 
@@ -88,4 +89,4 @@ For example, a user wanted to add liquidity to `ETH <> DAI` but does not have DA
 
 ## Developer Resources
 
-To see how unlock callback and delta work in a smart contract read [Unlock Callback & Deltas](../guides/unlock-callback).
+To see how unlock callbacks and deltas work in a smart contract, read [Unlock Callback and Deltas](/docs/protocols/v4/guides/unlock-callback-and-deltas).

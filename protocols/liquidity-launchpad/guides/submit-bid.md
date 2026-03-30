@@ -1,15 +1,15 @@
 ---
 id: submit-bid
-title: Submitting a bid
+title: Submitting a Bid
+description: Submit your first bid in a Uniswap Continuous Clearing Auction and verify execution from onchain logs.
 ---
 
-# Submitting a bid
 This section will walk you through submitting a bid on a CCA auction.
 
 ## Prerequisites
-Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](./example-configuration) where we configured a CCA auction and deployed it to our local anvil node.
+Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/protocols/liquidity-launchpad/guides/example-configuration) where we configured a CCA auction and deployed it to our local anvil node.
 
-## Summary
+## Step 1: Review auction parameters
 Currently we have a CCA contract deployed which we can interact with. It has the following parameters:
 | Parameter             | Value                                      | Notes                                                                                                          |
 |-----------------------|--------------------------------------------|----------------------------------------------------------------------------------------------------------------|
@@ -26,7 +26,7 @@ Currently we have a CCA contract deployed which we can interact with. It has the
 
 We also added a token supply schedule of 10% in the first 50 blocks, 49% in the next 49 blocks, and 41% in the last block.
 
-## Interacting with the auction contract
+## Step 2: Create an interaction script
 Let's create a new script to interact with the deployed auction contract.
 
 ```solidity
@@ -56,7 +56,7 @@ AUCTION_ADDRESS=<auction-contract-address> forge script scripts/ExampleCCABidScr
 --rpc-url http://localhost:8545 --private-key <your-private-key>
 ```
 
-## Submitting a bid
+## Step 3: Submit a bid
 To submit a bid, we need to call the `submitBid()` function on the auction contract. The function has the following signature:
 
 ```solidity
@@ -96,6 +96,8 @@ AUCTION_ADDRESS=<auction-contract-address> forge script scripts/ExampleCCABidScr
 --rpc-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 -vvvv
 ```
 
+## Verification
+
 The output should look like this:
 ```bash
 Bid submitted with ID: 0
@@ -106,7 +108,7 @@ Congratulations! You've submitted your first bid on a CCA auction.
 ### Breaking down the events
 If you look through the logs you'll see quite a few events emitted by the auction contract.
 
-```
+```text
     ├─ emit ClearingPriceUpdated(blockNumber: 3, clearingPrice: 79228162514264334008320 [7.922e22])
     ├─ emit CheckpointUpdated(blockNumber: 3, clearingPrice: 79228162514264334008320 [7.922e22], cumulativeMps: 60000 [6e4])
     ├─ emit NextActiveTickUpdated(price: 158456325028528668016640 [1.584e23])

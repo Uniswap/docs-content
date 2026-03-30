@@ -1,6 +1,7 @@
 ---
 id: Periphery Contracts
 title: Periphery Contracts
+description: Understand emissaries and Tribunal as peripheral patterns that integrate with Uniswap The Compact claim verification flows.
 ---
 
 ## Emissaries
@@ -9,9 +10,9 @@ Emissaries provide a fallback verification mechanism for sponsors when authorizi
 2.  Accounts using EIP-7702 delegation that leverages EIP-1271.
 3.  Situations where the sponsor wants to delegate claim verification to a trusted third party.
 
-A sponsor assigns an emissary for a specific `lockTag` using [`assignEmissary`](./src/interfaces/ITheCompact.sol#L556). The emissary must implement the [`IEmissary`](./src/interfaces/IEmissary.sol) interface, specifically the `verifyClaim` function.
+A sponsor assigns an emissary for a specific `lockTag` using [`assignEmissary`](https://github.com/Uniswap/the-compact/blob/main/src/interfaces/ITheCompact.sol#L556). The emissary must implement the [`IEmissary`](https://github.com/Uniswap/the-compact/blob/main/src/interfaces/IEmissary.sol) interface, specifically the `verifyClaim` function.
 
-To change an emissary after one has been assigned, the sponsor must first call [`scheduleEmissaryAssignment`](./src/interfaces/ITheCompact.sol#L566), wait for the `resetPeriod` associated with the `lockTag` to elapse, and then call `assignEmissary` again with the new emissary's address (or `address(0)` to remove).
+To change an emissary after one has been assigned, the sponsor must first call [`scheduleEmissaryAssignment`](https://github.com/Uniswap/the-compact/blob/main/src/interfaces/ITheCompact.sol#L566), wait for the `resetPeriod` associated with the `lockTag` to elapse, and then call `assignEmissary` again with the new emissary address (or `address(0)` to remove).
 
 ### IEmissary Interface
 
@@ -125,7 +126,7 @@ Fillers call `fill` and provide any native value necessary to pay for cross-chai
 * **For same-chain fills**: Claims tokens via The Compact and calls back into the arbiter or recipient
 * **For cross-chain fills**: Emits or processes directives that instruct remote arbiters to pull the claim
 
-By enforcing a single settlement path, Tribunal eliminates disputes and ensures fairness even in the presence of multiple fillers. 
+By enforcing a single settlement path, Tribunal reduces settlement ambiguity and ensures deterministic outcomes even in the presence of multiple fillers.
 
 ### Extending Tribunal
 

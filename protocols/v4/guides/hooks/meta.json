@@ -7,6 +7,5 @@
     "async-swap",
     "accessing-msg.sender",
     "hook-deployment"
-  ],
-  "defaultOpen": false
+  ]
 }

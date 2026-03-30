@@ -1,8 +1,9 @@
 ---
-id: security
+id: security-framework
 title: Security Framework
+description: Evaluate Uniswap v4 hook security risks with a structured framework, scoring model, and operational guidance.
 ---
-# A Self-Directed Security Framework
+## A Self-Directed Security Framework
 
 The aim of this guide, and its accompanying [worksheet](https://docs.google.com/spreadsheets/d/1oZdKZh13UbqVp3HujAcv-2NKP-j7NQAELhB7kyWlLRE/edit?usp=sharing), is to give hook developers a clear, structured, and self-directed framework for understanding the security risks inherent to their project. It explains how complexity, math, external dependencies, upgradeability, liquidity behavior, and other factors contribute to risk. It also provides a consistent rubric for classifying risk tiers and choosing an appropriate combination of audits, monitoring services, bug bounties, and optional formal verification.
 
@@ -10,24 +11,24 @@ This [framework](https://github.com/uniswapfoundation/security-framework/tree/ma
 
 Scores and categorizations do **not** represent security assurances or guarantees of safety; they are intended only to outline recommended practices that may help reduce risk. References to “required,” “minimum,” or “mandatory” standards are descriptive, not prescriptive, and should not be interpreted as formal validation or endorsement.
 
-# Guide Overview
+## Guide Overview
 
 The guide consists of 12 sections. Here is a brief overview of each section and what you will find inside:
 
-1. **[Understanding Hook Risk in v4:](./security#1-understanding-hook-risk-in-v4)** Explains how hooks can introduce new security risks through accounting, math, external dependencies, governance, and liquidity behaviors.
-2. [Hook Risk Self-Scoring Dimensions:](./security#2-hook-risk-self-scoring-dimensions) Defines the nine quantitative dimensions used to evaluate a hook’s inherent risk profile.
-3. [Generic Hook Risk Tiers & Recommendations:](./security#3-generic-hook-risk-tiers-and-recommendations) Maps total scores to low, medium, and high risk tiers and outlines the minimum security expectations for each.
-4. [Feature-Specific Security Recommendations:](./security#4-feature-specific-security-recommendations) Highlights seven high-impact features that trigger mandatory security actions regardless of overall tier score.
-5. [How to Evaluate Your Security Needs:](./security#5-how-to-evaluate-your-security-needs) Explains how to combine risk tiers and feature triggers into an actionable security plan for your hook.
-6. [Operational Security (OPSEC):](./security#6-operational-security-opsec) Focuses on protecting the processes, information, people, and workflows around your hook, ensuring attackers cannot exploit how you operate, not just how your code behaves.
-7. [Security Best Practices Checklist:](./security#7-security-best-practices-checklist) Provides universal best-practice guidelines that all hooks should follow across accounting, access control, upgradeability, and transparency.
-8. [Risk Calculator Scoring Sheet:](./security#8-risk-calculator-scoring-sheet) Introduces an automated worksheet to calculate scores, identify triggers, and generate tailored recommendations.
-9. [How To Use This Framework:](./security#9-how-to-use-this-framework) Outlines a step-by-step workflow for scoring your hook, interpreting results, and preparing for audits and deployment.
-10. [Future Extensions Community Driven:](./security#10-future-extensions-community-driven) Describes how the community can evolve the framework by adding dimensions, patterns, tools, and shared learnings.
-11. [Security Resources:](./security#11-security-resources) a list of external resources for Hook builders.
-12. [Conclusion:](./security#12-conclusion) Summarizes the framework’s purpose and reinforces the importance of self-directed, ongoing security responsibility for hook developers.
+1. **[Understanding Hook Risk in v4:](#1-understanding-hook-risk-in-v4)** Explains how hooks can introduce new security risks through accounting, math, external dependencies, governance, and liquidity behaviors.
+2. [Hook Risk Self-Scoring Dimensions:](#2-hook-risk-self-scoring-dimensions) Defines the nine quantitative dimensions used to evaluate a hook's inherent risk profile.
+3. [Generic Hook Risk Tiers & Recommendations:](#3-generic-hook-risk-tiers-and-recommendations) Maps total scores to low, medium, and high risk tiers and outlines the minimum security expectations for each.
+4. [Feature-Specific Security Recommendations:](#4-feature-specific-security-recommendations) Highlights seven high-impact features that trigger mandatory security actions regardless of overall tier score.
+5. [How to Evaluate Your Security Needs:](#5-how-to-evaluate-your-security-needs) Explains how to combine risk tiers and feature triggers into an actionable security plan for your hook.
+6. [Operational Security (OPSEC):](#6-operational-security-opsec) Focuses on protecting processes, information, people, and workflows around your hook, ensuring attackers cannot exploit how you operate, not just how your code behaves.
+7. [Security Best Practices Checklist:](#7-security-best-practices-checklist) Provides universal best-practice guidelines that all hooks should follow across accounting, access control, upgradeability, and transparency.
+8. [Risk Calculator Scoring Sheet:](#8-risk-calculator-scoring-sheet) Introduces an automated worksheet to calculate scores, identify triggers, and generate tailored recommendations.
+9. [How To Use This Framework:](#9-how-to-use-this-framework) Outlines a step-by-step workflow for scoring your hook, interpreting results, and preparing for audits and deployment.
+10. [Future Extensions Community Driven:](#10-future-extensions-community-driven) Describes how the community can evolve the framework by adding dimensions, patterns, tools, and shared learnings.
+11. [Security Resources:](#11-security-resources) A list of external resources for hook builders.
+12. [Conclusion:](#12-conclusion) Summarizes the framework's purpose and reinforces the importance of self-directed, ongoing security responsibility for hook developers.
 
-# How to Use the Guide + Worksheet
+## How to Use the Guide + Worksheet
 
 This guide begins with an overview of hook security risk and the key dimensions used to evaluate it. Teams can go through the process more easily using the [Uniswap Hooks Security Worksheet](https://docs.google.com/spreadsheets/d/1oZdKZh13UbqVp3HujAcv-2NKP-j7NQAELhB7kyWlLRE/edit?usp=sharing), which automates scoring and generates recommendations based on both tier and feature triggers. Together, these resources help teams understand their risk profile, identify required safeguards, and plan audits and monitoring before deployment.
 
@@ -139,7 +140,7 @@ Hooks that modify parameters automatically, fees, risk buffers, curve weights, t
 - bounded rate of change
 - explicit time/state gating
 - monotonicity constraints where relevant
-- complete off-chain observability
+- complete offchain observability
 
 Autonomous updates are a major source of emergent behavior and must be tested as adversarially as possible.
 
@@ -166,7 +167,7 @@ A hook’s risk profile is not static. As liquidity grows, even small design fla
 - formal verification needs
 - emergency procedures
 
-whenever TVL materially increases. More info on these topics to evaluate can be found in [Generic Hook Risk Tiers & Recommendations.](./security#3-generic-hook-risk-tiers-and-recommendations)
+whenever TVL materially increases. More info on these topics to evaluate can be found in [Generic Hook Risk Tiers & Recommendations.](#3-generic-hook-risk-tiers-and-recommendations)
 
 ### Flash Accounting and Transient State Risks
 
@@ -362,7 +363,7 @@ Complex math, external liquidity, autonomous behavior, upgradeability, price imp
     - Divergence between expected vs. actual deltas
     - Unusually high revert rates
     - Abnormal slippage patterns under small trade sizes
-    - Deviations between theoretical curve output vs. on-chain execution
+    - Deviations between theoretical curve output vs. onchain execution
     - Drift in time-weighted or iterative math outputs (TWAMM, etc.)
 - Optional formal verification to help validate:
     - Invariant preservation (balance conservation, fee bounds)
@@ -503,7 +504,7 @@ This acknowledges that impact severity scales with liquidity.
 
 ## 5. How to Evaluate your Security Needs
 
-In [section 3](./security#3-generic-hook-risk-tiers-and-recommendations) we discussed the generic hook tiers and recommendations based on the risk profile of your hook. In [section 4](./security#4-feature-specific-security-recommendations) the specific features you are developing were analyzed to provide more custom guidance. In practice you will need to look both at the overall risk of your hook as well as at the specific features you are developing to understand your security needs.
+In [section 3](#3-generic-hook-risk-tiers-and-recommendations) we discussed the generic hook tiers and recommendations based on the risk profile of your hook. In [section 4](#4-feature-specific-security-recommendations) the specific features you are developing were analyzed to provide more custom guidance. In practice you will need to look both at the overall risk of your hook as well as at the specific features you are developing to understand your security needs.
 
 ### Combined Trigger Logic (How it Works in Practice)
 
@@ -534,7 +535,7 @@ Operational security addresses the risks that come not from code, but from the w
 
 ### Critical Information and Exposure Risks
 
-Teams should identify information that could be dangerous if leaked, such as deployment targets, upgrade timing, admin key structure, internal testing results, upcoming configuration changes, and liquidity or incentive plans. Much of this information can be inferred from public repos, documentation, social media, dashboards, or on-chain patterns unless handled intentionally.
+Teams should identify information that could be dangerous if leaked, such as deployment targets, upgrade timing, admin key structure, internal testing results, upcoming configuration changes, and liquidity or incentive plans. Much of this information can be inferred from public repos, documentation, social media, dashboards, or onchain patterns unless handled intentionally.
 
 ### Operational Weak Points
 
@@ -546,7 +547,7 @@ OPSEC practices focus on reducing unnecessary access and limiting what informati
 
 ### Monitoring, Response, and Lifecycle Discipline
 
-Strong OPSEC requires monitoring not only the hook’s on-chain behavior, but also administrative and governance actions. Teams should maintain a clear incident response plan, define roles for emergency communication, and regularly test their pause or kill-switch procedures. OPSEC is continuous: reassess before deployments, before and after upgrades, as TVL grows, and whenever autonomy or new dependencies are introduced.
+Strong OPSEC requires monitoring not only the hook's onchain behavior, but also administrative and governance actions. Teams should maintain a clear incident response plan, define roles for emergency communication, and regularly test their pause or kill-switch procedures. OPSEC is continuous: reassess before deployments, before and after upgrades, as TVL grows, and whenever autonomy or new dependencies are introduced.
 
 Integrating OPSEC ensures that hooks remain secure across their entire operational lifecycle, protecting against human error, leaked information, social engineering, and process-level failures.
 

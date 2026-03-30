@@ -1,5 +1,4 @@
 {
   "title": "Permit2",
-  "pages": ["overview", "concepts"],
-  "defaultOpen": false
+  "pages": ["overview", "concepts"]
 }

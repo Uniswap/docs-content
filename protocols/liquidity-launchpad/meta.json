@@ -1,5 +1,4 @@
 {
   "title": "Liquidity Launchpad",
-  "pages": ["overview", "concepts", "guides", "deployments"],
-  "defaultOpen": false
+  "pages": ["overview", "concepts", "guides", "deployments"]
 }

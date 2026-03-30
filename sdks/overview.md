@@ -1,25 +1,39 @@
 ---
-id: overview
+description: Explore Uniswap SDK families and choose the right version for your integration workflow.
 title: Overview
 ---
-## The Uniswap Core SDK
 
-The Uniswap Core SDK provides abstractions for other SDKs to use in a Typescript/Javascript environment. It is used throughout the Uniswap SDKs, such as the [v3 SDK](../v3/overview).
+Use this page to choose the right Uniswap SDK version for your integration and then jump into implementation guides.
 
-This SDK is not expected to be used in isolation, but only as part of other SDKs.
+## Choose Your SDK Version
 
-We recommend taking a look at the [**SDK Core GitHub**](https://github.com/Uniswap/sdk-core).
+### Uniswap v4 SDK
 
+Use the v4 SDK for new integrations that target hooks, flash accounting, and singleton pool architecture.
 
-## Resources
+- [Uniswap v4 SDK Overview](/docs/sdks/v4/overview)
 
-- [**SDK Core GitHub Repo**](https://github.com/Uniswap/sdk-core)
-- [**Core SDK NPM Package**](https://www.npmjs.com/package/@uniswap/sdk-core)
+### Uniswap v3 SDK
 
-[![Unit Tests](https://github.com/Uniswap/uniswap-sdk-core/workflows/Unit%20Tests/badge.svg)](https://github.com/Uniswap/uniswap-sdk-core/actions?query=workflow%3A%22Unit+Tests%22)
-[![Lint](https://github.com/Uniswap/uniswap-sdk-core/workflows/Lint/badge.svg)](https://github.com/Uniswap/uniswap-sdk-core/actions?query=workflow%3ALint)
-[![npm version](https://img.shields.io/npm/v/@uniswap/sdk-core/latest.svg)](https://www.npmjs.com/package/@uniswap/sdk-core/v/latest)
-[![npm bundle size (scoped version)](https://img.shields.io/bundlephobia/minzip/@uniswap/sdk-core/latest.svg)](https://bundlephobia.com/result?p=@uniswap/sdk-core@latest)
-[![Discord](https://img.shields.io/badge/discord-join%20chat-blue.svg)](https://discord.com/channels/597638925346930701/607978109089611786)
+Use the v3 SDK for concentrated liquidity integrations and production flows built on Uniswap v3 pools.
 
+- [Uniswap v3 SDK Overview](/docs/sdks/v3/overview)
 
+### Uniswap v2 SDK
+
+Use the v2 SDK for constant product pool integrations and legacy v2 routing flows.
+
+- [Uniswap v2 SDK Overview](/docs/sdks/v2/overview)
+
+## The Core SDK
+
+The Core SDK (`@uniswap/sdk-core`) provides shared token, amount, and price primitives used across v2, v3, and v4 SDKs.
+
+- [SDK Core GitHub Repo](https://github.com/Uniswap/sdk-core)
+- [Core SDK NPM Package](https://www.npmjs.com/package/@uniswap/sdk-core)
+
+## Where to Go Next
+
+- Start with [v4 Guides Overview](/docs/sdks/v4/guides/overview) for new integrations
+- Continue with [v3 Local Development](/docs/sdks/v3/guides/getting-started) for mainnet-fork workflows
+- Use [v2 SDK Getting Started](/docs/sdks/v2/guides/getting-started) for legacy v2 setups

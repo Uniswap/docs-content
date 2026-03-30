@@ -1,13 +1,12 @@
 ---
 id: CCA
 title: Continuous Clearing Auction
+description: Understand the Continuous Clearing Auction mechanism used by Uniswap Liquidity Launchpad for token price discovery.
 ---
-
-# Continuous Clearing Auction (CCA)
 
 **Repository:** [github.com/Uniswap/continuous-clearing-auction](https://github.com/Uniswap/continuous-clearing-auction)
 
-The Continuous Clearing Auction (CCA) is a novel auction mechanism that generalizes the uniform-price auction into continuous time. It provides fair price discovery for bootstrapping initial liquidity while eliminating timing games and encouraging early participation (see [whitepaper](/whitepaper_cca.pdf)).
+The Continuous Clearing Auction (CCA) is a novel auction mechanism that generalizes the uniform-price auction into continuous time. It provides fair price discovery for bootstrapping initial liquidity while eliminating timing games and encouraging early participation (see [whitepaper](https://docs.uniswap.org/whitepaper_cca.pdf)).
 
 ## Overview
 
@@ -22,7 +21,7 @@ CCA addresses these issues through a unique approach: **automatic bid spreading 
 
 ### Mechanism overview
 
-For a detailed overview, please read the [whitepaper](/whitepaper_cca.pdf).
+For a detailed overview, please read the [whitepaper](https://docs.uniswap.org/whitepaper_cca.pdf).
 
 The most important element to understand about a Continuous Clearing Auction (CCA) is that tokens are sold over time to the current set of active participants. Participants are comprised of two things, a budget and a max price. 
 
@@ -36,10 +35,10 @@ At a high level it has these benefits:
 - Early bidders naturally gain more exposure to lower prices
 - Sniping and last-minute gaming become ineffective
 
-## Technical overview
+## Technical Overview
 Check out the full [technical reference](https://github.com/Uniswap/continuous-clearing-auction/blob/main/docs/TechnicalDocumentation.md)
 
-## Integration guidelines
+## Integration Guidelines
 CCA is a very flexible protocol. Always validate the parameters of an auction before participating. Additionally, integrators and teams building on CCA should be aware of the following [integration guidelines](https://github.com/Uniswap/continuous-clearing-auction/blob/main/docs/TechnicalDocumentation.md#integration-guidelines).
 
 ## License

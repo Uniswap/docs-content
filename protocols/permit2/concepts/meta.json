@@ -1,5 +1,4 @@
 {
   "title": "Concepts",
-  "pages": ["allowance-transfer", "signature-transfer"],
-  "defaultOpen": false
+  "pages": ["allowance-transfer", "signature-transfer"]
 }

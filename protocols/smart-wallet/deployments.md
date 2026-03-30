@@ -1,6 +1,7 @@
 ---
 id: deployments
 title: Deployments
+description: View Uniswap smart wallet Calibur deployment addresses, versions, and repository references.
 ---
 
 
@@ -18,10 +19,7 @@ title: Deployments
 | Unichain Sepolia | 0x000000009B1D0aF20D8C6d0A44e162d11F9b8f00 | 35d80918e120d177a49d3d90bcd4dd011caedd32 | v1.0.0 |
 | Sepolia | 0x000000009B1D0aF20D8C6d0A44e162d11F9b8f00 | 35d80918e120d177a49d3d90bcd4dd011caedd32 | v1.0.0 |
 
-### Github Repository
+## References
 
-https://github.com/Uniswap/calibur
-
-### Audits
-
-https://github.com/Uniswap/calibur/tree/main/audits
+- [GitHub repository](https://github.com/Uniswap/calibur)
+- [Audits](https://github.com/Uniswap/calibur/tree/main/audits)

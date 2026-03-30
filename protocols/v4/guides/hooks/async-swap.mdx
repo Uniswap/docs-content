@@ -1,8 +1,9 @@
 ---
 title: AsyncSwap Hooks
+description: Implement AsyncSwap-style hook behavior in Uniswap v4 using custom accounting and hook permissions.
 ---
 
-One feature enabled by [custom accounting](../custom-accounting) is​​​​‌ AsyncSwap swap. This feature allows hook developers to replace the v4 (v3-style) swap logic.
+One feature enabled by [custom accounting](/docs/protocols/v4/guides/custom-accounting) is AsyncSwap. This feature allows hook developers to replace v4 (v3-style) swap logic.
 
 This means developers can replace Uniswap's internal core logic for how to handle swaps. Two emergent use-cases are possible with custom accounting:
 
@@ -32,8 +33,8 @@ contract AsyncSwapHook is BaseHook {
             afterAddLiquidity: false,
             beforeRemoveLiquidity: false,
             afterRemoveLiquidity: false,
-            beforeSwap: false,
-            afterSwap: true,
+            beforeSwap: true,
+            afterSwap: false,
             beforeDonate: false,
             afterDonate: false,
             beforeSwapReturnDelta: true,
@@ -64,7 +65,7 @@ The funds' movements are as follows:
 contract AsyncSwapHook is BaseHook {
      // ...
 
-    function _beforeSwap(address, PoolKey calldata key, IPoolManager.SwapParams calldata params, bytes calldata)
+    function _beforeSwap(address, PoolKey calldata key, SwapParams calldata params, bytes calldata)
         internal
         override
         returns (bytes4, BeforeSwapDelta, uint24)
@@ -80,7 +81,7 @@ contract AsyncSwapHook is BaseHook {
             return (BaseHook.beforeSwap.selector, toBeforeSwapDelta(amountTaken.toInt128(), 0), 0);
         }
         else {
-            return (BaseHook.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO, 0);
+            return (BaseHook.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO_DELTA, 0);
         }
 
     }

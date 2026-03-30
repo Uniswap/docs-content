@@ -1,5 +1,4 @@
 {
   "title": "Swapping",
-  "pages": ["single-hop-swapping", "multi-hop-swapping"],
-  "defaultOpen": false
+  "pages": ["getting-started", "single-hop-swapping", "multi-hop-swapping"]
 }

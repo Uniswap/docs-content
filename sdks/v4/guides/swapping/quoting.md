@@ -1,9 +1,7 @@
 ---
-id: quoting
+description: Get Uniswap v4 swap quotes with Quoter simulations before submitting swap transactions.
 title: Getting a Quote
 ---
-
-## Introduction
 
 This guide will cover how to get the current quotes for any token pair on the Uniswap protocol.
 
@@ -83,11 +81,11 @@ const quoterContract = new ethers.Contract(
 )
 ```
 
-We get the `QUOTE_CONTRACT_ADDRESS` for our chain from [Uniswap Deployments](../../../../protocols/v4/deployments).
+We get the `QUOTE_CONTRACT_ADDRESS` for our chain from [Uniswap Deployments](/docs/protocols/v4/deployments).
 
 We can now use our Quoter contract to obtain the quote.
 
-In an ideal world, the quoter functions would be `view` functions, which would make them very easy to query on-chain with minimal gas costs. However, the Uniswap V4 Quoter contracts rely on state-changing calls designed to be reverted to return the desired data. This means calling the quoter will be very expensive and **should not be called on-chain.**
+In an ideal world, the quoter functions would be `view` functions, which would make them very easy to query onchain with minimal gas costs. However, the Uniswap v4 Quoter contracts rely on state-changing calls designed to be reverted to return the desired data. This means calling the quoter will be very expensive and **should not be called onchain.**
 
 To get around this difficulty, we can use the `callStatic` method provided by the **ethers.js** `Contract` instances.
 This is a useful method that submits a state-changing transaction to an Ethereum node, but asks the node to simulate the state change, rather than to execute it. Our script can then return the result of the simulated state change:

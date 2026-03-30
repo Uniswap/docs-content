@@ -1,5 +1,5 @@
 ---
-title: Entities
+title: v4 Entities
 description: Schema reference for the Uniswap v4 subgraph entities and their fields.
 ---
 

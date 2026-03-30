@@ -1,6 +1,6 @@
 ---
-id: single-swaps
 title: Single Swaps
+description: Implement single-hop swaps on Uniswap v3 using exact input and exact output swap patterns.
 ---
 
 Swaps are the most common interaction with the Uniswap protocol. The following example shows you how to implement a single-path swap contract that uses two functions that you create:
