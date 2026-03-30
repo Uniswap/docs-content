@@ -17,15 +17,15 @@ Most API keys have a default rate limit of 3 requests per second (RPS). If you e
 
 ### 404 No Quotes Available
 
-The most commonly encountered HTTP error is an HTTP 404 with a message "No quotes available" from the [`/quote`](/docs/api/guides/swapping/getting-started) endpoint. This error can happen for a variety of reasons related to request syntax, rather than there being no actual route between the specified tokens. In order of most common to less common reasons for receiving this error:
-* The `amount` is too low to be quoted by UniswapX. If a quote is requested for only UniswapX (see [Swap Routing](/docs/api/concepts/swap-routing) for more on protocol selection), and the requested chain is an L2 (e.g. not Mainnet), the amount must exceed a threshold value in order to be quoted (see details in the API reference).
+The most commonly encountered HTTP error is an HTTP 404 with a message "No quotes available" from the [`/quote`](/docs/trading/swapping-api/getting-started) endpoint. This error can happen for a variety of reasons related to request syntax, rather than there being no actual route between the specified tokens. In order of most common to less common reasons for receiving this error:
+* The `amount` is too low to be quoted by UniswapX. If a quote is requested for only UniswapX (see [Swap Routing](/docs/trading/swapping-api/concepts/swap-routing) for more on protocol selection), and the requested chain is an L2 (e.g. not Mainnet), the amount must exceed a threshold value in order to be quoted (see details in the API reference).
 * The specified chain is not supported by UniswapX. UniswapX has limited chain support.
 * The specified token(s) do not match the specified chain. The token addresses specified must be those belonging to the token on the given chain (ex. the USDC address on Mainnet is different than that on Base).
-* A combined bridge and swap quote is requested. The API can provide a quote for either a bridge (different input/output chains, same token) or a swap (same chain, different input/output tokens), but not both simultaneously. For a list of bridgeable tokens, see [Supported Chains](/docs/api/supported-chains).
+* A combined bridge and swap quote is requested. The API can provide a quote for either a bridge (different input/output chains, same token) or a swap (same chain, different input/output tokens), but not both simultaneously. For a list of bridgeable tokens, see [Supported Chains](/docs/trading/swapping-api/supported-chains).
 
 ### 400 Request Validation Error
 
-Request validation errors are returned when a request does not contain the minimum required set of fields or has other syntactical errors. Some examples are a required field (ex. `autoSlippage` in the [`/quote`](/docs/api/guides/swapping/getting-started) endpoint) is not populated, or an address is missing a character (eg. is 39 characters long instead of 40). These errors typically include a specific error message which describes the field which could not be interpreted.
+Request validation errors are returned when a request does not contain the minimum required set of fields or has other syntactical errors. Some examples are a required field (ex. `autoSlippage` in the [`/quote`](/docs/trading/swapping-api/getting-started) endpoint) is not populated, or an address is missing a character (eg. is 39 characters long instead of 40). These errors typically include a specific error message which describes the field which could not be interpreted.
 
 ### 401 Unauthorized Error
 

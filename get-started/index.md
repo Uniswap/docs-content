@@ -21,7 +21,7 @@ These terms are often used interchangeably, but they refer to different parts of
 - **[Uniswap Protocol](https://github.com/Uniswap/contracts)**: A suite of persistent, non-upgradable smart contracts that together create an automated market maker, a protocol that facilitates peer-to-peer market making and swapping of ERC-20 tokens on the Ethereum blockchain.
 - **[Uniswap Interface](https://app.uniswap.org/)**: A web interface that allows for easy interaction with the Uniswap protocol. The interface is only one of many ways one may interact with the Uniswap protocol.
 - **[Uniswap Governance](https://gov.uniswap.org/)**: A governance system for the Uniswap protocol, enabled by the UNI token.
-- **[Uniswap API](/docs/api/overview)**: A developer API that enables integrators to access deep, aggregated liquidity and tap into reliable onchain execution rails without building or maintaining custom routing or infrastructure.
+- **[Uniswap API](/docs/trading/overview)**: A developer API that enables integrators to access deep, aggregated liquidity and tap into reliable onchain execution rails without building or maintaining custom routing or infrastructure.
 
 ## Choose Your Path
 
@@ -32,7 +32,7 @@ Start with the [quickstart guide](/docs/get-started/your-first-swap) to make you
 Use the [concepts section](/docs/get-started/concepts/how-uniswap-works) to understand AMMs, fees, hooks, and participant roles.
 
 ### Build trading integrations
-Use the [trading guides](/docs/trading/overview) and the [Uniswap API](/docs/api/overview) to implement swap flows.
+Use the [trading guides](/docs/trading/overview) and the [Swapping API](/docs/trading/swapping-api/getting-started) to implement swap flows.
 
 ### Build liquidity integrations
 Use the [liquidity section](/docs/liquidity/overview) to implement pool creation and position management workflows.

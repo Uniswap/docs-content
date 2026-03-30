@@ -1,5 +1,5 @@
 ---
-title: FAQs for Swapping via Uniswap API
+title: FAQs
 description: Find answers to common Uniswap API integration questions about quotes, routing, limits, support, and operations.
 ---
 
@@ -7,7 +7,7 @@ description: Find answers to common Uniswap API integration questions about quot
 
 ### How Long Does It Take to Integrate the API?
 
-Integration of the API can be done in less than two weeks. We provide [sample code](/docs/api/guides/swapping/swapping-code-examples) to help get you off the ground quickly. To get started, reach out to request an API key. If you are not yet in touch with Uniswap Labs, register your interest in integrating the API through the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome). 
+Integration of the API can be done in less than two weeks. We provide [sample code](/docs/trading/swapping-api/swapping-code-examples) to help get you off the ground quickly. To get started, reach out to request an API key. If you are not yet in touch with Uniswap Labs, register your interest in integrating the API through the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome). 
 
 ### What Are the API Rate Limits?
 
@@ -25,7 +25,7 @@ The Permit2 address for zkSync is: `0x0000000000225e31D15943971F47aD3022F714Fa`.
 
 When the [/quote](/docs/api-reference/aggregator_quote) endpoint's `routingPreference` is set to `BEST_PRICE`, the endpoint will attempt to find a quote that nets users the best execution price for a trade. Assuming the `protocols` are not limited, the endpoint will attempt to get a gasless order and a Uniswap Protocol swap quote, calculate which is currently providing the best price to the user including transaction costs, and return that quote. 
 
-Integrators of the API who only want gasless quotes may limit the `protocols` considered to just gasless options (e.g. UniswapX - see [Swap Routing](/docs/api/concepts/swap-routing) for more details).
+Integrators of the API who only want gasless quotes may limit the `protocols` considered to just gasless options (e.g. UniswapX - see [Swap Routing](/docs/trading/swapping-api/concepts/swap-routing) for more details).
 
 There are some scenarios where the API will not be able to get a gasless quote, even if the integrator attempts to force it. The most common reason for this (on chains where UniswapX is supported) is that the gas price of the swap is too high relative to the value of the trade. In cases where the gas cost is 20% or more of the total trade value, the API will always return Uniswap Protocol swap quotes (if permitted by `protocols`) or fail.
 
@@ -43,14 +43,14 @@ If a quote fails, the response includes helpful information to understand the pr
 
 ### How Do I Quote the Native Token?
 
-See [How Do I Swap Native Tokens?](/docs/api/supported-chains#how-do-i-swap-native-tokens). Note, to quote the native token via UniswapX you must set the [`x-erc20eth-enabled` header](/docs/api-reference/aggregator_quote) in your quote request to `true`.
+See [How Do I Swap Native Tokens?](/docs/trading/swapping-api/supported-chains#how-do-i-swap-native-tokens). Note, to quote the native token via UniswapX you must set the [`x-erc20eth-enabled` header](/docs/api-reference/aggregator_quote) in your quote request to `true`.
 
 ### Why am I getting "No Quotes Available" as a response?
 
 A quote response with "No Quotes Available" means that the Uniswap router was unable to find a route for the proposed swap. This can happen for a number of reasons, many of which can be easily avoided by understanding the API constraints. While not exhaustive, some of the most common issues are:
 * There is insufficient liquidity to fill the swap
 * If making a bridge request, the selected token cannot be bridged between the two selected networks (check [Supported Bridges](/docs/api-reference/get_swappable_tokens))
-* If making a UniswapX-only request, the amount is less than 1000 USDC equivalent for L2s or less than 300 USDC for L1s (see [Supported Chains](/docs/api/supported-chains#uniswapx-chain-support))
+* If making a UniswapX-only request, the amount is less than 1000 USDC equivalent for L2s or less than 300 USDC for L1s (see [Supported Chains](/docs/trading/swapping-api/supported-chains#uniswapx-chain-support))
 * The request is requesting a bridge and swap (currently not supported)
 
 
@@ -64,7 +64,7 @@ Whenever you request a quote from our endpoints we will automatically simulate t
 
 ### Can I Query All Tokens Available to Trade?
 
-No, at this time we do not offer an endpoint to query all tokens which are tradable. For more information on tradable tokens, see our guide on [Supported Chains and Tokens](/docs/api/supported-chains).
+No, at this time we do not offer an endpoint to query all tokens which are tradable. For more information on tradable tokens, see our guide on [Supported Chains and Tokens](/docs/trading/swapping-api/supported-chains).
 
 ## Mechanics of UniswapX
 
@@ -122,7 +122,7 @@ If you require technical support, please reach out via the help link in the [Uni
 
 ### Is There A Sandbox Environment?
 
-No, we do not offer a sandbox environment. Tests can be performed against our [supported testnets](/docs/api/supported-chains) through the production endpoints.
+No, we do not offer a sandbox environment. Tests can be performed against our [supported testnets](/docs/trading/swapping-api/supported-chains) through the production endpoints.
 
 ### Do You Offer Any Customer Dashboards, Metrics, Monitoring, or Usage?
 
