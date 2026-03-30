@@ -1,9 +1,10 @@
 ---
-title: Swapping Architecture Overview
+title: Swapping via the Uniswap API
 description: High-level overview of the Uniswap swapping message flow
 ---
 
 import swapFlow from '../images/swapping-message-flow.png'
+import detailedSwapFlow from '../images/detailed-swap-message-flow.png'
 
 ## High Level Message Flow
 
@@ -30,4 +31,4 @@ The following diagram provides a more detailed explanation of the API endpoint c
 - The import important details of the request or response are called out with helper text, but complete details of every request and response field can be found within the Token Trading endpoints found further on in this documentation.
 - Note that customers must take different actions depending on the result of their /quote request. The /quote request may result in a proposed swap against Uniswap or other public protocols, causing the following API request from the customer to be a /swap. Alternatively, the /quote request may result in a proposed swap with a private liquidity filler, causing the following API request from the customer to be an /order.
 
-<img src="../images/detailed-swap-message-flow.png" />
+<img src={detailedSwapFlow} alt="Detailed workflow for swapping API messaging" style={{ width: '100%', margin: '0 auto' }} />
