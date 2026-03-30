@@ -1,6 +1,5 @@
 ---
-id: entities
-title: Entities
+title: v2 Entities
 description: Schema reference for the Uniswap v2 subgraph entities and their fields.
 ---
 

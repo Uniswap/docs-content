@@ -1,6 +1,7 @@
 ---
 id: mint-a-position
 title: Mint a New Position
+description: Mint a new Uniswap v3 liquidity position with token approvals, ranges, and position parameters.
 ---
 
 ## Input Parameters

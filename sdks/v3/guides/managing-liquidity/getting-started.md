@@ -1,11 +1,9 @@
 ---
-id: position-data
+description: Understand Uniswap v3 positions and set up the SDK workflow for liquidity management tasks.
 title: Understanding Liquidity Positions
 ---
 
-## Introduction
-
-This guide will introduce us to **liquidity positions** in Uniswap V3 and present the `v3-sdk` classes and Contracts used to interact with the protocol.
+This guide will introduce us to **liquidity positions** in Uniswap v3 and present the `v3-sdk` classes and Contracts used to interact with the protocol.
 The concepts and code snippets showcased here can be found across the **Pooling Liquidity** examples in the Uniswap code examples [repository](https://github.com/Uniswap/examples).
 
 In this guide, we will take a look at the `Position` and `NonfungiblePositionManager` classes, as well as the [NonfungiblePositionManager Contract](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/NonfungiblePositionManager.sol).
@@ -25,21 +23,21 @@ The code mentioned in this guide can be found across the [minting Position](http
 
 To understand what Positions are, we need to understand some underlying concepts of the Uniswap protocol.
 
-Consider checking out the [Concepts section](../../../../concepts/protocol/concentrated-liquidity) as well as the [Uniswap Book](https://uniswapv3book.com/docs/introduction/uniswap-v3/).
+Consider checking out the [Concepts section](/docs/concepts/protocol/concentrated-liquidity) as well as the [Uniswap Book](https://uniswapv3book.com/docs/introduction/uniswap-v3/).
 
 ### Concentrated liquidity
 
-Uniswap V3 Pools use concentrated liquidity to allow a denser concentration of liquidity at specific prices.
-Compared to the full range liquidity model Uniswap V2 uses, this allows traders to make larger trades with less price impact.
+Uniswap v3 Pools use concentrated liquidity to allow a denser concentration of liquidity at specific prices.
+Compared to the full range liquidity model Uniswap v2 uses, this allows traders to make larger trades with less price impact.
 Liquidity providers can choose a specific price range in which they want their liquidity to be used by trades.
 
-To achieve this, Uniswap V3 Pools discriminate the price range with **Ticks**.
+To achieve this, Uniswap v3 Pools discriminate the price range with **Ticks**.
 
 ### Ticks
 
 Ticks are the boundaries between discrete price ranges.
 A change of 1 Tick always represents a price change of 0.01% from the current price.
-Uniswap V3 Pools can have different `tickSpacings`, a constant that describes which ticks can be used by the Pool.
+Uniswap v3 Pools can have different `tickSpacings`, a constant that describes which ticks can be used by the Pool.
 Only ticks at indices that are divisible by the tickSpacing can be initialized.
 This value is dependant on the fee of the Pool, Pools with higher fees have higher tickSpacing.
 
@@ -52,12 +50,12 @@ $$1.0001^{200} = 1.0202$$ or $$2.02$$%
 When someone provides liquidity to a Pool, they create a **Liquidity Position**.
 This position is defined by the amount of liquidity provided and the start tick and the end tick, or price range, of the Position.
 
-Because V3 Pools allow users to choose any price range in which they want to provide liquidity, it is possible to create positions that do not contain the current Price of the Pool.
+Because v3 pools allow users to choose any price range in which they want to provide liquidity, it is possible to create positions that do not contain the current Price of the Pool.
 In this case, the liquidity provider will pay only one type of Token into the Pool, creating a **single side liquidity position**.
 
 To learn more about how Ticks and Liquidity positions work, consider reading the [whitepaper](https://uniswap.org/whitepaper-v3.pdf) or the other resources mentioned above.
 
-Now that we have a rough understanding of liquidity positions in Uniswap V3, let's look at the correspondent classes the SDK offers us.
+Now that we have a rough understanding of liquidity positions in Uniswap v3, let's look at the correspondent classes the SDK offers us.
 
 ## Position class
 
@@ -174,7 +172,7 @@ const { calldata, value } = NonfungiblePositionManager.addCallParameters(
 ```
 
 This call creates a position if it doesn't exist, but can also be used to increase an existing position.
-Take a look at the [Mint Position guide](./position-minting) and [Modify Position guide](./modifying-position) to learn more.
+Take a look at the [Mint Position guide](/docs/sdks/v3/guides/managing-liquidity/position-minting) and [Modify Position guide](/docs/sdks/v3/guides/managing-liquidity/modifying-position) to learn more.
 
 ### Decreasing and Increasing a Position
 
@@ -201,6 +199,12 @@ const { calldata, value } =
 ```
 
 
-## Next steps
+## Where to Go Next
 
-Now that you are familiar with the most important classes and Contract to interact with Liquidity Positions, continue with the next guide on [Minting Positions](./position-minting).
+- Create a position in [Minting a Position](/docs/sdks/v3/guides/managing-liquidity/position-minting)
+- Read ownership data in [Fetching Positions](/docs/sdks/v3/guides/managing-liquidity/position-fetching)
+- Update position ranges in [Adding & Removing Liquidity](/docs/sdks/v3/guides/managing-liquidity/modifying-position)
+- Withdraw accrued fees in [Collecting Fees](/docs/sdks/v3/guides/managing-liquidity/collect-fees)
+- Rebalance funds in [Swapping and Adding Liquidity](/docs/sdks/v3/guides/managing-liquidity/swap-and-add)
+- Track in-range depth in [Active Liquidity](/docs/sdks/v3/guides/managing-liquidity/active-liquidity)
+- Build strategy flows in [Range Orders](/docs/sdks/v3/guides/managing-liquidity/range-orders)

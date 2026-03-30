@@ -1,18 +1,18 @@
 ---
 id: local-deployment
-title: Create a local deployment
+title: Create a Local Deployment
+description: Deploy a Uniswap Continuous Clearing Auction locally with Foundry using the factory-based deployment flow.
 ---
 
-# Create a local deployment
 This guide will walk you through deploying a Continuous Clearing Auction (CCA) instance locally.
 
 ## Prerequisites
 - [Foundry](https://getfoundry.sh/introduction/installation)
 - [Anvil](https://getfoundry.sh/anvil/overview)
 
-Also, please check out the [setup guide](./setup) for installation instructions.
+Also, please check out the [setup guide](/docs/protocols/liquidity-launchpad/guides/setup) for installation instructions.
 
-## Deployment methods
+## Step 1: Choose a deployment method
 There are two main ways to deploy new CCA auctions:
 1. Via the `ContinuousClearingAuctionFactory` contract (recommended)
 2. Deploying a new `ContinuousClearingAuction` contract directly
@@ -70,7 +70,7 @@ struct AuctionParameters {
 
 We'll be using the factory method for the rest of this guide.
 
-## ContinuousClearingAuctionFactory
+## Step 2: Understand factory entrypoints
 The factory contract has two functions: `initializeDistribution()` and `getAuctionAddress()`. It has no constructor parameters so it can be easily deployed to the same address across all networks.
 
 ### initializeDistribution()
@@ -98,7 +98,7 @@ This function is a simple view function that performs the same logic as `initial
 
 Onchain integrators will find this function useful for calculating the address of an auction contract before it is deployed.
 
-## Starting our local deployment script
+## Step 3: Create and run a deployment script
 Let's start by creating a new script file in the `scripts` folder.
 
 ```solidity
@@ -131,7 +131,9 @@ forge script scripts/ExampleCCADeploymentScript.s.sol:ExampleCCADeploymentScript
 --rpc-url http://localhost:8545 --private-key <your-private-key> --broadcast
 ```
 
-This will deploy the factory contract.
+## Verification
 
-### Next steps
+This command should deploy the factory contract and return a transaction hash.
+
+## Next Steps
 In the next section we'll walk through the different parameters of a CCA auction and create an example configuration.

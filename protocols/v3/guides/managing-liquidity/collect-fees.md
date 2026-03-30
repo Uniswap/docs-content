@@ -1,6 +1,7 @@
 ---
 id: collect-fees
 title: Collecting Fees
+description: Collect accrued fees from Uniswap v3 positions using NonfungiblePositionManager flows.
 ---
 
 - Make sure to go through the [first guide](./setting-up-your-contract) before continuing to this section.

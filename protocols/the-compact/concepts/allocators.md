@@ -1,6 +1,6 @@
 ---
-id: allocators
 title: Allocators
+description: Explore allocator responsibilities, authorization methods, and forced-withdrawal safeguards in Uniswap The Compact.
 ---
 
 Allocators are crucial infrastructure components in The Compact protocol that ensure resource lock integrity and prevent double-spending.
@@ -36,8 +36,8 @@ function __registerAllocator(
 
 ### Create2 Proof Format
 
-When registering an allocator that doesn't yet exist but will be deployed via create2, provide an 85-byte proof:
-```
+When registering an allocator that does not yet exist but will be deployed via CREATE2, provide an 85-byte proof:
+```text
 0xff ++ factory ++ salt ++ initcode hash
 ```
 
@@ -67,7 +67,7 @@ function attest(
 
 ### authorizeClaim Function
 
-Called by The Compact during claim processing for on-chain authorization:
+Called by The Compact during claim processing for onchain authorization:
 
 ```solidity
 function authorizeClaim(
@@ -95,7 +95,7 @@ function authorizeClaim(
 
 ### isClaimAuthorized Function
 
-Off-chain view function to check if a claim would be authorized:
+Offchain view function to check if a claim would be authorized:
 
 ```solidity
 function isClaimAuthorized(
@@ -115,7 +115,7 @@ Should perform the same authorization checks as `authorizeClaim` but as a view f
 
 The `allocatorData` parameter allows allocators to implement custom authorization logic:
 
-- Can contain signatures from off-chain systems
+- Can contain signatures from offchain systems
 - May include merkle proofs or other authorization evidence
 - The format is entirely defined by each allocator implementation
 
@@ -139,18 +139,18 @@ function hasConsumedAllocatorNonce(
 
 ## Implementation Patterns
 
-### On-chain Allocators
+### Onchain Allocators
 
-Purely on-chain allocators can:
+Purely onchain allocators can:
 - Track balances in contract storage
 - Implement authorization logic directly
-- Use on-chain randomness or oracles
+- Use onchain randomness or oracles
 
 ### Hybrid Allocators
 
-Combine on-chain and off-chain components:
-- Off-chain tracking and signature generation
-- On-chain signature verification
+Combine onchain and offchain components:
+- Offchain tracking and signature generation
+- Onchain signature verification
 - Balance attestation via `allocatorData`
 
 ### Sample Implementations

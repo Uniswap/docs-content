@@ -1,6 +1,7 @@
 ---
 id: final-contract
 title: The Final Contract
+description: Review a complete Uniswap v3 flash swap contract with callback handling and settlement logic.
 ---
 
 ## The Full Contract

@@ -1,5 +1,4 @@
 {
   "title": "Concepts",
-  "pages": ["architecture", "auction-types"],
-  "defaultOpen": false
+  "pages": ["architecture", "auction-types", "uniswaprfq"]
 }

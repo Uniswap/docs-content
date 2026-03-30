@@ -3,11 +3,11 @@ title: Overview
 description: Learn how to provide liquidity on Uniswap, from creating pools to managing positions and filling UniswapX orders.
 ---
 
-Liquidity providers (LPs) deposit tokens into Uniswap pools, enabling trading and earning fees in return. Uniswap v3 and v4 use concentrated liquidity, where LPs choose specific price ranges for their capital, improving capital efficiency compared to full-range positions.
+Liquidity providers (LPs) deposit tokens into Uniswap pools to enable trading and earn fees. Uniswap v3 and v4 use concentrated liquidity, where LPs choose price ranges for their capital.
 
-Providing liquidity is permissionless -- anyone can create a pool, add liquidity, or adjust their position at any time.
+Providing liquidity is permissionless: anyone can create a pool, add liquidity, or adjust a position at any time.
 
-## Choose your integration path
+## Choose Your Integration Path
 
 ### Smart contracts
 
@@ -21,7 +21,7 @@ Use the Uniswap SDK to build, encode, and submit liquidity transactions from Jav
 
 [Manage liquidity via the SDK](/docs/sdks/v4/guides/managing-liquidity/position-minting)
 
-### Trading API (REST)
+### Uniswap API (REST)
 
 Use the Uniswap API to get liquidity position data and build transactions over HTTP, without managing routing or encoding logic yourself.
 
@@ -29,26 +29,26 @@ Use the Uniswap API to get liquidity position data and build transactions over H
 
 ### UniswapX filling
 
-Fillers are market makers who compete to execute user swaps at the best prices through UniswapX's permissionless auction system. If you have liquidity sources and want to fill orders rather than provide passive pool liquidity, this is your path.
+Fillers are market makers who compete to execute user swaps at competitive prices through UniswapX's permissionless auction system. If you have liquidity sources and want to fill orders rather than provide passive pool liquidity, this is your path.
 
 [Become a UniswapX filler](/docs/liquidity/uniswapx-filling)
 
-## Key concepts
+## Key Concepts
 
 ### Concentrated liquidity
 
-Unlike v2 where liquidity is spread across the entire price curve (0 to infinity), v3 and v4 allow LPs to concentrate their capital within specific price ranges. A position that covers a narrower range earns more fees per unit of capital when the price is within that range, but earns nothing when the price moves outside it.
+Unlike v2, where liquidity is spread across the entire price curve (0 to infinity), v3 and v4 let LPs concentrate capital within specific price ranges. A narrower range can earn more fees per unit of capital when active, but earns nothing when price moves outside it.
 
 ### Positions as NFTs
 
-Liquidity positions in v3 and v4 are represented as ERC-721 tokens. Each position has a unique token ID and tracks the pool, tick range, liquidity amount, and accrued fees. Positions are managed through the PositionManager contract.
+Liquidity positions in v3 and v4 are represented as ERC-721 tokens. Each position has a unique token ID and tracks the pool, tick range, liquidity amount, and accrued fees.
 
 ### Fees
 
 LPs earn a share of swap fees proportional to their liquidity within the active price range. In v4, pools can also use dynamic fees controlled by hooks, allowing fee rates to adjust based on market conditions.
 
-## Quickstart guides
+## Guides
 
-- [Creating a pool](/docs/liquidity/quickstart/creating-a-pool) -- initialize a new v4 pool with or without initial liquidity
-- [Managing liquidity](/docs/liquidity/quickstart/managing-liquidity) -- mint, increase, decrease, and collect fees on positions
-- [Filling on UniswapX](/docs/liquidity/quickstart/filling-on-uniswapx) -- get started as a UniswapX filler
+- [Creating a pool](/docs/liquidity/getting-started/creating-a-pool): initialize a new v4 pool with or without initial liquidity
+- [Managing liquidity](/docs/liquidity/getting-started/managing-liquidity): mint, increase, decrease, and collect fees on positions
+- [Filling on UniswapX](/docs/liquidity/uniswapx-filling/overview): get started as a UniswapX filler

@@ -1,18 +1,16 @@
 ---
-id: single-hop-swapping
+description: Execute single-hop swaps on Uniswap v4 with SDK route parameters and router calldata.
 title: Executing a Single-Hop Swap
 ---
 
-## Introduction
-
-This guide will build off our [quoting guide](./quoting) and show how to use a quote to construct and execute a trade on the Uniswap v4 protocol. In this example we will trade between two tokens: **ETH and USDC**.
+This guide will build off our [quoting guide](/docs/sdks/v4/guides/swapping/quoting) and show how to use a quote to construct and execute a trade on the Uniswap v4 protocol. In this example we will trade between two tokens: **ETH and USDC**.
 
 The guide will cover:
 
 1. Setting up swap parameters and pool configuration
 2. Using Universal Router and executing a single-hop swap
 
-At the end of this guide, you should be able to execute swaps between any two tokens using a single pool on Uniswap V4.
+At the end of this guide, you should be able to execute swaps between any two tokens using a single pool on Uniswap v4.
 
 For this guide, the following Uniswap packages are used:
 
@@ -75,7 +73,7 @@ const universalRouter = new ethers.Contract(
 )
 ```
 
-We can get the `UNIVERSAL_ROUTER_ADDRESS` for our chain from [Uniswap Deployments](../../../../protocols/v4/deployments).
+We can get the `UNIVERSAL_ROUTER_ADDRESS` for our chain from [Uniswap Deployments](/docs/protocols/v4/deployments).
 
 A signer object can be created like this:
 
@@ -164,6 +162,6 @@ const tx2 = await permit2Contract.approve(
 
 The rest of the swap process remains the same.
 
-## Next Steps
+## Where to Go Next
 
-Now that you understand single-hop swaps, you might want to explore [multi-hop swaps](./multi-hop-swapping) for trading between tokens without direct pools or enough liquidity.
+Now that you understand single-hop swaps, you might want to explore [multi-hop swaps](/docs/sdks/v4/guides/swapping/multi-hop-swapping) for trading between tokens without direct pools or enough liquidity.

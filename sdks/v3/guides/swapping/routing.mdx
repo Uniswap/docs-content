@@ -1,14 +1,12 @@
 ---
-id: routing
+description: Build token routing paths with the Uniswap v3 SDK for efficient multi-pool swaps.
 title: Routing a Swap
 ---
-
-## Introduction
 
 This guide will cover how to use Uniswap's smart order router to compute optimal routes and execute swaps. Rather than trading between a single pool, smart routing may use multiple hops (as many as needed) to ensure that the end result of the swap is the optimal price. It is based on the [routing code example](https://github.com/Uniswap/examples/tree/main/v3-sdk/routing), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/routing/README.md) and follow the setup instructions.
 
 <Callout type="note">
-If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../getting-started) page!
+> New to this section? Start with [Local Development](/docs/sdks/v3/guides/getting-started).
 </Callout>
 
 In this example we will trade between **WETH and USDC**, but you can configure your example to use any two currencies and amount of input currency.
@@ -86,7 +84,7 @@ const options: SwapOptionsSwapRouter02 = {
 }
 ```
 
-Like explained in the [previous guide](./swapping.md#executing-a-trade), it is important to set the parameters to sensible values.
+Like explained in the [previous guide](/docs/sdks/v3/guides/swapping/swapping#executing-a-trade), it is important to set the parameters to sensible values.
 
 Using these options, we can now create a trade (`TradeType.EXACT_INPUT` or `TradeType.EXACT_OUTPUT`) with the currency and the input amount to use to get a quote. For this example, we'll use an `EXACT_INPUT` trade to get a quote outputted in the quote currency.
 
@@ -159,7 +157,7 @@ const tokenApproval = await tokenContract.approve(
 To be able to spend the tokens of a wallet, a smart contract first needs to get an approval from that wallet. 
 ERC20 tokens have an `approve` function that accepts the address of the smart contract that we want to allow spending our tokens and the amount the smart contract should be allowed to spend.
 
-We can get the **V3_SWAP_ROUTER_ADDRESS** for our chain from the `SwapRouter02` field in [Deployments](../../../../protocols/v3/deployments). 
+We can get the **V3_SWAP_ROUTER_ADDRESS** for our chain from the `SwapRouter02` field in [Deployments](/docs/protocols/v3/deployments). 
 Keep in mind that different chains might have **different deployment addresses** for the same contracts.
 The deployment address for local forks of a network are the same as in the network you forked, so for a **fork of mainnet** it would be the address for **Mainnet**.
 
@@ -182,6 +180,6 @@ After swapping, you should see the currency balances update in the UI shortly af
 
 You can find the full code in [`routing.ts`](https://github.com/Uniswap/examples/blob/main/v3-sdk/routing/src/libs/routing.ts).
 
-## Next Steps
+## Where to Go Next
 
-Now that you're familiar with trading, consider checking out our next guides on [pooling liquidity](../managing-liquidity/getting-started) to Uniswap!
+Now that you're familiar with trading, consider checking out our next guides on [pooling liquidity](/docs/sdks/v3/guides/managing-liquidity/getting-started) to Uniswap!

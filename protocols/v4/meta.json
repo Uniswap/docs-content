@@ -1,5 +1,10 @@
 {
+<<<<<<< bug-bash-updates-3
   "title": "Uniswap V4",
   "pages": ["overview", "concepts", "guides", "deployments", "security"],
   "defaultOpen": false
+=======
+  "title": "v4",
+  "pages": ["overview", "concepts", "guides", "deployments", "security"]
+>>>>>>> main
 }

@@ -1,6 +1,7 @@
 ---
 id: custom-interface-linking
 title: Custom Linking
+description: Configure Uniswap interface URL parameters for prefilled swap and pool flows in v2 integration experiences.
 ---
 
 ## Query Parameters

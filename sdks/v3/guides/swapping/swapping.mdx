@@ -1,15 +1,14 @@
 ---
-id: trading
+description: Execute swap flows with the Uniswap v3 SDK by generating calldata and transaction params.
 title: Executing a Trade
 ---
-## Introduction
 
-This guide will build off our [quoting guide](./quoting) and show how to use a quote to construct and execute a trade on the Uniswap V3 protocol. It is based on the [Trading code example](https://github.com/Uniswap/examples/tree/main/v3-sdk/trading), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/trading/README.md) and follow the setup instructions.
+This guide will build off our [quoting guide](/docs/sdks/v3/guides/swapping/quoting) and show how to use a quote to construct and execute a trade on the Uniswap v3 protocol. It is based on the [Trading code example](https://github.com/Uniswap/examples/tree/main/v3-sdk/trading), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples). To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/trading/README.md) and follow the setup instructions.
 
 <Callout type="note">
-If you need a briefer on the SDK and to learn more about how these guides connect to the examples repository, please visit our [background](../../../overview) page!
+> New to this section? Start with [Local Development](/docs/sdks/v3/guides/getting-started).
 
-To get started with local development, also check out the [local development guide](../getting-started).
+To get started with local development, also check out the [local development guide](/docs/sdks/v3/guides/getting-started).
 </Callout>
 
 In this example we will trade between two ERC20 tokens: **WETH and USDC**. The tokens, amount of input token, and the fee level can be configured as inputs.
@@ -107,7 +106,7 @@ If you cannot see the Tokens traded in your wallet, you possibly have to [import
 
 ## Constructing a route from pool information
 
-To construct our trade, we will first create an model instance of a `Pool`. We create an **ethers** contract like in the [previous guide](./quoting.md#referencing-the-pool-contract-and-fetching-metadata).
+To construct our trade, we will first create an model instance of a `Pool`. We create an **ethers** contract like in the [previous guide](/docs/sdks/v3/guides/swapping/quoting#referencing-the-pool-contract-and-fetching-metadata).
 We will first extract the needed metadata from the relevant pool contract. Metadata includes both constant information about the pool as well as information about its current state stored in its first slot:
 
 ```typescript
@@ -135,7 +134,7 @@ Before continuing, let's talk about the values we fetched here and what they rep
 - `sqrtPriceX96` is the current Price of the pool, encoded as a ratio between `token0` and `token1`.
 - `tick` is the tick at the current price of the pool.
 
-Check out the [whitepaper](https://uniswap.org/whitepaper-v3.pdf) to learn more on how liquidity and ticks work in Uniswap V3.
+Check out the [whitepaper](https://uniswap.org/whitepaper-v3.pdf) to learn more on how liquidity and ticks work in Uniswap v3.
   
 You can find the full code in [`pool.ts`](https://github.com/Uniswap/examples/blob/main/v3-sdk/trading/src/libs/pool.ts).
 
@@ -195,7 +194,7 @@ Once we have constructed the route object, we now need to obtain a quote for the
 const amountOut = await getOutputQuote(swapRoute)
 ```
 
-As shown below, the quote is obtained using the `v3-sdk`'s `SwapQuoter`, in contrast to the [previous quoting guide](./quoting), where we directly accessed the smart contact:
+As shown below, the quote is obtained using the `v3-sdk`'s `SwapQuoter`, in contrast to the [previous quoting guide](/docs/sdks/v3/guides/swapping/quoting), where we directly accessed the smart contact:
 
 ```typescript
 import { SwapQuoter } from '@uniswap/v3-sdk'
@@ -306,6 +305,6 @@ const tx = {
 const res = await wallet.sendTransaction(tx)
 ```
 
-## Next Steps
+## Where to Go Next
 
-The resulting example allows for trading between any two ERC20 tokens, but this can be suboptimal for the best pricing and fees. To achieve the best possible price, we use the Uniswap auto router to route through pools to get an optimal cost. Our [routing](./routing) guide will show you how to use this router and execute optimal swaps.
+The resulting example allows for trading between any two ERC20 tokens, but this can be suboptimal for the best pricing and fees. To achieve the best possible price, we use the Uniswap auto router to route through pools to get an optimal cost. Our [routing](/docs/sdks/v3/guides/swapping/routing) guide will show you how to use this router and execute optimal swaps.

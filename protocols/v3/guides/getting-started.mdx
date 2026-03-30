@@ -1,15 +1,15 @@
 ---
-id: local-environment
 title: Set Up Your Local Environment
+description: Set up a local Uniswap v3 smart contract development environment with Node.js, npm, and Hardhat.
 ---
 
-One of the most common questions we get asked is what development toolset to use to build on-chain integrations with Uniswap. There’s no right answer to this question but for this guide we’ll recommend a common one: `Node.js` , `NPM` and `Hardhat`.
+One of the most common questions is what development toolset to use to build onchain integrations with Uniswap. There's no right answer to this question, but this guide uses `Node.js`, `NPM`, and `Hardhat`.
 
 At the end of this guide you’ll have a development environment set up that you can use to build the rest of the examples in the Guides section of the docs, or start your own integration project!
 
-To get you started as quickly as possible, we have provided the `Quick Start` section below where you can clone some boiler plate and get building. To start from scratch and learn the underlying concepts, jump to the `Start from Scratch` section.
+To get started as quickly as possible, use the `Getting Started` section below where you can clone a boilerplate and start building. To start from scratch and learn the underlying concepts, jump to the `Start from Scratch` section.
 
-## Quick Start
+## Getting Started
 
 The Uniswap [boilerplate repo](https://github.com/Uniswap/uniswap-first-contract-example) provides a basic Hardhat environment with required imports already pre-loaded for you. You can simply clone it and install the dependencies:
 
@@ -137,10 +137,9 @@ With your local node up and running, you can use the `--network localhost` flag 
 $ npx hardhat test --network localhost
 ```
 
-## Next Steps
+## Where to Go Next
 
-With your environment set up you’re ready to start building. Jump over to the guides section to learn about the Uniswap functions you can integrate with. Remember to add all contracts (.sol files) to the `./contracts` folder and their subsequent tests to the `./tests` folder. You can then test them against your local forked node by running:
-
-```bash
-$ npx hardhat test --network localhost
-```
+- [Swapping Getting Started](/docs/protocols/v3/guides/swapping/getting-started)
+- [Managing Liquidity Getting Started](/docs/protocols/v3/guides/managing-liquidity/getting-started)
+- [Flash Swaps Getting Started](/docs/protocols/v3/guides/flash-swaps/getting-started)
+- [Troubleshooting](/docs/protocols/v3/guides/troubleshooting)

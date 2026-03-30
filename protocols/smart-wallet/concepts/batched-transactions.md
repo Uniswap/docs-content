@@ -1,8 +1,15 @@
 ---
 id: batched-transactions
 title: Batched Transactions
+description: Understand how Uniswap smart wallet supports batched actions and ERC-7821-compatible execution flows.
 ---
 
-Batched transactions are transactions which include one or more actions. For example, approving an ERC20 token and a swap using that token. Our smart wallet natively supports batched transactions, saving users gas and clicks.
+Batched transactions include one or more actions in the same execution flow.
 
-Our smart wallet supports simple batched calls as well as [ERC-7821](https://eips.ethereum.org/EIPS/eip-7821): **Minimal Batch Executor Interface**, a standard which increases interoperability between dapps and contract implementations.
+## Common Batch Pattern
+
+A common example is approving an ERC-20 token and then swapping that token in a single batched flow.
+
+## ERC-7821 Support
+
+Uniswap smart wallet supports simple batch calls and [ERC-7821](https://eips.ethereum.org/EIPS/eip-7821): **Minimal Batch Executor Interface**, which improves interoperability between dapps and contract implementations.

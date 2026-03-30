@@ -1,0 +1,159 @@
+name: Lint content
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '**/*.md'
+      - '**/*.mdx'
+      - '**/meta.json'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  # Content directories to lint (excludes root-level files like README.md, docs-skill.md)
+  CONTENT_DIRS: api changelog ecosystem get-started liquidity protocols sdks trading unichain uniswap-ai
+
+jobs:
+  lint:
+    name: Lint docs content
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v4.1.1
+        with:
+          persist-credentials: false
+
+      - name: Lint docs
+        id: lint
+        run: |
+          ERRORS=""
+          add_error() {
+            local check="$1" file="$2" detail="$3"
+            ERRORS="${ERRORS}${check}|${file}|${detail}\n"
+          }
+
+          # ── 1. Absolute image paths ──
+          while IFS=: read -r file line content; do
+            add_error "Absolute image path" "$file:$line" "Use relative path (e.g. ./images/foo.png)"
+          done < <(grep -rn --include='*.md' --include='*.mdx' -E '!\[.*\]\(/' $CONTENT_DIRS 2>/dev/null || true)
+
+          # ── 2. Broken image references ──
+          while IFS= read -r file; do
+            DIR=$(dirname "$file")
+            grep -oP '!\[.*?\]\(\K[^)]+' "$file" 2>/dev/null | while IFS= read -r img_path; do
+              echo "$img_path" | grep -qE '^https?://' && continue
+              clean_path=$(echo "$img_path" | sed 's/[?#].*//')
+              if [ ! -f "${DIR}/${clean_path}" ]; then
+                echo "Broken image|${file}|${img_path} not found" >> /tmp/lint_errors
+              fi
+            done
+          done < <(find $CONTENT_DIRS -name '*.md' -o -name '*.mdx')
+
+          # ── 3. Missing frontmatter title ──
+          while IFS= read -r file; do
+            FRONTMATTER=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
+            if [ -z "$FRONTMATTER" ]; then
+              add_error "Missing frontmatter" "$file" "No frontmatter block found"
+            elif ! echo "$FRONTMATTER" | grep -q '^title:'; then
+              add_error "Missing title" "$file" "Frontmatter must include title field"
+            fi
+          done < <(find $CONTENT_DIRS -name '*.md' -o -name '*.mdx')
+
+          # ── 4. Unclosed Callout components ──
+          while IFS= read -r file; do
+            OPENS=$(grep -c '<Callout' "$file" 2>/dev/null || true)
+            CLOSES=$(grep -c '</Callout>' "$file" 2>/dev/null || true)
+            if [ "$OPENS" -ne "$CLOSES" ]; then
+              add_error "Unclosed Callout" "$file" "${OPENS} opening vs ${CLOSES} closing tags"
+            fi
+          done < <(find $CONTENT_DIRS -name '*.mdx')
+
+          # ── 5. Invalid meta.json ──
+          while IFS= read -r file; do
+            DIR=$(dirname "$file")
+            if ! python3 -m json.tool "$file" > /dev/null 2>&1; then
+              add_error "Invalid JSON" "$file" "Failed to parse"
+              continue
+            fi
+            python3 -c "
+          import json, os
+          with open('$file') as f:
+            data = json.load(f)
+          if not isinstance(data, list):
+            exit(0)
+          for entry in data:
+            slug = entry if isinstance(entry, str) else entry.get('slug', entry.get('title', ''))
+            if not slug or slug.startswith('http'):
+              continue
+            base = '${DIR}/' + slug
+            if not any(os.path.exists(p) for p in [base + '.md', base + '.mdx', base]):
+              print(f'Orphaned meta entry|${file}|\"{slug}\" has no matching file or directory')
+          " >> /tmp/lint_errors 2>/dev/null || true
+          done < <(find $CONTENT_DIRS -name 'meta.json')
+
+          # ── Collect subshell errors ──
+          if [ -f /tmp/lint_errors ]; then
+            while IFS= read -r line; do
+              ERRORS="${ERRORS}${line}\n"
+            done < /tmp/lint_errors
+          fi
+
+          # ── Report ──
+          if [ -z "$ERRORS" ]; then
+            echo "status=pass" >> "$GITHUB_OUTPUT"
+            echo "All checks passed" >> "$GITHUB_STEP_SUMMARY"
+            echo "All checks passed"
+            exit 0
+          fi
+
+          ERROR_COUNT=$(printf '%b' "$ERRORS" | grep -c '.' || true)
+          echo "status=fail" >> "$GITHUB_OUTPUT"
+          echo "error_count=${ERROR_COUNT}" >> "$GITHUB_OUTPUT"
+
+          # Write comment body to a file to avoid escaping issues
+          {
+            echo "## Docs Lint"
+            echo ""
+            echo "Found **${ERROR_COUNT} issue(s)** that need to be fixed before merging."
+            echo ""
+            echo "| Check | File | Details |"
+            echo "|-------|------|---------|"
+            printf '%b' "$ERRORS" | while IFS='|' read -r check file detail; do
+              [ -z "$check" ] && continue
+              echo "| ${check} | \`${file}\` | ${detail} |"
+            done
+          } | tee "$GITHUB_STEP_SUMMARY" > /tmp/lint_comment.md
+
+          # Print to log
+          echo ""
+          echo "=== Lint failures ==="
+          printf '%b' "$ERRORS" | while IFS='|' read -r check file detail; do
+            [ -z "$check" ] && continue
+            echo "  ${check}: ${file} — ${detail}"
+          done
+          echo ""
+          echo "${ERROR_COUNT} issue(s) found"
+          exit 1
+
+      - name: Comment on PR
+        if: always() && steps.lint.outputs.status == 'fail'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMENT_BODY=$(cat /tmp/lint_comment.md)
+          PR_NUMBER=${{ github.event.pull_request.number }}
+
+          # Look for an existing lint comment to update (avoid spam)
+          EXISTING=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json comments \
+            --jq '.comments[] | select(.body | startswith("## Docs Lint")) | .id' | tail -1)
+
+          if [ -n "$EXISTING" ]; then
+            gh api repos/"$GITHUB_REPOSITORY"/issues/comments/"$EXISTING" \
+              -X PATCH -f body="$COMMENT_BODY"
+          else
+            gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "$COMMENT_BODY"
+          fi

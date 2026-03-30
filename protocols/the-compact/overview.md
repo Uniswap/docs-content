@@ -1,9 +1,10 @@
 ---
 id: overview
-title: Overview
+title: The Compact Overview
+description: Learn how Uniswap The Compact coordinates resource locks, compacts, and claims across single-chain and multichain flows.
 ---
 
-[The Compact 🤝](https://github.com/Uniswap/the-compact) is an ownerless ERC6909 contract that facilitates the voluntary formation and mediation of reusable **resource locks**. It enables tokens to be credibly committed to be spent in exchange for performing actions across arbitrary, asynchronous environments, and claimed once the specified conditions have been met.
+[The Compact](https://github.com/Uniswap/the-compact) is an ownerless ERC6909 contract that facilitates the voluntary formation and mediation of reusable **resource locks**. It enables tokens to be credibly committed for asynchronous conditions and claimed once those conditions are met.
 
 ## Key Components
 
@@ -55,7 +56,13 @@ The Compact is deployed at the same address across multiple chains:
 | Base | `0x00000000000000171ede64904551eeDF3C6C9788` |
 | Unichain | `0x00000000000000171ede64904551eeDF3C6C9788` |
 
-> The Compact uses a deterministic deployment address, ensuring the same address across all supported networks.
+> The Compact uses deterministic deployment, ensuring the same address across supported networks.
 
 The Compact uses a permissionless deployment process. Anyone can deploy the protocol to a new EVM chain by submitting a transaction with the same `to` and `data` arguments. This ensures the same deterministic address across all chains and enables the creation of compacts that commit resource locks across multiple chains.
+
+## Where to Go Next
+
+- Review core mechanics in [Resource Locks](/docs/protocols/the-compact/concepts/resource-locks).
+- Learn signing and payload formats in [Compacts & EIP-712](/docs/protocols/the-compact/concepts/compacts).
+- See audits and repositories in [Resources](/docs/protocols/the-compact/resources).
 

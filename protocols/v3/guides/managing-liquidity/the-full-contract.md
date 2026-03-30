@@ -1,6 +1,7 @@
 ---
 id: the-full-contract
 title: The Full Contract
+description: Review a complete Uniswap v3 liquidity management contract covering mint, adjust, and collect flows.
 ---
 
 Below we have the complete functioning code example: a contract that can custody Uniswap V3 position NFT's and manipulate the positions and liquidity therein by collecting fees, increasing or decreasing liquidity, and minting new positions. View on github [here](https://github.com/Uniswap/uniswap-docs/blob/main/examples/smart-contracts/LiquidityExamples.sol).

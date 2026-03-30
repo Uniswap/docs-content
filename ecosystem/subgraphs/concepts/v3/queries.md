@@ -1,57 +1,44 @@
 ---
-title: Queries
-description: Key entities and query patterns for the Uniswap v3 subgraph.
+title: v3 Queries
+description: Explore key entities and practical GraphQL query patterns for the Uniswap v3 subgraph.
 ---
 
-The Uniswap v3 subgraph indexes on-chain events from Factory and Pool contracts and exposes them as a GraphQL API via [The Graph](https://thegraph.com/). You can use it to query pool state, swap history, token metrics, position data, and aggregated statistics.
+The Uniswap v3 subgraph indexes onchain events from Factory and Pool contracts and exposes them as a GraphQL API via [The Graph](https://thegraph.com/). You can use it to query protocol metrics, pool state, swaps, token data, and liquidity position activity.
 
 The full schema is available in the [v3-subgraph repository](https://github.com/Uniswap/v3-subgraph/blob/main/src/v3/schema.graphql).
-
-## Key Differences from v2
-
-The v3 subgraph reflects the architectural changes in v3:
-
-- **Factory replaces UniswapFactory** -- Global protocol metrics are queried from the `factory` entity. The Factory address on Ethereum mainnet is `0x1F98431c8aD98523631AE4a59f267346ea31F984`.
-- **Pools are individual contracts** -- Each pool has its own contract address, used as the entity ID.
-- **Concentrated liquidity** -- Positions specify `tickLower` and `tickUpper` bounds. Mint, Burn, and Collect events include tick range data.
-- **Multiple fee tiers** -- Pools can have different fee tiers (0.01%, 0.05%, 0.30%, 1.00%).
-- **Flash loans** -- A `Flash` entity tracks flash loan events.
 
 ## Core Entities
 
 | Entity | Description |
 |---|---|
-| **Factory** | Global protocol metrics: pool count, transaction count, total volume |
-| **Pool** | Individual pool state: liquidity, price, fee tier, tick, volume |
-| **Token** | Token metadata and aggregated metrics across all pools |
-| **Swap** | Individual swap events with amounts, sender, recipient, and transaction details |
-| **Mint** | Liquidity addition events with tick range and amounts |
-| **Burn** | Liquidity removal events with tick range and amounts |
-| **Collect** | Fee collection events |
-| **Flash** | Flash loan events |
-| **PoolDayData / PoolHourData** | Time-series aggregations of pool metrics |
-| **TokenDayData / TokenHourData** | Time-series aggregations of token metrics |
+| **Factory** | Protocol-level aggregates such as total volume, TVL, and transaction count |
+| **Pool** | Per-pool state including liquidity, price, tick, volume, and fee tier |
+| **Token** | Token metadata and aggregates across all pools containing the token |
+| **Swap** | Individual swap events with token amounts, sender, and timestamp |
+| **Position** | Position-level liquidity and fee data by NFT position ID |
+| **PoolDayData / PoolHourData** | Time-series snapshots for pool metrics |
+| **TokenDayData / TokenHourData** | Time-series snapshots for token metrics |
 
 ## Common Query Patterns
 
-### Protocol-wide Metrics
+### Protocol-wide metrics
 
-Query the Factory entity for aggregate protocol data:
+Query `factory` to retrieve aggregate protocol data:
 
 ```graphql
 {
-  factory(id: "0x1F98431c8aD98523631AE4a59f267346ea31F984") {
+  factory(id: "0x1f98431c8ad98523631ae4a59f267346ea31f984") {
     poolCount
     txCount
     totalVolumeUSD
-    totalVolumeETH
+    totalValueLockedUSD
   }
 }
 ```
 
-### Pool State
+### Pool state
 
-Fetch current state for a specific pool by its contract address:
+Query a specific pool by pool address:
 
 ```graphql
 {
@@ -62,96 +49,103 @@ Fetch current state for a specific pool by its contract address:
     liquidity
     sqrtPrice
     tick
+    totalValueLockedUSD
   }
 }
 ```
 
-### Recent Swaps
+### Recent swaps
 
-Query swap events filtered by pool, ordered by recency:
+Query swap events ordered by timestamp:
 
 ```graphql
 {
-  swaps(orderBy: timestamp, orderDirection: desc, where: {
-    pool: "0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8"
-  }) {
+  swaps(
+    first: 20
+    orderBy: timestamp
+    orderDirection: desc
+    where: { pool: "0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8" }
+  ) {
     sender
-    recipient
     amount0
     amount1
+    amountUSD
     timestamp
   }
 }
 ```
 
-### Token Data
+### Token data
 
-Aggregate metrics for a token across all v3 pools:
+Query aggregate token metrics:
 
 ```graphql
 {
-  token(id: "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984") {
+  token(id: "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48") {
     symbol
     name
     decimals
     volumeUSD
+    totalValueLockedUSD
     poolCount
   }
 }
 ```
 
-### Position Data (Fees Collected)
+### Position data
 
-Query collected fees for a position by NFT tokenId. In v3, positions are ERC-721 NFTs managed by the NonfungiblePositionManager:
+Query a position by NFT position ID:
 
 ```graphql
 {
-  position(id: 3) {
+  position(id: "1") {
     id
+    owner
+    liquidity
+    depositedToken0
+    depositedToken1
     collectedFeesToken0
     collectedFeesToken1
-    liquidity
-    token0 { id, symbol }
-    token1 { id, symbol }
   }
 }
 ```
 
 ## Pagination
 
-The Graph limits query results to 1000 items per request. Use `first` and `skip` to paginate through larger result sets:
+The Graph returns up to 1000 entities per request. Use `first` and `skip` to iterate through large result sets:
 
 ```graphql
 {
-  pools(first: 1000, skip: 0, orderBy: liquidity, orderDirection: desc) {
+  pools(first: 1000, skip: 0, orderBy: totalValueLockedUSD, orderDirection: desc) {
     id
     token0 { symbol }
     token1 { symbol }
-    liquidity
+    totalValueLockedUSD
   }
 }
 ```
 
-Increment `skip` by 1000 in each subsequent request until fewer than 1000 results are returned.
+Increase `skip` by 1000 for each subsequent request until fewer than 1000 results are returned.
 
 ## Historical Data
 
-You can query data at a specific block number by passing a `block` parameter:
+Query historical state at a specific block:
 
 ```graphql
 {
   factory(
-    id: "0x1F98431c8aD98523631AE4a59f267346ea31F984"
-    block: { number: 13380584 }
+    id: "0x1f98431c8ad98523631ae4a59f267346ea31f984"
+    block: { number: 17000000 }
   ) {
     poolCount
     totalVolumeUSD
+    totalValueLockedUSD
   }
 }
 ```
 
-For time-series analysis, use the `PoolDayData` and `TokenDayData` entities which provide pre-aggregated daily snapshots.
+For trend analysis, query daily or hourly entities such as `PoolDayData` and `TokenDayData`.
 
 ## Next Steps
 
-For complete query examples covering global data, pools, swaps, tokens, and positions, see the [v3 query examples](/docs/ecosystem/subgraphs/guides/v3-query-examples) guide.
+For additional end-to-end examples, see [v3 query examples](/docs/ecosystem/subgraphs/guides/v3-query-examples).

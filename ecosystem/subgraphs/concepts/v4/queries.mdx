@@ -1,9 +1,9 @@
 ---
-title: Queries
+title: v4 Queries
 description: Key entities and query patterns for the Uniswap v4 subgraph.
 ---
 
-The Uniswap v4 subgraph indexes on-chain events from the PoolManager singleton contract and exposes them as a GraphQL API via [The Graph](https://thegraph.com/). You can use it to query pool state, swap history, token metrics, position data, and aggregated statistics.
+The Uniswap v4 subgraph indexes onchain events from the PoolManager singleton contract and exposes them as a GraphQL API via [The Graph](https://thegraph.com/). You can use it to query pool state, swap history, token metrics, position data, and aggregated statistics.
 
 The full schema is available in the [v4-subgraph repository](https://github.com/Uniswap/v4-subgraph/blob/main/schema.graphql).
 
@@ -11,10 +11,10 @@ The full schema is available in the [v4-subgraph repository](https://github.com/
 
 The v4 subgraph reflects the architectural changes in v4:
 
-- **PoolManager replaces Factory** — Global protocol metrics are queried from the `poolManager` entity rather than a `factory` entity. The PoolManager address is `0x000000000004444c5dc75cb358380d2e3de08a90` on all supported chains.
-- **Pool IDs are hashes** — Pools are identified by a bytes32 hash derived from the pool key (token pair, fee, tick spacing, and hooks address), not a deployed contract address. See the [PoolId Library](https://github.com/Uniswap/v4-core/blob/main/src/types/PoolId.sol) for details on computing pool IDs.
-- **Hooks are first-class** — Pool entities include a `hooks` field referencing the hook contract address, if any.
-- **Subscriptions and notifications** — Position entities track `subscriptions`, `unsubscriptions`, and `transfers` rather than the v3 model of mints, burns, and collects at the position level.
+- **PoolManager replaces Factory:** Global protocol metrics are queried from the `poolManager` entity rather than a `factory` entity. The PoolManager address is `0x000000000004444c5dc75cb358380d2e3de08a90` on all supported chains.
+- **Pool IDs are hashes:** Pools are identified by a bytes32 hash derived from the pool key (token pair, fee, tick spacing, and hooks address), not a deployed contract address. See the [PoolId Library](https://github.com/Uniswap/v4-core/blob/main/src/types/PoolId.sol) for details on computing pool IDs.
+- **Hooks are first-class:** Pool entities include a `hooks` field referencing the hook contract address, if any.
+- **Subscriptions and notifications:** Position entities track `subscriptions`, `unsubscriptions`, and `transfers` rather than the v3 model of mints, burns, and collects at the position level.
 
 ## Core Entities
 

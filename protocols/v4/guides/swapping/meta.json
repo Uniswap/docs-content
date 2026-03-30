@@ -1,5 +1,4 @@
 {
   "title": "Swapping",
-  "pages": ["swapping", "routing"],
-  "defaultOpen": false
+  "pages": ["getting-started", "swapping", "routing"]
 }

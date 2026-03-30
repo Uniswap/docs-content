@@ -1,35 +1,35 @@
 ---
-id: quick-start
-title: Smart Contract Quick start
+title: Smart Contract Getting Started
+description: Set up a Uniswap v2 smart contract development environment with Foundry, npm packages, and local testing.
 ---
 
-Developing smart contracts for Ethereum involves a variety of off-chain tools used for producing and testing bytecode
+Developing smart contracts for Ethereum involves a variety of offchain tools used for producing and testing bytecode
 that runs on the [Ethereum Virtual Machine (EVM)](<https://eth.wiki/en/concepts/evm/ethereum-virtual-machine-(evm)-awesome-list>).
 Some tools also include workflows for deploying this bytecode to the Ethereum network and testnets.
 There are many options for these tools. This guide walks you through writing and testing a simple smart contract that
-interacts with the Uniswap Protocol using one specific set of tools (`truffle` + `npm` + `mocha`).
+interacts with the Uniswap Protocol using one specific set of tools (`Foundry` + `npm`).
 
 ## Requirements
 
 To follow this guide, you must have the following installed:
 
 - [nodejs >= v12.x & npm >= 6.x](https://nodejs.org/en/)
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
 
 ## Bootstrapping a project
 
-You can start from scratch, but it's easier to use a tool like `truffle` to bootstrap an empty project.
-Create an empty directory and run `npx truffle init` inside that directory to unbox the default
-[Truffle box](https://www.trufflesuite.com/boxes).
+You can start from scratch, but it's easier to use a tool like Foundry to bootstrap an empty project.
+Create an empty directory and run `forge init` inside that directory.
 
 ```shell script
 mkdir demo
 cd demo
-npx truffle init
+forge init .
 ```
 
 ## Setting up npm
 
-In order to reference the Uniswap V2 contracts, you should use the npm artifacts we deploy containing the core and
+In order to reference the Uniswap v2 contracts, you should use the npm artifacts we deploy containing the core and
 periphery smart contracts and interfaces. To add npm dependencies, we must first initialize the npm package.
 We can run `npm init` in the same directory to create a `package.json` file. You can accept all the defaults and
 modify them later.
@@ -49,7 +49,7 @@ npm i --save @uniswap/v2-core
 npm i --save @uniswap/v2-periphery
 ```
 
-If you check the `node_modules/@uniswap` directory, you can now find the Uniswap V2 contracts.
+If you check the `node_modules/@uniswap` directory, you can now find the Uniswap v2 contracts.
 
 ```shell script
 moody@MacBook-Pro ~/I/u/demo> ls node_modules/@uniswap/v2-core/contracts
@@ -157,7 +157,10 @@ contract LiquidityValueCalculator is ILiquidityValueCalculator {
     }
 
     function computeLiquidityShareValue(uint liquidity, address tokenA, address tokenB) external override returns (uint tokenAAmount, uint tokenBAmount) {
-        revert('TODO');
+        (uint reserveA, uint reserveB, uint totalSupply) = pairInfo(tokenA, tokenB);
+        require(totalSupply > 0, "NO_LIQUIDITY");
+        tokenAAmount = reserveA * liquidity / totalSupply;
+        tokenBAmount = reserveB * liquidity / totalSupply;
     }
 }
 ```
@@ -174,12 +177,12 @@ In order to test your contract, you need to:
 6. Call `LiquidityValueCalculator#computeLiquidityShareValue`
 7. Verify the result with an assertion
 
-\#1 is handled for you automatically by the `truffle test` command.
+\#1 is handled for you automatically by the `forge test` command.
 
 Note that you should only deploy the precompiled Uniswap contracts in the `build` directories for unit tests.
 This is because solidity appends a metadata hash to compiled contract artifacts which includes the hash of the contract
 source code path, and compilations on other machines will not result in the exact same bytecode.
-This is problematic because in Uniswap V2 we use the hash of the bytecode in the v2-periphery
+This is problematic because in Uniswap v2 we use the hash of the bytecode in the v2-periphery
 [`UniswapV2Library`](https://github.com/Uniswap/uniswap-v2-periphery/blob/master/contracts/libraries/UniswapV2Library.sol#L24),
 to compute the pair address.
 
@@ -191,15 +194,21 @@ const UniswapV2FactoryBytecode = require('@uniswap/v2-core/build/UniswapV2Factor
 
 We recommend using a standard ERC20 from `@openzeppelin/contracts` for deploying an ERC20.
 
-You can read more about deploying contracts and writing tests using Truffle
-[here](https://www.trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript).
+You can read more about deploying contracts and writing tests using Foundry
+[here](https://book.getfoundry.sh/reference/forge/forge-test).
 
 ## Compiling and deploying the contract
 
-Learn more about compiling and deploying contracts using Truffle
-[here](https://www.trufflesuite.com/docs/truffle/getting-started/compiling-contracts) and
-[here](https://www.trufflesuite.com/docs/truffle/getting-started/running-migrations) respectively.
+Learn more about compiling and deploying contracts using Foundry
+[here](https://book.getfoundry.sh/reference/forge/forge-build) and
+[here](https://book.getfoundry.sh/reference/forge/forge-script) respectively.
 
-## WIP
+## Where to Go Next
 
-This guide is a WIP. Please contribute to this guide with the edit button below!
+- [Swapping](/docs/protocols/v2/guides/swapping)
+- [Providing Liquidity](/docs/protocols/v2/guides/providing-liquidity)
+- [Flash Swaps](/docs/protocols/v2/guides/flash-swaps)
+- [Getting Pair Addresses](/docs/protocols/v2/guides/getting-pair-addresses)
+- [Building an Oracle](/docs/protocols/v2/guides/building-an-oracle)
+- [Troubleshooting](/docs/protocols/v2/guides/troubleshooting)
+

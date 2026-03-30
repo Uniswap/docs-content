@@ -1,7 +1,7 @@
 ---
 title: Best Practices
+description: Apply practical safeguards when integrating with the Uniswap Protocol Fee contracts and release flow.
 ---
-# Best Practices
 
 Below, please find a list of best practices when interacting with the Uniswap Protocol Fee system.
 
@@ -21,7 +21,7 @@ contract Vulnerable {
     IFirepit public firepit;
 
     function vulnerable(Currency[] memory assets) external {
-        // ❌ THIS IS VULNERABLE TO FRONT RUNNING ❌ //
+        // THIS IS VULNERABLE TO FRONT RUNNING //
         uint256 nonce = firepit.nonce();
         firepit.release(nonce, assets, address(this));
     }
@@ -34,23 +34,23 @@ contract Vulnerable {
 contract SafeRelease {
     IFirepit public firepit;
 
-    // ✅ THIS IS SAFE FROM FRONT RUNNING ✅ //
+    // THIS IS SAFE FROM FRONT RUNNING //
     function safeRelease(uint256 _nonce, Currency[] memory assets) external {
         firepit.release(_nonce, assets, address(this));
     }
 }
 ```
-In the safe pattern, the caller is responsible for reading the `Firepit.nonce()` offchain, assocating it with releasable assets, and passing it as a **calldata** parameter
+In the safe pattern, the caller is responsible for reading the `Firepit.nonce()` offchain, associating it with releasable assets, and passing it as a **calldata** parameter
 </Callout>
 
 ## Collect Uniswap v3 Fees
 
-For further reading, please see [Read Asset Balance](./read-asset-balance)
+For further reading, please see [Read Asset Balances](/docs/protocols/protocol-fee/guides/read-asset-balances)
 
 In the Uniswap Protocol Fee system, Uniswap v3 fees *must be collected* to the `AssetSink` before they are eligible for release.
 
 <Callout type="info">
-We recommend that integrators check and collect Uniswap v3 fees before calling `Firepit.release()`, to ensure the maximum assets are released.
+Integrators can check and collect Uniswap v3 fees before calling `Firepit.release()` so the releasable asset set is up to date.
 
 Collection is available via
 `IV3FeeController.collect()`
@@ -89,7 +89,7 @@ Because the Uniswap Protocol Fee system can release native tokens (Ether), recip
 
 ## Pricing Uniswap v2 ERC-20 Tokens
 
-For further reading, please see [Read Asset Balance](./read-asset-balance#uniswap-v2-pool-protocol-fees)
+For further reading, please see [Read Asset Balances](/docs/protocols/protocol-fee/guides/read-asset-balances#uniswap-v2-pool-protocol-fees)
 
 Uniswap v2 Protocol Fees are automatically pushed to the `AssetSink` contract, but are represented as ERC-20 LP tokens. These ERC-20 LP tokens represent a combination of `token0` and `token1`
 

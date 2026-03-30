@@ -1,18 +1,18 @@
 ---
 id: exit-bid
-title: Exit and claim tokens
+title: Exit and Claim Tokens
+description: Exit outbid positions and claim purchased tokens in a Uniswap Continuous Clearing Auction lifecycle.
 ---
 
-# Exit and claim tokens
 This section will walk you through exiting a bid and claiming purchased tokens on a CCA auction.
 
 ## Prerequisites
-This guide continues from the [previous section](./price-discovery). Basic knowledge of the CCA auction mechanism and Solidity is assumed.
+This guide continues from the [previous section](/docs/protocols/liquidity-launchpad/guides/price-discovery). Basic knowledge of the CCA auction mechanism and Solidity is assumed.
 
-## Summary
+## Step 1: Review the current auction state
 Currently we have a CCA contract deployed which we have submitted a bid to. We're the only bidder in the auction and the clearing price of the auction is at our max price. Let's modify the script to add another bid which will outbid our initial one, and show how both bids can be exited.
 
-## Exiting a bid
+## Step 2: Exit an outbid position
 From the previous section we have the following script (copy and pasted for convenience):
 ```solidity
 contract ExampleCCABidScript is Script {
@@ -85,7 +85,7 @@ AUCTION_ADDRESS=<auction address> forge script scripts/ExampleCCABidScript.s.sol
 ```
 
 You'll see the following logs in the console:
-```
+```text
 == Logs ==
   First bid submitted with ID: 0
   checkpoint clearingPrice after first bid: 158456325028528668016640
@@ -131,7 +131,7 @@ Let's append the following code to the end of the script to exit the first bid.
 ```
 
 Running this script gives the following output:
-```
+```text
 == Logs ==
   First bid submitted with ID: 0
   checkpoint clearingPrice after first bid: 158456325028528668016640
@@ -149,7 +149,7 @@ As the auction has not completed yet, the second bid is not exitable yet since i
 
 At the end of the auction and after `claimBlock` both bids can claim their purchased tokens.
 
-### Claiming tokens
+## Step 3: Claim purchased tokens
 A bid must be exited before claiming tokens. Let's fast forward to the end of the auction so we can exit the second bid and claim tokens for both bids.
 
 Append the following code to the end of the script:
@@ -183,7 +183,7 @@ Append the following code to the end of the script:
 ```
 
 Running this script gives the following output:
-```
+```text
   Bid 0 exited
   Refunded ETH: 1995999999999999909677
   Bid 0 exitedBlock: 4
@@ -194,11 +194,8 @@ Running this script gives the following output:
   Bid 1 tokens claimed: 993999999999999999999999459 993999999
 ```
 
-The second bid is exited successfully and it refunded 0 ETH back to the `owner`. This is expected since it was fully filled for the duration of the auction.
-
-The first bid purchased `2,000,000` tokens and the second bid purchased `993,999,999` tokens. Given the total supply of 1 billion tokens this makes sense since the second bid completely outbid the first bid after the first checkpoint. 
-
-Note that these two values don't add up perfectly to the total supply since the auction was not fully subscribed at its `startBlock`. The first bid was entered a few blocks after the start of the auction and thus the token supply allocated to those "missed" blocks were not sold. These unsold tokens can be swept back to the preconfigured `tokensRecipient` by calling `sweepUnsoldTokens` after the end of the auction.
+The second bid refunds 0 ETH because it remained fully filled for the auction duration.
+The first and second bids claim `2,000,000` and `993,999,999` tokens respectively. Any unsold remainder can be swept to `tokensRecipient` after auction end.
 
 ### Sweep unsold tokens
 At the end of the auction any unsold tokens can be swept back to the preconfigured `tokensRecipient` by calling `sweepUnsoldTokens`. This function is permissionless and can be called by anyone.
@@ -217,11 +214,11 @@ At the end of the auction any unsold tokens can be swept back to the preconfigur
 ```
 
 Running this script gives the following output:
-```
+```text
 Unsold tokens swept: 4000000000000000000000540 4000000
 ```
 
-We can see that `4,000,000` tokens were not sold in the auction and were swept back to the `tokensRecipient`. Combining this value with the total number of tokens purchased by the first bid and the second bid gives us the total supply of tokens sold in the auction (2,000,000 + 993,999,999 + 4,000,000 = 1,000,000,000).
+The output shows `4,000,000` unsold tokens swept to `tokensRecipient`.
 
 ### Sweep raised currency
 At the end of the auction any raised currency can be swept back to the preconfigured `currencyRecipient` by calling `sweepCurrency`. This function is also permissionless and can be called by anyone.
@@ -238,20 +235,24 @@ At the end of the auction any raised currency can be swept back to the preconfig
 ```
 
 Running this script gives the following output:
-```
+```text
 Currency swept: 2703999999999999877637 2703
 ```
 
-We can see that `2703999999999999877637` wei of currency (~2,703 ETH) was raised in the auction and was swept to the preconfigured `fundsRecipient`.
+The output shows raised currency swept to `fundsRecipient`.
 
-## Next steps
-This concludes the quickstart guide for the CCA auction mechanism! We covered:
+## Verification
+
+Confirm each lifecycle action succeeds in order: `exitPartiallyFilledBid`, `exitBid`, `claimTokens`, `sweepUnsoldTokens`, and `sweepCurrency`.
+
+## Next Steps
+This concludes the getting started guide for the CCA auction mechanism. We covered:
 - How to setup a local development environment
 - How to configure a CCA auction
 - Submitting a bid and understanding price discovery
 - Exiting a bid and claiming tokens
 - Sweeping unsold tokens and the total raised currency
 
-For more details please refer to the [CCA auction mechanism](../concepts/cca).
+For more details please refer to the [CCA auction mechanism](/docs/protocols/liquidity-launchpad/concepts/cca).
 
 Additionally, the contracts are open sourced and MIT licensed. You can find the source code for the contracts in the [GitHub repository](https://github.com/Uniswap/continuous-clearing-auction).

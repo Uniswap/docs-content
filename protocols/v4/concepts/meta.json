@@ -1,6 +1,7 @@
 {
   "title": "Concepts",
   "pages": [
+    "architecture",
     "v4-vs-v3",
     "hooks",
     "hook-routing",
@@ -9,6 +10,5 @@
     "erc-6909",
     "flash-accounting",
     "subscribers"
-  ],
-  "defaultOpen": false
+  ]
 }

@@ -1,6 +1,7 @@
 ---
 id: allowance-transfer
-title: AllowanceTransfer
+title: Allowance Transfer
+description: Understand Uniswap Permit2 allowance-based approvals, permits, and `transferFrom` flows with nonce safety.
 ---
 
 > [**Source Code**](https://github.com/Uniswap/permit2/blob/main/src/AllowanceTransfer.sol)
@@ -16,7 +17,7 @@ The main entry points on this contract are:
 - `transferFrom`
     - Use transferFrom when you want to transfer a token and have the necessary permissions to do so.
 
-## Functions
+## Permit and Approval Functions
 
 ### `approve`
 
@@ -105,6 +106,8 @@ struct PermitDetails {
 ```
 
 - signature - the signature over the permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271)
+
+## Transfer Functions
 
 ### Single `transferFrom`
 

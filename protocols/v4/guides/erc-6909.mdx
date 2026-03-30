@@ -1,10 +1,11 @@
 ---
 title: ERC-6909
+description: Use ERC-6909 primitives in Uniswap v4 to resolve deltas and manage balances efficiently.
 ---
 
 ## Introduction
 
-Uniswap v4 uses [ERC-6909](../concepts/erc6909), a token standard that works alongside the protocol’s flash accounting system. This guide explains how ERC-6909 functions within v4, when to use mint versus burn operations, and how developers can implement them effectively.
+Uniswap v4 uses [ERC-6909](/docs/protocols/v4/concepts/erc-6909), a token standard that works alongside the protocol's flash accounting system. This guide explains how ERC-6909 functions within v4, when to use mint versus burn operations, and how developers can implement them effectively.
 
 ## What is ERC-6909?
 
@@ -67,10 +68,10 @@ The choice between mint and burn operations depends on your token movement needs
 
 ```solidity
 // When you have positive deltas (withdrawing value from PoolManager):
-poolManager.mint(currency, address(this), amount);
+poolManager.mint(address(this), currency.toId(), amount);
 
 // When you have negative deltas (transferring value to PoolManager):
-poolManager.burn(currency, address(this), amount);
+poolManager.burn(address(this), currency.toId(), amount);
 ```
 
 This pattern is used throughout v4's operations:
@@ -83,12 +84,16 @@ This pattern is used throughout v4's operations:
 When building hooks, ERC-6909 operations help manage token movements within your hook's logic:
 
 ```solidity
-function _beforeSwap(address, PoolKey calldata key, IPoolManager.SwapParams calldata params)
+import {SwapParams} from "v4-core/src/types/PoolOperation.sol";
+
+function _beforeSwap(address, PoolKey calldata key, SwapParams calldata, bytes calldata)
     internal
+    override
+    onlyPoolManager
     returns (bytes4, BeforeSwapDelta, uint24)
 {
-    poolManager.mint(key.currency0, address(this), amount);
-    
+    poolManager.mint(address(this), key.currency0.toId(), amount);
+
     return (
       BaseHook.beforeSwap.selector,
       BeforeSwapDeltaLibrary.ZERO_DELTA,
@@ -212,16 +217,16 @@ Instead of using traditional token transfers, we can use ERC-6909's burn operati
  // Handle any negative deltas by burning ERC-6909 tokens
     if (delta.amount0() < 0) {
         poolManager.burn(
-            data.key.currency0,
             address(this),
-            uint256(-delta.amount0())
+            data.key.currency0.toId(),
+            uint256(uint128(-delta.amount0()))
         );
     }
     if (delta.amount1() < 0) {
         poolManager.burn(
-            data.key.currency1,
             address(this),
-            uint256(-delta.amount1())
+            data.key.currency1.toId(),
+            uint256(uint128(-delta.amount1()))
         );
     }
 
