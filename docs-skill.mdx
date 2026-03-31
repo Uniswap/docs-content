@@ -1,4 +1,5 @@
 ---
+title: "Uniswap Docs Content QA Skill"
 name: uniswap-docs-qa
 description: "Apply this skill when reviewing or creating any page for docs.uniswap.org. It enforces the Uniswap content style guide: progressive disclosure, sidebar-friendly titles, semantic HTML, low word count with cross-linking, consistent terminology, frontmatter requirements, Diataxis page types, and SEO optimization. Use for QA audits, new page creation, and content consistency checks across the Uniswap docs-content repo (github.com/Uniswap/docs-content)."
 ---
@@ -52,7 +53,7 @@ Use the canonical terms in the Terminology Dictionary (section 8) everywhere. Ne
 
 ## 2. Frontmatter Requirements (MANDATORY)
 
-Every `.md` / `.mdx` file MUST have:
+Every `.mdx` file MUST have:
 
 ```yaml
 ---
@@ -98,7 +99,7 @@ Examples:
 
 ## 4. Page Types (Diataxis Framework)
 
-### 4.1 Overview Pages (`/overview`, `index.md`)
+### 4.1 Overview Pages (`/overview`, `index.mdx`)
 **Purpose:** Orient the reader within a section. Keep under 300 words before linking out.
 
 Template:
@@ -401,10 +402,10 @@ When auditing an existing page:
 
 ## 11. File Naming Conventions
 
-- Lowercase, hyphenated: `create-pool.mdx`, `flash-accounting.md`
+- Lowercase, hyphenated: `create-pool.mdx`, `flash-accounting.mdx`
 - No spaces, underscores, or camelCase in filenames
-- Use `.mdx` if the page contains JSX components (`<Cards>`, `<Tabs>`, `<Callout>`, etc.), `.md` otherwise
-- Section entry: use `overview.md` or `index.md` (not both in the same directory)
+- Use `.mdx` for all documentation pages
+- Section entry: use `overview.mdx` or `index.mdx` (not both in the same directory)
 - Filename equals URL slug. Choose descriptive, keyword-rich names.
 
 ## 12. Navigation and Routing Conventions (MANDATORY)
