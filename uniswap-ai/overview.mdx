@@ -68,8 +68,8 @@ AI models have a context window, which is the amount of text they can process at
 
 Uniswap offers two context files:
 
-- **[llms.txt](https://docs.uniswap.org/v4-llms.txt)**: A compact summary with links to documentation sections. Works well with most models (100K+ token context windows).
-- **[llms-full.txt](https://docs.uniswap.org/v4-llms-full.txt)**: A verbose version with more inline content. Use this if your model has a larger context window or you want more detail without following links.
+- **[llms.txt](/docs/uniswap-ai/llms.txt)**: A compact summary with links to documentation sections. Works well with most models (100K+ token context windows).
+- **[llms-full.txt](/docs/uniswap-ai/v4-llms.txt)**: A verbose version with more inline content. Use this if your model has a larger context window or you want more detail without following links.
 
 ## Code Editor Setup
 
@@ -79,11 +79,11 @@ Uniswap offers two context files:
 2. Select **Add new doc** and paste one of the following URLs:
 
 ```
-https://docs.uniswap.org/v4-llms.txt
+https://docs.uniswap.org/llms.txt
 ```
 
 ```
-https://docs.uniswap.org/v4-llms-full.txt
+https://docs.uniswap.org/v4-llms.txt
 ```
 
 3. Use `@docs` → **Uniswap** to reference the documentation in your chat.
@@ -93,11 +93,11 @@ https://docs.uniswap.org/v4-llms-full.txt
 Windsurf requires referencing documentation in each conversation. Add it to the Cascade window (`CMD+L`):
 
 ```
-@docs:https://docs.uniswap.org/v4-llms.txt
+@docs:https://docs.uniswap.org/llms.txt
 ```
 
 ```
-@docs:https://docs.uniswap.org/v4-llms-full.txt
+@docs:https://docs.uniswap.org/v4-llms.txt
 ```
 
 ### Claude Code

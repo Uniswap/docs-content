@@ -1,5 +1,0 @@
-{
-  "title": "API",
-  "root": true,
-  "pages": ["overview", "supported-chains", "concepts", "guides"]
-}

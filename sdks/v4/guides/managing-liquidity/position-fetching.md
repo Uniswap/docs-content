@@ -224,4 +224,4 @@ fetchUserPositions('0xYourAddress' as Address)
 ## Resources
 
 - [Uniswap v4 SDK](https://github.com/Uniswap/sdks/tree/main/sdks/v4-sdk)
-- [Unichain Documentation](https://docs.unichain.org/)
+- [Unichain Documentation](/docs/unichain)

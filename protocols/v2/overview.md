@@ -28,10 +28,6 @@ Then continue with [Getting Started](/docs/protocols/v2/guides/getting-started),
 - [`uniswap-v2-sdk`](https://github.com/Uniswap/uniswap-v2-sdk)
 - [`uniswap-sdk-core`](https://github.com/Uniswap/sdk-core)
 
-## Audits
-
-- [v2 Core audit report](https://github.com/Uniswap/v2-core/blob/master/audit.pdf)
-
 ## Deployments
 
 - [Uniswap v2 deployment addresses](/docs/protocols/v2/deployments)

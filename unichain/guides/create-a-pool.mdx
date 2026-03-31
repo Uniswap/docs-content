@@ -36,7 +36,7 @@ For Uniswap contract addresses please see [Contract Addresses](/docs/unichain/te
 
 ## Uniswap v4
 
-The guide serves as additional material to [Uniswap v4 docs](https://docs.uniswap.org/contracts/v4/quickstart/create-pool)
+The guide serves as additional material to [Uniswap v4 docs](/docs/protocols/v4/guides/create-pool)
 
 ### Create a Pool & Add Liquidity
 Uniswap v4's `PositionManager` supports atomic creation of a pool and initial liquidity using _multicall_. Developers can create a trading pool, with liquidity, in a single transaction:
@@ -148,7 +148,7 @@ Uniswap v4's `PositionManager` supports atomic creation of a pool and initial li
 For a full end-to-end script, developers should see [v4-template#script](https://github.com/uniswapfoundation/v4-template/tree/main/script)
 
 ### Create a Pool Only
-To initialize a Uniswap v4 Pool _without initial liquidity_, developers should call [`PoolManager.initialize()`](https://docs.uniswap.org/contracts/v4/reference/core/interfaces/IPoolManager#initialize)
+To initialize a Uniswap v4 Pool _without initial liquidity_, developers should call [`PoolManager.initialize()`](https://github.com/Uniswap/v4-core/blob/d153b048868a60c2403a3ef5b2301bb247884d46/src/interfaces/IPoolManager.sol#L60)
 1. Configure the pool
     ```solidity
     PoolKey memory pool = PoolKey({
@@ -187,11 +187,11 @@ forge install uniswap/v3-periphery
 ```solidity
 address pair = IUniswapV3Factory(factory).createPool(tokenA, tokenB, 3000);
 ```
-Additional [documentation](https://docs.uniswap.org/contracts/v3/reference/core/UniswapV3Factory#createpool)
+Additional [documentation](https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Factory.sol#L35)
 * _tokenA_ and _tokenB_ are the ERC20 token addresses
     - the ordering does not matter, however the alphabetically-lower address is assigned to `token0`
 * Starting price is determined by the initial liquidity added
-* The `pair` address return-value corresponds to a [`UniswapV3Pool` contract](https://docs.uniswap.org/contracts/v3/reference/core/UniswapV3Pool)
+* The `pair` address return-value corresponds to a [`UniswapV3Pool` contract](https://github.com/Uniswap/v3-core/blob/main/contracts/UniswapV3Pool.sol)
 
 Valid fee values are:
 
@@ -202,7 +202,7 @@ Valid fee values are:
 | 0.30% | 3000      |
 | 1.00% | 10_000    |
 
-To create a pool with initial liquidity, developers should use [multicall](https://docs.uniswap.org/contracts/v3/reference/periphery/interfaces/IMulticall#multicall) [PoolInitializer](https://docs.uniswap.org/contracts/v3/reference/periphery/interfaces/IPoolInitializer#createandinitializepoolifnecessary) and [NonfungiblePositionManager.mint](https://docs.uniswap.org/contracts/v3/reference/periphery/interfaces/INonfungiblePositionManager#mint)
+To create a pool with initial liquidity, developers should use [multicall](https://github.com/Uniswap/v3-periphery/blob/main/contracts/interfaces/IMulticall.sol) [PoolInitializer](https://github.com/Uniswap/v3-periphery/blob/main/contracts/interfaces/IPoolInitializer.sol) and [NonfungiblePositionManager.mint](https://github.com/Uniswap/v3-periphery/blob/main/contracts/interfaces/INonfungiblePositionManager.sol)
 
 ## Uniswap v2
 
@@ -218,11 +218,11 @@ forge install uniswap/v2-periphery
 ```solidity
 address pair = IUniswapV2Factory(factory).createPair(tokenA, tokenB);
 ```
-Additional [documentation](https://docs.uniswap.org/contracts/v2/reference/smart-contracts/factory#createpair)
+Additional [documentation](https://github.com/Uniswap/v2-core/blob/ee547b17853e71ed4e0101ccfd52e70d5acded58/contracts/UniswapV2Factory.sol#L23)
 * _tokenA_ and _tokenB_ are the ERC20 token addresses
     - the ordering does not matter, however the alphabetically-lower address is assigned to `token0`
 * Starting price is determined by the initial liquidity added
-* The `pair` address return-value corresponds to a [`UniswapV2Pair` contract](https://docs.uniswap.org/contracts/v2/reference/smart-contracts/pair)
+* The `pair` address return-value corresponds to a `UniswapV2Pair` contract
 * The pair trades on a fixed 0.30% fee, and is not configurable
 
-To create a pool with initial liquidity, developers should reference [addLiquidity](https://docs.uniswap.org/contracts/v2/reference/smart-contracts/router-02#addliquidity). If a pool does not exist, one is automatically created.
+To create a pool with initial liquidity, developers should reference [addLiquidity](https://github.com/Uniswap/v2-periphery/blob/0335e8f7e1bd1e8d8329fd300aea2ef2f36dd19f/contracts/UniswapV2Router02.sol#L33). If a pool does not exist, one is automatically created.

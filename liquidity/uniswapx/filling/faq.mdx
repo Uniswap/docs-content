@@ -1,0 +1,109 @@
+---
+title: Filler FAQ
+description: Resolve common UniswapX filler and quoter issues, including RFQ behavior and order execution errors.
+---
+
+Common operational questions for UniswapX fillers and quoters.
+
+## Getting Started
+
+<details>
+  <summary>Which IPs do I need to whitelist?</summary>
+
+  IPs to whitelist:
+
+  **Beta Test Environment**
+  - Quote requests: `3.135.148.114`
+
+  **Production Environment**
+  - Quote requests: `3.138.88.28`
+
+</details>
+
+<details>
+  <summary>Why don't I get quote requests for Unichain/Base/Arbitrum?</summary>
+
+  On Ethereum, RFQ is used to parameterize the order, which often results in exclusive orders. On L2s, RFQ is not used and the auction is parameterized based on the AMM price. As a result, notifications are only sent for orders that are ready to be executed via the orders API.
+
+</details>
+
+<details>
+  <summary>What's the expected RPS for quoting on Ethereum?</summary>
+
+  1 RPS.
+
+</details>
+
+<details>
+  <summary>Which tokens are supported in RFQ?</summary>
+
+  All tokens are supported, except those on the [unsupported token list](https://unsupportedtokens.uniswap.org/).
+
+</details>
+
+## Technical Issues
+
+<details>
+  <summary>I'm getting 404, no quotes available?</summary>
+
+  There are several reasons why you might receive this error:
+
+  - **Price Impact**: UniswapX has filters that route trades to the AMM when direct AMM execution would be superior. If the price impact is too high or the benefit of routing through UniswapX isn't significant enough, no quote will be returned for this pair.
+
+  - **Order Size**: Very small orders may not be economical to fill through UniswapX due to gas costs. Similarly, extremely large orders might exceed available liquidity from quoters.
+
+  - **Response Latency**: If your filler responds but takes longer than 500ms, your quote will be rejected. Ensure your infrastructure can consistently respond within this latency requirement. The quote server is located in AWS `US-EAST-2` if you wish to co-locate to reduce latency.
+
+</details>
+
+<details>
+  <summary>The transaction is reverting for a certain reason (e.g. `InvalidOrderFields`). What does this mean?</summary>
+
+  Check the [KNOWN_ERRORS](https://github.com/Uniswap/sdks/blob/a7fb8d7b8eecdc8a29d386420339da86b0361a77/sdks/uniswapx-sdk/src/utils/OrderQuoter.ts#L70) in the SDK to see what the likely causes are.
+
+</details>
+
+<details>
+  <summary>Why did my server stop receiving quote requests?</summary>
+
+  Your server may be temporarily blocked due to the fade-rate monitor. If you win an RFQ but don't fill the order, this counts as a "fade." After too many fades, RFQ requests are temporarily paused.
+
+  You'll know you're blocked when quote requests include a `blockUntilTimestamp` field indicating when you'll start receiving requests again.
+
+</details>
+
+<details>
+  <summary>Why does my fill transaction fail the Permit2 nonce check?</summary>
+
+  A Permit2 nonce check failure typically means:
+
+  - The order has already been filled by another filler
+  - The user cancelled the order
+  - The signature has expired
+
+  Before attempting to fill, verify the order is still valid. See: "How do I know if an order is still fillable?"
+
+</details>
+
+## Order Mechanics
+
+<details>
+  <summary>How do I know if an order is still fillable?</summary>
+
+  The simulation using [UniswapXOrderQuoter](https://github.com/Uniswap/sdks/blob/416793e034dd065fe3310f7c26b75c7255f610bb/sdks/uniswapx-sdk/src/utils/OrderQuoter.ts#L175) will tell you whether the order is still fillable.
+
+</details>
+
+<details>
+  <summary>How is the OrderHash generated? Is it guaranteed to be unique?</summary>
+
+  OrderHashes are generated from the hash of the witness information from the order, and are thus guaranteed to be cryptographically unique.
+
+</details>
+
+<details>
+  <summary>Why do I receive inverse requests for every quote (e.g. USDC&lt;&gt;ETH and ETH&lt;&gt;USDC)?</summary>
+
+  Two quote requests are performed per actual quote to obfuscate the swapper's actual request and reduce the chances of front-running.
+
+</details>

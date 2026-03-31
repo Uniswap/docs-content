@@ -4,7 +4,7 @@ title: Decrease Liquidity (v3)
 description: Decrease an existing Uniswap v3 position and collect the returned token amounts with PositionManager.
 ---
 
-Make sure to go through the [Setting Up Your Contract](./setting-up-your-contract) before continuing to this section
+Make sure to go through the [Setting Up Your Contract](/docs/protocols/v3/guides/managing-liquidity/getting-started) before continuing to this section
 
 Here we decrease the liquidity of our position without withdrawing all of it.
 

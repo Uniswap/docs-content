@@ -4,16 +4,6 @@ title: Glossary
 description: Common terms for the Uniswap protocol, its AMM design, permissionless architecture, and protocol versions.
 ---
 
-## Common Terms
-
-These terms are used throughout the Uniswap docs:
-
-- **Uniswap protocols** refers to the pools of liquidity created through [protocol smart contracts](/docs/protocols/v4/overview). These are sometimes referred to as **v2**, **v3**, and **v4** pools. (v1 is not supported by the APIs.) In rare instances these protocols collectively are called **Classic**.
-
-- **UniswapX** refers to the intent-based RFQ swap mechanism. UniswapX has two versions: **UniswapX_V2** and **UniswapX_V3**. In API responses, the `routing` field will return **DUTCH_V2** or **DUTCH_V3** (respectively) for UniswapX quotes. These are also known as **DutchQuoteV2** and **DutchQuoteV3** in some API payloads and tooling. Additionally, on Base and Unichain chains, the `routing` field may return **PRIORITY** for UniswapX_V2 quotes, which can also be referred to as **PriorityQuote**.
-
-- **Permit2** is a smart contract which simplifies sharing and managing token approvals. [All Uniswap workflows utilize Permit2](/docs/api/getting-started/permit2), with Uniswap protocols taking advantage of the AllowanceTransfer properties of Permit2 and UniswapX taking advantage of the SignatureTransfer properties of Permit2. In short, users sign Permit2 messages which allow the Permit2 contract to spend tokens from the user's wallet. Permit2 messages can include permissions including limiting spending to one transaction, to a time window, and to a specific amount of tokens. [Click here to read a more detailed explanation of how Permit2 works](https://github.com/dragonfly-xyz/useful-solidity-patterns/tree/main/patterns/permit2).
-
 ## Core Protocol Concepts
 
 - An **automated market maker (AMM)** is a smart contract on Ethereum that holds liquidity reserves. Users can trade against these reserves at prices determined by a fixed formula. Anyone may contribute liquidity to these smart contracts, earning pro-rata trading fees in return.
@@ -93,5 +83,14 @@ These terms are used throughout the Uniswap docs:
 
 - **UNI token** is the governance token that enables participation in Uniswap governance decisions.
 
+## API Terms
+
+These terms are used throughout the Uniswap API docs:
+
+- **Uniswap protocols** refers to the pools of liquidity created through [protocol smart contracts](/docs/protocols/v4/overview). These are sometimes referred to as **v2**, **v3**, and **v4** pools. (v1 is not supported by the APIs.) In rare instances these protocols collectively are called **Classic**.
+
+- **UniswapX** refers to the intent-based RFQ swap mechanism. UniswapX has two versions: **UniswapX_V2** and **UniswapX_V3**. In API responses, the `routing` field will return **DUTCH_V2** or **DUTCH_V3** (respectively) for UniswapX quotes. These are also known as **DutchQuoteV2** and **DutchQuoteV3** in some API payloads and tooling. Additionally, on Base and Unichain chains, the `routing` field may return **PRIORITY** for UniswapX_V2 quotes, which can also be referred to as **PriorityQuote**.
+
+- **Permit2** is a smart contract which simplifies sharing and managing token approvals. [All Uniswap workflows utilize Permit2](/docs/trading/swapping-api/concepts/permit2), with Uniswap protocols taking advantage of the AllowanceTransfer properties of Permit2 and UniswapX taking advantage of the SignatureTransfer properties of Permit2. In short, users sign Permit2 messages which allow the Permit2 contract to spend tokens from the user's wallet. Permit2 messages can include permissions including limiting spending to one transaction, to a time window, and to a specific amount of tokens.
 
 

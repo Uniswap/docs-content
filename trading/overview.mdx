@@ -1,5 +1,6 @@
 ---
-title: Overview
+id: Overview
+title: Trading Overview
 description: Understand swap integration paths on Uniswap v4 using the Uniswap API, SDK, and smart contracts.
 ---
 
@@ -7,14 +8,14 @@ Uniswap offers three distinct methods for integrating swapping functionality int
 
 | Approach | Best For | Description | Complexity | Get Started |
 | :--- | :--- | :--- | :--- | :--- |
-| **Custom Linking** | Simple Referrals | Directing users to the Uniswap Web App with pre-filled swap parameters. | Very Low | [Here](/docs/protocols/v2/concepts/custom-interface-links) |
-| **Uniswap API** | DApps, Wallets, Bots | A hosted API that handles routing, quoting, and transaction construction for you. | Low | [Here](/docs/api/guides/swapping/getting-started) |
+| **Custom Linking** | Simple Referrals | Directing users to the Uniswap Web App with pre-filled swap parameters. | Very Low | [Here](/docs/trading/custom-interface-links) |
+| **Uniswap API** | DApps, Wallets, Bots | A hosted API that handles routing, quoting, and transaction construction for you. | Low | [Here](/docs/trading/swapping-api/getting-started) |
 | **Uniswap SDK** | Front-ends, Custom interactions | JavaScript/TypeScript libraries to compute routes and quotes locally on the client side. | Medium | [Here](/docs/sdks/v4/guides/swapping/quoting) |
 | **Smart Contracts** | Onchain integrations, Arbitrage | Interacting directly with Router or Pool contracts via Solidity. | High | [Here](/docs/protocols/v4/guides/swapping/swapping) |
 
 ## Custom Linking (Simplest)
 
-For applications that want to provide swapping capabilities without managing transactions, quoting, or a custom UI, you can link directly to the Uniswap interface using URL query parameters. This allows you to pre-fill the input/output tokens, the amount, and even the UI theme. [Get started with all custom linking parameters](/docs/protocols/v2/concepts/custom-interface-links).
+For applications that want to provide swapping capabilities without managing transactions, quoting, or a custom UI, you can link directly to the Uniswap interface using URL query parameters. This allows you to pre-fill the input/output tokens, the amount, and even the UI theme. [Get started with all custom linking parameters](/docs/trading/custom-interface-links).
 
 **How it works**
 By appending specific parameters to `https://app.uniswap.org/#/swap`, the Uniswap frontend will automatically configure the swap interface for the user.
@@ -25,9 +26,9 @@ To link to a swap of 10 units of a specific token as the input, you would use:
 
 ## The Uniswap API (Easiest)
 
-The Uniswap API provides a straightforward path to integration. It abstracts away the complexity of finding a competitive route (splitting and hopping between Uniswap v2, v3, v4, and UniswapX) and constructing the transaction calldata. [Get started with the API](/docs/api/guides/swapping/getting-started).
+The Uniswap API provides a straightforward path to integration. It abstracts away the complexity of finding a competitive route (splitting and hopping between Uniswap v2, v3, v4, and UniswapX) and constructing the transaction calldata. [Get started with the API](/docs/trading/swapping-api/getting-started).
 
-[Get started with the API](/docs/api/guides/swapping/getting-started).
+[Get started with the API](/docs/trading/swapping-api/getting-started).
 
 ### How it works
 1. **Check Approval**: Use `/check_approval` to see if the user has authorized Permit2 or the router.

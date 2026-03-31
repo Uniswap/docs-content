@@ -17,5 +17,5 @@ The API has four main suites groups:
 
 - Get an API key from the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome?utm_medium=eco&utm_source=docs&utm_campaign=20260325-docs&utm_content=content&utm_term=self-serve).
 - Start with [Building Prerequisites](/docs/api/guides/swapping/building-prerequisites), then continue to the [Integration Guide](/docs/api/guides/swapping/integration-guide).
-- If you are a market maker interested in filling UniswapX orders, review the [UniswapX quoter API documentation](/docs/liquidity/uniswapx-filling/mainnet/become-a-quoter).
+- If you are a market maker interested in filling UniswapX orders, review the [UniswapX quoter API documentation](/docs/liquidity/uniswapx/filling/become-a-quoter).
 

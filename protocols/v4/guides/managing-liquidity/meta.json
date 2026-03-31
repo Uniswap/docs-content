@@ -1,6 +1,7 @@
 {
   "title": "Managing Liquidity",
   "pages": [
+    "overview",
     "getting-started",
     "mint-position",
     "increase-liquidity",
