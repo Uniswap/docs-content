@@ -4,13 +4,31 @@ description: 'High-level overview of liquidity position management through the A
 
 ---
 
-import lpFlow from '../images/lp-message-flow.png'
-
 ## High Level Message Flow
 
 The following diagram illustrates how a customer starting with no liquidity position can create and manage a liquidity position. Steps in gray are taken through the Uniswap Labs API and steps in red are written to the blockchain by the customer.
 
-<img src={lpFlow} alt="Workflow for LP API messaging" style={{ width: '100%', margin: '0 auto' }} />
+<Mermaid
+  chart={`flowchart LR
+   A["Check Token Approval (/approve)"];
+   B((send TX));
+   C[Create V2 Position/Pool (/create_classic)];
+   E[Claim LP Fees (/claim)];
+   F[Increase LP Position (/increase)];
+   G[Decrease LP Position (/decrease)];
+   H[Create V3/V4 Position/Pool (/create)];
+   I((send TX))
+   A --> B;
+   B --> C;
+   B --> H;
+   B --> F;
+   B --> G;
+   C --> I;
+   H --> I;
+   F --> I;
+   G --> I;
+   E --> I;`}
+/>
 
 1. The customer checks if they have the necessary approval to send token(s) to the desired pool using an [`/approve`](/docs/api-reference/check_approval_lp) request.
    1. If the approval is not yet in place, a fully-formed transaction is returned for the customer to sign for each un-approved token.
