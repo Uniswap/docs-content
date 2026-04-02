@@ -27,6 +27,22 @@ The transaction flow becomes:
 2. The swap transaction is sent to the proxy contract
 3. The proxy contract forwards execution to the Universal Router
 
+<Mermaid
+  chart={`sequenceDiagram
+  participant B as Blockchain
+  participant C as Customer
+  participant U as Uniswap API
+  C->>U: POST /check_approval (one time per token)
+  U-->>C: HTTP 200
+  C->>B: Send approval transaction
+  C->>U: POST /quote
+  U-->>C: HTTP 200
+  C->>U: POST /swap
+  U-->>C: HTTP 200
+  C->>B: Send transaction calldata
+  `}
+/>
+
 The proxy contract acts as a thin wrapper around the Universal Router and does not change routing or pricing behavior.
 
 From a technical standpoint, the flow looks identical to a permit2 workflow. You continue to make `/check_approval`, `/quote`, and `/swap` requests:
