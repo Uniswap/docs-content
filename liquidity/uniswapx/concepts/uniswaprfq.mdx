@@ -3,9 +3,7 @@ title: UniswapX RFQ
 description: Learn how UniswapX RFQ separates indicative and hard quotes to improve reliability on Ethereum swaps.
 ---
 
-import v2Flow from './images/v2-flow.png'
 import cosigner from './images/cosigner.png'
-import v1Flow from './images/v1-flow.png'
 
 UniswapX RFQ V2 improves quote handling by redesigning order quote flow to reduce quoter gaming. The primary goal is to make Ethereum mainnet trading more efficient and reliable.
 
@@ -23,7 +21,25 @@ Since hard quotes are provided post-signature, they are instantly executable by 
 To prevent gaming, quoters cannot distinguish between indicative and hard quotes. As a result, they must always assume all quotes are hard and provide competitive prices.
 
 ## V2 Flow
-<img src={v2Flow} alt="V2 RFQ flow" style={{ width: '600px', margin: '0 auto' }} />
+
+<Mermaid
+  chart={`sequenceDiagram
+  participant S as Swapper
+  participant API as Uniswap API
+  participant UB as Uniswap Backend
+  participant QN as Quoter Network
+  participant F as Filler
+  participant R as Reactor
+  S->>API: 1. Quote
+  API->>UB: 2a. Indicative RFQ
+  UB->>QN: 2b. Indicative RFQ
+  API->>S: 3. Parameterize Order
+  S->>S: 4. Sign Open Order
+  S->>UB: 5. Hard Auction
+  UB->>QN: 6. Hard RFQ
+  UB->>F: 7. Post Full Order
+  F->>R: 8. Fill Order`}
+/>
 
 1. The user requests a quote from the interface.  
 2. The Uniswap Backend (URA) runs an indicative RFQ auction, soliciting quotes for the best price. (**Note:** Quoters do not know whether the RFQ is indicative or hard, forcing them to always provide competitive prices.)
@@ -51,7 +67,23 @@ UniswapX RFQ V2 is currently the default version running on Ethereum mainnet acr
 
 In V1, the RFQ flow operated entirely pre-signature. Users requested a swap quote, which was parameterized using an RFQ quote. If they accepted the quote, they signed the order. This approach was straightforward but caused quoters in the network to be uncertain about when a quote request would convert into a signed order. This uncertainty led to occasional unfilled orders and degraded performance.
 
-<img src={v1Flow} alt="V1 RFQ flow" style={{ width: '600px', margin: '0 auto' }} />
+<Mermaid
+  chart={`sequenceDiagram
+  participant S as Swapper
+  participant API as Uniswap API
+  participant UB as Uniswap Backend
+  participant QN as Quoter Network
+  participant F as Filler
+  participant R as Reactor
+  S->>API: 1. Quote
+  API->>UB: 2. RFQ
+  UB->>QN: RFQ
+  API->>S: 3. Parameterize Order
+  S->>S: 4. Sign Order
+  S->>UB: 5. Post Order
+  UB->>F: 6. Fetch Order
+  F->>R: 7. Fill Order`}
+/>
 
 </details>
 

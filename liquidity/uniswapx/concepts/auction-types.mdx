@@ -4,7 +4,6 @@ title: UniswapX Auction Types
 description: Compare UniswapX auction mechanisms across Ethereum, Arbitrum, Base, and Unichain using chain-specific timing models.
 ---
 
-import mainnetFlowchart from './images/mainnet_flowchart.png'
 import bolt from './images/bolt.svg'
 
 UniswapX uses different auction mechanisms across supported chains, each tuned to chain characteristics. Understanding these differences is important when integrating UniswapX on each chain.
@@ -61,7 +60,24 @@ UniswapX on Ethereum uses a two-phase auction system that balances execution qua
     - This can improve outcomes through competition because market makers are incentivized to fill when pricing becomes profitable for them.
     - In this flow, market makers in step 2 are "Quoters" because they respond to RFQ requests. Market makers in step 6 are "Fillers." Quoters are permissioned, while fillers are permissionless.
 
-<img src={mainnetFlowchart} alt="UniswapX" style={{ width: '60%', margin: '0 auto' }} />
+<Mermaid
+  chart={`flowchart TD
+  A[User inputs swap]
+  B[Request For Quote]
+  C{Quote better than Uniswap Classic?}
+  D[Route to Uniswap Classic]
+  E[Send to exclusive filler]
+  F[On-chain settlement]
+  G[Open Dutch Auction]
+  A --> B
+  B --> C
+  C -->|No| D
+  C -->|Yes| E
+  E -->|Fill succeeds| F
+  E -->|Fade / decline| G
+  G -->|Auction filled| F
+  G -->|Auction unfilled: Retry swap| B`}
+/>
 
 <Callout title="Cosigners" type="note">
 Cosigners update auction parameters to reflect real-time prices, compensating for the delay between quoting and signing (which can be up to 30 seconds). They set the auction start block and adjust pricing within the user's signed parameters, while never exceeding the user's slippage tolerance. If you'd like to see how the Cosigner works in practice, please see the technical overview of [UniswapX RFQ](/docs/liquidity/uniswapx/concepts/uniswaprfq).
