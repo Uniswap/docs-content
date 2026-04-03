@@ -12,7 +12,7 @@ This guide will walk you through deploying a Continuous Clearing Auction (CCA) i
 
 Also, please check out the [setup guide](/docs/liquidity/liquidity-launchpad/guides/setup) for installation instructions.
 
-## Step 1: Choose a deployment method
+## Step 1: Choose a Deployment Method
 There are two main ways to deploy new CCA auctions:
 1. Via the `ContinuousClearingAuctionFactory` contract (recommended)
 2. Deploying a new `ContinuousClearingAuction` contract directly
@@ -70,7 +70,7 @@ struct AuctionParameters {
 
 We'll be using the factory method for the rest of this guide.
 
-## Step 2: Understand factory entrypoints
+## Step 2: Understand Factory Entrypoints
 The factory contract has two functions: `initializeDistribution()` and `getAuctionAddress()`. It has no constructor parameters so it can be easily deployed to the same address across all networks.
 
 ### initializeDistribution()
@@ -98,7 +98,7 @@ This function is a simple view function that performs the same logic as `initial
 
 Onchain integrators will find this function useful for calculating the address of an auction contract before it is deployed.
 
-## Step 3: Create and run a deployment script
+## Step 3: Create and Run a Deployment Script
 Let's start by creating a new script file in the `scripts` folder.
 
 ```solidity

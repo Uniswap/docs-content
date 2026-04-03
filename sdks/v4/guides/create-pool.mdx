@@ -24,7 +24,7 @@ To initialize a Uniswap v4 Pool _without initial liquidity_, developers should c
 
 Creating a pool without liquidity may be useful for "reserving" a pool for future use, when initial liquidity is not available, or when external market makers would provide the starting liquidity.
 
-### Configure the Pool
+### Configure the pool
 
 We will first create an example configuration `CurrentConfig` in `config.ts`. It has the format:
 
@@ -59,7 +59,7 @@ A note on `tickSpacing`:
 
 Lower tick spacing provides improved price precision; however, smaller tick spaces will cause swaps to cross ticks more often, incurring higher gas costs.
 
-## Call `initialize` of Pool Manager contract
+## Call `initialize` of Pool Manager Contract
 
 Now to initialize the `Pool` we need to call the `initialize` function of the Pool Manager Contract.
 To construct the Pool Manager Contract we need to provide the address of the contract, its ABI and a provider connected to an RPC endpoint.

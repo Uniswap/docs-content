@@ -18,7 +18,7 @@ The no-Permit2 flow may be appropriate if:
 - Your system cannot generate Permit2 signatures
 - Your wallet or signing system does not support EIP-712 signing
 
-## How The Proxy Approval Flow Works
+## How the Proxy Approval Flow Works
 Instead of using Permit2 approvals, users approve a proxy contract that forwards the swap to the Universal Router.
 
 The transaction flow becomes:
@@ -69,17 +69,17 @@ Because of this difference, the swap call occurs earlier in the simulation seque
 
 The Uniswap API will automatically adjust approval checks, simulation behavior, and gas estimation to match the proxy-based swap flow.
 
-## Transaction Flow comparison
+## Transaction Flow Comparison
 
 Both flows ultimately execute swaps through the **Universal Router**, but the approval model differs as shown below:
 
-### Permit2 Flow (recommended)
+### Permit2 flow (recommended)
 
 1. Wallet approves Permit2 for token spend (token to Permit2)
 2. Permit2 message signature sets amount of token Permit2 can spend in a transaction
 3. swap via Universal Router
 
-### Proxy Approval Flow
+### Proxy approval flow
 
 1. Wallet approves proxy contract for token spend (token to proxy)
 2. swap via proxy to Universal Router
@@ -88,17 +88,17 @@ Both flows ultimately execute swaps through the **Universal Router**, but the ap
 
 Permit2 provides important security and usability advantages over the proxy approval workflow.
 
-### 1. Reduced Approval Risk
+### 1. Reduced approval risk
 
 Traditional ERC-20 approvals (e.g. proxy approval) grant persistent unlimited token allowances to a contract. If a contract is compromised, those approvals remain active. This is the most common attack vector for malicious actors to drain victim wallets.
 
 Permit2 enables signature-based approvals that are scoped to a specific swap, reducing long-lived approval risk.
 
-### 2. Fewer Wallet Transactions
+### 2. Fewer wallet transactions
 
 Permit2 allows approval and swap authorization to be combined into a single transaction flow. This improves user experience by reducing unnecessary approval transactions. One long-lived Permit2 approval can be reused with new offchain (e.g. non-transaction) signatures for each subsequent swap.
 
-### 3. More Flexible Permissioning
+### 3. More flexible permissioning
 
 Permit2 supports:
 
@@ -108,7 +108,7 @@ Permit2 supports:
 
 This provides a safer and more flexible model compared to traditional ERC-20 approvals.
 
-### 4. Better Handling of Fee-on-Transfer Tokens
+### 4. Better handling of fee-on-transfer tokens
 
 Permit2 also avoids an extra token transfer that occurs in the no-Permit2 proxy flow.
 
@@ -119,7 +119,7 @@ This additional transfer causes the fee on transfer to apply twice, once in the 
 
 Using Permit2 avoids this extra transfer step and helps ensure more consistent execution across tokens with non-standard transfer behavior.
 
-### 5. Ecosystem Standard
+### 5. Ecosystem standard
 
 Permit2 is widely adopted across the Ethereum ecosystem and is the default swap flow used by the Uniswap interface. Using Permit2 ensures your integration follows the same security model used by the broader Uniswap ecosystem.
 

@@ -9,7 +9,7 @@ This section will walk you through each parameter of a CCA auction and an exampl
 ## Prerequisites
 Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/liquidity/liquidity-launchpad/guides/local-deployment).
 
-## Step 1: Define auction parameters
+## Step 1: Define Auction Parameters
 The `AuctionParameters` struct parameterizes a new CCA auction. It is encoded and passed to the `ContinuousClearingAuctionFactory` contract when deploying a new auction. The struct definition is as follows:
 
 ```solidity
@@ -55,7 +55,7 @@ Prices are represented as a `currency/token` ratio in Q96 fixed-point format. Fo
 
 For more details about auction steps, refer to [CCA auction mechanism](/docs/liquidity/liquidity-launchpad/concepts/cca).
 
-## Step 2: Build and run an example configuration
+## Step 2: Build and Run an Example Configuration
 Let's create an example configuration for a CCA auction. We'll use the script from the [previous section](/docs/liquidity/liquidity-launchpad/guides/local-deployment).
 
 First, make sure to import the `AuctionParameters` struct from the `IContinuousClearingAuction` interface:

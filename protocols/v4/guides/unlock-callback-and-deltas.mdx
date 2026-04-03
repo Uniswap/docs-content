@@ -99,19 +99,19 @@ be transferred back to the owner or used in settling negative balances
 * _clear_ - used to zero out positive token deltas, helpful to forfeit
 insignificant token amounts in order to avoid paying further transfer costs
 
-### Handling Deltas for Liquidity Modifications 
+### Handling deltas for liquidity modifications 
 
 #### When it happens  
 - **Building custom routers** that pre-calculate token amounts.  
 - **Estimating values** for user interfaces or simulations.  
 
-#### Why It Happens  
+#### Why it happens  
 - **Pre-calculated amounts** (e.g., from `LiquidityAmounts.getAmountsForLiquidity()`) use static math.  
 - **Actual deltas** (from `modifyLiquidity()`) reflect real-time pool state, including:  
   - Tick crossings during execution.  
   - Rounding in fixed-point arithmetic (`Q128.128`).
 
-#### Why LiquidityAmounts ≠ Liquidity Delta
+#### Why LiquidityAmounts ≠ liquidity delta
 
 The discrepancy occurs because:
 
@@ -119,7 +119,7 @@ The discrepancy occurs because:
 - **Tick Crossings:** Transactions may cross ticks, changing liquidity math
 - **Rounding:** Static calculations use idealized math while execution uses Q128.128 fixed-point
 
-#### 📊 Price Movement Example
+#### 📊 Price movement example
 
 When ETH/USDC price changes during transaction execution:
 
@@ -140,14 +140,14 @@ poolManager.modifyLiquidity(
 getAmountsForLiquidity() assumes static 3000 price
 modifyLiquidity() reflects actual 3001 price
 
-#### Key Impact  
+#### Key impact  
 | Scenario | Risk |  
 |----------|------|  
 | **Underestimating deltas** | Transactions revert with `CurrencyNotSettled`. |  
 | **Overestimating deltas** | Users overpay and lose funds to residual dust. |
 | **No slippage check** | Significant financial losses. |
 
-#### Best Practices for Custom Routers 
+#### Best practices for custom routers 
 
 1. **Never settle without validating against slippage**
 

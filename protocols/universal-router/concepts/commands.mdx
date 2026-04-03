@@ -65,19 +65,19 @@ Undefined command values revert with `InvalidCommandType`.
 - Input payloads include recipient, amount bounds, and route/path data.
 - `V4_SWAP` uses action bytes and params arrays that route to v4 swap and settlement handlers.
 
-### Permit2 Operations
+### Permit2 operations
 
 - `PERMIT2_TRANSFER_FROM`, `PERMIT2_TRANSFER_FROM_BATCH`, `PERMIT2_PERMIT`, and `PERMIT2_PERMIT_BATCH`.
 - These commands configure or consume signature-based transfer permissions.
 - For signature and allowance semantics, see [Permit2 Overview](/docs/protocols/permit2/overview).
 
-### Payments and Balance Checks
+### Payments and balance checks
 
 - `SWEEP`, `TRANSFER`, `PAY_PORTION`, `WRAP_ETH`, `UNWRAP_WETH`, and `BALANCE_CHECK_ERC20`.
 - These commands settle router-held balances and enforce post-condition checks.
 - Typical patterns include cleaning residual balances after partial fills.
 
-### Position and Sub-plan Operations
+### Position and sub-plan operations
 
 - `V3_POSITION_MANAGER_PERMIT`, `V3_POSITION_MANAGER_CALL`, `V4_INITIALIZE_POOL`, `V4_POSITION_MANAGER_CALL`, and `EXECUTE_SUB_PLAN`.
 - These commands support liquidity workflows and nested execution plans.

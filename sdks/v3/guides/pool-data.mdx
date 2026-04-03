@@ -19,7 +19,7 @@ This guide will **cover**:
 4. Fetching all ticks by their indices with a multicall
 5. Constructing the Pool object
 
-At the end of the guide, we will have created a `Pool` Object that accurately represents the state of a V3 pool at the time we fetched it.
+At the end of the guide, we will have created a `Pool` Object that accurately represents the state of a Uniswap v3 pool at the time we fetched it.
 
 For this guide, the following Uniswap packages are used:
   
@@ -74,7 +74,7 @@ export const USDC_TOKEN = new Token(
 )
 ```
 
-## Computing the Pool's deployment address
+## Computing the Pool's Deployment Address
 
 In this example, we will construct the **USDC - WETH** Pool with **MEDIUM** fees. The SDK provides a method to compute the address:
 
@@ -91,7 +91,7 @@ const poolAddress = Pool.getAddress(
 
 Uniswap v3 allows 4 different Fee tiers when deploying a pool, so multiple pools can exist for each pair of tokens.
 
-## Creating a Pool Contract instance and fetching metadata
+## Creating a Pool Contract Instance and Fetching Metadata
 
 Now that we have the address of a **USDC - ETH** Pool, we can construct an instance of an **ethers** `Contract` to interact with it.
 To construct the Contract we need to provide the address of the contract, its ABI and a provider connected to an [RPC endpoint](https://www.chainnodes.org/docs). We get access to the contract's ABI through the `@uniswap/v3-core` package, which holds the core smart contracts of the Uniswap v3 protocol:
@@ -138,7 +138,7 @@ The `slot0` function represents the first (0th) storage slot of the pool and exp
 
 For our use case, we only need the `sqrtPriceX96` and the currently active `tick`.
 
-## Fetching all Ticks
+## Fetching All Ticks
 
 v3 pools use ticks to [concentrate liquidity](/docs/get-started/concepts/liquidity-providers/concentrated-liquidity) in price ranges and allow for better pricing of trades.
 Even though most Pools only have a couple of **initialized ticks**, it is possible that a pools liquidity is defined by thousands of **initialized ticks**.
@@ -194,7 +194,7 @@ This can improve the **speed** of fetching large amounts of data significantly a
 We will use the Multicall2 contract by MakerDAO.
 We use the `ethers-muticall` npm package to easily interact with the Contract.
 
-## Calculating all bitMap positions
+## Calculating All bitMap Positions
 
 As mentioned, Uniswap v3 Pools store **bitmaps**, also called *words*, that represent the state of **256 initializable ticks** at a time.
 The value at a bit of a word is 1 if the tick at this index is initialized and 0 if it isn't.
@@ -219,7 +219,7 @@ const maxWord = tickToWord(887272)
 Ticks can only be initialized at indices that are **divisible by the tickSpacing**.
 One word contains 256 ticks, so we can compress the ticks by right shifting 8 bit.
 
-## Fetching bitMaps from their position
+## Fetching bitMaps from Their Position
 
 Knowing the positions of words in the Pool contract, we can now fetch them from the Pool using multicall and the `tickBitmap` read call.
 
@@ -267,7 +267,7 @@ A great visualization of what the bitMaps look like can be found in the [Uniswap
 
 We encourage anyone trying to get a deeper understanding of the Uniswap protocol to read the Uniswap v3 Book.
 
-## Calculating the memory positions of all Ticks
+## Calculating the Memory Positions of All Ticks
 
 Now that we fetched all **bitMaps**, we check which ticks are initialized and calculate the **tick position** from the **word index** and the **tickSpacing** of the pool.
 
@@ -308,7 +308,7 @@ const tickIndices: number[] = []
 
 We now have an array containing the indices of all initialized Ticks.
 
-## Fetching all Ticks by their indices
+## Fetching All Ticks by Their Indices
 
 We use the multicallProvider again to execute an aggregated read call for all tick indices.
 We create an array of call Promises again and use `.all()` to make our multicall:

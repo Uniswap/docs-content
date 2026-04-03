@@ -9,7 +9,7 @@ This guide will cover how to fetch and compute the active liquidity in the speci
 > New to this section? Start with [Managing Liquidity Getting Started](/docs/sdks/v3/guides/managing-liquidity/getting-started).
 </Callout>
 
-In this guide, we will use the V3 subgraph to fetch all ticks from **theGraph** and compute the active liquidity our Pool can use at each Tick. We then use `recharts` to draw a chart that visualizes our Pool's liqudity density.
+In this guide, we will use the Uniswap v3 subgraph to fetch all ticks from **theGraph** and compute the active liquidity our Pool can use at each Tick. We then use `recharts` to draw a chart that visualizes our Pool's liqudity density.
 
 This guide will cover:
 
@@ -30,7 +30,7 @@ To visualize the distribution of active liquidity in our Pool, we want to draw o
 - What is an initialized Tick?
 - What is the current Tick?
 
-### Initialized Ticks
+### Initialized ticks
 
 When providing liquidity for a pool, the LP decides the **price range** in which the liquidity should be provided, and the amount of liquidity to be provided.
 The pool understands the position as **liquidity between the lower and upper Tick**. The Tick Index in this context is a representation of the price between the Pool's assets.
@@ -51,12 +51,12 @@ In this case `liquidityNet` would be **0** but `liquidityGross` would still have
 
 To visualize liquidity in a graph, we will only need to consider the changes, so it's sufficient to fetch the Ticks with `liquidityNet` not 0.
 
-### Fetching initialized Ticks
+### Fetching initialized ticks
 
 To fetch all ticks of our Pool, we will use the [Uniswap v3 graph](/docs/ecosystem/subgraphs/overview).
 To visualize active liquidity, we need the **tickIdx**, the **liquidityGross** and the **liquidityNet**.
 
-We define our GraphQL query and [send a POST request](https://axios-http.com/docs/post_example) to the V3 subgraph API endpoint:
+We define our GraphQL query and [send a POST request](https://axios-http.com/docs/post_example) to the Uniswap v3 subgraph API endpoint:
 
 ```typescript
 axios.post(
@@ -98,7 +98,7 @@ interface GraphTick {
 }
 ```
 
-### Current Tick
+### Current tick
 
 The current Tick of the Pool represents the **current Price** after the last swap.
 Considering that the initialized Ticks only represent positions, we see that it is not necessarily one of the initialized Ticks but can be at any point in between them.
@@ -127,7 +127,7 @@ For the purpose of visualizing the liquidity density of the Pool, it rarely make
 
 Instead, we will display a sensible number of Ticks around the current price.
 
-## Calculating active liquidity
+## Calculating Active Liquidity
 
 We know the spacing between Ticks and the Initialized Ticks where active liquidity changes.
 All we have to do is start calculating from the current Tick and iterate outwards.
@@ -155,7 +155,7 @@ const tickIdxToTickDictionary: Record<string, GraphTick> = Object.fromEntries(
   ) 
 ```
 
-The `ticks` variable in this code snippet is the result we got from the V3 Subgraph earlier.
+The `ticks` variable in this code snippet is the result we got from the Uniswap v3 Subgraph earlier.
 
 We want to mark the Tick closest to the current Price and we want to be able to display the prices at a Tick to the user.
 We calculate the **initializable Tick** closest to the current price and create the active Tick that we start from:
@@ -296,7 +296,7 @@ You can also take a look at the [Uniswap Info](https://github.com/Uniswap/v3-inf
 If you run the example, you will notice that the chart also displays a custom tooltip with additional information that we didn't touch on in this example.
 The total locked liqudity in the tooltip represents the sum of positions in the currency locked at the selected Tick.
 It is calculated as the maximum token output of a swap when crossing to the next Tick.
-The V3 pool here is initialized with only the liquidity of the current Tick.
+TheUniswap v3 pool here is initialized with only the liquidity of the current Tick.
 
 Depending on your use case, it may make sense to display this value. You can find the full code in the [code example](https://github.com/Uniswap/examples/blob/main/v3-sdk/pool-data/src/libs/active-liquidity.ts).
 

@@ -50,11 +50,11 @@ But with this flexibility comes a new category of security risks that differ mat
 
 This section summarizes the major classes of risk that commonly arise in hook development. Understanding these patterns early helps teams design safer mechanisms, write better tests, and scope appropriate audits.
 
-### How Hook Risk Emerges
+### How hook risk emerges
 
 Hook risk tends to arise through several common patterns. Understanding these early in the design process helps teams apply the correct mitigations.
 
-### Accounting & Token Handling Failures
+### Accounting & token handling failures
 
 Hooks that touch balances or modify deltas must handle accounting with extreme precision, rounding in the correct direction to prevent losses. Small errors can cascade into large systemic failures. Key risks include:
 
@@ -66,7 +66,7 @@ Hooks that touch balances or modify deltas must handle accounting with extreme p
 Although the well-known [Bunni](https://www.halborn.com/blog/post/explained-the-bunni-hack-september-2025) and [Balancer](https://www.halborn.com/blog/post/explained-the-balancer-hack-november-2025) incidents were not specifically related to v4 infrastructure, they illustrate the types of accounting drift and asset-handling mistakes that hook developers must proactively guard against.
 </Callout>
 
-### External Calls, Reentrancy, and State Drift
+### External calls, reentrancy, and state drift
 
 Any external call made during `beforeSwap`, `afterSwap`, or liquidity callbacks reopens the entire execution environment. This invalidates assumptions about atomicity and order. Teams must test and reason about:
 
@@ -79,7 +79,7 @@ Any external call made during `beforeSwap`, `afterSwap`, or liquidity callbacks 
 **Core principle:** If your hook calls external contracts, assume *every* piece of state may change before the callback sequence completes. Only explicit tests can validate safety here.
 </Callout>
 
-### Mathematical Correctness & Precision Risks
+### Mathematical correctness & precision risks
 
 Non-standard math is one of the most frequent sources of severe DeFi exploits. Hooks may define custom curves, implement TWAMM-style flows, modify fees dynamically, or use fixed-point operations. Common failure modes include:
 
@@ -92,7 +92,7 @@ Non-standard math is one of the most frequent sources of severe DeFi exploits. H
 
 Because these issues often emerge only under adversarial flow or large TVL, a **math-specialist review is strongly recommended** for any hook performing non-trivial computation.
 
-### External Dependency Failures
+### External dependency failures
 
 Hooks that rely on oracles, lending protocols, LSTs, bridges, sequencers, or cross-chain systems inherit all of those systems’ risks.
 
@@ -105,7 +105,7 @@ Key risks include:
 
 External dependencies dramatically expand the failure surface and require more thorough scenario testing.
 
-### Upgradeability Hazards
+### Upgradeability hazards
 
 Upgradeability offers flexibility but also introduces major risks because hooks sit directly in the swap execution path. Many real-world exploits stem not from logic bugs, but from unsafe upgrade paths, compromised keys, or storage layout mistakes. Teams should avoid upgradeability unless it is truly required.
 
@@ -133,7 +133,7 @@ When safety is higher priority than convenience:
 - Deploy new hook contracts (v1 —> v2) rather than upgrading old ones.
 - Allow pools to migrate voluntarily rather than forcing an upgrade path.
 
-### Autonomous Behavior or Parameter Updates
+### Autonomous behavior or parameter updates
 
 Hooks that modify parameters automatically, fees, risk buffers, curve weights, target liquidity ranges, must enforce strict guardrails:
 
@@ -144,7 +144,7 @@ Hooks that modify parameters automatically, fees, risk buffers, curve weights, t
 
 Autonomous updates are a major source of emergent behavior and must be tested as adversarially as possible.
 
-### Price Impacting Behavior and Dynamic Fees
+### Price impacting behavior and dynamic fees
 
 Hooks that modify swap prices, adjust fees dynamically, or override deltas directly can extract value from traders or LPs if designed poorly.
 
@@ -157,7 +157,7 @@ Dynamic fee risks include:
 
 Because fee logic interacts deeply with swap math, these hooks must model worst-case adversarial flows, not just average behavior.
 
-### TVL Growth Over Time
+### TVL growth over time
 
 A hook’s risk profile is not static. As liquidity grows, even small design flaws can become catastrophic. Teams must reassess:
 
@@ -169,7 +169,7 @@ A hook’s risk profile is not static. As liquidity grows, even small design fla
 
 whenever TVL materially increases. More info on these topics to evaluate can be found in [Generic Hook Risk Tiers & Recommendations.](#3-generic-hook-risk-tiers-and-recommendations)
 
-### Flash Accounting and Transient State Risks
+### Flash accounting and transient state risks
 
 PoolManager accumulates deltas between callbacks. Hooks relying on this transient state must ensure that adversaries cannot manipulate deltas mid-execution.
 
@@ -182,7 +182,7 @@ Incorrect assumptions about transient state can lead to:
 
 This is a hook-specific risk vector not present in previous Uniswap versions and deserves explicit design attention.
 
-### BeforeSwapDelta and NoOp Override Risks
+### BeforeSwapDelta and NoOp override risks
 
 Hooks can alter swap execution by returning `BeforeSwapDelta` values. This is an extremely powerful capability that can unintentionally introduce value-extraction paths or unbalanced token flows. Any hook exercising these permissions must be reasoned about carefully and tested extensively.
 
@@ -192,7 +192,7 @@ Returning a `BeforeSwapDelta` that fully consumes the user’s input (or fully s
 - [Custom-curve hooks](https://github.com/OpenZeppelin/uniswap-hooks/blob/master/src/base/BaseCustomCurve.sol) must be extremely careful with input/output math and internal accounting, since any precision or balance error directly results in mispriced trades.
 - **Real-world example:** the [Bunni](https://www.halborn.com/blog/post/explained-the-bunni-hack-september-2025?utm_source=chatgpt.com) exploit involved a Uniswap v4 liquidity hook with custom curve/distribution logic that contained accounting flaws and was exploited.
 
-### Permission Encoding & Salt Grinding Pitfalls
+### Permission encoding & salt grinding pitfalls
 
 Hooks in Uniswap v4 rely on a hashed permission system: the PoolManager derives a permission bitmap from the hook’s address and uses it to determine which callbacks (e.g., before/after swap, add liquidity, remove liquidity) are allowed. In practice this means the hook’s deployed address effectively encodes its permissions. 
 
@@ -204,7 +204,7 @@ If a CREATE2 salt is computed incorrectly when mining the hook address:
 
 Teams must compute and verify the expected permission bitmap in their deployment pipeline.
 
-### Token-Type Specific Hazards
+### Token-type specific hazards
 
 Hook assumptions may break for non-standard tokens such as:
 
@@ -218,7 +218,7 @@ Hook assumptions may break for non-standard tokens such as:
 *These behaviors can break accounting guarantees or introduce reentrancy risk.*
 </Callout>
 
-### Multi-Pool and Routing Interactions
+### Multi-pool and routing interactions
 
 Hooks may be invoked multiple times in the same transaction during routing. Developers should test:
 
@@ -229,7 +229,7 @@ Hooks may be invoked multiple times in the same transaction during routing. Deve
 
 This is a unique surface area for hooks in real aggregator routing conditions.
 
-### Cross-Chain State & Synchronization Risks
+### Cross-chain state & synchronization risks
 
 Cross-chain-aware hooks face risks that do not exist in single-chain designs. Any state imported from another chain (prices, parameters, governance settings, or risk signals) always arrives with delay, may be out of order, or temporarily unavailable. Treating this data as fresh or authoritative can lead to incorrect assumptions about liquidity, pricing, or safety constraints.
 
@@ -240,7 +240,7 @@ To remain safe, cross-chain hooks should incorporate:
 - **Conservative guardrails:** Reject stale, extreme, or unexpected updates and enforce safe parameter bounds.
 - **Idempotent update logic:** Ensure repeated or out-of-order messages do not corrupt state or create inconsistent transitions.
 - **Graceful degradation:** Safety-critical behavior should constrain itself when remote data is missing or diverging, rather than relying on optimistic assumptions.
-- **Off-chain observability:** Operators must detect when remote state lags, diverges, or produces suspicious sequences.
+- **Offchain observability:** Operators must detect when remote state lags, diverges, or produces suspicious sequences.
 - **Adversarial assumptions:** Treat the origin chain as manipulable prior to message finality and design around worst-case ordering and timing.
 
 <Callout type="note">
@@ -255,7 +255,7 @@ These dimensions align with a [Uniswap Hooks Security Worksheet](https://docs.go
 
 Teams should score themselves on these 9 dimensions and evaluate each dimension honestly and conservatively. Slight underestimation can lead to insufficient audits or missed safety processes
 
-### Risk Dimensions
+### Risk dimensions
 
 <Callout type="note">
 Higher means more risk
@@ -273,7 +273,7 @@ These forms of math introduce risks including rounding drift, input-range violat
 
 ### External dependencies (0 to 3)
 
-Dependencies include oracles, lending markets, LST systems, bridges, cross chain flows, and off chain data sources. This increases the number of assumptions that can fail.
+Dependencies include oracles, lending markets, LST systems, bridges, cross chain flows, and offchain data sources. This increases the number of assumptions that can fail.
 
 ### External liquidity exposure (0 to 3)
 
@@ -296,7 +296,7 @@ Liquidity can grow after launch. Hooks intended for farms or incentivized pools 
 
 Experts with multiple production deployments and prior audits score low risk. New or anonymous teams score higher. Team maturity directly affects incident readiness and code quality.
 
-#### Suggested Scoring Brackets
+#### Suggested scoring brackets
 
 - **0:** **Highly Mature Team** has shipped audited production deployments or UUPS upgrades across 2+ distinct codebases, operates a mature DevOps pipeline, maintains an active incident-response process, and has demonstrated responsibility in past disclosures or upgrades.
 - **1:** **Experienced Team** has shipped at least one audited production deployment or upgrade, with some operational experience in handling deployments, upgrades, or maintenance, but has less breadth across multiple codebases or ecosystems.
@@ -323,7 +323,7 @@ Risk tiers provide a baseline set of recommendations depending on the total risk
 Specific features require additional steps defined in the next section
 </Callout>
 
-### Low Risk (0 to 6)
+### Low risk (0 to 6)
 
 Relatively small surface area, little or no math, no external interactions.
 
@@ -334,7 +334,7 @@ Relatively small surface area, little or no math, no external interactions.
 - Bug bounty optional
 - Monitoring optional unless TVL grows significantly (see high risk hooks section for more details on monitoring)
 
-### Medium Risk (7 to 17)
+### Medium risk (7 to 17)
 
 Moderate complexity, custom logic, or meaningful dependencies.
 
@@ -346,7 +346,7 @@ Moderate complexity, custom logic, or meaningful dependencies.
 - Monitoring recommended if external dependencies exist (see high risk hooks section for more details on monitoring)
 - Autonomy or parameter updates may require additional test coverage
 
-### High Risk (18 to 33)
+### High risk (18 to 33)
 
 Complex math, external liquidity, autonomous behavior, upgradeability, price impact, or large TVL.
 
@@ -375,7 +375,7 @@ Complex math, external liquidity, autonomous behavior, upgradeability, price imp
 
 The following features each trigger specific security recommendations. These may overlap with your generic risk tier or may add additional requirements. It is possible a low risk hook tier may have lots of security needs based on the specific features being built.
 
-### Custom Curve or Non Standard Math
+### Custom curve or non standard math
 
 Triggers when:
 
@@ -398,7 +398,7 @@ Triggers when:
 Even if the overall score is Low or Medium, a specialized math review is recommended whenever custom math is present.
 </Callout>
 
-### Hook Holds Its Own Liquidity or Manages External Liquidity
+### Hook holds its own liquidity or manages external liquidity
 
 Triggers when:
 
@@ -413,14 +413,14 @@ Triggers when:
 - Invariant testing required for accounting logic
 - At least one audit must evaluate liquidity flow correctness
 
-### External Protocol or Oracle Dependencies
+### External protocol or oracle dependencies
 
 Triggers when:
 
 - The hook calls external AMMs
 - The hook reads from oracles
 - The hook interacts with lending markets, LSTs, or cross chain data
-- Any off chain data or feed is consumed
+- Any offchain data or feed is consumed
 
 **Minimum required actions:**
 
@@ -432,12 +432,12 @@ Triggers when:
 
 This protects against cascading failures.
 
-### Autonomous Parameter Updates or “Self-Tuning” Hook
+### Autonomous parameter updates or “self-tuning” hook
 
 Triggers when:
 
 - Parameters adjust automatically
-- Logic branches change based on internal state or on chain computation
+- Logic branches change based on internal state or onchain computation
 - The hook acts like a governor for itself or for the pool
 
 **Minimum required actions:**
@@ -450,7 +450,7 @@ Triggers when:
 
 Even seemingly simple autonomous systems can enter unexpected states.
 
-### Price Impacting Behavior
+### Price impacting behavior
 
 Triggers when:
 
@@ -485,7 +485,7 @@ Triggers when:
 
 Upgradeability expands the threat model and cannot be treated lightly.
 
-### TVL 5 Rating (Highest Liquidity Potential)
+### TVL 5 rating (highest liquidity potential)
 
 Triggers when:
 
@@ -502,19 +502,19 @@ Triggers when:
 
 This acknowledges that impact severity scales with liquidity.
 
-## 5. How to Evaluate your Security Needs
+## 5. How to Evaluate Your Security Needs
 
 In [section 3](#3-generic-hook-risk-tiers-and-recommendations) we discussed the generic hook tiers and recommendations based on the risk profile of your hook. In [section 4](#4-feature-specific-security-recommendations) the specific features you are developing were analyzed to provide more custom guidance. In practice you will need to look both at the overall risk of your hook as well as at the specific features you are developing to understand your security needs.
 
-### Combined Trigger Logic (How it Works in Practice)
+### Combined trigger logic (how it works in practice)
 
 The model uses **two layers**:
 
-#### Layer 1: Risk Tier (low, medium, high)
+#### Layer 1: Risk tier (low, medium, high)
 
 General baseline audit guidance.
 
-#### Layer 2: Feature Triggers
+#### Layer 2: Feature triggers
 
 Override or upgrade requirements based on specific high-risk behaviors.
 
@@ -533,19 +533,19 @@ This system is resilient to teams under-scoring themselves, because **features t
 
 Operational security addresses the risks that come not from code, but from the way a hook is developed, deployed, upgraded, and communicated. While audits and testing validate correctness, OPSEC ensures that sensitive information, internal processes, and privileged actions do not create unintended attack vectors. Effective OPSEC requires viewing your operations from an adversary’s perspective and minimizing what an attacker could learn or exploit.
 
-### Critical Information and Exposure Risks
+### Critical information and exposure risks
 
 Teams should identify information that could be dangerous if leaked, such as deployment targets, upgrade timing, admin key structure, internal testing results, upcoming configuration changes, and liquidity or incentive plans. Much of this information can be inferred from public repos, documentation, social media, dashboards, or onchain patterns unless handled intentionally.
 
-### Operational Weak Points
+### Operational weak points
 
 Attackers often exploit weaknesses in processes rather than code. Risky points include upgrade procedures, oracle configuration changes, pausing mechanisms, parameter updates, and liquidity injections. Poor key management, predictable deployment habits, and overly broad internal permissions further increase exposure.
 
-### Core OPSEC Practices
+### Core OPSEC practices
 
 OPSEC practices focus on reducing unnecessary access and limiting what information becomes public. Teams should use least-privilege permissions for keyholders, secure storage for secrets, multisig and time-locked upgrades, and controlled release processes. Communication channels used for deployments or incident response should be private and authenticated. Public documentation and upgrade notes should undergo internal review before release.
 
-### Monitoring, Response, and Lifecycle Discipline
+### Monitoring, response, and lifecycle discipline
 
 Strong OPSEC requires monitoring not only the hook's onchain behavior, but also administrative and governance actions. Teams should maintain a clear incident response plan, define roles for emergency communication, and regularly test their pause or kill-switch procedures. OPSEC is continuous: reassess before deployments, before and after upgrades, as TVL grows, and whenever autonomy or new dependencies are introduced.
 
@@ -559,7 +559,7 @@ For more information see the [Operational Security framework from the Security A
 
 While security practices must scale with the hook’s complexity, some fundamentals apply universally. This checklist defines a baseline that all hooks should meet.
 
-### Core Controls
+### Core controls
 
 - Access control must be minimal and clearly defined with multisig or immutable structures where possible
 - Reentrancy protection must cover all externally exposed paths
@@ -567,7 +567,7 @@ While security practices must scale with the hook’s complexity, some fundament
 - OpenZeppelin libraries should be used instead of custom foundational code
 - Gas and balance griefing protections should prevent strategic attacks
 
-### Accounting Safety
+### Accounting safety
 
 - Validate correct rounding behavior
 - Validate deltas and internal balances for every callback
@@ -578,7 +578,7 @@ While security practices must scale with the hook’s complexity, some fundament
 - Track state growth to avoid unbounded dynamic state
 - Invariant & Integration Testing use invariant and stateful fuzz testing (e.g., with Foundry or Echidna) to check properties such as delta conservation, fee bounds, and balance consistency across full PoolManager flows.
 
-### Upgradeability Safety
+### Upgradeability safety
 
 - Proxy usage must be documented clearly and tested thoroughly
 - Upgrades should be time-locked and externally reviewable
@@ -586,13 +586,13 @@ While security practices must scale with the hook’s complexity, some fundament
 - Storage layout must be reviewed for collisions
 - Upgrade policy must be public and precise
 
-### Transparency Requirements
+### Transparency requirements
 
 - Publish all audit reports with clear versioning
 - Maintain a transparent changelog of all upgrades and configuration changes
 - Provide an active disclosure contact for vulnerability reporting
 
-### General Solidity Best Practices Resources
+### General Solidity best practices resources
 
 - [Alchemy](https://www.alchemy.com/overviews/smart-contract-security-best-practices)
 - [Nethermind](https://www.nethermind.io/blog/best-practices-for-writing-secure-smart-contract-code)
@@ -614,7 +614,7 @@ The calculator ensures consistent scoring across teams and audit providers.
 UF does not review or validate spreadsheet outputs.
 </Callout>
 
-## 9. How To Use This Framework
+## 9. How to Use This Framework
 
 - Review the risks associated with hooks
 - Self score your hook across the nine dimensions
@@ -644,37 +644,37 @@ The security landscape will evolve and this framework should evolve with it.
 
 Teams developing hooks may find the following providers and tools helpful when implementing the security recommendations in this framework. Some services may offer discounts to hook teams. Inquire directly with the providers for more information.
 
-### Hook Libraries
+### Hook libraries
 
 - [OpenZeppelin](https://github.com/OpenZeppelin/uniswap-hooks/tree/master): Solidity library for secure and modular Uniswap hooks
 - [OpenZeppelin](https://wizard.openzeppelin.com/uniswap-hooks): Uniswap Hooks contract wizard
 
-### Monitoring Services
+### Monitoring services
 
 - [Hypernative](https://www.hypernative.io/): real-time anomaly detection, protocol-level monitoring
 - [Hexagate](https://www.chainalysis.com/product/hexagate/): smart contract threat intelligence and exploit detection
 
-### Formal Verification
+### Formal verification
 
 - [Certora](https://www.certora.com/): rule-based invariant verification for complex math and accounting
 - [Halmos (by Nethermind)](https://github.com/a16z/halmos): symbolic execution and model checking
 - [Solidity SMTChecker](https://docs.soliditylang.org/en/latest/smtchecker.html): built-in invariant detection for small properties
 
-### Audits & Security Reviews
+### Audits & security reviews
 
 - [Areta](https://areta.market/): marketplace connecting teams with specialized auditors
 - [Spearbit](https://cantina.xyz/solutions/spearbit): expert auditors experienced with AMMs and hook systems
 - [Code4rena](https://code4rena.com/) / [Cantina](https://cantina.xyz/welcome): competitive audit ecosystems
 - [OpenZeppelin](https://www.openzeppelin.com/security-audits): battle-tested security assessments
 
-### Testing Tools
+### Testing tools
 
 - [Foundry](https://getfoundry.sh/introduction/overview): fuzzing, invariant testing, stateful testing
 - [Echidna](https://github.com/crytic/echidna): property-based fuzzing
 - [Diligence Scribble](https://diligence.security/scribble/): annotation-based runtime verification
 - [Hacken](https://github.com/hknio/uni-v4-hooks-checker): Uniswap v4 Hook Testing Framework
 
-### Operational Security
+### Operational security
 
 - [Security Alliance OPSEC Framework](https://frameworks.securityalliance.org/opsec/overview)
 - Key management providers: [Safe (multisig)](https://app.safe.global/welcome), [Fireblocks](https://www.fireblocks.com/)

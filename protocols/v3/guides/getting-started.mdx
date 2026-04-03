@@ -25,7 +25,7 @@ Then hop to the `Local Node with a Mainnet Fork` to complete your set up and sta
 
 In the following sections, we’ll walk through the steps to create the same environment set up as the boiler plate from scratch and learn the underlying concepts.
 
-### Set Up Dependencies
+### Set up dependencies
 
 Node is one of the most common Javascript runtimes. For our purposes it will provide scripting we can use to compile and test our contracts. If you haven’t already, install NodeJS and its package manager NPM ([instructions](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)). Once those dependencies are set up, we can initialize our project:
 
@@ -47,13 +47,13 @@ $ npx hardhat init
 
 Once the Hardhat initialization completes, take a look around at what got set up. The folder structure should be intuitive, `./contracts` is where you’ll write your Solidity contracts, `./test` is where you’ll write your tests and `./scripts` is where you can write scripts to perform actions like deploying. Out of the box, Hardhat is configured to use this folder structure so don’t change it unless you know what you’re doing!
 
-Next we’ll use NPM to add the Uniswap V3 contracts which will allow us to seamlessly integrate with the protocol in our new contracts:
+Next we’ll use NPM to add the Uniswap v3 contracts which will allow us to seamlessly integrate with the protocol in our new contracts:
 
 ```bash
 $ npm add @uniswap/v3-periphery @uniswap/v3-core
 ```
 
-The Uniswap V3 contracts were written using a past version of the solidity compiler. Since we’re building integrations on V3 we have to tell Hardhat to use the correct compiler to build these files. Go to the `./hardhat.config.js` file and change the Solidity version to “0.7.6”:
+The Uniswap v3 contracts were written using a past version of the solidity compiler. Since we’re building integrations on v3 we have to tell Hardhat to use the correct compiler to build these files. Go to the `./hardhat.config.js` file and change the Solidity version to “0.7.6”:
 
 ```jsx
 // ...
@@ -62,7 +62,7 @@ module.exports = {
 };
 ```
 
-That’s it! You should now have a functional development environment to start building on chain Uniswap integrations. Let’s run a quick test to confirm everything is set up properly.
+That’s it! You should now have a functional development environment to start building onchain Uniswap integrations. Let’s run a quick test to confirm everything is set up properly.
 
 ## Compile a Basic Contract
 
@@ -127,7 +127,7 @@ Compiled { x } Solidity files successfully
 
 ## Local Node with a Mainnet Fork
 
-When building and testing integrations with on chain protocols, developers often hit a problem: the liquidity on the live chain is critical to thoroughly testing their code but testing against a live network like Mainnet can be extremely expensive.
+When building and testing integrations with onchain protocols, developers often hit a problem: the liquidity on the live chain is critical to thoroughly testing their code but testing against a live network like Mainnet can be extremely expensive.
 
 See [the SDK getting started guide](/docs/sdks/v3/guides/getting-started) for a full example on how to use forks.
 

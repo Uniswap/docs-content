@@ -16,7 +16,7 @@ For this guide, the following Uniswap packages are used:
 
 ## v4 Architecture and Key Changes
 
-### Native ETH Handling
+### Native ETH handling
 
 Unlike v3, Uniswap v4 has native support for ETH without wrapping to WETH. This requires special handling in the SDK:
 
@@ -25,7 +25,7 @@ Unlike v3, Uniswap v4 has native support for ETH without wrapping to WETH. This 
 const token0 = Ether.onChain(chainId)
 ```
 
-### Position Manager Multicall
+### Position Manager multicall
 
 All v4 position operations use the `PositionManager` contract's `multicall` function with encoded action sequences:
 
@@ -50,7 +50,7 @@ When adding liquidity to existing positions, we use `IncreaseLiquidityOptions` w
 - `ModifyPositionSpecificOptions`: tokenId
 - `CommonAddLiquidityOptions`: useNative, batchPermit
 
-### Step 1: Fetch Position Details
+### Step 1: Fetch position details
 
 ```typescript
 interface PositionDetails {
@@ -106,7 +106,7 @@ async function getPositionDetails(tokenId: bigint): Promise<PositionDetails> {
 }
 ```
 
-### Step 2: Configure Permit2 (Recommended)
+### Step 2: Configure Permit2 (recommended)
 
 ```typescript
 const PERMIT2_TYPES = {
@@ -185,7 +185,7 @@ async function configurePermit2(positionDetails: EnhancedPositionDetails, deadli
 }
 ```
 
-### Step 3: Create Position and Add Liquidity
+### Step 3: Create position and add liquidity
 
 ```typescript
 async function addLiquidityToPosition(
@@ -265,7 +265,7 @@ When removing liquidity, we use `RemoveLiquidityOptions` which includes:
 - `ModifyPositionSpecificOptions`: tokenId
 - `RemoveLiquiditySpecificOptions`: liquidityPercentage, burnToken, permit
 
-### Step 1: Calculate Liquidity to Remove
+### Step 1: Calculate liquidity to remove
 
 ```typescript
 function calculateLiquidityToRemove(
@@ -282,7 +282,7 @@ function calculateLiquidityToRemove(
 }
 ```
 
-### Step 2: Remove Liquidity Implementation
+### Step 2: Remove liquidity implementation
 
 ```typescript
 async function removeLiquidityFromPosition(

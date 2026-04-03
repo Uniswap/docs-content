@@ -1,5 +1,5 @@
 ---
-title: Calculate LP fees
+title: Calculate LP Fees
 description: Calculate uncollected and lifetime LP fees for Uniswap v4 positions.
 ---
 
@@ -75,7 +75,7 @@ contract CalculateFeeExample {
 }
 ```
 
-### Calculate uncollected fees for a LP position
+### Calculate uncollected fees for an LP position
 
 In `getUncollectedFees(PositionConfig config, uint256 tokenId)`:
 
@@ -101,7 +101,7 @@ uint128 tokenAmount =
     (FullMath.mulDiv(feeGrowthInsideX128 - feeGrowthInsideLastX128, liquidity, FixedPoint128.Q128)).toUint128();
 ```
 
-### Calculate lifetime fees earned for a LP range
+### Calculate lifetime fees earned for an LP range
 
 Create a new function `getLifetimeFee(PositionConfig config, uint256 tokenId)`:
 

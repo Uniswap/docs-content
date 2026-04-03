@@ -8,7 +8,7 @@ there are some key differences in the architecture and accounting.
 
 ## Singleton Design
 
-### Pool Creation
+### Pool creation
 
 **v4**: The singleton contract facilitates the creation of a pool and 
 also stores its state. This pattern reduces costs when creating a pool
@@ -18,7 +18,7 @@ and doing multi-hop swaps. Because pools are _contract state_ and not entirely n
 a separate contract instance that manages its own state. Pool initialization
 is costly because contract creation is gas-intensive
 
-### Flash Accounting
+### Flash accounting
 
 **v4**: The singleton uses _flash accounting_, meaning a caller that unlocks the PoolManager
 is allowed to cause balance-changing operations (multiple swaps, multiple liquidity modifications, etc)

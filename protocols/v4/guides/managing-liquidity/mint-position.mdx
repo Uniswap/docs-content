@@ -28,7 +28,7 @@ import {IPositionManager} from "v4-periphery/src/interfaces/IPositionManager.sol
 IPositionManager posm = IPositionManager(<address>);
 ```
 
-### 2. Encode Actions
+### 2. Encode actions
 
 To mint a position, two actions are required:
 
@@ -47,7 +47,7 @@ bytes memory actions = abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Acti
 bytes memory actions = abi.encodePacked(uint8(Actions.MINT_POSITION), uint8(Actions.SETTLE_PAIR), uint8(Actions.SWEEP));
 ```
 
-### 3. Encode Parameters
+### 3. Encode parameters
 
 ```solidity
 bytes[] memory params = new bytes[](2); // new bytes[](3) for ETH liquidity positions
@@ -92,7 +92,7 @@ The `SWEEP` action requires the following parameters:
 params[2] = abi.encode(currency, recipient);
 ```
 
-### 4. Submit Call
+### 4. Submit call
 
 The entrypoint for all liquidity operations is `modifyLiquidities()`
 
@@ -107,6 +107,6 @@ posm.modifyLiquidities{value: valueToPass}(
 );
 ```
 
-## Additional notes:
+## Additional Notes:
 
 * To obtain balance changes, callers should read token balances before and after the `.modifyLiquidities()` call

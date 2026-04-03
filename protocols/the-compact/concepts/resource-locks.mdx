@@ -32,7 +32,7 @@ lockTag = scope << 255 | resetPeriod << 252 | allocatorId << 160
 lockId  = lockTag | tokenAddress
 ```
 
-### Allocator ID Details
+### Allocator ID details
 
 The compact flag is a 4-bit value (0-15) that represents how "compact" an allocator address is, based on the number of leading zero nibbles:
 - If address has 0-3 leading zero nibbles: flag = 0
@@ -46,7 +46,7 @@ compactFlag = min(max(0, leadingZeroNibbles - 3), 15)
 id = (compactFlag << 88) | (allocator & 0x00000000000000000000FFFFFFFFFFFFFFFFFFFF)
 ```
 
-### Reset Period Details
+### Reset period details
 
  The reset period is one of eight predefined values:
 
@@ -61,7 +61,7 @@ id = (compactFlag << 88) | (allocator & 0x00000000000000000000FFFFFFFFFFFFFFFFFF
 
 Resource locks are created by depositing tokens into The Compact. Multiple deposit methods are available:
 
-### Native Token Deposits
+### Native token deposits
 ```solidity
 function depositNative(
     address recipient,
@@ -69,7 +69,7 @@ function depositNative(
 ) external payable returns (uint256 id)
 ```
 
-### ERC20 Token Deposits
+### ERC20 token deposits
 ```solidity
 function depositERC20(
     address token,
@@ -79,14 +79,14 @@ function depositERC20(
 ) external returns (uint256 id)
 ```
 
-### Batch Deposits
+### Batch deposits
 ```solidity
 function batchDeposit(
     DepositDetails[] calldata depositDetails
 ) external payable returns (uint256[] memory ids)
 ```
 
-### Permit2 Integration
+### Permit2 integration
 ```solidity
 function depositERC20ViaPermit2(
     ISignatureTransfer.PermitBatchTransferFrom memory permit,
@@ -96,10 +96,10 @@ function depositERC20ViaPermit2(
 
 ## Token Handling
 
-### Native Tokens
+### Native tokens
 For native tokens, The Compact mints an amount of ERC6909 tokens equal to the msg.value. For example, a native deposit with a value of 1e18 wei would result in exactly 1e18 ERC6909 tokens being minted to the caller (or specified recipient). A withdrawal of native underlying tokens from a resource lock causes a native value equal to the number of burned ERC6909 tokens to be transferred out of the contract.
 
-### ERC20 Tokens
+### ERC20 tokens
 For ERC20 tokens, The Compact mints an amount of ERC6909 tokens equal to the actual balance change observed by the protocol as a result of an ERC20 deposit, accounting for the token's precision. In most cases, this is equal to the `amount` parameter passed to the token's `transfer`/`transferFrom` function, which is analogous to `msg.value`. One notable exception is fee-on-transfer tokens, where the actual and intended balance changes differ.
 
 Deposits and withdrawals against an ERC20 resource lock are handled by:
@@ -107,7 +107,7 @@ Deposits and withdrawals against an ERC20 resource lock are handled by:
 - Checking the contract's balance before and after the token transfer
 - Minting (or burning) an amount of ERC6909 tokens exactly equal to the observed balance change
 
-### Fee-on-Transfer Tokens
+### Fee-on-transfer tokens
 The Compact correctly handles fee-on-transfer tokens for both deposits and withdrawals. The amount of ERC6909 tokens minted or burned is based on the *actual balance change* in The Compact contract, not just the specified amount.
 
 <Callout title="Important Integration Notice" type="warn">
@@ -128,7 +128,7 @@ require(
 *Note: Use `extsload` instead of `exttload` on chains without `tstore` support.*
 </Callout>
 
-### Rebasing Tokens
+### Rebasing tokens
 **Rebasing tokens (e.g., stETH) are NOT supported in The Compact V1.** Any yield or other balance changes occurring after deposit will not accrue to the depositor's ERC6909 tokens. For such assets, use their wrapped, non-rebasing counterparts (e.g., wstETH).
 
 ## Forced Withdrawals

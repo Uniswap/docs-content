@@ -9,7 +9,7 @@ To see an interactive sandbox of all entities see the [Graph Explorer](https://t
 
 Each entity is defined with a value type, which will always be a base AssemblyScript type, or a custom type provided by The Graph's custom TypeScript library. For more information on value types see [here](https://thegraph.com/docs/en/developing/assemblyscript-api/#api-reference).
 
-### Uniswap Factory
+### Uniswap factory
 
 The Uniswap Factory entity is responsible for storing aggregate information across all Uniswap pairs. It can be used to view stats about total liquidity, volume, amount of pairs and more. There is only one UniswapFactory entity in the subgraph.
 
@@ -79,7 +79,7 @@ specific data about each position.
 | liquidityPositions | [LiquidityPosition] | array of all liquidity positions user has open |
 | usdSwapped         | BigDecimal          | total USD value swapped                        |
 
-### LiquidityPositiion
+### LiquidityPosition
 
 This entity is used to store data about a user's liquidity position. This information, along with
 information from the pair itself can be used to provide position sizes, token deposits, and more.
@@ -200,7 +200,7 @@ Tracks data across all pairs aggregated into a daily bucket.
 | mostLiquidTokens  | [TokenDayData!] | tokens with most liquidity in Uniswap                                            |
 | txCount           | BigInt          | number of transactions throughout this day                                       |
 
-### Pair Day Data
+### Pair day data
 
 Tracks pair data across each day.
 

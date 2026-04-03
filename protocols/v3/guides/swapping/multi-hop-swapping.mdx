@@ -1,11 +1,11 @@
 ---
 title: Multi-hop Swapping
-description: How to implement multi-hop swaps on Uniswap v3 using exactInput and exactOutput.
+description: Implement multi-hop swaps on Uniswap v3 using exactInput and exactOutput.
 ---
 
 The examples below are implementations of the two styles of multi-hop swapping available on v3. These examples are not production ready code, and are implemented in a simplistic manner for the purpose of learning.
 
-## Setting up the Contract
+## Setting Up the Contract
 
 Declare the solidity version that will be used to compile the contract, and the `abicoder v2` to allow arbitrary nested arrays and structs to be encoded and decoded in calldata, a feature we use when executing a swap.
 
@@ -48,13 +48,13 @@ Hardcode the token contract addresses and pool fee tiers for the example. In pro
 
 Exact input multi hop swaps will swap a fixed amount on a given input token for the maximum amount possible for a given output, and can include an arbitrary number of intermediary swaps.
 
-### Input Parameters
+### Input parameters
 
 - `path`: The path is a sequence of (`tokenAddress` - `fee` - `tokenAddress`), which are the variables needed to compute each pool contract address in our sequence of swaps. The multihop swap router code will automatically find the correct pool with these variables, and execute the swap needed within each pool in our sequence.
 - `recipient`: the destination address of the outbound asset.
 - `deadline`: the unix time after which a transaction will be reverted, to protect against long delays and the increased chance of large price swings therein.
 - `amountIn`: the amount of the inbound asset.
-- `amountOutMin`: the minimum amount of the outbound asset, less than which will cause the transaction to revert. For the sake of this example we will set it to `0`, in production one will need to use the SDK to quote an expected price, or an on chain price oracle for more advanced manipulation resistant systems.
+- `amountOutMin`: the minimum amount of the outbound asset, less than which will cause the transaction to revert. For the sake of this example we will set it to `0`, in production one will need to use the SDK to quote an expected price, or an onchain price oracle for more advanced manipulation resistant systems.
 
 ### Calling the function
 
@@ -92,7 +92,7 @@ Exact input multi hop swaps will swap a fixed amount on a given input token for 
 
 An exact output swap will swap a variable amount of the input token for a fixed amount of the outbound token. This is the less common technique for multihop swaps. The code for swapping is largely the same except for one notable difference, the `Path` is encoded backwards, as an exact output swap is executed in reverse order to pass down the necessary variables for the chain of transactions.
 
-### Input Parameters
+### Input parameters
 
 - `path`: The path is a sequence of `tokenAddress` `Fee` `tokenAddress`, _encoded in reverse order_, which are the variables needed to compute each pool contract address in our sequence of swaps. The multihop swap router code will automatically find the correct pool with these variables, and execute the swap needed within each pool in our sequence.
 - `recipient`: the destination address of the outbound asset.

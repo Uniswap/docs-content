@@ -9,7 +9,7 @@ Hooks are external smart contracts that can be attached to individual pools. Eve
 
 ## Key Concepts
 
-### Pool-Specific Hooks
+### Pool-specific hooks
 
 - Each liquidity pool in Uniswap v4 can have its own hook contract attached to it. Hooks are optional for Uniswap v4 pools.
 - The hook contract is specified when creating a new pool in the `PoolManager.initialize` function.
@@ -22,13 +22,13 @@ Uniswap v4 provides a set of core hook functions that can be implemented by deve
 - Hook contracts specify the permissions that determine which hook functions they implement, which is encoded in the address of the contract.
 - The `PoolManager` uses these permissions to determine which hook functions to call for a given pool based on its Key.
 
-### Initialize Hooks
+### Initialize hooks
 
 - `beforeInitialize`: Called before a new pool is initialized.
 - `afterInitialize`: Called after a new pool is initialized.
 - These hooks allow developers to perform custom actions or validations during pool initialization, but these hooks can only be invoked once.
 
-### Liquidity Modification Hooks
+### Liquidity modification hooks
 
 The liquidity modification hooks are extremely granular for security purposes.
 
@@ -37,12 +37,12 @@ The liquidity modification hooks are extremely granular for security purposes.
 - `beforeRemoveLiquidity`: Called before liquidity is removed from a pool.
 - `afterRemoveLiquidity`: Called after liquidity is removed from a pool.
 
-### Swap Hooks
+### Swap hooks
 
 - `beforeSwap`: Called before a swap is executed in a pool.
 - `afterSwap`: Called after a swap is executed in a pool.
 
-### Donate Hooks
+### Donate hooks
 
 - `beforeDonate`: Called before a donation is made to a pool.
 - `afterDonate`: Called after a donation is made to a pool.

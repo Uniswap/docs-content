@@ -63,7 +63,7 @@ Other community ERC20 implementations are available such as:
 
 ## Steps
 
-### 1. Define the Token Contract
+### 1. Define the token contract
 
 Most tokens _inherit_ an existing ERC-20 implementation. This guide uses Optimism's SuperchainERC20 implementation to deploy a token with cross-chain interoperability.
 
@@ -98,7 +98,7 @@ In the example, tokens are only minted if deployed on the specified chain ID. De
 - Initial supply chain ID to prevent unintended minting
 - Owner address who receives the initial supply
 
-### 2. Deploy the Token
+### 2. Deploy the token
 
 Create a deployment script to deploy a token with deterministic address:
 
@@ -137,7 +137,7 @@ forge script script/Deploy.s.sol:Deploy \
 
 > See [Deploy a Smart Contract](/docs/unichain/guides/deploy-a-smart-contract) for more information.
 
-### 3. Transferring Tokens (Optional)
+### 3. Transferring tokens (optional)
 
 Upon creation of the token, the deployer is the owner of all 1,000,000 tokens. To transfer the tokens, use the `transfer` function:
 
@@ -154,7 +154,7 @@ cast send {TOKEN_ADDRESS} "transfer(address,uint256)" {RECIPIENT_ADDRESS} {AMOUN
     --private-key {YourPrivateKey}
 ```
 
-### 4. Create a Trading Pool on Uniswap v4
+### 4. Create a trading pool on Uniswap v4
 
 This step is also optional, but developers enable trading of their new token on Uniswap v4:
 

@@ -118,7 +118,7 @@ constructor(
 ```
 - `_governance`: The address that is allowed to approve swaps on the LP pool.
 
-## Writing a custom strategy
+## Writing a Custom Strategy
 To create a custom strategy, inherit from the LBPStrategyBase contract to get the core functionality associated with creating an auction and LP pool.
 
 Implement the `_createPositionPlan` function to create the calldata for the Uniswap v4 Position Manager (POSM) to create the position. Also implement `_getTokenTransferAmount` and `_getCurrencyTransferAmount` as needed to ensure the correct amount of tokens and currency are transferred.

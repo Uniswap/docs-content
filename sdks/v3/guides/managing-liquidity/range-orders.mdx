@@ -77,7 +77,7 @@ We will utilise this behaviour to provide liquidity with `token1` and withdraw t
 Our goal for this guide is to create a [Take Profit Order](/docs/get-started/concepts/liquidity-providers/range-orders#take-profit-orders) that trades `token0` for `token1` when the Price of `token0` increases by 5%.
 To create our Position, we need to first decide the Tick Range that we want to provide liquidity in.
 
-### Upper Tick
+### Upper tick
 
 We [create a Pool](/docs/sdks/v3/guides/pool-data) that represents the v3 pool we are interacting with and get the `token0Price`.
 We won't need full tick data in this example.
@@ -130,7 +130,7 @@ This nearest Tick will most likely not **exactly** match our Price target.
 
 Depending on our personal preferences we can either err on the higher or lower side of our target by adding or subtracting the `tickSpacing` if the initializable Tick is lower or higher than the theoretically closest Tick.
 
-### Lower Tick
+### Lower tick
 
 We now find the lower Tick by subtracting the tickSpacing from the upper Tick:
 
@@ -157,7 +157,7 @@ We will use the `NonfungiblePositionManager` and `Position` classes from the `v3
 
 If you are not familiar with liquidity Positions, check out the [liquidity position guides](/docs/sdks/v3/guides/managing-liquidity/getting-started).
 
-### Minting the Position
+### Minting the position
 
 We create a `Position` object with our ticks and the amount of tokens we want to deposit:
 

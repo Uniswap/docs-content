@@ -3,7 +3,7 @@ description: Use Uniswap v3 SDK primitives to read and model price oracle data f
 title: Uniswap as a Price Oracle
 ---
 
-This guide will cover how to fetch price observations from a V3 pool to get onchain asset prices.
+This guide will cover how to fetch price observations from a Uniswap v3 pool to get onchain asset prices.
 It is based on the [Price Oracle example](https://github.com/Uniswap/examples/tree/main/v3-sdk/oracle), found in the Uniswap code examples [repository](https://github.com/Uniswap/examples).
 To run this example, check out the guide's [README](https://github.com/Uniswap/examples/blob/main/v3-sdk/oracle/README.md) and follow the setup instructions.
 
@@ -42,7 +42,7 @@ const poolContract = new ethers.Contract(
 )
 ```
 
-All V3 pools store observations of the current tick and the block timestamp. 
+All Uniswap v3 pools store observations of the current tick and the block timestamp. 
 To minimize pool deployment costs, only one Observation is stored in the contract when the Pool is created.
 Anyone who is willing to pay the gas costs can `increaseObservationCardinalityNext` the number of stored observations to up to `65535`.
 If the Pool cannot store an additional Observation, it overwrites the oldest one.
@@ -140,7 +140,7 @@ const observations: Observation[] = timestamps.map((time, i) => {
 
 We map the response from the RPC provider to match our Observations interface.
 
-## Calculating the average Price
+## Calculating the Average Price
 
 To calculate the time weighted average price (TWAP) in the period we fetched, we first need to understand what the values we fetched mean.
 
@@ -169,7 +169,7 @@ We have now calculated the **time weighted average price** over the last 108 sec
 
 Let's continue with the average liquidity.
 
-## Calculating the average Liquidity
+## Calculating the Average Liquidity
 
 To understand the term **active Liquidity**, check out the [previous guide](/docs/sdks/v3/guides/managing-liquidity/active-liquidity).
 Similar to the `tick accumulator`, the `liquidity accumulator` stores a sum of values for every second since the Pool was initialized and increases with every second.
@@ -205,7 +205,7 @@ Adding massive amounts of liquidity to a Pool and withdrawing them after a block
 Use the **TWAP** with care and consider handling outliers.
 </Callout>
 
-## Why prefer observe over observations?
+## Why Prefer Observe over Observations?
 
 As touched on previously, the `observe` function calculates Observations for the timestamps requested from the nearest observations stored in the Pool.
 It is also possible to directly fetch the stored observations by calling the `observations` function with the index of the Observation that we are interested in.

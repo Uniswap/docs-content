@@ -15,7 +15,7 @@ A subgraph can be created in just a few minutes by following these steps:
 
 ## Step 1: Initialize Your Subgraph
 
-### Create a Subgraph in Subgraph Studio
+### Create a subgraph in Subgraph Studio
 
 Go to the [Subgraph Studio](https://thegraph.com/studio/) and connect your
 wallet. Once your wallet is connected, you can begin by clicking "Create a
@@ -34,7 +34,7 @@ You'll land on your subgraph's page with all CLI commands visible on the right s
 npm install -g @graphprotocol/graph-cli
 ```
 
-### Initialize Your Local Subgraph
+### Initialize your local subgraph
 
 ```bash
 graph init <SUBGRAPH_SLUG>
@@ -49,7 +49,7 @@ Simply verify your contract on the block explorer, and the CLI will
 automatically obtain the ABI and set up your subgraph. The default settings will
 generate an entity for each event.
 
-## Step 2: Deploy and publish
+## Step 2: Deploy and Publish
 
 ### Deploy to Subgraph Studio
 
@@ -72,7 +72,7 @@ $ graph deploy <SUBGRAPH_SLUG>
 You will be asked for a version label. You can enter something like v0.0.1, but
 you're free to choose the format.
 
-### Test Your Subgraph
+### Test your subgraph
 
 You can test your subgraph by making a sample query in the playground section.
 The Details tab will show you an API endpoint. You can use that endpoint to test
@@ -80,7 +80,7 @@ from your dapp.
 
 <img src="/unichain/playground-test.png" alt="Playground Test" />
 
-### Publish Your Subgraph to The Graph's Decentralized Network
+### Publish your subgraph to The Graph's decentralized network
 
 Once your subgraph is ready to be put into production, you can publish it to the
 decentralized network. On your subgraph's page in Subgraph Studio, click on the
@@ -100,7 +100,7 @@ ensure that it is indexed and available for querying as soon as possible.
 > your subgraph is indexing data from Unichain
 > [supported chain](https://thegraph.com/docs/en/developing/supported-networks/).
 
-## Step 3: Query your subgraph
+## Step 3: Query Your Subgraph
 
 Congratulations! You can now query your subgraph on the decentralized network!
 
@@ -131,7 +131,7 @@ you can create API Keys.
 
 ## Appendix
 
-### Sample Query
+### Sample query
 
 This query shows the most expensive CryptoPunks sold.
 
@@ -161,7 +161,7 @@ Passing this into the query URL returns this result:
 //      ...
 ```
 
-### Sample Code
+### Sample code
 
 ```jsx
 const axios = require("axios");
@@ -196,7 +196,7 @@ axios(graphQLRequest)
   });
 ```
 
-### Additional Resources
+### Additional resources
 
 - To explore all the ways you can optimize and customize your subgraph for better
   performance, read more about

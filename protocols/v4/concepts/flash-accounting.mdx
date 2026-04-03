@@ -49,7 +49,7 @@ The following diagrams visualize how the above steps will be implemented:
 ![Flash Accounting Locking Mechanism Step 3](./images/Uniswap_V4_Locking_Mechanism_Step_3.png)
 
 
-### Balance Delta
+### Balance delta
 
 Inside `unlockCallback`, a periphery contract performs balance-changing operations i.e. conduct swaps, modify positions, etc. After returning execution context back to `PoolManager`, the core contract checks that balances are resolved - nothing is owed to or from the `PoolManager`.
 

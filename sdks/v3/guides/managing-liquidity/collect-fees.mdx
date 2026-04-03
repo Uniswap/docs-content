@@ -31,7 +31,7 @@ This guide assumes you are familiar with our [Minting a Position](/docs/sdks/v3/
 Also note that we do not need to give approval to the `NonfungiblePositionManager` to transfer our tokens as we will have already done that when minting our position.
 </Callout>
 
-## Setting up our fee collection
+## Setting Up Our Fee Collection
 
 All of the fee collecting logic can be found in the [`collectFees`](https://github.com/Uniswap/examples/blob/be67e7df220b0a270c9d18bbaab529e017213adf/v3-sdk/collecting-fees/src/example/Example.tsx#L24) function. Notice how the **Collect Fees** button is disabled until a position is minted. This happens because there will be no fees to collect unless there is a position whose liquidity has been traded against.
 
@@ -92,7 +92,7 @@ The `tokensOwed0` and `tokensOwed1` values are the fees owed.
 
 In this example, we have the values hardcoded in the [`config.ts`](https://github.com/Uniswap/examples/blob/main/v3-sdk/collecting-fees/src/config.ts) file.
 
-## Submitting our fee collection transaction
+## Submitting Our Fee Collection Transaction
 
 Next, we get the call parameters for collecting our fees from our `NonfungiblePositionManager` using the constructed `CollectOptions`:
 

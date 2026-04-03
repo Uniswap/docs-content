@@ -8,7 +8,7 @@ A **compact** is an agreement created by a sponsor that allows their locked reso
 
 ## Compact Types
 
-### 1. Single Compact
+### 1. Single compact
 For single resource lock operations on a single chain.
 
 ```solidity
@@ -25,7 +25,7 @@ struct Compact {
 }
 ```
 
-### 2. Batch Compact
+### 2. Batch compact
 For allocating multiple resource locks on a single chain.
 
 ```solidity
@@ -46,7 +46,7 @@ struct Lock {
 }
 ```
 
-### 3. Multichain Compact
+### 3. Multichain compact
 For allocating one or more resource locks across multiple chains.
 
 ```solidity
@@ -77,10 +77,10 @@ The witness is always a `Mandate` struct appended to the compact:
 Compact(..., Mandate mandate)Mandate(uint256 myArg, bytes32 otherArg)
 ```
 
-### Witness Typestring
+### Witness typestring
 The `witnessTypestring` provided during a claim should be the arguments *inside* the `Mandate` struct (e.g., `uint256 myArg,bytes32 otherArg`), followed by any nested structs.
 
-### Nested Structs
+### Nested structs
 EIP-712 requires nested structs to be ordered alphanumerically after the top-level struct in the typestring. Prefix nested structs with "Mandate" (e.g., `MandateCondition`) to ensure correct ordering.
 
 Example witness typestring:
@@ -128,7 +128,7 @@ enum CompactCategory {
 
 As an alternative to signing EIP-712 payloads, compacts can be registered directly on The Compact contract:
 
-### Register Functions
+### Register functions
 ```solidity
 // Register a single compact
 function register(bytes32 claimHash, bytes32 typehash) external;
@@ -145,7 +145,7 @@ function registerFor(
 ) external;
 ```
 
-### Registration Event
+### Registration event
 
 When a compact is registered, the following event is emitted:
 
@@ -159,7 +159,7 @@ event CompactRegistered(
 
 This event is emitted when a compact is registered via `register`, `registerMultiple`, or any of the combined deposit-and-register functions.
 
-### Check Registration Status
+### Check registration status
 ```solidity
 function isRegistered(
     address sponsor,

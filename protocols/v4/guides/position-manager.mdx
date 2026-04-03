@@ -60,11 +60,11 @@ In the following sections, we’ll explore how to work with these commands and i
 
 Before diving into specific operations, let’s understand the key concepts that make up the Position Manager’s architecture.
 
-### Action Types
+### Action types
 
 The Position Manager operates through a system of actions that work in pairs: when you perform a liquidity operation that changes position balances, you must also include actions to handle the resulting token movements.
 
-### Understanding the Flow
+### Understanding the flow
 
 When you execute a liquidity operation:
 
@@ -72,7 +72,7 @@ When you execute a liquidity operation:
 2. These deltas represent tokens that need to be paid or received
 3. Delta-resolving operations are then used to handle these token movements
 
-### Liquidity Operations
+### Liquidity operations
 
 `Actions` that modify positions in the pool:
 
@@ -89,7 +89,7 @@ Each operation creates specific deltas that must be resolved:
 - Negative deltas when you need to provide tokens (mint, increase)
 - Positive deltas when you’re receiving tokens (decrease, burn)
 
-### Delta-Resolving Operations
+### Delta-resolving operations
 
 Actions that handle the token transfers needed to resolve deltas:
 
@@ -101,7 +101,7 @@ uint256 constant CLOSE_CURRENCY = 0x12; // Handles either direction based on fin
 uint256 constant CLEAR_OR_TAKE = 0x13;  // For small amounts: Take if worth it, else ignore
 ```
 
-### Operation Order
+### Operation order
 
 Understanding how operations create and resolve deltas helps in ordering them efficiently:
 
@@ -132,7 +132,7 @@ Best practices for ordering:
 
 When building on v4, you’ll need to manage liquidity positions through the Position Manager. Let’s walk through each operation, starting with creating new positions.
 
-### Minting New Positions
+### Minting new positions
 
 To create a new liquidity position in v4, you’ll need to:
 
@@ -140,7 +140,7 @@ To create a new liquidity position in v4, you’ll need to:
 2. Mint the position NFT
 3. Provide the initial tokens
 
-### **Understanding Position Parameters**
+### **Understanding position parameters**
 
 Before minting, you need to determine:
 
@@ -233,7 +233,7 @@ positionManager.modifyLiquidities(
 
 After a position is created, you might want to add more liquidity to it. This operation requires understanding how fee accumulation works since fees are credited to your position during an increase.
 
-### **Understanding the Operation**
+### **Understanding the operation**
 
 When increasing liquidity:
 
@@ -241,7 +241,7 @@ When increasing liquidity:
 2. Any accumulated fees are **automatically credited** to your position
 3. In some cases, fee revenue might partially or fully cover the tokens needed
 
-### **Choosing the Right Delta Resolution**
+### **Choosing the right delta resolution**
 
 Unlike minting where we always use SETTLE_PAIR, increasing liquidity has different delta-resolving options depending on your scenario:
 
@@ -351,7 +351,7 @@ positionManager.modifyLiquidities(
 
 When you want to remove liquidity from a position, you’ll need to handle both the liquidity reduction and any accumulated fees. Let’s understand how to implement this effectively.
 
-### **Understanding the Operation**
+### **Understanding the operation**
 
 Decreasing liquidity involves:
 
@@ -359,7 +359,7 @@ Decreasing liquidity involves:
 2. Setting minimum amounts to receive (slippage protection)
 3. Collecting both the removed liquidity and any accumulated fees
 
-### **Delta Resolution Options**
+### **Delta resolution options**
 
 When decreasing liquidity, you’ll receive tokens, so it's most common to receive a pair of tokens:
 
@@ -432,7 +432,7 @@ positionManager.modifyLiquidities(
 
 In v4’s Position Manager, there isn’t a dedicated COLLECT command. Instead, **fees are collected by using DECREASE_LIQUIDITY with zero liquidity**. This pattern leverages the fact that fees are automatically credited during liquidity operations.
 
-### **Understanding Fee Collection**
+### **Understanding fee collection**
 
 When collecting fees, you need to:
 
@@ -500,7 +500,7 @@ positionManager.modifyLiquidities(
 
 When you want to completely exit a position, burning is more efficient than removing liquidity and collecting fees separately. The BURN_POSITION command handles everything in a single operation.
 
-### **Understanding Position Burning**
+### **Understanding position burning**
 
 A burn operation:
 
@@ -568,7 +568,7 @@ positionManager.modifyLiquidities(
 
 The Position Manager’s command-based design enables you to perform multiple liquidity operations in a single transaction. This is particularly valuable when managing multiple positions or performing complex liquidity management strategies, such as taking tokens from one position to increase liquidity of another position.
 
-### Benefits of Batch Operations
+### Benefits of batch operations
 
 When managing liquidity across multiple positions, batching operations provides significant advantages:
 
@@ -576,7 +576,7 @@ When managing liquidity across multiple positions, batching operations provides 
 - Atomic execution of related operations
 - Simplified token handling through combined delta resolution
 
-### Implementation Guide
+### Implementation guide
 
 Let’s implement a common scenario: rebalancing liquidity by creating a new position while closing an old one and collecting its fees. We’ll go through it step by step.
 
@@ -679,7 +679,7 @@ positionManager.modifyLiquidities(
 
 While we’ve seen basic delta resolution using SETTLE_PAIR and TAKE_PAIR in previous sections, v4’s Position Manager provides additional operations for handling more complex scenarios. Let’s understand when and how to use each one.
 
-### **CLOSE_CURRENCY: Handling Unknown Deltas**
+### **CLOSE_CURRENCY: Handling unknown deltas**
 
 When you can’t predict whether you’ll need to pay or receive tokens, CLOSE_CURRENCY automatically handles either case.
 
@@ -711,7 +711,7 @@ This is particularly useful when:
 - Complex operations where final deltas are uncertain
 - Reducing code complexity by letting the protocol handle the direction
 
-### **CLEAR_OR_TAKE: Optimizing for Dust**
+### **CLEAR_OR_TAKE: Optimizing for dust**
 
 Sometimes receiving small token amounts costs more in gas than they’re worth. CLEAR_OR_TAKE lets you specify a threshold:
 
@@ -733,7 +733,7 @@ This is valuable for:
 - Operations where dust amounts can be ignored
 - Gas optimization in production systems
 
-### **SWEEP: Handling Excess Payments**
+### **SWEEP: Handling excess payments**
 
 SWEEP helps recover any excess tokens sent to the PoolManager:
 

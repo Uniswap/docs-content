@@ -1,6 +1,6 @@
 ---
 title: 'Managing Liquidity via the Uniswap API'
-description: 'High-level overview of liquidity position management through the API'
+description: 'High-level overview of liquidity position management through the Uniswap API'
 
 ---
 
@@ -20,7 +20,7 @@ The following diagram illustrates how a customer starting with no liquidity posi
 3. Over time the customer may want to perform additional actions to manage their liquidity pool (LP) positions:
    1. Commonly, liquidity providers will want to claim their earned fees from the pool using the [`/claim`](/docs/api-reference/claim_lp_fees) request.
    2. Customers may want to change the allocation of tokens they have made to a pool. Customers can add additional tokens to a pool using the [`/increase`](/docs/api-reference/increase_lp_position) request and can reduce or fully withdraw their position using the [`/decrease`](/docs/api-reference/decrease_lp_position) endpoint.
-   3. Uniswap Labs continues to innovate on pool contracts, customers may want to migrate their positions from one version of a pool to another version. the [`/migrate`](/docs/api-reference/migrate_lp_position) endpoint allows a customer to move their liquidity from a V3 pool to a V4 pool (remaining within the same pair, for example WBTC/USDC).
+   3. Uniswap Labs continues to innovate on pool contracts, customers may want to migrate their positions from one version of a pool to another version. the [`/migrate`](/docs/api-reference/migrate_lp_position) endpoint allows a customer to move their liquidity from a Uniswap v3 pool to a Uniswap v4 pool (remaining within the same pair, for example WBTC/USDC).
    4. Certain pools may offer the opportunity to receive rewards for LPing. These rewards can be claimed using the [`/claim_rewards`](/docs/api-reference/claim_lp_rewards) endpoint.
 
-If you are ready to build, you can grab an API key from the [Uniswap Developer Portal](https://developers.uniswap.org/dashboard/).
+If you are ready to build, you can grab an API key from the [Uniswap Developer Platform](https://developers.uniswap.org/dashboard/).

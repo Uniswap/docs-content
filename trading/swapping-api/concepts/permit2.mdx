@@ -1,6 +1,6 @@
 ---
 title: Permit2 Approval
-description: Understanding and Troubleshooting Permit2
+description: Learn how to use Permit2 approvals and troubleshoot common signing issues in the Uniswap API swap flow.
 ---
 
 ## Swapping with Permit2
@@ -8,14 +8,14 @@ The Uniswap API supports a swap flow that uses Permit2 signatures. This option i
 
 In this flow, the swapping wallet grants ERC-20 approval to the Permit2 contract and then subsequently signs messages which authorize Permit2 to spend tokens from the swapping wallet with the Universal Router. This flow requires that integrators provide up to a three-step swap process: approve —> sign permit —> swap.
 
-## What is a Permit2 message and how is it used?
+## What Is a Permit2 Message and How Is It Used?
 
 - A Permit2 message is an **offchain signed message** (not a transaction).
 - Permit2 signatures are **time-limited** and (optionally) **amount-limited** (see the `permitAmount` field in the request).
 
 Before executing a swap through the Uniswap API, the swapper must grant the **Permit2** contract permission to access their tokens. Most swaps performed through the Uniswap API use Permit2 to ensure a consistent and secure experience for the swapper. If the Permit2 signature is missing or incorrect, the swap will fail.
 
-## What do I need to do when using Permit2?
+## What Do I Need to Do When Using Permit2?
 
 **If a Permit2 message is included in the `/quote` response, you must require the swapper to sign it and include the resulting signature in your `/swap` request.**
 

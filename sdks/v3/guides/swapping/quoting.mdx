@@ -29,7 +29,7 @@ For this guide, the following Uniswap packages are used:
 
 The core code of this guide can be found in [`quote.ts`](https://github.com/Uniswap/examples/blob/main/v3-sdk/quoting/src/libs/quote.ts)
 
-## Example configuration
+## Example Configuration
 
 We will use the example configuration `CurrentConfig` in most code snippets of this guide. It has the format:
 
@@ -75,7 +75,7 @@ The pool used is defined by a pair of tokens in [`constants.ts`](https://github.
 You can also change these two tokens and the fee of the pool in the config, just make sure a Pool actually exists for your configuration.
 Check out the top pools on [Uniswap info](https://info.uniswap.org/#/pools).
 
-## Computing the Pool's deployment address
+## Computing the Pool's Deployment Address
 
 To interact with the **USDC - WETH** Pool contract, we first need to compute its deployment address.
 If you haven't worked directly with smart contracts yet, check out this [guide](https://docs.alchemy.com/docs/smart-contract-basics) from Alchemy.
@@ -118,7 +118,7 @@ These constants are used in the `config.ts` file, as mentioned in the Introducti
 
 We can find the Pool Factory Contract address for our chain [here](/docs/protocols/v3/deployments).
 
-## Referencing the Pool contract and fetching metadata
+## Referencing the Pool Contract and Fetching Metadata
 
 Now that we have the deployment address of the **USDC - ETH** Pool, we can construct an instance of an **ethers** `Contract` to interact with it:
 
@@ -161,7 +161,7 @@ For the full code, check out [`getPoolConstants()`](https://github.com/Uniswap/e
 In this example, the metadata we fetch is already present in our inputs. This guide fetches this information first in order to show how to fetch any metadata, which will be expanded on in future guides.
 </Callout>
 
-## Referencing the Quoter contract and getting a quote
+## Referencing the Quoter Contract and Getting a Quote
 
 To get quotes for trades, Uniswap has deployed a **Quoter Contract**. We will use this contract to fetch the output amount we can expect for our trade, without actually executing the trade.
 Check out the full code for the following snippets in [quote.ts](https://github.com/Uniswap/examples/blob/main/v3-sdk/quoting/src/libs/quote.ts)
@@ -222,7 +222,7 @@ We will dive deeper into routing in the [routing guide](routing).
 For the `exactOutput` and `exactOutputSingle` methods, we need to keep in mind that a pool can not give us more than the amount of Tokens it holds.
 If we try to get a quote on an output of 100 WETH from a Pool that only holds 50 WETH, the function call will fail.
 
-## Referencing the QuoterV2 contract and getting a quote
+## Referencing the QuoterV2 Contract and Getting a Quote
 
 ```typescript
 const quoterV2Contract = new ethers.Contract(
@@ -232,7 +232,7 @@ const quoterV2Contract = new ethers.Contract(
 )
 ```
 
-We get the QUOTE_V2_CONTRACT_ADDRESS for our chain from [V3 reference deployments](/docs/protocols/v3/deployments).
+We get the QUOTE_V2_CONTRACT_ADDRESS for our chain from [Uniswap v3 reference deployments](/docs/protocols/v3/deployments).
 
 We get access to the contract's ABI through the [@uniswap/v3-periphery](https://www.npmjs.com/package/@uniswap/v3-periphery) package, which holds the periphery smart contracts of the Uniswap v3 protocol:
 

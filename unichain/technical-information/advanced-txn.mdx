@@ -73,13 +73,13 @@ A successful `eth_sendBundle` call returns:
 
 **Important**: At this time, bundles only support a single transaction per submission.
 
-### Block Number Range (optional)
+### Block number range (optional)
 - **minBlockNumber**: Hex-encoded string of the minimum block number
 - **maxBlockNumber**: Hex-encoded string of the maximum block number
 - **Behavior**: Transaction executes when `minBlockNumber ≤ current block ≤ maxBlockNumber`
 - **Default**: If not specified, bundle expires after 10 blocks from submission
 
-### Timestamp Range (optional)
+### Timestamp range (optional)
 - **minTimestamp**: JSON number representing Unix timestamp
 - **maxTimestamp**: JSON number representing Unix timestamp
 - **Behavior**: Transaction executes when `minTimestamp ≤ current block timestamp ≤ maxTimestamp`
@@ -106,7 +106,7 @@ You can submit bundles to either endpoint:
 
 ## Code Examples
 
-### Basic Bundle with Block Range
+### Basic bundle with block range
 
 ```javascript
 const { ethers } = require('ethers');
@@ -140,7 +140,7 @@ async function sendBasicBundle() {
 }
 ```
 
-### Bundle with Timestamp Range
+### Bundle with timestamp range
 
 ```javascript
 async function sendTimestampBundle() {
@@ -169,7 +169,7 @@ async function sendTimestampBundle() {
 }
 ```
 
-### Bundle with Revert Protection
+### Bundle with revert protection
 
 ```javascript
 async function sendRevertProtectedBundle() {
@@ -200,7 +200,7 @@ async function sendRevertProtectedBundle() {
 
 ## Error Handling
 
-### Transaction Receipt Errors
+### Transaction receipt errors
 
 When querying receipts for expired or dropped bundles:
 
@@ -221,7 +221,7 @@ async function checkBundleStatus(txHash) {
 }
 ```
 
-### Common Error Scenarios
+### Common error scenarios
 
 - **Bundle expired**: Error code `-32602` when querying receipt after 10+ blocks
 - **Invalid range**: Bundle with `minBlockNumber > maxBlockNumber` will be rejected
@@ -248,7 +248,7 @@ async function checkBundleStatus(txHash) {
 
 ## Use Cases
 
-**Arbitrage Operations**
+**Arbitrage operations**
 ```javascript
 // Execute arbitrage only if profitable within next 3 blocks
 const arbitrageBundle = {
@@ -259,7 +259,7 @@ const arbitrageBundle = {
 };
 ```
 
-**Time-Sensitive DeFi Operations**
+**Time-sensitive DeFi operations**
 ```javascript
 // Execute a trade only during a specific time window
 const timedTradeBundle = {
@@ -269,7 +269,7 @@ const timedTradeBundle = {
 };
 ```
 
-**MEV Protection**
+**MEV protection**
 ```javascript
 // Protect against MEV by constraining execution timing
 const protectedBundle = {

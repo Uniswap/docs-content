@@ -10,9 +10,9 @@ The Compact protocol is composed of several key interfaces that define its funct
 
 The core interface for The Compact protocol, providing functions for deposits, transfers, registration, and management.
 
-### Deposit Functions
+### Deposit functions
 
-#### Basic Deposits
+#### Basic deposits
 ```solidity
 // Deposit native tokens
 function depositNative(
@@ -35,7 +35,7 @@ function batchDeposit(
 ) external payable returns (bool);
 ```
 
-#### Permit2 Deposits
+#### Permit2 deposits
 ```solidity
 // Single deposit via Permit2
 function depositERC20ViaPermit2(
@@ -56,7 +56,7 @@ function batchDepositViaPermit2(
 ) external payable returns (uint256[] memory ids);
 ```
 
-#### Deposit + Register Combinations
+#### Deposit + register combinations
 ```solidity
 // Native deposit and register
 function depositNativeAndRegister(
@@ -138,7 +138,7 @@ function batchDepositAndRegisterViaPermit2(
 ) external payable returns (uint256[] memory ids);
 ```
 
-### Allocated Transfers
+### Allocated transfers
 
 ```solidity
 // Transfer single ID to multiple recipients with allocator approval
@@ -152,7 +152,7 @@ function allocatedBatchTransfer(
 ) external returns (bool);
 ```
 
-### Registration Functions
+### Registration functions
 
 ```solidity
 // Register single compact
@@ -204,7 +204,7 @@ function registerMultichainFor(
 ) external returns (bytes32 claimHash);
 ```
 
-### Forced Withdrawals
+### Forced withdrawals
 
 ```solidity
 // Enable forced withdrawal
@@ -225,7 +225,7 @@ function forcedWithdrawal(
 ) external returns (bool);
 ```
 
-### Management Functions
+### Management functions
 
 ```solidity
 // Emissary management
@@ -253,7 +253,7 @@ function consume(
 function __benchmark(bytes32 salt) external payable;
 ```
 
-### View Functions
+### View functions
 
 ```solidity
 function getLockDetails(uint256 id) external view returns (
@@ -306,7 +306,7 @@ function name() external pure returns (string memory);
 
 The claims interface provides endpoints for arbiters to settle compacts.
 
-### Single Chain Claims
+### Single chain claims
 
 ```solidity
 // Standard single-chain, single-ID claim
@@ -316,7 +316,7 @@ function claim(Claim calldata claimPayload) external returns (bytes32 claimHash)
 function batchClaim(BatchClaim calldata claimPayload) external returns (bytes32 claimHash);
 ```
 
-### Multichain Claims
+### Multichain claims
 
 ```solidity
 // For the notarized chain of a multichain compact
@@ -339,7 +339,7 @@ function exogenousBatchClaim(
 ) external returns (bytes32 claimHash);
 ```
 
-### Claim Struct
+### Claim struct
 
 ```solidity
 struct Claim {
@@ -356,7 +356,7 @@ struct Claim {
 }
 ```
 
-### Component Struct
+### Component struct
 
 ```solidity
 struct Component {

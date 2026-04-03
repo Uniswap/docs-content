@@ -36,7 +36,7 @@ The Uniswap API provides a straightforward path to integration. It abstracts awa
 3. **Get Transaction**: Send a `/swap` request. The API returns encoded transaction data
 4. **Submit**: The user signs the returned transaction, and your app broadcasts it to the chain.
 
-### Complexity Preview
+### Complexity preview
 You do not need to compile Solidity or manage pool state. You simply handle JSON responses.
 
 ```json
@@ -97,7 +97,7 @@ const poolKey = {
 // Reference the V4 Quoter contract
 const quoterContract = new ethers.Contract(QUOTER_ADDRESS, QUOTER_ABI, provider)
 
-// Simulate the swap off-chain to get a quote
+// Simulate the swap offchain to get a quote
 const result = await quoterContract.callStatic.quoteExactInputSingle({
   poolKey: poolKey,
   zeroForOne: true,
@@ -112,7 +112,7 @@ console.log(`Expected output: ${formatUnits(result.amountOut, USDC_TOKEN.decimal
 
 Building directly against the Uniswap v4 smart contracts gives you maximum control and composability. There are two distinct build paths depending on your goal:
 
-### Path A: Executing Swaps
+### Path A: Executing swaps
 
 If your goal is to **perform swaps from an onchain contract**, for example, as part of an arbitrage bot, a vault strategy, or a DeFi protocol that needs to swap tokens during its operations, you interact with the `Universal Router` or the `PoolManager` directly. [Get started with smart contracts](/docs/protocols/v4/guides/swapping/swapping).
 
@@ -151,7 +151,7 @@ router.execute(commands, inputs, deadline);
 
 > **Safety Note**: When trading from smart contracts, you **must** enforce slippage limits via `amountOutMinimum` or use an onchain price oracle. Setting this to zero makes your contract vulnerable to sandwich attacks and price manipulation.
 
-### Path B: Customizing Swaps with Hooks
+### Path B: Customizing swaps with hooks
 
 If your goal is to **extend or modify swap behavior itself**, for example, to implement dynamic fees, on-swap oracles, limit orders, or access control, you write a **Hook** contract. [Get started with hooks](/docs/protocols/v4/guides/hooks/swap-hooks).
 

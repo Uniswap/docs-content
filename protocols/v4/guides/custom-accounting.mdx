@@ -12,7 +12,7 @@ These features are grouped together because they collectively represent the core
 
 Before we dive into the details of custom accounting, hook fees, custom curves, and return deltas, let’s explore how these features work in Uniswap v4.
 
-### Delta Accounting in v4
+### Delta accounting in v4
 
 As described in [Flash Accounting](/docs/protocols/v4/concepts/flash-accounting), Uniswap v4 tracks net token transfers with transient storage. Unlike previous versions that tracked absolute token balances, v4 records changes to these balances (*deltas*). This approach is at the core of v4's enhanced flexibility and efficiency.
 
@@ -26,7 +26,7 @@ Delta accounting provides several key benefits:
 
 This system forms the foundation upon which other v4 features, such as hook fees and custom curves, are built. It allows for more complex pool behaviors while maintaining efficiency and flexibility.
 
-### Hook Fees in v4
+### Hook fees in v4
 
 Hook fees are a feature in Uniswap v4 that allow hook developers to monetize their hooks or implement custom value distribution mechanisms. Unlike pool fees or dynamic fees, hook fees are entirely separate and are implemented through custom logic in the hook itself.
 
@@ -56,7 +56,7 @@ Developers have full control over how hook fees are calculated, collected, and d
 
 Keep reading because at the bottom we are providing a step by step guide on how to implement hook fees.
 
-### Custom Curves in v4
+### Custom curves in v4
 
 Custom Curves in Uniswap v4 represent a big change in AMM design flexibility. Unlike [Uniswap v2](/docs/protocols/v2/overview) where the x*y=k formula was hardcoded, v4 allows developers to implement a wide variety of pricing models.
 
@@ -69,7 +69,7 @@ For example, creating a custom curve for a stable swap pool would involve design
 
 This type of custom curve could significantly improve capital efficiency for stable asset pairs, reducing slippage for traders and potentially attracting more liquidity to the pool. It showcases how Uniswap v4's flexible architecture allows for tailored solutions to specific trading scenarios, opening up new possibilities in decentralized exchange design.
 
-### Return Deltas in v4
+### Return deltas in v4
 
 Return deltas are a fundamental mechanism in Uniswap v4's custom accounting system. They allow for precise, programmatic adjustments to the outcomes of operations within the protocol.
 
@@ -86,7 +86,7 @@ In essence, return deltas allow for bespoke modification of an operation's resul
 
 In this guide, we'll walk through the process of implementing a custom fee hook in Uniswap v4. We'll not only show you how to write the code but also explain what's happening under the hood at each step.
 
-### Step 1: Setting Up the Hook
+### Step 1: Setting up the hook
 
 First, let's create our basic hook structure:
 
@@ -132,7 +132,7 @@ contract HookFeeExample is BaseHook {
 
 Here, we're setting up our hook with a constant fee of 0.01% and enabling the `beforeSwap` and `beforeSwapReturnDelta` permissions.
 
-### Step 2: Implementing the beforeSwap Function
+### Step 2: Implementing the beforeSwap function
 
 Now, let's implement our `beforeSwap` function:
 
@@ -202,7 +202,7 @@ We return the function selector, our `returnDelta`, and 0 for the fee override.
 return (BaseHook.beforeSwap.selector, returnDelta, 0);
 ```
 
-### Step 3: Understanding the BeforeSwapDelta Mechanism
+### Step 3: Understanding the BeforeSwapDelta mechanism
 
 Now, let's dive deeper into how the `BeforeSwapDelta` works and how it affects the overall swap process.
 

@@ -28,7 +28,7 @@ Quoters are expected to honor and execute the quotes they submit. If a quoter su
 ## RFQ API Integration Details
 To successfully receive and respond to UniswapX RFQ Quotes, you must have a publicly accessible endpoint that handles incoming quote requests according to the following schema:
 
-### Request Schema:
+### Request schema:
 ```json
 method: POST
 content-type: application/json
@@ -47,7 +47,7 @@ data: {
 }
 ```
 
-### Response Schema:
+### Response schema:
 If you can fulfill the quote request, your server should respond with (status 200 - OK) and the following data:
 ```json
 {
@@ -67,7 +67,7 @@ If you can fulfill the quote request, your server should respond with (status 20
 
 If you do not wish to respond to a quote request, you must return an empty response with status code `204`.
 
-### Schema When Disabled Due to Circuit Breaker
+### Schema when disabled due to circuit breaker
 If you are an onboarded quoter who is currently disabled by the circuit breaker, your server will receive the following message on the same quote endpoint:
 
 ```json
@@ -81,7 +81,7 @@ data: {
 ## Moving to Production
 All new quoter instances start by being onboarded to the [Beta environment](https://beta.api.uniswap.org/v2/uniswapx/docs). There, at least **5 valid Exclusive RFQ fills** must be demonstrated before moving to production. The Beta environment serves valid mainnet orders that should be filled against production contracts but does not receive traffic from production interfaces.
 
-### Steps to Move to Production
+### Steps to move to production
 
 1. **Provide the quote server URL** to your Uniswap Labs contact along with the contract address used to fill. It is recommended to use the same quoting infrastructure intended for production.
 2. **Begin sending quotes and orders to beta** via the [UniswapX CLI](https://github.com/Uniswap/uniswapx-tool?tab=readme-ov-file#simple-order-creation). Reach out to the Uniswap team to be added to the private GitHub.

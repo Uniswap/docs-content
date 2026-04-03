@@ -36,7 +36,7 @@ This guide assumes you are familiar with our [Minting a Position](/docs/sdks/v3/
 Also note that we do not need to give approval to the `NonfungiblePositionManager` to transfer our tokens as we will have already done that when minting our position.
 </Callout>
 
-## Setup a router instance
+## Setup a Router Instance
 
 The first step is to approve the `SwapRouter` smart contract to spend our tokens for us in order for us to add liquidity to our position:
 
@@ -67,7 +67,7 @@ const router = new AlphaRouter({ chainId: 1, provider })
 
 For a more detailed example, check out our [routing guide](/docs/sdks/v3/guides/swapping/routing).
 
-## Configuring our ratio calculation
+## Configuring Our Ratio Calculation
 
 Having created the router, we now need to construct the parameters required to make a call to its `routeToRatio` function, which will ensure the ratio of currency used matches the pool's required ratio to add our total liquidity. This will require the following parameters:
 
@@ -146,7 +146,7 @@ const swapAndAddOptions: SwapAndAddOptions = {
 }
 ```
 
-## Calculating our currency ratio
+## Calculating Our Currency Ratio
 
 Having constructed all the parameters we need to call `routeToRatio`, we can now make the call to the function:
 
@@ -177,7 +177,7 @@ if (
 
 In case a route was not found, we return from the function a `Failed` state for the transaction.
 
-## Constructing and executing our swap-and-add transaction
+## Constructing and Executing Our Swap-and-Add Transaction
 
 After making sure that a route was successfully found, we can now construct and send the transaction. The response (`SwapToRatioRoute`) will have the properties we need to construct our transaction object:
 

@@ -17,7 +17,7 @@ Global data refers to data points about the Uniswap v2 protocol as a whole, such
 
 To query global data, pass in the Uniswap v2 Factory address `0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f` and select the desired fields.
 
-### Current Global Data
+### Current global data
 
 An example querying total volume, total liquidity, and all-time transaction count:
 
@@ -31,7 +31,7 @@ An example querying total volume, total liquidity, and all-time transaction coun
 }
 ```
 
-### Historical Global Data
+### Historical global data
 
 You can query historical data by specifying a block number. See [time travel queries](https://thegraph.com/docs/en/subgraphs/querying/graphql-api/#time-travel-queries-example) for more information.
 
@@ -50,7 +50,7 @@ You can query historical data by specifying a block number. See [time travel que
 
 ## Pair Data
 
-### Pair Overview
+### Pair overview
 
 Fetch a snapshot of the current state of a pair. This example fetches the DAI/WETH pair:
 
@@ -81,7 +81,7 @@ Fetch a snapshot of the current state of a pair. This example fetches the DAI/WE
 }
 ```
 
-### All Pairs
+### All pairs
 
 The Graph limits entity return amounts to 1000 per query. Use a loop with the `skip` variable to fetch all pairs:
 
@@ -97,7 +97,7 @@ query pairs($skip: Int!) {
 }
 ```
 
-### Most Liquid Pairs
+### Most liquid pairs
 
 Order by `reserveUSD` to get the most liquid pairs:
 
@@ -109,7 +109,7 @@ Order by `reserveUSD` to get the most liquid pairs:
 }
 ```
 
-### Recent Swaps Within a Pair
+### Recent swaps within a pair
 
 Get recent swaps for a specific pair by filtering on the pair address:
 
@@ -134,7 +134,7 @@ Get recent swaps for a specific pair by filtering on the pair address:
 }
 ```
 
-### Pair Daily Aggregated
+### Pair daily aggregated
 
 Query daily aggregated data for a pair. This gets the first 100 days after a given timestamp for the DAI/WETH pair:
 
@@ -162,7 +162,7 @@ Query daily aggregated data for a pair. This gets the first 100 days after a giv
 
 Token data is aggregated across all pairs the token is included in. Any token that appears in at least one Uniswap v2 pair can be queried.
 
-### General Token Data
+### General token data
 
 Fetch current stats for a token. This example queries DAI:
 
@@ -179,7 +179,7 @@ Fetch current stats for a token. This example queries DAI:
 }
 ```
 
-### All Tokens
+### All tokens
 
 Similar to fetching all pairs, use `skip` to paginate through all tokens:
 
@@ -197,7 +197,7 @@ query tokens($skip: Int!) {
 }
 ```
 
-### Token Transactions
+### Token transactions
 
 To get transactions involving a specific token, first fetch the pairs that include the token, then filter transactions by those pairs. This example queries mints, burns, and swaps for DAI:
 
@@ -242,7 +242,7 @@ Pass the pairs array as a variable:
 }
 ```
 
-### Token Daily Aggregated
+### Token daily aggregated
 
 Daily information for a token, ordered from oldest to newest:
 

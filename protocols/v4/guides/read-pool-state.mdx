@@ -9,13 +9,13 @@ Unlike previous versions, v4 uses a different approach for storing and accessing
 
 ## Understanding the PoolManager Architecture
 
-### The Singleton Design
+### The singleton design
 
 In Uniswap v4, all pools are managed by a single `PoolManager` contract, unlike v3 where each pool was a separate contract. This design offers simplified management since all pools are now accessible through a single contract.
 
 This approach significantly reduces deployment costs, simplifies protocol upgrades, and enables more efficient cross-pool interactions. It also allows for easier implementation of new features across all pools simultaneously. 
 
-### Pools as Library Calls
+### Pools as library calls
 
 In v4, pools are stored as complex structs, with Solidity libraries handling state changes. The `PoolManager` contract uses these libraries to perform operations on the pool state:
 

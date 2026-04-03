@@ -1,6 +1,6 @@
 ---
 title: Swapping API Integration Guide
-description: A practical guide to building swapping with the Uniswap API
+description: Build swapping integrations with the Uniswap API using this practical step-by-step guide.
 ---
 
 ### Authentication
@@ -15,7 +15,7 @@ curl -X POST https://trade-api.gateway.uniswap.org/v1/quote \
   -d '{"tokenIn":"0x...","tokenOut":"0x...","amount":"1000000",...}'
 ```
 
-### Basic Quote Request
+### Basic quote request
 
 ```typescript
 const response = await fetch('https://trade-api.gateway.uniswap.org/v1/quote', {
@@ -46,7 +46,7 @@ Full code examples for completing a basic swap workflow are available in [Swappi
 
 ## Architecture
 
-### Client-Side Responsibilities
+### Client-side responsibilities
 
 The Uniswap API swapping endpoints are a quote and transaction building service augmented with useful validation checks. The API handles:
 
@@ -64,7 +64,7 @@ Your application handles:
 - **Gas Payment**: Actual gas usage
 - **Transaction Error Handling**: Handle reverts
 
-### Required Infrastructure
+### Required infrastructure
 
 Your integration must include:
 
@@ -74,7 +74,7 @@ Your integration must include:
 
 See the [Build Prerequisites](/docs/trading/swapping-api/building-prerequisites) for more details.
 
-### Data Flow
+### Data flow
 
 ```
 User Request
@@ -95,7 +95,7 @@ Your Application
 
 ## Available Endpoints
 
-### Core Endpoints
+### Core endpoints
 
 | Endpoint | Description |
 |----------|-------------|
@@ -106,7 +106,7 @@ Your Application
 | [GET /swaps](/docs/api-reference/get_swaps) | Check status of an AMM transaction |
 | [GET /orders](/docs/api-reference/get_order) | Check status of a UniswapX order |
 
-### Special Case Endpoints
+### Special case endpoints
 
 | Endpoint | Description |
 |----------|-------------|
@@ -158,7 +158,7 @@ The `data` field contains the encoded contract call and **must always be present
 <Callout title="Validation Requirements" type="warn">
 
 - **Never Empty**: The `data` field must be a non-empty hex string (not `""` or `"0x"`).
-- **Never Modify**: The API endpoints return pre-validated and correct data. Modifying its value may cause funds to be lost or on-chain transaction reverts.
+- **Never Modify**: The API endpoints return pre-validated and correct data. Modifying its value may cause funds to be lost or onchain transaction reverts.
 - **Always Validate**: Check `data` exists before broadcasting.
 
 </Callout>
@@ -188,11 +188,11 @@ interface PermitSingle {
 
 ## Permit2 Flow
 
-Permit2 is a token approval system which uses an off-chain (gasless) EIP-712 signed message to allow an on-chain contract to spend tokens from a wallet within pre-defined bounds. The API will return a `permitData` in the /quote response when one must be signed in order to perform the swap. The API will return `"permitData": null` in the /quote response when no permit needs to be signed.
+Permit2 is a token approval system which uses an offchain (gasless) EIP-712 signed message to allow an onchain contract to spend tokens from a wallet within pre-defined bounds. The API will return a `permitData` in the /quote response when one must be signed in order to perform the swap. The API will return `"permitData": null` in the /quote response when no permit needs to be signed.
 
-### Implementation Steps
+### Implementation steps
 
-#### Get Quote with Permit Data
+#### Get quote with permit data
 
 ```typescript
 const quoteResponse = await fetch('/quote', {
@@ -218,7 +218,7 @@ const quoteResponse = await fetch('/quote', {
 const {quote, permitData, routing} = await quoteResponse.json();
 ```
 
-#### Sign the Permit
+#### Sign the permit
 
 ```typescript
 let signature: string | undefined;
@@ -260,7 +260,7 @@ const swapRequest = {
 };
 ```
 
-#### Broadcast Transaction
+#### Broadcast transaction
 
 ```typescript
 const {swap} = await swapResponse.json();
@@ -273,7 +273,7 @@ const txReceipt = await provider.sendTransaction(signedTx);
 
 ## Error Handling
 
-### HTTP Status Codes
+### HTTP status codes
 
 | Code | Meaning |
 |------|---------|
@@ -284,7 +284,7 @@ const txReceipt = await provider.sendTransaction(signedTx);
 | 500 | API error (retry with backoff) |
 | 503 | Temporary unavailability (retry) |
 
-### Error Response Format
+### Error response format
 
 ```typescript
 interface ErrorResponse {
@@ -294,9 +294,9 @@ interface ErrorResponse {
 }
 ```
 
-### Common Errors
+### Common errors
 
-#### No Quotes Available
+#### No quotes available
 
 **Cause**: No route found for the requested swap
 
@@ -306,7 +306,7 @@ interface ErrorResponse {
 - Try different protocols or routing preferences
 - Reduce trade size
 
-#### Validation Error
+#### Validation error
 
 **Cause**: Invalid request parameters
 
@@ -316,7 +316,7 @@ interface ErrorResponse {
 - Ensure amount is in correct units (wei, not ether)
 - Validate chain IDs are supported
 
-#### Authentication Error
+#### Authentication error
 
 **Cause**: Invalid or missing authentication header
 
@@ -324,9 +324,9 @@ interface ErrorResponse {
 - Include the authentication header with a valid API key
 - Check that API key was copied correctly (must match exact capitalization)
 
-### Transaction Revert Scenarios
+### Transaction revert scenarios
 
-If a transaction reverts on-chain, check the on-chain revert error. Additionally check:
+If a transaction reverts onchain, check the onchain revert error. Additionally check:
 
 1. **Check `data` field**: Verify it's not empty
 2. **Verify token balance**: User has sufficient tokens at broadcast time
@@ -375,7 +375,7 @@ async function validateBeforeBroadcast(
 
 ## Best Practices
 
-### Quote Freshness
+### Quote freshness
 
 Quotes are time-sensitive due to price volatility:
 
@@ -393,7 +393,7 @@ if (Date.now() - quoteTimestamp > QUOTE_EXPIRY_MS) {
 }
 ```
 
-### Transaction Validation
+### Transaction validation
 
 Always validate transaction payloads before broadcasting:
 
@@ -421,7 +421,7 @@ function validateSwapTransaction(tx: TransactionRequest): void {
 }
 ```
 
-### Gas Management
+### Gas management
 
 The API provides gas estimates, but clients should:
 
@@ -429,7 +429,7 @@ The API provides gas estimates, but clients should:
 - **Handle gas spikes**: Warn users when gas is unusually high
 - **EIP-1559 vs Legacy**: Use EIP-1559 on supported chains
 
-### Slippage Configuration
+### Slippage configuration
 
 Balance protection vs execution success:
 
@@ -439,7 +439,7 @@ Balance protection vs execution success:
 | Moderate | 0.5-1% | Most swaps |
 | Aggressive | 1-5% | Large trades, volatile markets, low liquidity |
 
-### Error Recovery
+### Error recovery
 
 If a quote fails, read the error message to address the specific error cause. If the quote fails due to no quotes available, implement retry logic with exponential backoff:
 
@@ -478,7 +478,7 @@ async function fetchQuoteWithRetry(
 }
 ```
 
-### Monitoring & Logging
+### Monitoring & logging
 
 We highly recommend that you track key metrics for production reliability:
 
@@ -514,7 +514,7 @@ function logSwapAttempt(
 
 ## Troubleshooting
 
-### Quote Issues
+### Quote issues
 
 **Problem**: No quotes returned
 
@@ -527,14 +527,14 @@ function logSwapAttempt(
 **Problem**: Quote price seems incorrect
 
 - Verify the amount is in the correct units (wei, not ether)
-- Confirm token decimals match the on-chain contract
+- Confirm token decimals match the onchain contract
 - Review slippage tolerance for appropriateness
 - Evaluate price impact relative to trade size
 
 
-### Transaction Issues
+### Transaction issues
 
-**Problem**: Transaction reverts on-chain
+**Problem**: Transaction reverts onchain
 
 - Verify the `data` field is not empty (see [Transaction Validation](#transaction-validation))
 - Confirm the token balance is sufficient at broadcast time
@@ -550,7 +550,7 @@ function logSwapAttempt(
 - Check network congestion on the target chain
 - Verify the transaction nonce is not blocked by a pending transaction
 
-### API Issues
+### API issues
 
 **Problem**: 429 Rate Limit Exceeded
 
@@ -583,7 +583,7 @@ async function fetchWithCache(
 - Confirm liquidity exists for the trading pair
 
 
-### Integration Issues
+### Integration issues
 
 **Problem**: Permit2 validation errors
 

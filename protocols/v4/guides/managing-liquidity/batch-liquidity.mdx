@@ -18,7 +18,7 @@ See the [setup guide](/docs/protocols/v4/guides/managing-liquidity/getting-start
 Below is a general reference guide for batch-operating on multiple liquidity positions, in *solidity*.
 This guide does _not_ focus on a specific batch sequence, and is intended to be a general guide for `PositionManager`'s command-based interface.
 
-### 1. Encoded Actions
+### 1. Encoded actions
 
 Actions are divided into two types: _liquidity-operations_ and _delta-resolving_.
 
@@ -47,7 +47,7 @@ bytes memory actions = abi.encodePacked(uint8(Actions.X), uint8(Actions.Y), uint
 * `CLEAR_OR_TAKE`- forfeit tokens if the amount is below a specified threshold, otherwise take the tokens. Used for cases where callers may expect to produce dust
 * `SWEEP` - return any excess token balances to a recipient. Used for cases where callers may conversatively overpay tokens
 
-### 2. Encoded Parameters
+### 2. Encoded parameters
 
 Each action has its own parameters to encode. Generally:
 
@@ -66,7 +66,7 @@ params[1] = abi.encode(...); // parameters for the second action
 params[2] = abi.encode(...); // parameters for the third action
 ```
 
-### 3. Submit Call
+### 3. Submit call
 
 The entrypoint for all liquidity operations is `modifyLiquidities()`
 

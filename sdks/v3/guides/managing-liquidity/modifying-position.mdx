@@ -31,7 +31,7 @@ This guide assumes you are familiar with our [Minting a Position](/docs/sdks/v3/
 Also note that we do not need to give approval to the `NonfungiblePositionManager` to transfer our tokens as we will have already done that when minting our position.
 </Callout>
 
-## Configuration and utils
+## Configuration and Utils
 
 The example can be configured in the [`config.ts`](https://github.com/Uniswap/examples/blob/d34a53412dbf905802da2249391788a225719bb8/v3-sdk/modifying-position/src/config.ts) file.
 The `CurrentConfig` object has this structure:
@@ -64,7 +64,7 @@ You should already be familiar with the `rpc`, `wallet` and token parameters, th
 The `fractionToAdd` variable is the multiplicator by which we will increase the Position. A fraction of **0.5** means we increase the liquidity by **50%**.
 The `fractionToRemove` variable is the fraction of the Position that we want to remove later in the guide. A fraction of **1** means we remove **100%** of the liquidity.
 
-## Adding liquidity to our position
+## Adding Liquidity to Our Position
 
 Assuming we have already minted a position, our first step is to construct the modified position using our original position to calculate the amount by which we want to increase our current position:
 
@@ -174,7 +174,7 @@ We can get the Contract address for the NonfungiblePositionManager from [GitHub]
 
 After pressing the button, note how the balance of USDC and DAI drops and our position's liquidity increases.
 
-## Removing liquidity from our position
+## Removing Liquidity from Our Position
 
 The `removeLiquidity` function is the mirror action of adding liquidity and will be somewhat similar as a result, requiring a position to already be minted.
 

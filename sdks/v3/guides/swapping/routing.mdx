@@ -52,7 +52,7 @@ interface ExampleConfig {
 export const CurrentConfig: ExampleConfig = {...}
 ```
 
-## Creating a router instance
+## Creating a Router Instance
 
 To compute our route, we will use the `@uniswap/smart-order-router` package, specifically the `AlphaRouter` class which requires a `chainId` and a `provider`. Note that routing is not supported for local forks, so we will use a mainnet provider even when swapping on a local fork:
 
@@ -67,7 +67,7 @@ const router = new AlphaRouter({
 })
 ```
 
-## Creating a route
+## Creating a Route
 
 We will use the [SwapRouter02](https://github.com/Uniswap/v3-periphery/blob/v1.0.0/contracts/SwapRouter.sol) for our trade.
 The `smart-order-router` package provides us with a `SwapOptionsSwapRouter02` interface, defining the wallet to use, slippage tolerance, and deadline for the transaction that we need to interact with the contract:
@@ -134,7 +134,7 @@ if (!route || !route.methodParameters) {
 
 Depending on our preferences and reason for the issue we could retry the request or throw an Error.
 
-## Swapping using a route
+## Swapping Using a Route
 
 First, we need to give approval to the `SwapRouter` smart contract to spend our tokens for us:
 
