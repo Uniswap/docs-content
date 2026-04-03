@@ -4,7 +4,7 @@ title: The Flash Callback
 description: Implement the Uniswap v3 flash callback to settle borrowed amounts and fees correctly.
 ---
 
-## Setting Up The Callback
+## Setting Up the Callback
 
 Here we will override the flash callback with our custom logic to execute the desired swaps and pay the profits to the original `msg.sender`.
 
@@ -24,7 +24,7 @@ Declare a variable `decoded` in memory and assign it to the [**decoded data**](h
         FlashCallbackData memory decoded = abi.decode(data, (FlashCallbackData));
 ```
 
-Each callback must be validated to verify that the call originated from a genuine V3 pool. Otherwise, the PairFlash contract would be vulnerable to attack via an EOA manipulating the callback function.
+Each callback must be validated to verify that the call originated from a genuine v3 pool. Otherwise, the PairFlash contract would be vulnerable to attack via an EOA manipulating the callback function.
 
 ```solidity
         CallbackValidation.verifyCallback(factory, decoded.poolKey);
@@ -47,7 +47,7 @@ Code in a minimum amount out for both of the upcoming swaps, such that the follo
         uint256 amount0Min = LowGasSafeMath.add(decoded.amount0, fee0);
 ```
 
-## Initiating A Swap
+## Initiating a Swap
 
 Call the first of two swaps, calling `exactInputSingle` on the **router interface** contract. In this call, we are using the previously declared `amount0In` as the minimum amount out, and assigning the returned balance of the swap to `amountOut0`.
 
@@ -93,7 +93,7 @@ uint256 amountOut1 =
             );
 ```
 
-## Paying back the pool
+## Paying Back the Pool
 
 To pay the original pool back for the flash transaction, first calculate the balance due to it and approve the router to transfer the tokens in our contract back to the pool.
 
@@ -129,7 +129,7 @@ Send the profits to the `payer`: the original `msg.sender` of the `initFlash` fu
         }
 ```
 
-## The full function
+## The Full Function
 
 ```solidity
     function uniswapV3FlashCallback(

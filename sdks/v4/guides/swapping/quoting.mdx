@@ -19,7 +19,7 @@ For this guide, the following Uniswap packages are used:
 - [`@uniswap/v4-sdk`](https://www.npmjs.com/package/@uniswap/v4-sdk)
 - [`@uniswap/sdk-core`](https://www.npmjs.com/package/@uniswap/sdk-core)
 
-## Constructing the PoolKey and Swap parameters
+## Constructing the PoolKey and Swap Parameters
 
 We will first create an example configuration `CurrentConfig` in `config.ts`. For this example, we are using the [0.05% ETH - USDC pool](https://app.uniswap.org/explore/pools/ethereum/0x21c67e77068de97969ba93d4aab21826d33ca12bb9f565d8496e8fda8a82ca27) which has the format:
 
@@ -67,7 +67,7 @@ export const USDC_TOKEN = new Token(
 )
 ```
 
-## Referencing the Quoter contract and getting a quote
+## Referencing the Quoter Contract and Getting a Quote
 
 To get quotes for trades, Uniswap has deployed a **Quoter Contract**. We will use this contract to fetch the output amount we can expect for our trade, without actually executing the trade.
 

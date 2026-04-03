@@ -9,10 +9,10 @@ This section will walk you through exiting a bid and claiming purchased tokens o
 ## Prerequisites
 This guide continues from the [previous section](/docs/liquidity/liquidity-launchpad/guides/price-discovery). Basic knowledge of the CCA auction mechanism and Solidity is assumed.
 
-## Step 1: Review the current auction state
+## Step 1: Review the Current Auction State
 Currently we have a CCA contract deployed which we have submitted a bid to. We're the only bidder in the auction and the clearing price of the auction is at our max price. Let's modify the script to add another bid which will outbid our initial one, and show how both bids can be exited.
 
-## Step 2: Exit an outbid position
+## Step 2: Exit an Outbid Position
 From the previous section we have the following script (copy and pasted for convenience):
 ```solidity
 contract ExampleCCABidScript is Script {
@@ -149,7 +149,7 @@ As the auction has not completed yet, the second bid is not exitable yet since i
 
 At the end of the auction and after `claimBlock` both bids can claim their purchased tokens.
 
-## Step 3: Claim purchased tokens
+## Step 3: Claim Purchased Tokens
 A bid must be exited before claiming tokens. Let's fast forward to the end of the auction so we can exit the second bid and claim tokens for both bids.
 
 Append the following code to the end of the script:

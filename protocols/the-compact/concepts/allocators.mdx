@@ -18,14 +18,14 @@ Each resource lock is mediated by an allocator with four primary responsibilitie
 
 Allocators must be registered with The Compact before they can be assigned to locks.
 
-### Registration Requirements
+### Registration requirements
 
 Anyone can register an allocator if one of three conditions is met:
 - The caller is the allocator address being registered
 - The allocator address contains code
 - A proof is supplied representing valid create2 deployment parameters
 
-### Registration Function
+### Registration function
 
 ```solidity
 function __registerAllocator(
@@ -34,7 +34,7 @@ function __registerAllocator(
 ) external returns (uint96 allocatorId)
 ```
 
-### Create2 Proof Format
+### Create2 proof format
 
 When registering an allocator that does not yet exist but will be deployed via CREATE2, provide an 85-byte proof:
 ```text
@@ -47,7 +47,7 @@ This allows pre-registration of deterministic addresses.
 
 All allocators must implement the `IAllocator` interface:
 
-### attest Function
+### attest function
 
 Called on standard ERC6909 transfers to validate them:
 
@@ -65,7 +65,7 @@ function attest(
 - Must verify the transfer is safe
 - Must return `IAllocator.attest.selector` on success
 
-### authorizeClaim Function
+### authorizeClaim function
 
 Called by The Compact during claim processing for onchain authorization:
 
@@ -93,7 +93,7 @@ function authorizeClaim(
 **Requirements**:
 - Must return `IAllocator.authorizeClaim.selector` on success
 
-### isClaimAuthorized Function
+### isClaimAuthorized function
 
 Offchain view function to check if a claim would be authorized:
 
@@ -139,21 +139,21 @@ function hasConsumedAllocatorNonce(
 
 ## Implementation Patterns
 
-### Onchain Allocators
+### Onchain allocators
 
 Purely onchain allocators can:
 - Track balances in contract storage
 - Implement authorization logic directly
 - Use onchain randomness or oracles
 
-### Hybrid Allocators
+### Hybrid allocators
 
 Combine onchain and offchain components:
 - Offchain tracking and signature generation
 - Onchain signature verification
 - Balance attestation via `allocatorData`
 
-### Sample Implementations
+### Sample implementations
 
 Two basic sample implementations are available:
 
@@ -162,11 +162,11 @@ Two basic sample implementations are available:
 
 ## Trust Assumptions
 
-### For Sponsors
+### For sponsors
 - Allocators won't unduly censor valid requests against fully funded locks
 - Sponsors can initiate forced withdrawals if allocators become unresponsive
 
-### For Claimants
+### For claimants
 - Allocators are sound and won't allow resource locks to become underfunded
 - Allocators will properly track and enforce balance constraints
 
@@ -174,7 +174,7 @@ Two basic sample implementations are available:
 
 To protect sponsors from unresponsive or malicious allocators, The Compact implements a forced withdrawal mechanism that allows sponsors to bypass allocator authorization after a waiting period.
 
-### How It Works
+### How it works
 
 1. **Initiation**: A sponsor calls `enableForcedWithdrawal(uint256 id)` to signal their intent to withdraw without allocator approval.
 2. **Timelock Period**: The protocol enforces a waiting period equal to the resource lock's `resetPeriod`.
@@ -199,14 +199,14 @@ function forcedWithdrawal(
 ) external
 ```
 
-### Security Considerations
+### Security considerations
 
 - The timelock period provides adequate notice to all parties about the withdrawal intent
 - This prevents sudden balance changes that could lead to equivocation
 - The reset period is chosen by the sponsor when creating the resource lock
 - Shorter reset periods provide faster exit but may offer less security to claimants
 
-### Checking Withdrawal Status
+### Checking withdrawal status
 
 ```solidity
 function getForcedWithdrawalStatus(

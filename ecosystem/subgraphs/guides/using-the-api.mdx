@@ -78,9 +78,9 @@ ReactDOM.render(
 registerServiceWorker()
 ```
 
-## Query data
+## Query Data
 
-Next we'll construct our query and fetch data. For this example we will fetch some data about the Dai token on Uniswap V2. We'll get the current price, and total liquidity across all pairs. We'll be using the Dai address as an id in this query. We'll also fetch the USD price of ETH to help create USD conversion for Dai data.
+Next we'll construct our query and fetch data. For this example we will fetch some data about the Dai token on Uniswap v2. We'll get the current price, and total liquidity across all pairs. We'll be using the Dai address as an id in this query. We'll also fetch the USD price of ETH to help create USD conversion for Dai data.
 
 1. First we need to define the query itself. We'll use `gql` to parse a query string into the GraphQL AST standard. Import the `gql` helper into the app and use it to create the query. Add the following to your `App.js` file:
 
@@ -109,7 +109,7 @@ We use an id of `1` for the bundle because there is only one hardcoded bundle in
 
 ### Fetch data
 
-Now we're ready to use these queries to fetch data from the Uniswap V2 subgraph. To do this we can use the `useQuery` hook which uses our client instance to fetch data, and gives us live info about the status of the request. To do this add the following to your `App.js` file:
+Now we're ready to use these queries to fetch data from the Uniswap v2 subgraph. To do this we can use the `useQuery` hook which uses our client instance to fetch data, and gives us live info about the status of the request. To do this add the following to your `App.js` file:
 
 ```javascript
 import { useQuery } from '@apollo/react-hooks'
@@ -128,7 +128,7 @@ const {
 
 Notice we're using the Dai token address to fetch data about Dai.
 
-## Render data
+## Render Data
 
 Now that we have our data we can format it and display it in the UI. First, we parse the return data to get the actual data that we want. Then we'll use it to get the USD price of Dai. Lastly we'll insert this data into the UI itself.
 
@@ -174,7 +174,7 @@ return (
 )
 ```
 
-## Next steps
+## Next Steps
 
 This should render a very basic page with these two stats about the Dai token within Uniswap. This is a very basic example of what you can do with the Uniswap subgraph and we encourage you to build out more complex and interesting tools!
 

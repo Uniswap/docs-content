@@ -9,7 +9,7 @@ This section will walk you through how a CCA auction discovers new prices over t
 ## Prerequisites
 Basic understanding of the CCA auction mechanism and Solidity is assumed. This guide continues from the [previous section](/docs/liquidity/liquidity-launchpad/guides/submit-bid) where we submitted our first bid.
 
-## Step 1: Review the current auction state
+## Step 1: Review the Current Auction State
 Currently we have a CCA contract deployed which we have submitted a bid to. We'll now modify our script to show how the price of the auction can change over time.
 
 To summarize the current relative parameters:
@@ -21,7 +21,7 @@ To summarize the current relative parameters:
 
 And the total supply to sell is 1 billion tokens.
 
-## Step 2: Submit a bid that moves the clearing price
+## Step 2: Submit a Bid That Moves the Clearing Price
 In the last section we showed how the auction updates its internal state via checkpointing when a new bid is submitted. The bid that we submitted had two main parts: a max price and an amount.
 
 The [whitepaper](/docs/liquidity/liquidity-launchpad/whitepaper_cca.pdf) is the most complete resource to understand the auction mechanics, but at a high level this is how the mechanism works:

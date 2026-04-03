@@ -5,11 +5,11 @@ description: Integrate Flashblocks on Unichain to use preconfirmation data and r
 
 Flashblocks provide transaction preconfirmations on Unichain in about 200 milliseconds, so apps can show faster transaction feedback.
 
-## What are Flashblocks?
+## What Are Flashblocks?
 
 Flashblocks enable ultra-fast transaction confirmations on Unichain by providing **preconfirmations** - instant signals that arrive before the next block is finalized. Instead of waiting up to 1 second for block confirmation, users receive transaction feedback in just **200 milliseconds**.
 
-### Key Benefits
+### Key benefits
 
 - **5x faster confirmations**: Reduce perceived latency from 1 second to 200 milliseconds
 - **Seamless Integration**: Works with many existing Ethereum JSON-RPC methods using the `pending` tag
@@ -17,7 +17,7 @@ Flashblocks enable ultra-fast transaction confirmations on Unichain by providing
 - **Incremental Updates**: Receive partial block updates as transactions are processed
 - **Backward Compatible**: Existing applications continue to work without modifications
 
-### How It Works
+### How it works
 
 Flashblocks work by streaming partial block updates called "Flashblocks" every 200 milliseconds. Each Flashblock contains:
 
@@ -27,7 +27,7 @@ Flashblocks work by streaming partial block updates called "Flashblocks" every 2
 
 These updates are propagated to RPC providers who maintain a preconfirmation cache, allowing applications to query the latest state immediately.
 
-### Perfect For
+### Perfect for
 
 - **DeFi Applications**: Instant swap confirmations and liquidity updates
 - **Marketplaces**: Immediate purchase confirmations
@@ -38,7 +38,7 @@ These updates are propagated to RPC providers who maintain a preconfirmation cac
 
 Flashblocks integration is designed to be seamless for application developers. Most existing applications can benefit from Flashblocks with minimal code changes.
 
-### RPC Endpoints
+### RPC endpoints
 
 Use these Flashblocks-aware RPC endpoints for development and testing:
 
@@ -49,7 +49,7 @@ Use these Flashblocks-aware RPC endpoints for development and testing:
 
 > **Production note**: These public endpoints are rate-limited. For production applications, see [node providers](#using-flashblocks-with-a-node-provider) that support Flashblocks.
 
-### Supported RPC Methods
+### Supported RPC methods
 
 The following standard Ethereum JSON-RPC methods support Flashblocks data when using the `pending` tag:
 
@@ -147,7 +147,7 @@ curl https://sepolia.unichain.org \
   }'
 ```
 
-### Library Integration
+### Library integration
 
 #### Ethers.js
 
@@ -219,16 +219,16 @@ async function sendFastTransaction() {
 
 Wallet providers can integrate Flashblocks to provide instant transaction feedback to users.
 
-### User Experience Benefits
+### User experience benefits
 
 - **Instant Confirmations**: Show users their transaction succeeded immediately
 - **Real-time Balance Updates**: Update balances as soon as transactions are preconfirmed
 - **Reduced Anxiety**: Users don't wait wondering if their transaction went through
 - **Better UX**: Feels like Web2 application responsiveness
 
-### Implementation Guidelines
+### Implementation guidelines
 
-#### Transaction Status Updates
+#### Transaction status updates
 
 ```javascript
 class WalletProvider {
@@ -271,7 +271,7 @@ class WalletProvider {
 }
 ```
 
-#### Balance Updates
+#### Balance updates
 
 ```javascript
 class WalletProvider {
@@ -316,7 +316,7 @@ You can subscribe to Flashblocks data on the following URLs. The content is Brot
 | Unichain Mainnet | `wss://mainnet-flashblocks.unichain.org/ws` |
 | Unichain Sepolia | `wss://sepolia-flashblocks.unichain.org/ws` |
 
-#### Example Initial Response
+#### Example initial response
 
 The initial response contains the base block. Diff responses only contain the transactions that occurred in that
 flashblock to reduce how much data is sent in each response.
@@ -371,7 +371,7 @@ flashblock to reduce how much data is sent in each response.
 }
 ```
 
-#### Example Diff Response
+#### Example diff response
 
 ```json
 {

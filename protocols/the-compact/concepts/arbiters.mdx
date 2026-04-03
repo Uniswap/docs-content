@@ -20,7 +20,7 @@ Arbiters serve as intermediaries between sponsors and claimants with these key r
 
 Arbiters are specified per compact or per element (in multichain compacts):
 
-### Single and Batch Compacts
+### Single and batch compacts
 ```solidity
 struct Compact {
     address arbiter;    // The designated arbiter for this compact
@@ -31,7 +31,7 @@ struct Compact {
 }
 ```
 
-### Multichain Compacts
+### Multichain compacts
 ```solidity
 struct Element {
     address arbiter;    // Can be different per chain
@@ -52,23 +52,23 @@ struct Component {
 }
 ```
 
-### Claimant Encoding
+### Claimant encoding
 
 The `claimant` field packs two pieces of information:
 - **Upper 96 bits**: `bytes12 lockTag` (destination format)
 - **Lower 160 bits**: `address recipient` (who receives the tokens)
 
-### Destination Options
+### Destination options
 
 Based on the `lockTag` in the claimant field, arbiters can direct claimed resources to three different destinations:
 
-#### 1. Direct Transfer (Keep as ERC6909)
+#### 1. Direct transfer (keep as ERC6909)
 When the `lockTag` matches the original resource lock's tag, the ERC6909 tokens are transferred directly to the recipient. This maintains the same lock properties (allocator, reset period, scope).
 
-#### 2. Convert to New Resource Lock
+#### 2. Convert to new resource lock
 When the `lockTag` is non-zero but different from the original, the tokens are converted to a new resource lock with different properties. This allows changing allocators, reset periods, or scopes while keeping funds locked.
 
-#### 3. Withdraw to Underlying Token
+#### 3. Withdraw to underlying token
 When the `lockTag` is `bytes12(0)`, the ERC6909 tokens are burned and the underlying tokens (native or ERC20) are withdrawn to the recipient. This fully exits The Compact system.
 
 <Callout type="warn">
@@ -119,7 +119,7 @@ Arbiters submit claims using one of six available claim functions based on:
 - **Single-chain vs Multichain**: Whether the compact spans one or multiple chains
 - **Notarized vs Exogenous** (multichain only): Whether claiming on the primary signed chain or other chains
 
-### Single-Chain Claims
+### Single-chain claims
 
 #### claim (Compact)
 For single resource lock on a single chain:
@@ -133,7 +133,7 @@ For multiple resource locks on a single chain:
 function batchClaim(BatchClaim calldata claimPayload) external returns (bytes32 claimHash)
 ```
 
-### Multichain Claims
+### Multichain claims
 
 #### multichainClaim (MultichainCompact - Notarized)
 For single resource lock on the notarized chain (domain matches signature):
@@ -169,13 +169,13 @@ function exogenousBatchClaim(
 
 ## Trust Model
 
-### For Sponsors
+### For sponsors
 - Sponsors trust arbiters to:
   - Only submit valid claims that meet agreed-upon conditions
   - Not collude with claimants to drain resource locks prematurely
   - Properly verify witness data before claim submission
 
-### For Claimants
+### For claimants
 - Claimants trust arbiters to:
   - Submit claims promptly when conditions are met
   - Not censor valid claims
@@ -192,12 +192,12 @@ When an arbiter submits a claim, The Compact verifies authorization in this orde
 
 ## Best Practices
 
-### For Arbiter Selection
+### For arbiter selection
 - Choose arbiters with proven track records
 - Consider using decentralized arbiter networks for reduced trust requirements
 - Implement arbiter reputation systems for accountability
 
-### For Arbiter Implementation
+### For arbiter implementation
 - Validate all claim parameters before submission
 - Implement robust witness data verification
 - Maintain audit logs of all claim submissions
@@ -205,13 +205,13 @@ When an arbiter submits a claim, The Compact verifies authorization in this orde
 
 ## Common Patterns
 
-### Automated Arbiters
+### Automated arbiters
 Smart contracts can act as arbiters to provide trustless claim verification:
 - Oracle-based arbiters that verify external conditions
 - Time-locked arbiters for scheduled releases
 - Multi-signature arbiters requiring multiple approvals
 
-### Arbiter Networks
+### Arbiter networks
 Multiple arbiters can be coordinated through:
 - Consensus mechanisms for claim approval
 - Reputation-based selection systems
@@ -240,18 +240,18 @@ event Claim(
 
 ## Security Considerations
 
-### Arbiter Compromise
+### Arbiter compromise
 - If an arbiter's key is compromised, they could submit unauthorized claims
 - Sponsors should monitor for suspicious claim activity
 - Consider using time delays or multi-signature requirements for high-value compacts
 
-### Arbiter Censorship
+### Arbiter censorship
 - Arbiters could refuse to submit valid claims
 - Sponsors can mitigate by:
   - Using multiple arbiters
   - Implementing arbiter replacement mechanisms
   - Setting appropriate expiration times
 
-### Front-running Protection
+### Front-running protection
 - Arbiters should use private mempools or commit-reveal schemes when appropriate
 - Consider using flashbot bundles for sensitive claims

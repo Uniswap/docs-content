@@ -33,7 +33,7 @@ import {Actions} from "v4-periphery/src/libraries/Actions.sol";
 bytes memory actions = abi.encodePacked(uint8(Actions.DECREASE_LIQUIDITY), uint8(Actions.TAKE_PAIR));
 ```
 
-### 3. Encode Parameters
+### 3. Encode parameters
 
 ```solidity
 bytes[] memory params = new bytes[](2);
@@ -70,7 +70,7 @@ Currency currency1 = Currency.wrap(<tokenAddress2>);
 params[1] = abi.encode(currency0, currency1, recipient);
 ```
 
-### 4. Submit Call
+### 4. Submit call
 
 The entrypoint for all liquidity operations is `modifyLiquidities()`.
 
@@ -85,7 +85,7 @@ posm.modifyLiquidities{value: valueToPass}(
 );
 ```
 
-## Additional notes:
+## Additional Notes:
 
 * To obtain the amount of fees received, callers should read
 token balances before and after the `.modifyLiquidities()` call.

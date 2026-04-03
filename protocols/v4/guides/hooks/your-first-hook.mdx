@@ -9,7 +9,7 @@ Uniswap introduced the v4 of their protocol introducing several new concepts suc
 
 In this guide, we’ll be conceptualizing, understanding and building a basic points hook, which will give you some idea of how to build your own hook.
 
-## What are we building?
+## What Are We Building?
 
 Let's start by conceptualizing what we're building today and why. Let's say you have a token named `TOKEN` that you want to incentivize people to buy. One way of doing so is awarding people points when they buy your token. Prior to v4, you'd have to do this offchain or via your own helper contract outside of swap logic, but in v4 you can enable universal access using hooks.
 
@@ -30,7 +30,7 @@ For our hook, we’ll be using `afterSwap` and `afterAddLiquidity` hooks. Why th
 
 _Note: To initiate the swap in the first place, this is where [`UniversalRouter`](/docs/protocols/universal-router/overview) comes into play where we will pass in the [`V4_SWAP`](https://github.com/Uniswap/universal-router/blob/main/contracts/libraries/Commands.sol#L35) command to `UniversalRouter.execute`._
 
-## Let’s create our hook!
+## Let’s Create Our Hook!
 
 We’ll call this hook `PointsHook` and create it in such a way that any pool paired with `TOKEN` can use it.
 
@@ -102,7 +102,7 @@ The above code does the following:
 
 Awesome! Now it's all set to start building the hook!
 
-### Basic Structure
+### Basic structure
 
 So far, we’ve created the file named `PointsHook.sol` which only contains the outline of a hook contract. Add this import alongside your other `v4-core` imports (it is required for the hook callback signatures below):
 
@@ -168,7 +168,7 @@ You’ll notice that both hooks return their own selector in the functions, this
 
 Most of the code at this point should be self-explanatory. It’s not doing anything yet, but it’s a great place to start adding the functionality we need.
 
-### Points Logic
+### Points logic
 
 First, let’s setup the `POINTS` token that we’ll reward users with via creating another contract `PointsToken.sol` and import relevant dependencies like `ERC20` and `Owned`.
 
@@ -216,7 +216,7 @@ Next, we need to calculate how many points to assign based on the `ETH` value of
     }
 ```
 
-### Hook Logic
+### Hook logic
 
 Now we need to actually get the value that the user is swapping or adding liquidity with. We’ll be using the two hooks to achieve that functionality.
 
@@ -240,7 +240,7 @@ Let’s create some helper functions to encode and decode this data:
     }
 ```
 
-#### Hook Logic: `afterSwap`
+#### Hook logic: `afterSwap`
 
 In order for us to award these points to the user, we need a few things and we also need to create a few conditions.
 
@@ -281,7 +281,7 @@ That middle section about figuring out how much `ETH` the user spent seems a lit
 
 When `amountSpecified` is less than 0, it means this is an `exact input for output` swap, essentially where the user is coming in with an exact amount of ETH. In the other case, it's an `exact output for input` swap, where the user is expecting a specific amount out. In our case, we get this from the precalculated `delta` that Uniswap v4 gives us as part of the `afterSwap` hook.
 
-#### Hook Logic: `afterAddLiquidity`
+#### Hook logic: `afterAddLiquidity`
 
 Similar to what we did for the `afterSwap` hook, now we need to award users for adding liquidity. We’ll do the exact same thing here, except we’ll award the points based on the added liquidity.
 
@@ -320,7 +320,7 @@ It is important to note that the delta should be passed to awardPoints function 
 
 We’re using Foundry for building our hook, and we’ll continue using it to write our tests. One of the great things about Foundry is that you can write tests in Solidity itself instead of context switching between another language.
 
-### Test Suite
+### Test suite
 
 The v4-template repo you cloned includes a Foundry harness (`BaseTest`, deploy helpers, and a v4 swap router). Create `test/PointsHook.t.sol` and extend that base test, for example:
 

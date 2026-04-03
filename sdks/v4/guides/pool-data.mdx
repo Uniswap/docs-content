@@ -80,7 +80,7 @@ const poolId = Pool.getPoolId(currency0, currency1, fee, tickSpacing, hooks);
 
 ```
 
-## Referencing the StateView contract and fetching metadata
+## Referencing the StateView Contract and Fetching Metadata
 
 Now that we have the `PoolId` of a **USDC - ETH** Pool, we need to call [StateView](/docs/protocols/v4/guides/state-view) contract to get the pool state. In v4 you need to use `StateLibrary` to read pool state, but offchain systems-such as frontends or analytics services-require a deployed contract with view functions. This is where `StateView` comes in.
 To construct the Contract we need to provide the address of the contract, its ABI and a provider connected to an RPC endpoint.
@@ -121,7 +121,7 @@ The `getSlot0` function represents the first (0th) storage slot of the pool and 
 
 For our use case, we only need the `sqrtPriceX96` and the currently active `tick`.
 
-## Fetching all Ticks
+## Fetching All Ticks
 
 v4 pools use ticks to concentrate liquidity in price ranges and allow for better pricing of trades.
 Even though most Pools only have a couple of **initialized ticks**, it is possible that a pools liquidity is defined by thousands of **initialized ticks**.
@@ -175,7 +175,7 @@ This can improve the **speed** of fetching large amounts of data significantly a
 We will use the Multicall2 contract by MakerDAO.
 We use the `ethers-muticall` npm package to easily interact with the Contract.
 
-## Calculating all bitMap positions
+## Calculating All bitMap Positions
 
 As mentioned, Uniswap v4 Pools store **bitmaps**, also called *words*, that represent the state of **256 initializable ticks** at a time.
 The value at a bit of a word is 1 if the tick at this index is initialized and 0 if it isn't.
@@ -200,7 +200,7 @@ const maxWord = tickToWord(887272)
 Ticks can only be initialized at indices that are **divisible by the tickSpacing**.
 One word contains 256 ticks, so we can compress the ticks by right shifting 8 bit.
 
-## Fetching bitMaps from their position
+## Fetching bitMaps from Their Position
 
 Knowing the positions of words, we can now fetch them using multicall.
 
@@ -248,7 +248,7 @@ A great visualization of what the bitMaps look like can be found in the [Uniswap
 
 We encourage anyone trying to get a deeper understanding of the Uniswap protocol to read the Book.
 
-## Calculating the memory positions of all Ticks
+## Calculating the Memory Positions of All Ticks
 
 Now that we fetched all **bitMaps**, we check which ticks are initialized and calculate the **tick position** from the **word index** and the **tickSpacing** of the pool.
 
@@ -289,7 +289,7 @@ const tickIndices: number[] = []
 
 We now have an array containing the indices of all initialized Ticks.
 
-## Fetching all Ticks by their indices
+## Fetching All Ticks by Their Indices
 
 We use the multicallProvider again to execute an aggregated read call for all tick indices.
 We create an array of call Promises again and use `.all()` to make our multicall:

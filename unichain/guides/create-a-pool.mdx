@@ -38,7 +38,7 @@ For Uniswap contract addresses please see [Contract Addresses](/docs/unichain/te
 
 The guide serves as additional material to [Uniswap v4 docs](/docs/protocols/v4/guides/create-pool)
 
-### Create a Pool & Add Liquidity
+### Create a pool & add liquidity
 Uniswap v4's `PositionManager` supports atomic creation of a pool and initial liquidity using _multicall_. Developers can create a trading pool, with liquidity, in a single transaction:
 
 1. Initialize the parameters provided to `multicall()`
@@ -147,7 +147,7 @@ Uniswap v4's `PositionManager` supports atomic creation of a pool and initial li
 
 For a full end-to-end script, developers should see [v4-template#script](https://github.com/uniswapfoundation/v4-template/tree/main/script)
 
-### Create a Pool Only
+### Create a pool only
 To initialize a Uniswap v4 Pool _without initial liquidity_, developers should call [`PoolManager.initialize()`](https://github.com/Uniswap/v4-core/blob/d153b048868a60c2403a3ef5b2301bb247884d46/src/interfaces/IPoolManager.sol#L60)
 1. Configure the pool
     ```solidity

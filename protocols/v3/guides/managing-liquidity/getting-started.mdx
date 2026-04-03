@@ -4,9 +4,9 @@ title: Set Up Your Contract
 description: Set up a Uniswap v3 liquidity management contract workflow with position lifecycle prerequisites.
 ---
 
-## Setting up the Contract
+## Setting Up the Contract
 
-This guide is an example of a custodial contract Uniswap V3 positions, which allows interaction with the Uniswap V3 Periphery by minting a position, adding liquidity to a position, decreasing liquidity, and collecting fees.
+This guide is an example of a custodial contract Uniswap v3 positions, which allows interaction with the Uniswap v3 Periphery by minting a position, adding liquidity to a position, decreasing liquidity, and collecting fees.
 
 First, declare the solidity version used to compile the contract and `abicoder v2` to allow arbitrary nested arrays and structs to be encoded and decoded in calldata, a feature we use when transacting with a pool.
 
@@ -66,7 +66,7 @@ To allow deposits of ERC721 expressions of liquidity, create a struct called `De
 
 ## The Constructor
 
-Declare the constructor here, which is executed once when the contract is deployed. Our constructor hard codes the address of the nonfungible position manager interface, V3 router, and the periphery immutable state constructor, which requires the factory and the address of weth9 (the [ERC-20 wrapper](https://weth.io/) for ether).
+Declare the constructor here, which is executed once when the contract is deployed. Our constructor hard codes the address of the nonfungible position manager interface, v3 router, and the periphery immutable state constructor, which requires the factory and the address of weth9 (the [ERC-20 wrapper](https://weth.io/) for ether).
 
 ```solidity
     constructor(
@@ -78,7 +78,7 @@ Declare the constructor here, which is executed once when the contract is deploy
     }
 ```
 
-## Allowing custody of ERC721 tokens
+## Allowing Custody of ERC721 Tokens
 
 To allow the contract to custody ERC721 tokens, implement the `onERC721Received` function within the inherited `IERC721Receiver.sol` [contract](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/IERC721Receiver.sol).
 

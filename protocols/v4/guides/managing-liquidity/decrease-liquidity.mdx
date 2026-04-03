@@ -27,7 +27,7 @@ import {IPositionManager} from "v4-periphery/src/interfaces/IPositionManager.sol
 IPositionManager posm = IPositionManager(<address>);
 ```
 
-### 2. Encode Actions
+### 2. Encode actions
 
 To decrease a position's liquidity, the first action must be:
 
@@ -59,7 +59,7 @@ If converting fees to liquidity, forfeiting dust:
 bytes memory actions = abi.encodePacked(uint8(Actions.DECREASE_LIQUIDITY), uint8(Actions.CLEAR_OR_TAKE), uint8(Actions.CLEAR_OR_TAKE));
 ```
 
-### 3. Encoded Parameters
+### 3. Encoded parameters
 
 When taking pair:
 
@@ -113,7 +113,7 @@ params[1] = abi.encode(currency0, amount0Max);
 params[2] = abi.encode(currency1, amount1Max);
 ```
 
-### 4. Submit Call
+### 4. Submit call
 
 The entrypoint for all liquidity operations is `modifyLiquidities()`.
 

@@ -32,7 +32,7 @@ For this guide, the following Uniswap packages are used:
 
 The core code of this guide can be found in [`trading.ts`](https://github.com/Uniswap/examples/blob/main/v3-sdk/trading/src/libs/trading.ts)
 
-## Using a wallet extension
+## Using a Wallet Extension
 
 Like in the previous guide, our [example](https://github.com/Uniswap/examples/blob/main/v3-sdk/trading) uses a [config file ](https://github.com/Uniswap/examples/blob/main/v3-sdk/trading/src/config.ts) to configurate the inputs used.
 The strucuture is similar to the quoting config, but we also have the option to select an environment:
@@ -104,7 +104,7 @@ Consider checking out the [README](https://github.com/Uniswap/examples/blob/main
 
 If you cannot see the Tokens traded in your wallet, you possibly have to [import them](https://support.metamask.io/hc/en-us/articles/360015489031-How-to-display-tokens-in-MetaMask).
 
-## Constructing a route from pool information
+## Constructing a Route from Pool Information
 
 To construct our trade, we will first create an model instance of a `Pool`. We create an **ethers** contract like in the [previous guide](/docs/sdks/v3/guides/swapping/quoting#referencing-the-pool-contract-and-fetching-metadata).
 We will first extract the needed metadata from the relevant pool contract. Metadata includes both constant information about the pool as well as information about its current state stored in its first slot:
@@ -186,7 +186,7 @@ const swapRoute = new Route(
 Our `Route` understands that `CurrentConfig.tokens.in` should be traded for `CurrentConfig.tokens.out` over the Array of pools `[pool]`.
 
 
-## Constructing an unchecked trade
+## Constructing an Unchecked Trade
 
 Once we have constructed the route object, we now need to obtain a quote for the given `inputAmount` of the example:
 
@@ -254,7 +254,7 @@ const uncheckedTrade = Trade.createUncheckedTrade({
 
 This example uses an exact input trade, but we can also construct a trade using exact output assuming we adapt our quoting code accordingly.
 
-## Executing a trade
+## Executing a Trade
 
 Once we have created a trade, we can now execute this trade with our provider. First, we must give the `SwapRouter` approval to spend our tokens for us:
 

@@ -14,7 +14,7 @@ A sponsor assigns an emissary for a specific `lockTag` using [`assignEmissary`](
 
 To change an emissary after one has been assigned, the sponsor must first call [`scheduleEmissaryAssignment`](https://github.com/Uniswap/the-compact/blob/main/src/interfaces/ITheCompact.sol#L566), wait for the `resetPeriod` associated with the `lockTag` to elapse, and then call `assignEmissary` again with the new emissary address (or `address(0)` to remove).
 
-### IEmissary Interface
+### IEmissary interface
 
 Emissaries must implement the `IEmissary` interface to integrate with The Compact:
 ```solidity
@@ -32,9 +32,9 @@ interface IEmissary {
 **Requirements**:
 - Must return `IEmissary.verifyClaim.selector` on successful verification
 
-### Assignment and Management
+### Assignment and management
 
-#### Assigning an Emissary
+#### Assigning an emissary
 
 Sponsors assign emissaries for specific lock tags:
 
@@ -51,7 +51,7 @@ function assignEmissary(
 
 The emissary assignment is scoped to a specific `lockTag`, meaning sponsors can have different emissaries for different resource locks.
 
-#### Changing an Emissary
+#### Changing an emissary
 
 The emissary mechanism includes security timelocks to prevent sudden authorization changes:
 
@@ -66,7 +66,7 @@ function scheduleEmissaryAssignment(
 ) external
 ```
 
-#### Removing an Emissary
+#### Removing an emissary
 
 To remove an emissary, assign `address(0)`:
 
@@ -74,11 +74,11 @@ To remove an emissary, assign `address(0)`:
 assignEmissary(lockTag, address(0))
 ```
 
-#### Security Rationale
+#### Security rationale
 
 This timelock mechanism ensures that emissary changes cannot suddenly alter the authorization logic for outstanding compacts without providing adequate notice. This protects claimants who may have already begun fulfilling compact conditions based on the existing emissary.
 
-### Role in Claim Verification
+### Role in claim verification
 
 When a claim is submitted for a non-registered compact, The Compact verifies the sponsor's authorization in the following order:
 
@@ -99,7 +99,7 @@ event EmissaryAssigned(
 
 Emitted when a sponsor assigns or changes an emissary via `assignEmissary`.
 
-### Trust Assumptions
+### Trust assumptions
 
 **Sponsors** must trust that emissaries will not authorize claims maliciously, as emissaries effectively have the same authorization power as the sponsor for claim verification.
 
@@ -118,7 +118,7 @@ Other teams can (and should) build their own settlement engines with different t
 **Status**: Tribunal is actively under development. For the latest updates and implementation details, see the [Tribunal repository](https://github.com/Uniswap/Tribunal).
 </Callout>
 
-### How Tribunal Works
+### How Tribunal works
 
 Fillers call `fill` and provide any native value necessary to pay for cross-chain messaging. Tribunal verifies expiry, chain IDs, validity conditions, computes hashes and amounts, and then executes the settlement:
 

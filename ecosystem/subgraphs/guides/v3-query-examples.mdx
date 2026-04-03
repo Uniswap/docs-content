@@ -17,7 +17,7 @@ Global data refers to data points about the Uniswap v3 protocol as a whole, such
 
 To query global data, pass in the Uniswap v3 Factory address `0x1F98431c8aD98523631AE4a59f267346ea31F984` and select the desired fields. Reference the full [factory schema](https://github.com/Uniswap/v3-subgraph/blob/main/src/v3/schema.graphql#L1) to see all possible fields.
 
-### Current Global Data
+### Current global data
 
 An example querying total pool count, transaction count, and total volume in USD and ETH:
 
@@ -32,7 +32,7 @@ An example querying total pool count, transaction count, and total volume in USD
 }
 ```
 
-### Historical Global Data
+### Historical global data
 
 You can also query historical data by specifying a block number.
 
@@ -54,7 +54,7 @@ You can also query historical data by specifying a block number.
 
 To get data about a certain pool, pass in the pool address. Reference the full [pool schema](https://github.com/Uniswap/v3-subgraph/blob/main/src/v3/schema.graphql#L77) and adjust the query fields to retrieve the data points you want.
 
-### General Pool Query
+### General pool query
 
 The query below returns the feeTier, spot price, and liquidity for the ETH-USDC pool.
 
@@ -79,11 +79,11 @@ The query below returns the feeTier, spot price, and liquidity for the ETH-USDC 
 }
 ```
 
-### All Possible Pools
+### All possible pools
 
 The maximum items you can query at once is 1000. To get all possible pools, you can iterate using the skip variable. To get pools beyond the first 1000 you can also set the skip as shown below.
 
-### Skipping First 1000 Pools
+### Skipping first 1000 pools
 
 This query sets the skip value and returns the first 10 responses after the first 1000.
 
@@ -103,7 +103,7 @@ This query sets the skip value and returns the first 10 responses after the firs
 }
 ```
 
-### Creating a Skip Variable
+### Creating a skip variable
 
 This next query sets a skip variable. In your language and environment of choice you can then iterate through a loop, query to get 1000 pools each time, and continually adjust skip by 1000 until all pool responses are returned.
 
@@ -128,7 +128,7 @@ query pools($skip: Int!) {
 }
 ```
 
-### Most Liquid Pools
+### Most liquid pools
 
 Retrieve the top 1000 most liquid pools. You can use this similar set up to orderBy other variables like number of swaps or volume.
 
@@ -140,7 +140,7 @@ Retrieve the top 1000 most liquid pools. You can use this similar set up to orde
 }
 ```
 
-### Pool Daily Aggregated
+### Pool daily aggregated
 
 This query returns daily aggregated data for the first 10 days since the given timestamp for the UNI-ETH pool.
 
@@ -167,7 +167,7 @@ This query returns daily aggregated data for the first 10 days since the given t
 
 ## Swap Data
 
-### General Swap Data
+### General swap data
 
 To query data about a particular swap, input the transaction hash + "#" + the index in the swaps the transaction array. This is the reference for the full [swap schema](https://github.com/Uniswap/v3-subgraph/blob/main/src/v3/schema.graphql#L253).
 
@@ -199,7 +199,7 @@ This query fetches data about the sender, receiver, amounts, transaction data, a
 }
 ```
 
-### Recent Swaps Within a Pool
+### Recent swaps within a pool
 
 You can set the `where` field to filter swap data by pool address. This example fetches data about multiple swaps for the USDC-USDT pool, ordered by timestamp.
 
@@ -232,7 +232,7 @@ You can set the `where` field to filter swap data by pool address. This example 
 
 Input the token contract address to fetch token data. Any token that exists in at least one Uniswap v3 pool can be queried. The output will aggregate data across all v3 pools that include the token.
 
-### General Token Data
+### General token data
 
 This queries the decimals, symbol, name, pool count, and volume in USD for the UNI token. Reference the full [token schema](https://github.com/Uniswap/v3-subgraph/blob/main/src/v3/schema.graphql#L38) for all possible fields you can query.
 
@@ -248,7 +248,7 @@ This queries the decimals, symbol, name, pool count, and volume in USD for the U
 }
 ```
 
-### Token Daily Aggregated
+### Token daily aggregated
 
 You can fetch aggregate data about a specific token over a 24-hour period. This query gets 10 days of the 24-hour volume data for the UNI token ordered from oldest to newest.
 
@@ -270,7 +270,7 @@ You can fetch aggregate data about a specific token over a 24-hour period. This 
 }
 ```
 
-### All Tokens
+### All tokens
 
 Similar to retrieving all pools, you can fetch all tokens by using skip.
 
@@ -290,7 +290,7 @@ query tokens($skip: Int!) {
 
 ## Position Data
 
-### General Position Data
+### General position data
 
 To get data about a specific position, input the NFT tokenId. This queries the collected fees for token0 and token1 and current liquidity for the position with tokenId 3. Reference the full [position schema](https://github.com/Uniswap/v3-subgraph/blob/7502b062af12a8827954da84783d08f1aa02727c/src/v3/schema.graphql#L185) to see all fields.
 

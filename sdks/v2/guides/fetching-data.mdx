@@ -22,7 +22,7 @@ So, in the case of DAI, we know that the **chainId** is `1` (we're on mainnet), 
 
 The next piece of data we need is **decimals**.
 
-### Provided by the User
+### Provided by the user
 
 One option here is to simply pass in the correct value, which we may know is `18`. At this point, we're ready to represent DAI as a `Token`:
 
@@ -72,7 +72,7 @@ Each pair consists of two tokens (see previous section). Note that WETH used by 
 
 The data we need is the _reserves_ of the pair. To read more about reserves, see `getReserves`.
 
-### Provided by the User
+### Provided by the user
 
 One option here is to simply pass in values which we've fetched ourselves to create a `Pair`. In this example we use ethers to fetch the data directly from the blockchain:
 

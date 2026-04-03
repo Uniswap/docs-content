@@ -20,7 +20,7 @@ For this guide, the following Uniswap packages are used:
 - [`@uniswap/sdk-core`](https://www.npmjs.com/package/@uniswap/sdk-core)
 - [`@uniswap/universal-router-sdk`](https://www.npmjs.com/package/@uniswap/universal-router-sdk)
 
-## Constructing swap paths through multiple pools
+## Constructing Swap Paths Through Multiple Pools
 
 Let's first define a multi-hop swap configuration. In this example, we'll swap ETH → USDC → USDT. The configuration follows closely from the quoting and single-hop swapping guides.
 
@@ -100,7 +100,7 @@ export function encodeMultihopExactInPath(
 }
 ```
 
-## Executing the multi-hop swap
+## Executing the Multi-Hop Swap
 
 We'll use the same contract addresses and ABIs from the single-hop guide and construct the **ethers** `Contract` for them:
 

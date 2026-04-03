@@ -18,7 +18,7 @@ These are the official skills currently available in the installer:
 - `v4-security-foundations`
 - `viem-integration`
 
-## Available plugins
+## Available Plugins
 
 | Plugin | Skill | What it helps with | Invocation |
 |---|---|---|---|
@@ -31,7 +31,7 @@ These are the official skills currently available in the installer:
 | `uniswap-driver` | `swap-planner` | Plan token swaps and generate interface deep links | `/swap-planner` |
 | `uniswap-driver` | `liquidity-planner` | Plan LP positions and generate interface deep links | `/liquidity-planner` |
 
-## Install skills
+## Install Skills
 
 Install Uniswap AI skills with the Skills CLI:
 
@@ -41,7 +41,7 @@ npx skills add Uniswap/uniswap-ai
 
 If your environment supports interactive selection, you can choose specific skills from the install prompt.
 
-## Use skills
+## Use Skills
 
 ### Direct invocation
 
@@ -61,7 +61,7 @@ What are the security risks of beforeSwapReturnDelta?
 
 In this example, the assistant can activate the v4 security foundations skill automatically.
 
-## Skill structure
+## Skill Structure
 
 Each skill is defined in a `SKILL.md` file and typically includes:
 
@@ -69,7 +69,7 @@ Each skill is defined in a `SKILL.md` file and typically includes:
 - Step-by-step instructions for the agent
 - Optional references in a `references/` directory
 
-## Add a new skill
+## Add a New Skill
 
 1. Create the skill folder under `packages/plugins/<plugin>/skills/<skill-name>/`
 2. Add a `SKILL.md` file with frontmatter and clear instructions

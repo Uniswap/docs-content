@@ -17,7 +17,7 @@ ERC-6909 offers several advantages over ERC-1155:
 
 However, it's worth noting that ERC-6909 does introduce a `totalSupply` variable, which leads to an additional disk write on mint and burn operations.
 
-## How it works
+## How It Works
 
 Instead of choosing to move tokens in/out of the `PoolManager`, developers can opt-in and leave the ERC-20 tokens within the `PoolManager`. In exchange, the `PoolManager` can **mint them an ERC-6909 token representing their claim**. In subsequent interactions requiring _paying_ tokens, users will not need to transfer ERC-20 tokens into the `PoolManager` - users can simply _burn_ some (or all) of their claim tokens they have
 

@@ -18,17 +18,17 @@ The primary purpose of the `PoolManager` is to:
 
 ## Architecture
 
-### Singleton Design
+### Singleton design
 
 - Uniswap v4 uses a Singleton design pattern for the `PoolManager`
 - All pool state and logic are encapsulated within the `PoolManager` contract
 
-### Locking Mechanism
+### Locking mechanism
 
 - The `PoolManager` uses a locking mechanism to allow for _flash accounting_ (also known as deferred balance accounting)
 - When unlocked, the calling contract can perform various operations and zero-out outstanding balances before returning control to the `PoolManager` for final solvency checks
 
-### Pool State
+### Pool state
 
 - The `Pool.State` struct contains information such as:
     - Current price
@@ -47,7 +47,7 @@ The primary purpose of the `PoolManager` is to:
 
 ## Core Functionality
 
-### Pool Creation
+### Pool creation
 
 - New pools are created by calling the `initialize` function on the `PoolManager`
 - The pool creator specifies the token pair, fee tier, tick spacing, and optional hook contract address
@@ -64,7 +64,7 @@ The primary purpose of the `PoolManager` is to:
     5. Calculates the net token amounts owed to the user and the pool, represented by the `BalanceDelta` struct
 - Swaps utilize flash accounting, where tokens are moved into the `PoolManager`, and only the final output tokens are withdrawn
 
-### Liquidity Management
+### Liquidity management
 
 - Liquidity providers can add or remove liquidity using the `modifyLiquidity` function on the `PoolManager`. However, you wouldn't call this directly from your application, you would call this from a periphery contract to handle the locking & unlocking a particular pool. 
 - The `PoolManager` executes the following steps:
@@ -76,7 +76,7 @@ The primary purpose of the `PoolManager` is to:
     6. Executes the appropriate `afterAddLiquidity` or `afterRemoveLiquidity` hook, if applicable
     7. Calculates the balance delta and returns it to the caller
 
-### Flash Accounting
+### Flash accounting
 
 - The `PoolManager` employs flash accounting to reduce gas costs and simplify multi-hop swaps
 - Tokens are moved into the `PoolManager` contract, and all subsequent actions are performed within the contract's context
