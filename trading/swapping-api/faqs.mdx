@@ -88,7 +88,9 @@ In other words, a Priority quote is a specific UniswapX auction type. Uniswap wi
 
 ### Are there restrictions on how I can integrate the API?
 
-No, we are very flexible regarding how you decide to offer the API through your application. Customers may create a whitelabel swap experience, add swapping to a custodial wallet, integrate the APIs into a mobile application, and more.
+The API is free to integrate into any application including whitelabeled swap experiences, wallets, mobile apps, and more. However, you are responsible for ensuring that your integration complies with our [API Terms of Use](https://support.uniswap.org/hc/en-us/articles/43018872248589-API-Terms-of-Use). We encourage you to 
+
+No, we are very flexible regarding how you decide to offer the API through your application. Developers may create a whitelabel swap experience, add swapping to a custodial wallet, integrate the APIs into a mobile application, and more.
 
 ### Can I restrict token pairs available to my users?
 
@@ -107,7 +109,7 @@ No, the API is free to use.
 
 ### How can I set my own fees?
 
-API Integrators can set their own fee by providing the fee they will take from the swapper in their `/quote` request. See the [`integratorFees` fields](/docs/api-reference/aggregator_quote).
+API Integrators can set their own fee by providing the fee they will take from the swapper in their `/quote` request. See the [`integratorFees` fields](/docs/api-reference/aggregator_quote). The `integratorFees` field does not permit setting a fee greater than 5% of the swap value.
 
 ### Does Uniswap take positive slippage as fees?
 
@@ -124,6 +126,6 @@ If you require technical support, please reach out via the help link in the [Uni
 
 No, we do not offer a sandbox environment. Tests can be performed against our [supported testnets](/docs/trading/swapping-api/supported-chains) through the production endpoints.
 
-### Do you offer any customer dashboards, metrics, monitoring, or usage?
+### Do you offer any developer dashboards, metrics, monitoring, or usage?
 
-At this time we do not provide any customer dashboards, metrics, monitoring, or usage reports. However, we hope to bring these to you soon as we continue to improve our API service offerings.
+At this time we do not provide any developer dashboards, metrics, monitoring, or usage reports. However, we hope to bring these to you soon as we continue to improve our API service offerings.
