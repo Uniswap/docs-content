@@ -107,3 +107,29 @@ Common operational questions for UniswapX fillers and quoters.
   Two quote requests are performed per actual quote to obfuscate the swapper's actual request and reduce the chances of front-running.
 
 </details>
+
+## Fade Mechanics
+
+<details>
+  <summary>What counts as a fade?</summary>
+
+  A **fade** occurs when a quoter wins exclusivity on an order through the RFQ process but **does not fill it before the exclusivity window expires**. Fading triggers the [circuit breaker](/docs/liquidity/uniswapx/filling/mainnet/become-a-quoter#handling-fades--the-circuit-breaker), which temporarily disables the quoter from receiving new RFQ requests.
+
+</details>
+
+<details>
+  <summary>Does it count as a fade if another filler overrides my exclusivity?</summary>
+
+  **No**. On mainnet, orders may use **soft exclusivity** (exclusivityOverrideBps > 0), which allows non-exclusive fillers to fill during the exclusivity window by paying an override penalty — essentially, extra tokens to the swapper. 
+  
+  This is not considered a fade. The system explicitly allows it to balance honoring exclusivity with getting the swapper the best possible price. A fade is only counted when the exclusivity window expires without **any** filler (including the exclusive filler) settling the order.
+
+</details>
+
+<details>
+  <summary>What happens if the order is filled after the exclusivity window by a different filler?</summary>
+
+  Once the exclusivity window ends (after `decayStartTime`), all fillers compete equally in the Dutch auction. If the original filler, or another filler, fills the order during the decay period, the filler who faded the order is still penalized. 
+
+</details>
+

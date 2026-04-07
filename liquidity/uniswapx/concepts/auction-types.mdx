@@ -51,6 +51,7 @@ UniswapX on Ethereum uses a two-phase auction system that balances execution qua
 4. The UniswapX Quote contains auction parameters, which the user signs to create a gasless offchain message. This signed message commits to the auction parameters and defines a slippage tolerance, representing the minimum amount the swapper will accept.
 5. This gets sent to Uniswap Labs' server, which requests a final "hard quote" from the group of quoters. Whichever quote (hard quote) is highest wins exclusivity and gives the quoter a fixed amount of time to fill the order (sending users their tokens and settling the transaction).
    - If no quoter provides the amount that the swapper had signed for (e.g. prices moved), then the order is sent out without exclusivity, meaning anyone can fill the order.
+   - Orders may use **soft exclusivity**, where non-exclusive fillers can override the exclusivity window by providing additional tokens to the swapper (determined by the `exclusivityOverrideBps` parameter). This means the swapper is never worse off if exclusivity is overridden, as they receive at least as much as the exclusive price, and potentially more.
 
 <ins>**Fallback Mechanisms (Steps 6-7)**</ins>
 
