@@ -1,5 +1,5 @@
 {
   "title": "Liquidity",
   "root": true,
-  "pages": ["overview", "liquidity-provisioning-api", "uniswapx", "liquidity-launchpad"]
+  "pages": ["overview", "liquidity-provisioning-api", "liquidity-launchpad", "uniswapx"]
 }
