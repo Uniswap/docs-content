@@ -10,11 +10,13 @@ Arbiters are entities responsible for verifying and submitting claims against re
 
 Arbiters serve as intermediaries between sponsors and claimants with these key responsibilities:
 
-1. **Claim Verification**: Validate that claim conditions are met before submission
-2. **Claim Submission**: Submit claims to The Compact on behalf of claimants
-3. **Recipient Allocation**: Determine which accounts receive funds and their amounts
-4. **Witness Data Validation**: Verify any witness data included in compacts
-5. **Cross-chain Coordination**: For multichain compacts, coordinate claims across different chains
+| Responsibility | Description |
+|---|---|
+| Claim verification | Validate that claim conditions are met before submission. |
+| Claim submission | Submit claims to The Compact on behalf of claimants. |
+| Recipient allocation | Determine which accounts receive funds and in what amounts. |
+| Witness data validation | Verify witness data included in compacts. |
+| Cross-chain coordination | Coordinate claims across chains for multichain compacts. |
 
 ## Arbiter Selection
 
@@ -55,8 +57,11 @@ struct Component {
 ### Claimant encoding
 
 The `claimant` field packs two pieces of information:
-- **Upper 96 bits**: `bytes12 lockTag` (destination format)
-- **Lower 160 bits**: `address recipient` (who receives the tokens)
+
+| Encoded value | Bits | Description |
+|---|---|---|
+| `bytes12 lockTag` | Upper 96 bits | Destination format for the claimed resource. |
+| `address recipient` | Lower 160 bits | Account that receives the claimed value. |
 
 ### Destination options
 
@@ -115,9 +120,12 @@ claimants[2] = Component({
 ## Submitting Claims
 
 Arbiters submit claims using one of six available claim functions based on:
-- **Single vs Batch**: Whether claiming against one or multiple resource locks on a chain
-- **Single-chain vs Multichain**: Whether the compact spans one or multiple chains
-- **Notarized vs Exogenous** (multichain only): Whether claiming on the primary signed chain or other chains
+
+| Dimension | Options | Meaning |
+|---|---|---|
+| Lock scope | Single / Batch | Claim against one resource lock or multiple locks on a chain. |
+| Chain scope | Single-chain / Multichain | Claim against one chain or a compact spanning multiple chains. |
+| Multichain path | Notarized / Exogenous | Claim on the primary signed chain or on non-notarized chains. |
 
 ### Single-chain claims
 
@@ -170,16 +178,24 @@ function exogenousBatchClaim(
 ## Trust Model
 
 ### For sponsors
-- Sponsors trust arbiters to:
-  - Only submit valid claims that meet agreed-upon conditions
-  - Not collude with claimants to drain resource locks prematurely
-  - Properly verify witness data before claim submission
+
+Sponsors trust arbiters to:
+
+| Expectation | Why it matters |
+|---|---|
+| Submit only valid claims | Prevents unauthorized or premature resource movement. |
+| Avoid collusion with claimants | Reduces risk of malicious lock draining. |
+| Verify witness data correctly | Preserves compact conditions and sponsor intent. |
 
 ### For claimants
-- Claimants trust arbiters to:
-  - Submit claims promptly when conditions are met
-  - Not censor valid claims
-  - Distribute claimed resources according to compact terms
+
+Claimants trust arbiters to:
+
+| Expectation | Why it matters |
+|---|---|
+| Submit claims promptly | Avoids unnecessary settlement delays. |
+| Avoid censoring valid claims | Ensures fair claim execution. |
+| Distribute resources per compact terms | Preserves expected payout behavior. |
 
 ## Arbiter Authorization
 
@@ -193,37 +209,52 @@ When an arbiter submits a claim, The Compact verifies authorization in this orde
 ## Best Practices
 
 ### For arbiter selection
-- Choose arbiters with proven track records
-- Consider using decentralized arbiter networks for reduced trust requirements
-- Implement arbiter reputation systems for accountability
+
+| Practice | Benefit |
+|---|---|
+| Choose arbiters with proven track records | Improves baseline reliability. |
+| Consider decentralized arbiter networks | Reduces dependence on a single trusted actor. |
+| Implement arbiter reputation systems | Increases accountability over time. |
 
 ### For arbiter implementation
-- Validate all claim parameters before submission
-- Implement robust witness data verification
-- Maintain audit logs of all claim submissions
-- Use secure key management for arbiter accounts
+
+| Practice | Benefit |
+|---|---|
+| Validate all claim parameters before submission | Catches malformed claims before onchain execution. |
+| Implement robust witness data verification | Preserves integrity of witness-bound conditions. |
+| Maintain audit logs of claim submissions | Improves traceability and incident response. |
+| Use secure key management for arbiter accounts | Reduces operational compromise risk. |
 
 ## Common Patterns
 
 ### Automated arbiters
 Smart contracts can act as arbiters to provide trustless claim verification:
-- Oracle-based arbiters that verify external conditions
-- Time-locked arbiters for scheduled releases
-- Multi-signature arbiters requiring multiple approvals
+
+| Pattern | Description |
+|---|---|
+| Oracle-based arbiters | Verify external conditions via oracle inputs. |
+| Time-locked arbiters | Enforce release schedules through timelocks. |
+| Multi-signature arbiters | Require multiple approvals before claim submission. |
 
 ### Arbiter networks
 Multiple arbiters can be coordinated through:
-- Consensus mechanisms for claim approval
-- Reputation-based selection systems
-- Stake-based security models
+
+| Pattern | Description |
+|---|---|
+| Consensus-based approval | Requires network-level agreement before claim execution. |
+| Reputation-based selection | Weights arbiter participation by historical behavior. |
+| Stake-based security | Uses economic stake to discourage malicious behavior. |
 
 ## Error Handling
 
 Common arbiter-related errors:
-- `InvalidArbiter()`: The caller is not the designated arbiter
-- `ClaimExpired()`: The claim has passed its expiration time
-- `InvalidClaimSignature()`: The sponsor's signature is invalid
-- `UnauthorizedClaim()`: The arbiter is not authorized for this claim
+
+| Error | Meaning |
+|---|---|
+| `InvalidArbiter()` | Caller is not the designated arbiter. |
+| `ClaimExpired()` | Claim has passed its expiration time. |
+| `InvalidClaimSignature()` | Sponsor signature is invalid. |
+| `UnauthorizedClaim()` | Arbiter is not authorized for this claim. |
 
 ## Events
 
@@ -241,17 +272,25 @@ event Claim(
 ## Security Considerations
 
 ### Arbiter compromise
-- If an arbiter's key is compromised, they could submit unauthorized claims
-- Sponsors should monitor for suspicious claim activity
-- Consider using time delays or multi-signature requirements for high-value compacts
+
+| Risk or mitigation | Details |
+|---|---|
+| Key compromise risk | A compromised arbiter key may submit unauthorized claims. |
+| Activity monitoring | Sponsors should monitor suspicious claim activity. |
+| Defense-in-depth controls | Use timelocks or multisig requirements for high-value compacts. |
 
 ### Arbiter censorship
-- Arbiters could refuse to submit valid claims
-- Sponsors can mitigate by:
-  - Using multiple arbiters
-  - Implementing arbiter replacement mechanisms
-  - Setting appropriate expiration times
+
+| Risk or mitigation | Details |
+|---|---|
+| Censorship risk | Arbiters could refuse to submit valid claims. |
+| Multiple arbiters | Reduces reliance on a single operator. |
+| Replacement mechanisms | Allows rotating away from unresponsive arbiters. |
+| Expiration design | Appropriate expirations reduce prolonged lockups. |
 
 ### Front-running protection
-- Arbiters should use private mempools or commit-reveal schemes when appropriate
-- Consider using flashbot bundles for sensitive claims
+
+| Practice | Benefit |
+|---|---|
+| Use private mempools or commit-reveal schemes | Reduces public mempool extraction risk. |
+| Use Flashbots bundles for sensitive claims | Improves inclusion control for high-sensitivity claims. |

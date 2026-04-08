@@ -15,39 +15,46 @@ Use this model when you need reusable approvals instead of one-time signature sp
 
 ## Core Entry Points
 
-- `approve`: Set token permissions onchain without signature validation.
-- `permit`: Set token permissions through signature validation.
-- `transferFrom`: Transfer tokens when valid permissions already exist.
+| Entry point | Purpose |
+|---|---|
+| `approve` | Set token permissions onchain without signature validation. |
+| `permit` | Set token permissions through signature validation. |
+| `transferFrom` | Transfer tokens when valid permissions already exist. |
 
 ## Permit and Approval Functions
 
 ### `approve`
 
-**Function signature**
+#### Function signature
 
 ```solidity
 function approve(address token, address spender, uint160 amount, uint48 expiration) external
 ```
 
-**Parameters**
+#### Parameters
 
-- token - the token address to approve
-- spender - the spender address to approve
-- amount - the approved amount of the token, `type(uint160).max` is treated as an unlimited allowance
-- expiration - the timestamp at which the approval is no longer valid, passing in `0` will expire the permissions at `block.timestamp`
+| Parameter | Description |
+|---|---|
+| `token` | Token address to approve. |
+| `spender` | Spender address to approve. |
+| `amount` | Approved token amount. `type(uint160).max` is treated as unlimited allowance. |
+| `expiration` | Timestamp when approval becomes invalid. Passing `0` expires permissions at `block.timestamp`. |
 
 ### Single `permit`
 
-**Function signature**
+#### Function signature
 
 ```solidity
 function permit(address owner, PermitSingle memory permitSingle, bytes calldata signature) external;
 ```
 
-**Parameters**
+#### Parameters
 
-- owner - the address of the token’s owner
-- permitSingle - constructed with the following:
+| Parameter | Description |
+|---|---|
+| `owner` | Address of the token owner. |
+| `permitSingle` | Permit payload for a single token allowance. See struct definition below. |
+| `signature` | Signature over permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271). |
 
 ```solidity
 struct PermitSingle {
@@ -71,20 +78,21 @@ struct PermitDetails {
     }
 ```
 
-- signature - the signature over the permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271)
-
 ### Batched `permit`
 
-**Function signature**
+#### Function signature
 
 ```solidity
 function permit(address owner, PermitBatch memory permitBatch, bytes calldata signature) external;
 ```
 
-**Parameters**
+#### Parameters
 
-- owner - the address of the token’s owner
-- permitBatch - constructed with the following:
+| Parameter | Description |
+|---|---|
+| `owner` | Address of the token owner. |
+| `permitBatch` | Permit payload for multiple token allowances. See struct definition below. |
+| `signature` | Signature over permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271). |
 
 ```solidity
 struct PermitBatch {
@@ -107,36 +115,38 @@ struct PermitDetails {
     }
 ```
 
-- signature - the signature over the permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271)
-
 ## Transfer Functions
 
 ### Single `transferFrom`
 
-**Function signature**
+#### Function signature
 
 ```solidity
 function transferFrom(address from, address to, uint160 amount, address token) external;
 ```
 
-**Parameters**
+#### Parameters
 
-- from - the address to transfer the token from
-- to -  the address of the recipient
-- amount - the amount of the token to transfer, the maximum amount is `type(uint160).max`
-- token - the address of the token to be transferred
+| Parameter | Description |
+|---|---|
+| `from` | Address to transfer tokens from. |
+| `to` | Recipient address. |
+| `amount` | Amount to transfer. Maximum value is `type(uint160).max`. |
+| `token` | Token address to transfer. |
 
 ### Batched `transferFrom`
 
-**Function Signature**
+#### Function signature
 
 ```solidity
 function transferFrom(AllowanceTransferDetails[] calldata transferDetails) external;
 ```
 
-**Parameters**
+#### Parameters
 
-- transferDetails - constructed with the following
+| Parameter | Description |
+|---|---|
+| `transferDetails` | Array of batched transfer details. See struct definition below. |
 
 ```solidity
 struct AllowanceTransferDetails {
