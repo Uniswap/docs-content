@@ -3,16 +3,19 @@ title: Signature Transfer
 description: Learn Uniswap Permit2 signature-based transfer flows, witness signing, and unordered nonce bitmap protection.
 ---
 
-> [**Source Code**](https://github.com/Uniswap/permit2/blob/main/src/SignatureTransfer.sol)
+<Callout type="info" title="Source Code">
+Read the implementation on GitHub: [SignatureTransfer.sol](https://github.com/Uniswap/permit2/blob/main/src/SignatureTransfer.sol)
+</Callout>
 
 ## Overview
 
-The main entry points on this contract are:
+`SignatureTransfer` enables one-time, signature-based token movement without long-lived ERC-20 allowances.
+Use it when your integration needs explicit signer authorization per transfer.
 
-- `permitTransferFrom`
-    - Use permitTransferFrom when you want to transfer a token from an owner through signature validation.
-- `permitWitnessTransferFrom`
-    - Use permitWitnessTransferFrom when you want to transfer a token from an owner through signature validation, but you would also like to validate other data. Any other data you wish to be validated can be passed through with the `witness` param.
+## Core Entry Points
+
+- `permitTransferFrom`: Transfer tokens from an owner through signature validation.
+- `permitWitnessTransferFrom`: Transfer through signature validation and include extra signed context via `witness`.
 
 Each of these functions is overloaded with a batched version that allows users to transfer multiple tokens with 1 transaction.
 
@@ -72,7 +75,7 @@ struct SignatureTransferDetails {
 
 Use `permitTransferFrom` with the batched parameters when you want to transfer multiple tokens from an owner.
 
-**Function Signature**
+**Function signature**
 
 ```solidity
 function permitTransferFrom(
@@ -123,7 +126,7 @@ struct SignatureTransferDetails {
 
 ### Single `permitWitnessTransferFrom`
 
-**Function Signature**
+**Function signature**
 
 ```solidity
 function permitWitnessTransferFrom(
@@ -147,7 +150,7 @@ function permitWitnessTransferFrom(
 
 ### Batch `permitWitnessTransferFrom`
 
-**Function Signature**
+**Function signature**
 
 ```solidity
 function permitWitnessTransferFrom(
@@ -228,13 +231,16 @@ uint256 bitmap = nonceBitmap[ownerAddress][wordPos] ^ (1 << bitPos)
 
 ## Security Considerations
 
-An integrating contract must check that tokens are released by a triggering call from the signer, or that the signer meant for their signature to be released by someone else.
+Integrating contracts must ensure signatures can only be used in the intended caller context.
 
-<aside>
-💡 Consider this scenario:
+### Common failure mode
 
-A signer called Bob signs a permit to transfer 100 USDC with a router contract as the permissioned spender. The router contract never checks who the caller is but spends any permit messages on the Permit2 contract. An attacker Eve can steal Bob’s signature, pass it through to the router with herself as the recipient, and transfer Bob’s tokens to herself.
+A user signs a permit for a router as the permissioned spender. If the router does not validate caller context and spends any valid Permit2 message, an attacker can replay that signature and redirect funds.
 
-</aside>
+### Recommended validation pattern
 
-Universal Router protects against this by checking that the `msg.sender` from inside the routing contract is the supposed spender by passing `msg.sender` in as the `owner`  param in any permit calls and by passing in `msg.sender` as the `from` param in any transfer calls.
+- Bind permit usage to the expected caller context.
+- Pass `msg.sender` as the `owner` parameter in permit calls when appropriate.
+- Pass `msg.sender` as the `from` parameter in transfer calls when appropriate.
+
+Universal Router applies this pattern by checking `msg.sender` during routing and using `msg.sender` in both permit and transfer parameterization.
