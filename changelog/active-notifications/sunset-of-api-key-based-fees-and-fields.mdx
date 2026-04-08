@@ -8,7 +8,7 @@ We will be modifying how API integrators take fees from swappers, including the 
 - Uniswap setting fees for integrators on API keys
 - The `portionBips`, `portionAmount`, and `portionRecipient` fields in the `/quote` response
 
-These features are superseded by the ability to [set fees in API requests](/docs/changelog/setting_integrator_fee), and by the introduction of a new `fee` field in the `/quote` response.
+These features are superseded by the ability to [set fees in API requests](/docs/changelog/active-notifications/setting-a-fee-through-the-api), and by the introduction of a new `fee` field in the `/quote` response.
 
 **What is changing?**
 
@@ -16,7 +16,7 @@ Uniswap Labs will remove all statically set fees and fee recipient addresses fro
 
 The `portionBips`, `portionAmount`, and `portionRecipient` fields will be removed from the `/quote` response and no longer be required to make a `/swap` request.
 
-A new fee string field will be provided in each aggregatedOutputs object indicating whether the output is a fee (INTEGRATOR) or is not a fee (field not included in the object).
+A new fee string field will be provided in each aggregatedOutputs object indicating whether the output is a fee (`INTEGRATOR`) or is not a fee (field not included in the object).
 
 **Why is this changing?**
 
@@ -26,6 +26,6 @@ Removing the `portion` fields simplifies the `/quote` response by removing dupli
 
 **What do I need to do?**
 
-If you currently set a fee through your API key and wish to continue to receive a fee from your customers, you must make a change to set that fee through the recently introduced `integratorFees` fields. 
+If you currently set a fee through your API key and wish to continue receiving a fee from your customers, you must make a change to set that fee through the recently introduced `integratorFees` fields.
 
 If you currently consume any of the `portion` fields, you must update your logic to read from the `aggregatedOutputs` objects, and may optionally use the new `fee` indicator to identify which output is the fee versus the principal swap result.

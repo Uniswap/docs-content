@@ -1,5 +1,4 @@
 {
-    "title": "Changelot",
-    "pages": ["changelog", "proxy_approval_notification", "setting_integrator_fee", "sunsetting_api_key_fee"]
+  "title": "Changelog",
+  "pages": ["changelog", "active-notifications", "completed-notifications"]
 }
-  
