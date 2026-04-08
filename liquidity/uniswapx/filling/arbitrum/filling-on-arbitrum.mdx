@@ -57,7 +57,7 @@ For convenience, an [example Executor Contract](https://github.com/Uniswap/Unisw
 On Arbitrum, `DutchV3` order types are supported. You may query for a specific type by specifying the `orderType` query string parameter:
 
 ```bash
-GET https://api.uniswap.org/v2/orders?orderStatus=open&chainId=42161&limit=1000&orderType={Dutch_V2 | Dutch_V3}
+GET https://api.uniswap.org/v2/orders?orderStatus=open&chainId=42161&limit=1000&orderType=Dutch_V3
 ```
 
 `DutchV3` orders use a block-based decay mechanism. This design takes advantage of Arbitrum's 250 ms block frequency, allowing for more granular price updates compared to time-based decay systems that are limited by the `block.timestamp` second-level granularity in the EVM.

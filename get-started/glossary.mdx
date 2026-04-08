@@ -8,6 +8,8 @@ description: Common terms for the Uniswap protocol, its AMM design, permissionle
 
 - An **automated market maker (AMM)** is a smart contract on Ethereum that holds liquidity reserves. Users can trade against these reserves at prices determined by a fixed formula. Anyone may contribute liquidity to these smart contracts, earning pro-rata trading fees in return.
 
+- The **Uniswap protocol** is a set of immutable onchain smart contracts that implement AMM-based trading and liquidity across protocol versions.
+
 - The **constant product formula** is the AMM model used in early Uniswap versions. In v1 and v2, it is commonly written as `x * y = k`, where **k** is the invariant.
 
 - A **pool** is a contract deployed by the v4 factory that pairs two ERC-20 assets. Different pools may have different fees despite containing the same token pair. Pools were previously called Pairs before the introduction of multiple fee options.
@@ -44,7 +46,7 @@ description: Common terms for the Uniswap protocol, its AMM design, permissionle
 
 ## Smart Contract Architecture
 
-- [**Core Contracts**](https://github.com/Uniswap/v4-core) are smart contracts that are considered foundational, and are essential for Uniswap to exist. Upgrading to a new version of core would require deploying an entirely new set of smart contracts on Ethereum and would be considered a new version of the Uniswap Protocol.
+- [**Core Contracts**](https://github.com/Uniswap/v4-core) are foundational protocol contracts that implement pool state transitions and settlement logic. A new core deployment corresponds to a new protocol version.
 
 - [**Periphery Contracts**](https://github.com/Uniswap/v4-periphery) are external smart contracts that simplify interactions with the protocol (e.g., routers and position managers).
 
@@ -61,7 +63,7 @@ description: Common terms for the Uniswap protocol, its AMM design, permissionle
 
 - **Hooks** are customizable smart contracts that execute logic before or after pool actions such as swaps or liquidity modifications.
 
-- **flash accounting** is a v4 mechanism that allows temporary token imbalances within a transaction, provided all balances settle correctly by the end of execution.
+- **flash accounting** is a v4 settlement mechanism that allows temporary token imbalances during execution, provided balances net to zero by transaction end. This is distinct from a **flash swap**.
 
 ## Token Standards
 
@@ -73,9 +75,9 @@ description: Common terms for the Uniswap protocol, its AMM design, permissionle
 
 ## Trading Infrastructure
 
-- **flash swap** is a swap where tokens are received before repayment, provided the borrowed tokens are returned within the same transaction.
+- **flash swap** is a v2 pattern where tokens are received before repayment, provided borrowed tokens are returned in the same transaction. This is distinct from v4 **flash accounting**.
 
-- **Routing** in API responses, the `routing` field describes the execution mechanism used for a quote, such as Classic pools or UniswapX Dutch auctions.
+- **Routing** in API responses, the `routing` field describes the execution mechanism for a quote, such as `CLASSIC` pool routing or UniswapX auction routing (`DUTCH_V2`, `DUTCH_V3`, `PRIORITY`).
 
 ## Ecosystem Terms
 
@@ -87,7 +89,9 @@ description: Common terms for the Uniswap protocol, its AMM design, permissionle
 
 These terms are used throughout the Uniswap API docs:
 
-- **Uniswap protocols** refers to the pools of liquidity created through [protocol smart contracts](/docs/protocols/v4/overview). These are sometimes referred to as **v2**, **v3**, and **v4** pools. (v1 is not supported by the APIs.) In rare instances these protocols collectively are called **Classic**.
+- **Uniswap protocols** in API context refers to pool-based routing across Uniswap v2, Uniswap v3, and Uniswap v4 liquidity (v1 is not supported by the API).
+
+- **Classic** in API routing terminology means a pool-based route through Uniswap protocol liquidity (v2/v3/v4), not UniswapX RFQ routing.
 
 - **UniswapX** refers to the intent-based RFQ swap mechanism. UniswapX has two versions: **UniswapX_V2** and **UniswapX_V3**. In API responses, the `routing` field will return **DUTCH_V2** or **DUTCH_V3** (respectively) for UniswapX quotes. These are also known as **DutchQuoteV2** and **DutchQuoteV3** in some API payloads and tooling. Additionally, on Base and Unichain chains, the `routing` field may return **PRIORITY** for UniswapX_V2 quotes, which can also be referred to as **PriorityQuote**.
 

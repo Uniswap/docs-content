@@ -9,10 +9,12 @@ Allocators are crucial infrastructure components in The Compact protocol that en
 
 Each resource lock is mediated by an allocator with four primary responsibilities:
 
-1. **Preventing Double-Spending**: Ensuring sponsors don't commit the same tokens to multiple compacts or transfer away committed funds
-2. **Validating Transfers**: Attesting to standard ERC6909 transfers of resource lock tokens
-3. **Authorizing Claims**: Validating claims against resource locks
-4. **Nonce Management**: Ensuring nonces are not reused for claims
+| Responsibility | Description |
+|---|---|
+| Preventing double-spending | Ensures sponsors do not commit the same tokens to multiple compacts or transfer away committed funds. |
+| Validating transfers | Attests to standard ERC6909 transfers of resource lock tokens. |
+| Authorizing claims | Validates claims against resource locks. |
+| Nonce management | Ensures nonces are not reused for claims. |
 
 ## Registration
 
@@ -21,9 +23,12 @@ Allocators must be registered with The Compact before they can be assigned to lo
 ### Registration requirements
 
 Anyone can register an allocator if one of three conditions is met:
-- The caller is the allocator address being registered
-- The allocator address contains code
-- A proof is supplied representing valid create2 deployment parameters
+
+| Condition | Description |
+|---|---|
+| Caller identity | Caller is the allocator address being registered. |
+| Existing code | Allocator address already contains code. |
+| CREATE2 proof | A valid CREATE2 deployment proof is supplied. |
 
 ### Registration function
 
@@ -47,9 +52,11 @@ This allows pre-registration of deterministic addresses.
 
 All allocators must implement the `IAllocator` interface:
 
-### attest function
+### `attest`
 
 Called on standard ERC6909 transfers to validate them:
+
+#### Function signature
 
 ```solidity
 function attest(
@@ -61,13 +68,15 @@ function attest(
 ) external returns (bytes4)
 ```
 
-**Requirements**:
-- Must verify the transfer is safe
-- Must return `IAllocator.attest.selector` on success
+#### Requirements
 
-### authorizeClaim function
+`attest` must verify that the transfer is safe and return `IAllocator.attest.selector` on success.
+
+### `authorizeClaim`
 
 Called by The Compact during claim processing for onchain authorization:
+
+#### Function signature
 
 ```solidity
 function authorizeClaim(
@@ -81,21 +90,27 @@ function authorizeClaim(
 ) external returns (bytes4)
 ```
 
-**Parameters**:
-- `claimHash`: The hash of the claim being processed
-- `arbiter`: The arbiter processing the claim
-- `sponsor`: The sponsor of the compact
-- `nonce`: The nonce for replay protection
-- `expires`: Expiration timestamp
-- `idsAndAmounts`: Array of [id, amount] pairs
-- `allocatorData`: Custom data (e.g., signatures)
+#### Parameters
 
-**Requirements**:
-- Must return `IAllocator.authorizeClaim.selector` on success
+| Parameter | Description |
+|---|---|
+| `claimHash` | Hash of the claim being processed. |
+| `arbiter` | Arbiter processing the claim. |
+| `sponsor` | Sponsor of the compact. |
+| `nonce` | Nonce used for replay protection. |
+| `expires` | Claim expiration timestamp. |
+| `idsAndAmounts` | Array of `[id, amount]` pairs. |
+| `allocatorData` | Custom allocator data (for example, signatures). |
 
-### isClaimAuthorized function
+#### Requirements
+
+`authorizeClaim` must return `IAllocator.authorizeClaim.selector` on success.
+
+### `isClaimAuthorized`
 
 Offchain view function to check if a claim would be authorized:
+
+#### Function signature
 
 ```solidity
 function isClaimAuthorized(
@@ -115,9 +130,7 @@ Should perform the same authorization checks as `authorizeClaim` but as a view f
 
 The `allocatorData` parameter allows allocators to implement custom authorization logic:
 
-- Can contain signatures from offchain systems
-- May include merkle proofs or other authorization evidence
-- The format is entirely defined by each allocator implementation
+It can contain signatures from offchain systems, merkle proofs, or other authorization evidence. The format is entirely defined by each allocator implementation.
 
 ## Nonce Management
 
@@ -142,33 +155,41 @@ function hasConsumedAllocatorNonce(
 ### Onchain allocators
 
 Purely onchain allocators can:
-- Track balances in contract storage
-- Implement authorization logic directly
-- Use onchain randomness or oracles
+
+| Capability | Description |
+|---|---|
+| Balance tracking | Tracks balances in contract storage. |
+| Direct authorization | Implements authorization logic directly in the contract. |
+| Onchain data sources | Uses onchain randomness or oracles where needed. |
 
 ### Hybrid allocators
 
 Combine onchain and offchain components:
-- Offchain tracking and signature generation
-- Onchain signature verification
-- Balance attestation via `allocatorData`
+
+| Component | Description |
+|---|---|
+| Offchain services | Handle tracking and signature generation. |
+| Onchain checks | Verify signatures onchain. |
+| `allocatorData` bridge | Carries attestation data from offchain to onchain validation. |
 
 ### Sample implementations
 
 Two basic sample implementations are available:
 
-- **[Smallocator](https://github.com/uniswap/smallocator)**: A minimal implementation
-- **[Autocator](https://github.com/uniswap/autocator)**: An automated allocator
+| Implementation | Notes |
+|---|---|
+| [Smallocator](https://github.com/uniswap/smallocator) | Minimal implementation. |
+| [Autocator](https://github.com/uniswap/autocator) | Automated allocator implementation. |
 
 ## Trust Assumptions
 
 ### For sponsors
-- Allocators won't unduly censor valid requests against fully funded locks
-- Sponsors can initiate forced withdrawals if allocators become unresponsive
+
+Sponsors assume allocators will not unduly censor valid requests against fully funded locks, and that forced-withdrawal flows remain available if allocators become unresponsive.
 
 ### For claimants
-- Allocators are sound and won't allow resource locks to become underfunded
-- Allocators will properly track and enforce balance constraints
+
+Claimants assume allocators are sound, do not allow resource locks to become underfunded, and properly track and enforce balance constraints.
 
 ## Forced Withdrawal Mechanism
 
@@ -176,9 +197,11 @@ To protect sponsors from unresponsive or malicious allocators, The Compact imple
 
 ### How it works
 
-1. **Initiation**: A sponsor calls `enableForcedWithdrawal(uint256 id)` to signal their intent to withdraw without allocator approval.
-2. **Timelock Period**: The protocol enforces a waiting period equal to the resource lock's `resetPeriod`.
-3. **Execution**: After the timelock expires, the sponsor can call `forcedWithdrawal(uint256 id, address recipient, uint256 amount)` to withdraw the underlying tokens.
+| Step | Action |
+|---|---|
+| 1 | **Initiation**: sponsor calls `enableForcedWithdrawal(uint256 id)` to signal intent to withdraw without allocator approval. |
+| 2 | **Timelock period**: protocol enforces a waiting period equal to the resource lock's `resetPeriod`. |
+| 3 | **Execution**: after timelock expiry, sponsor calls `forcedWithdrawal(uint256 id, address recipient, uint256 amount)` to withdraw underlying tokens. |
 
 A sponsor can call `disableForcedWithdrawal(uint256 id)` at any time before execution to cancel the process. Once their withdrawal status has been set as enabled, that state will persist until it is explicitly disabled; should they wish to utilize the underlying resource lock again, the withdrawal status will first need to be disabled.
 
@@ -201,10 +224,12 @@ function forcedWithdrawal(
 
 ### Security considerations
 
-- The timelock period provides adequate notice to all parties about the withdrawal intent
-- This prevents sudden balance changes that could lead to equivocation
-- The reset period is chosen by the sponsor when creating the resource lock
-- Shorter reset periods provide faster exit but may offer less security to claimants
+| Consideration | Implication |
+|---|---|
+| Timelock notice | Provides advance notice to parties about withdrawal intent. |
+| Equivocation mitigation | Reduces sudden balance changes that could cause equivocation. |
+| Sponsor-selected reset period | Security window is chosen when creating the resource lock. |
+| Shorter reset periods | Faster exits, but potentially weaker claimant protection. |
 
 ### Checking withdrawal status
 
@@ -216,9 +241,12 @@ function getForcedWithdrawalStatus(
 ```
 
 Status can be:
-- `Disabled`: No forced withdrawal is pending
-- `Pending`: Withdrawal initiated but timelock not expired
-- `Enabled`: Timelock expired and withdrawal can be executed
+
+| Status | Meaning |
+|---|---|
+| `Disabled` | No forced withdrawal is pending. |
+| `Pending` | Withdrawal initiated but timelock not expired. |
+| `Enabled` | Timelock expired and withdrawal can be executed. |
 
 
 ## Events
@@ -238,8 +266,11 @@ event NonceConsumedDirectly(
 ## Error Handling
 
 Common allocator-related errors:
-- `InvalidAllocation(address allocator)`: Invalid allocator used
-- `InvalidBatchAllocation()`: Batch allocation is invalid
-- `InvalidRegistrationProof(address allocator)`: Registration proof is invalid
-- `InconsistentAllocators()`: Allocators are inconsistent across batch operations
-- `InvalidNonce(address account, uint256 nonce)`: Nonce is invalid or already consumed
+
+| Error | Description |
+|---|---|
+| `InvalidAllocation(address allocator)` | Invalid allocator used. |
+| `InvalidBatchAllocation()` | Batch allocation is invalid. |
+| `InvalidRegistrationProof(address allocator)` | Registration proof is invalid. |
+| `InconsistentAllocators()` | Allocators are inconsistent across batch operations. |
+| `InvalidNonce(address account, uint256 nonce)` | Nonce is invalid or already consumed. |

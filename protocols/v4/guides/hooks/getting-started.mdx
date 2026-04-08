@@ -1,9 +1,11 @@
 ---
-title: "Set Up Local Environment"
-description: Set up a local Foundry environment for building and testing Uniswap v4 hooks.
+title: "v4 Hooks Overview"
+description: Start here to understand Uniswap v4 hooks and set up a local workflow for building and testing them.
 ---
 
-Before writing the hook let's first have a local environment properly configured e.g. deploying pool manager, utility routers and test tokens. 
+## Set Up Your Local Environment
+
+Before writing the hook, first configure a local environment (for example deploying `PoolManager`, utility routers, and test tokens).
 
 At the end of this guide a development environment will be set up to be used to build the rest of the examples in the Guides section of the docs.
 
@@ -24,8 +26,6 @@ forge test
 ```
 
 Then hop to the [Local Node via Anvil](#local-node-via-anvil) to complete the set up and start developing.
-
----
 
 ## Start from Scratch
 
@@ -56,7 +56,9 @@ Next, set up the remappings so that the shorthand syntax for importing contracts
 forge remappings > remappings.txt
 ```
 
-> If there is something wrong with the inferred remappings, please replace with the following in `remappings.txt`:
+<Callout type="note">
+If there is something wrong with the inferred remappings, please replace with the following in `remappings.txt`:
+</Callout>
 
 ```
 @uniswap/v4-core/=lib/v4-core/
@@ -226,7 +228,9 @@ forge test --rpc-url 127.0.0.1:8545
 
 ## Appendix: OpenZeppelin Hooks Library
 
-> [OpenZeppelin Hooks Library](https://docs.openzeppelin.com/uniswap-hooks/1.x/), included in [v4-template](https://github.com/uniswapfoundation/v4-template), provides secure and modular reference implementations for Uniswap v4 Hooks!
+<Callout title="" type="note">
+[OpenZeppelin Hooks Library](https://docs.openzeppelin.com/uniswap-hooks/1.x/), included in [v4-template](https://github.com/uniswapfoundation/v4-template), provides secure and modular reference implementations for Uniswap v4 hooks.
+</Callout>
 
 If you're starting from scratch, you can install the OpenZeppelin Hooks library:
 

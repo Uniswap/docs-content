@@ -14,8 +14,10 @@ Use it when your integration needs explicit signer authorization per transfer.
 
 ## Core Entry Points
 
-- `permitTransferFrom`: Transfer tokens from an owner through signature validation.
-- `permitWitnessTransferFrom`: Transfer through signature validation and include extra signed context via `witness`.
+| Entry point | Purpose |
+|---|---|
+| `permitTransferFrom` | Transfer tokens from an owner through signature validation. |
+| `permitWitnessTransferFrom` | Transfer through signature validation and include extra signed context via `witness`. |
 
 Each of these functions is overloaded with a batched version that allows users to transfer multiple tokens with 1 transaction.
 
@@ -25,7 +27,7 @@ Each of these functions is overloaded with a batched version that allows users t
 
 Use the `permitTransferFrom` to transfer just one token.
 
-**Function signature**
+#### Function signature
 
 ```solidity
 function permitTransferFrom(
@@ -36,9 +38,14 @@ function permitTransferFrom(
     ) external
 ```
 
-**Parameters**
+#### Parameters
 
-- permit - Construct `PermitTransferFrom` struct with the following:
+| Parameter | Description |
+|---|---|
+| `permit` | Construct `PermitTransferFrom` with the struct below. |
+| `transferDetails` | Recipient and amount details for the transfer. See struct below. |
+| `owner` | Signer of the permit message and owner of the tokens. |
+| `signature` | Signature over permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271). |
 
 ```solidity
 struct PermitTransferFrom {
@@ -57,8 +64,6 @@ struct TokenPermissions {
     }
 ```
 
-- transferDetails - information about recipient and amount
-
 ```solidity
 struct SignatureTransferDetails {
         // recipient address
@@ -68,14 +73,11 @@ struct SignatureTransferDetails {
     }
 ```
 
-- owner - the signer of the permit message and owner of the tokens
-- signature - the signature over the permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271)
-
 ### Batched `permitTransferFrom`
 
 Use `permitTransferFrom` with the batched parameters when you want to transfer multiple tokens from an owner.
 
-**Function signature**
+#### Function signature
 
 ```solidity
 function permitTransferFrom(
@@ -86,9 +88,14 @@ function permitTransferFrom(
     ) external
 ```
 
-**Parameters**
+#### Parameters
 
-- permit - Construct `PermitBatchTransferFrom` with the following:
+| Parameter | Description |
+|---|---|
+| `permit` | Construct `PermitBatchTransferFrom` with the struct below. |
+| `transferDetails` | Spender-parameterized transfer details. Array length must match `TokenPermissions[]` length in `permit`. Use `requestedAmount = 0` to skip a permitted token transfer. |
+| `owner` | Signer of the permit message and owner of the tokens. |
+| `signature` | Signature over permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271). |
 
 ```solidity
 struct PermitBatchTransferFrom {
@@ -108,11 +115,6 @@ struct TokenPermissions {
     }
 ```
 
-- transferDetails - parameterized by the spender with information about the token transfer.
-    - The length of the `SignatureTransferDetails` array must equal the length of the `TokenPermissions` array passed in with `PermitBatchTransferFrom` struct. The token to be transferred specified in the `TokenPermissions` array should match the index of the `SignatureTransferDetails` array.
-    - Note that if a spender is permitted to a token but does not need to transfer that token, they can specify that the `requestedAmount` is 0 so that the transfer is skipped.
-- owner - the signer of the permit message and owner of the tokens
-
 ```solidity
 struct SignatureTransferDetails {
         // recipient address
@@ -122,11 +124,9 @@ struct SignatureTransferDetails {
     }
 ```
 
-- signature - the signature over the permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271)
-
 ### Single `permitWitnessTransferFrom`
 
-**Function signature**
+#### Function signature
 
 ```solidity
 function permitWitnessTransferFrom(
@@ -139,18 +139,20 @@ function permitWitnessTransferFrom(
     ) external
 ```
 
-**Parameters**
+#### Parameters
 
-- permit - constructed with the same type as defined above in the single permitTransferFrom case
-- transferDetails constructed with same type as defined above in the single permitTransferFrom case
-- owner - the signer of the permit message and owner of the tokens
-- witness - arbitrary data passed through that was signed by the user. Is used to reconstruct the signature. Pass through this data if you want the permit signature recovery also to validate other data.
-- witnessTypeString - a string that defines the typed data that the witness was hashed from. It must also include the `TokenPermissions` struct and comply with [EIP-712](https://eips.ethereum.org/EIPS/eip-712) struct ordering. See an example below.
-- signature - the signature over the permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271)
+| Parameter | Description |
+|---|---|
+| `permit` | Same type as the single `permitTransferFrom` case. |
+| `transferDetails` | Same type as the single `permitTransferFrom` case. |
+| `owner` | Signer of the permit message and owner of the tokens. |
+| `witness` | Arbitrary signed data used to reconstruct signature data and optionally validate additional context. |
+| `witnessTypeString` | EIP-712 type string for `witness` hashing. Must include `TokenPermissions` and follow [EIP-712](https://eips.ethereum.org/EIPS/eip-712) struct ordering. |
+| `signature` | Signature over permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271). |
 
 ### Batch `permitWitnessTransferFrom`
 
-**Function signature**
+#### Function signature
 
 ```solidity
 function permitWitnessTransferFrom(
@@ -163,16 +165,18 @@ function permitWitnessTransferFrom(
     ) external
 ```
 
-**Parameters**
+#### Parameters
 
-- permit - constructed with the same type in the batched case of `permitTransferFrom`
-- transferDetails - constructed with the same type in the batched case of `permitTransferFrom`
-- owner - the signer of the permit message and owner of the tokens
-- witness - arbitrary data passed through that was signed by the user. Is used to reconstruct the signature. Pass through this data if you want the permit signature recovery to also validate other data.
-- witnessTypeString - a string that defines the typed data that the witness was hashed from. It must also include the `TokenPermissions` struct and comply with [EIP-712](https://eips.ethereum.org/EIPS/eip-712) struct ordering. See an example below.
-- signature - the signature over the permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271)
+| Parameter | Description |
+|---|---|
+| `permit` | Same type as the batched `permitTransferFrom` case. |
+| `transferDetails` | Same type as the batched `permitTransferFrom` case. |
+| `owner` | Signer of the permit message and owner of the tokens. |
+| `witness` | Arbitrary signed data used to reconstruct signature data and optionally validate additional context. |
+| `witnessTypeString` | EIP-712 type string for `witness` hashing. Must include `TokenPermissions` and follow [EIP-712](https://eips.ethereum.org/EIPS/eip-712) struct ordering. |
+| `signature` | Signature over permit data. Supports EOA signatures, compact signatures defined by [EIP-2098](https://eips.ethereum.org/EIPS/eip-2098), and contract signatures defined by [EIP-1271](https://eips.ethereum.org/EIPS/eip-1271). |
 
-**Example `permitWitnessTransferFrom` parameters**
+#### Example `permitWitnessTransferFrom` parameters
 
 If an integrating contract would also like the signer to verify information about a trade, an integrating contract may ask the signer to also sign an `ExampleTrade` object that we define below:
 

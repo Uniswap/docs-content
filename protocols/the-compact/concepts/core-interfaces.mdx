@@ -366,13 +366,19 @@ struct Component {
 ```
 
 The `claimant` field encodes both:
-- **recipient** address (lower 160 bits)
-- **bytes12 lockTag** (upper 96 bits)
+
+| Encoded value | Bits | Description |
+|---|---|---|
+| `recipient` | Lower 160 bits | Recipient account address. |
+| `bytes12 lockTag` | Upper 96 bits | Destination lock tag used during claim processing. |
 
 This encoding determines processing:
-1. **Direct Transfer**: If `lockTag` matches the claimed lock's tag
-2. **Convert Lock**: If `lockTag` is non-zero but different
-3. **Withdraw**: If `lockTag` is `bytes12(0)`
+
+| Outcome | Condition |
+|---|---|
+| **Direct transfer** | `lockTag` matches the claimed lock tag. |
+| **Convert lock** | `lockTag` is non-zero and different from the claimed lock tag. |
+| **Withdraw** | `lockTag` is `bytes12(0)`. |
 
 ## IAllocator
 
@@ -414,8 +420,11 @@ interface IAllocator {
 ```
 
 Return values:
-- `attest` must return `IAllocator.attest.selector`
-- `authorizeClaim` must return `IAllocator.authorizeClaim.selector`
+
+| Function | Expected return |
+|---|---|
+| `attest` | `IAllocator.attest.selector` |
+| `authorizeClaim` | `IAllocator.authorizeClaim.selector` |
 
 ## IEmissary
 
