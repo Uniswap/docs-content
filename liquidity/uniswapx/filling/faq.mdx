@@ -10,6 +10,8 @@ Common operational questions for UniswapX fillers and quoters.
 <details>
   <summary>Which IPs do I need to whitelist?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   IPs to whitelist:
 
   **Beta Test Environment**
@@ -18,26 +20,40 @@ Common operational questions for UniswapX fillers and quoters.
   **Production Environment**
   - Quote requests: `3.138.88.28`
 
+  </div>
+
 </details>
 
 <details>
   <summary>Why don't I get quote requests for Unichain/Base/Arbitrum?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   On Ethereum, RFQ is used to parameterize the order, which often results in exclusive orders. On L2s, RFQ is not used and the auction is parameterized based on the AMM price. As a result, notifications are only sent for orders that are ready to be executed via the orders API.
+
+  </div>
 
 </details>
 
 <details>
   <summary>What's the expected RPS for quoting on Ethereum?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   1 RPS.
+
+  </div>
 
 </details>
 
 <details>
   <summary>Which tokens are supported in RFQ?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   All tokens are supported, except those on the [unsupported token list](https://unsupportedtokens.uniswap.org/).
+
+  </div>
 
 </details>
 
@@ -45,6 +61,8 @@ Common operational questions for UniswapX fillers and quoters.
 
 <details>
   <summary>I'm getting 404, no quotes available?</summary>
+
+  <div style={{ marginInlineStart: '1rem' }}>
 
   There are several reasons why you might receive this error:
 
@@ -54,26 +72,38 @@ Common operational questions for UniswapX fillers and quoters.
 
   - **Response Latency**: If your filler responds but takes longer than 500ms, your quote will be rejected. Ensure your infrastructure can consistently respond within this latency requirement. The quote server is located in AWS `US-EAST-2` if you wish to co-locate to reduce latency.
 
+  </div>
+
 </details>
 
 <details>
   <summary>The transaction is reverting for a certain reason (e.g. `InvalidOrderFields`). What does this mean?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   Check the [KNOWN_ERRORS](https://github.com/Uniswap/sdks/blob/a7fb8d7b8eecdc8a29d386420339da86b0361a77/sdks/uniswapx-sdk/src/utils/OrderQuoter.ts#L70) in the SDK to see what the likely causes are.
+
+  </div>
 
 </details>
 
 <details>
   <summary>Why did my server stop receiving quote requests?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   Your server may be temporarily blocked due to the fade-rate monitor. If you win an RFQ but don't fill the order, this counts as a "fade." After too many fades, RFQ requests are temporarily paused.
 
   You'll know you're blocked when quote requests include a `blockUntilTimestamp` field indicating when you'll start receiving requests again.
+
+  </div>
 
 </details>
 
 <details>
   <summary>Why does my fill transaction fail the Permit2 nonce check?</summary>
+
+  <div style={{ marginInlineStart: '1rem' }}>
 
   A Permit2 nonce check failure typically means:
 
@@ -83,6 +113,8 @@ Common operational questions for UniswapX fillers and quoters.
 
   Before attempting to fill, verify the order is still valid. See: "How do I know if an order is still fillable?"
 
+  </div>
+
 </details>
 
 ## Order Mechanics
@@ -90,21 +122,33 @@ Common operational questions for UniswapX fillers and quoters.
 <details>
   <summary>How do I know if an order is still fillable?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   The simulation using [UniswapXOrderQuoter](https://github.com/Uniswap/sdks/blob/416793e034dd065fe3310f7c26b75c7255f610bb/sdks/uniswapx-sdk/src/utils/OrderQuoter.ts#L175) will tell you whether the order is still fillable.
+
+  </div>
 
 </details>
 
 <details>
   <summary>How is the OrderHash generated? Is it guaranteed to be unique?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   OrderHashes are generated from the hash of the witness information from the order, and are thus guaranteed to be cryptographically unique.
+
+  </div>
 
 </details>
 
 <details>
   <summary>Why do I receive inverse requests for every quote (e.g. USDC&lt;&gt;ETH and ETH&lt;&gt;USDC)?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   Two quote requests are performed per actual quote to obfuscate the swapper's actual request and reduce the chances of front-running.
+
+  </div>
 
 </details>
 
@@ -113,7 +157,11 @@ Common operational questions for UniswapX fillers and quoters.
 <details>
   <summary>How long is the exclusivity period after a winning quote? Is it fixed or dynamic?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   The exclusivity period on mainnet is currently **24 seconds (2 blocks)** and is set by the cosigner when it cosigns the order. It is not a fixed protocol constant and could change in the future.
+
+  </div>
 
 </details>
 
@@ -122,28 +170,42 @@ Common operational questions for UniswapX fillers and quoters.
 <details>
   <summary>What counts as a fade?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   A **fade** occurs when a quoter wins exclusivity on an order through the RFQ process but **does not fill it before the exclusivity window expires**. Fading triggers the [circuit breaker](/docs/liquidity/uniswapx/filling/mainnet/become-a-quoter#handling-fades--the-circuit-breaker), which temporarily disables the quoter from receiving new RFQ requests.
+
+  </div>
 
 </details>
 
 <details>
   <summary>Does it count as a fade if another filler overrides my exclusivity?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   **No**. On mainnet, orders may use **soft exclusivity** (exclusivityOverrideBps > 0), which allows non-exclusive fillers to fill during the exclusivity window by paying an override penalty — essentially, extra tokens to the swapper. 
   
   This is not considered a fade. The system explicitly allows it to balance honoring exclusivity with getting the swapper the best possible price. A fade is only counted when the exclusivity window expires without **any** filler (including the exclusive filler) settling the order.
+
+  </div>
 
 </details>
 
 <details>
   <summary>What happens if the order is filled after the exclusivity window by a different filler?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   Once the exclusivity window ends (after `decayStartTime`), all fillers compete equally in the Dutch auction. If the original filler, or another filler, fills the order during the decay period, the filler who faded the order is still penalized. 
+
+  </div>
 
 </details>
 
 <details>
   <summary>How does the cooldown work after a fade?</summary>
+
+  <div style={{ marginInlineStart: '1rem' }}>
 
   After a fade, the circuit breaker disables the quoter for a cooldown period that uses **exponential backoff**:
 
@@ -158,12 +220,18 @@ Common operational questions for UniswapX fillers and quoters.
 
   The system periodically checks for new fades. If no new fades are detected in a check, the consecutive offense count resets to 0. The full policy is available in the [source code](https://github.com/Uniswap/uniswapx-parameterization-api/blob/bf87dcc0066fa21b72255f7155f5fbd04a518594/lib/cron/fade-rate-v2.ts#L215).
 
+  </div>
+
 </details>
 
 <details>
   <summary>Do simulation failures count as fades?</summary>
 
+  <div style={{ marginInlineStart: '1rem' }}>
+
   **No.** Fades are only counted when a quoter wins exclusivity but fails to fill the order **onchain** before the exclusivity window expires. Offchain simulation failures (e.g. quote validation or gas estimation) do not trigger the circuit breaker.
+
+  </div>
 
 </details>
 
