@@ -32,20 +32,24 @@ To successfully receive and respond to UniswapX RFQ Quotes, you must have a publ
 
 ### Request schema:
 ```json
-method: POST
-content-type: application/json
-data: {
-    requestId: "string uuid - a unique identifier for swapper's request",
-    tokenInChainId: "number - the `tokenIn` chainId",
-    tokenOutChainId: "number - the `tokenOut` chainId",
-    swapper: "string address - This will be the 0x000 address to obfuscate the swapper",
-    tokenIn: "string address - The ERC20 token that the swapper will provide",
-    tokenOut: "string address - The ERC20 token that the swapper will receive",
-    amount: "string number - If the trade type is exact input then this is amount of `tokenIn` the user wants to swap otherwise this is amount of tokenOut the user wants to receive",
-    type: "string - This is either `EXACT_INPUT` or `EXACT_OUTPUT`",
-    protocol: "string - UniswapX protocol version (e.g. v1)",
-    numOutputs: "number - the number of outputs in this request",
-    quoteId: "string uuid - a unique identifier for the quote an integrator is sending back"
+{
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "data": {
+    "requestId": "uuid",
+    "tokenInChainId": 1,
+    "tokenOutChainId": 1,
+    "swapper": "0x0000000000000000000000000000000000000000",
+    "tokenIn": "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    "tokenOut": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "amount": "1000000",
+    "type": "EXACT_INPUT",
+    "protocol": "v1",
+    "numOutputs": 1,
+    "quoteId": "uuid"
+  }
 }
 ```
 
@@ -53,17 +57,15 @@ data: {
 If you can fulfill the quote request, your server should respond with (status 200 - OK) and the following data:
 ```json
 {
-    chainId: "number - the chainId for the quoted token",
-    amountIn: "string number - If the request type is exact input then this field is `amount` from the quote request, otherwise this is the provided quote",
-    amountOut: "string number - If the request type is exact output then this field is `amount` from the quote request, otherwise this is the provided quote",
-    filler: "string address - The executor address that you would like to have last-look exclusivity for this order"
-
-    { ...The following fields should be echoed from the quote request...},
-    requestId: "string uuid - a unique identifier for this quote request",
-    swapper: "string address - The swapper’s EOA address that will sign the order",
-    tokenIn: "string address - The ERC20 token that the swapper will provide",
-    tokenOut: "string address - The ERC20 token that the swapper will receive",
-    quoteId: "string uuid - a unique identifier for the quote an integrator is sending back"
+  "chainId": 1,
+  "amountIn": "1000000",
+  "amountOut": "548123456789000000",
+  "filler": "0x1234567890abcdef1234567890abcdef12345678",
+  "requestId": "uuid",
+  "swapper": "0x0000000000000000000000000000000000000000",
+  "tokenIn": "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+  "tokenOut": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+  "quoteId": "uuid"
 }
 ```
 
@@ -73,10 +75,14 @@ If you do not wish to respond to a quote request, you must return an empty respo
 If you are an onboarded quoter who is currently disabled by the circuit breaker, your server will receive the following message on the same quote endpoint:
 
 ```json
-method: POST
-content-type: application/json
-data: {
-    blockUntilTimestamp: "timestamp - the timestamp that this quoter is disabled until"
+{
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "data": {
+    "blockUntilTimestamp": 1735689600
+  }
 }
 ```
 
