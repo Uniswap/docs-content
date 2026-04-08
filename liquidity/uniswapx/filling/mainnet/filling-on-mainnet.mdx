@@ -7,7 +7,7 @@ description: Integrate a UniswapX filler on Ethereum mainnet, retrieve open orde
 ## When can I fill orders? 
 Most mainnet orders have an **exclusivity window** where a winning [quoter](/docs/liquidity/uniswapx/filling/mainnet/become-a-quoter) from an RFQ has priority to fill. Permissionless fillers become eligible to fill these orders in two cases:
 
-- **Soft exclusivity override**: When an order's `exclusivityOverrideBps` is greater than zero, non-exclusive fillers can fill during the exclusivity window by providing extra tokens to the swapper. Each output amount is scaled up by the override threshold — for example, an order with an exclusivity threshold of 200 bps requires the filler to provide 2% more output than the base price.
+- **Soft exclusivity override**: When an order's `exclusivityOverrideBps` is greater than zero, non-exclusive fillers can fill during the exclusivity window by providing extra tokens to the swapper. Each output amount is scaled up by the override threshold. For example, an order with an exclusivity threshold of 200 bps requires the filler to provide 2% more output than the base price.
 - **Exclusivity expiration**: After the window ends, the order enters a Dutch Auction open to all fillers with no penalty.
 
 

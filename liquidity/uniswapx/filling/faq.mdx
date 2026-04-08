@@ -183,7 +183,7 @@ Common operational questions for UniswapX fillers and quoters.
 
   <div style={{ marginInlineStart: '1rem' }}>
 
-  **No**. On mainnet, orders may use **soft exclusivity** (exclusivityOverrideBps > 0), which allows non-exclusive fillers to fill during the exclusivity window by paying an override penalty — essentially, extra tokens to the swapper. 
+  **No**. On mainnet, orders may use **soft exclusivity** (exclusivityOverrideBps > 0), which allows non-exclusive fillers to fill during the exclusivity window by paying an override penalty, which means extra tokens to the swapper.
   
   This is not considered a fade. The system explicitly allows it to balance honoring exclusivity with getting the swapper the best possible price. A fade is only counted when the exclusivity window expires without **any** filler (including the exclusive filler) settling the order.
 
