@@ -107,3 +107,63 @@ Common operational questions for UniswapX fillers and quoters.
   Two quote requests are performed per actual quote to obfuscate the swapper's actual request and reduce the chances of front-running.
 
 </details>
+
+## Exclusivity
+
+<details>
+  <summary>How long is the exclusivity period after a winning quote? Is it fixed or dynamic?</summary>
+
+  The exclusivity period on mainnet is currently **24 seconds (2 blocks)** and is set by the cosigner when it cosigns the order. It is not a fixed protocol constant and could change in the future.
+
+</details>
+
+## Fade Mechanics
+
+<details>
+  <summary>What counts as a fade?</summary>
+
+  A **fade** occurs when a quoter wins exclusivity on an order through the RFQ process but **does not fill it before the exclusivity window expires**. Fading triggers the [circuit breaker](/docs/liquidity/uniswapx/filling/mainnet/become-a-quoter#handling-fades--the-circuit-breaker), which temporarily disables the quoter from receiving new RFQ requests.
+
+</details>
+
+<details>
+  <summary>Does it count as a fade if another filler overrides my exclusivity?</summary>
+
+  **No**. On mainnet, orders may use **soft exclusivity** (exclusivityOverrideBps > 0), which allows non-exclusive fillers to fill during the exclusivity window by paying an override penalty — essentially, extra tokens to the swapper. 
+  
+  This is not considered a fade. The system explicitly allows it to balance honoring exclusivity with getting the swapper the best possible price. A fade is only counted when the exclusivity window expires without **any** filler (including the exclusive filler) settling the order.
+
+</details>
+
+<details>
+  <summary>What happens if the order is filled after the exclusivity window by a different filler?</summary>
+
+  Once the exclusivity window ends (after `decayStartTime`), all fillers compete equally in the Dutch auction. If the original filler, or another filler, fills the order during the decay period, the filler who faded the order is still penalized. 
+
+</details>
+
+<details>
+  <summary>How does the cooldown work after a fade?</summary>
+
+  After a fade, the circuit breaker disables the quoter for a cooldown period that uses **exponential backoff**:
+
+  ```
+  cooldown = 15 min × 1.5^(fades - 1) × 2^(consecutiveOffenses)
+  ```
+
+  - **First fade, first offense**: 15 minutes
+  - **2 fades in one period, first offense**: ~22 minutes
+  - **1 fade, second consecutive offense**: 30 minutes
+  - **2 fades, second consecutive offense**: ~45 minutes
+
+  The system periodically checks for new fades. If no new fades are detected in a check, the consecutive offense count resets to 0. The full policy is available in the [source code](https://github.com/Uniswap/uniswapx-parameterization-api/blob/bf87dcc0066fa21b72255f7155f5fbd04a518594/lib/cron/fade-rate-v2.ts#L215).
+
+</details>
+
+<details>
+  <summary>Do simulation failures count as fades?</summary>
+
+  **No.** Fades are only counted when a quoter wins exclusivity but fails to fill the order **onchain** before the exclusivity window expires. Offchain simulation failures (e.g. quote validation or gas estimation) do not trigger the circuit breaker.
+
+</details>
+

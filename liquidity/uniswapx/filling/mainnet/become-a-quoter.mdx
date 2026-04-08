@@ -25,6 +25,8 @@ Quoters are expected to honor and execute the quotes they submit. If a quoter su
 
 - ***Cooldown Time:*** The cooldown period starts at 15 minutes for the first fade and increases exponentially for consecutive fades. More details on the cooldown calculation can be found in the [source code](https://github.com/Uniswap/uniswapx-parameterization-api/blob/bf87dcc0066fa21b72255f7155f5fbd04a518594/lib/cron/fade-rate-v2.ts#L215). 
 
+For more details on what counts as a fade (and what doesn't), see the [fade mechanics FAQ](/docs/liquidity/uniswapx/filling/faq#fade-mechanics).
+
 ## RFQ API Integration Details
 To successfully receive and respond to UniswapX RFQ Quotes, you must have a publicly accessible endpoint that handles incoming quote requests according to the following schema:
 
