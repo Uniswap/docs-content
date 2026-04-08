@@ -1,18 +1,18 @@
 ---
 id: priorityorderreactor
 title: Filling on Priority Chains
-description: Fill UniswapX Priority orders on Unichain and Base using priority-fee bidding and reactor execution patterns.
+description: Fill UniswapX Priority orders on Base and Unichain using priority-fee bidding and reactor execution patterns.
 ---
 
-The [Priority Order Reactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol) is a UniswapX reactor built specifically for chains that utilize Priority Gas Auctions (PGA) for ordering transactions. This reactor type, which is based on research presented in [Priority is All you Need](https://www.paradigm.xyz/2024/06/priority-is-all-you-need), allows fillers to bid on orders during fulfillment through setting custom priority fees. 
+The [`PriorityOrderReactor`](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol) is a UniswapX reactor built specifically for chains that utilize Priority Gas Auctions (PGA) for ordering transactions. This reactor type, which is based on research presented in [Priority is All you Need](https://www.paradigm.xyz/2024/06/priority-is-all-you-need), allows fillers to bid on orders during fulfillment through setting custom priority fees.
 
 ## Example Implementation
-Alice submits a PriorityOrder offering 1 ETH in exchange for a minimum of 1000 USDC. The fair market rate for the order is 1100 USDC, resulting in around 100 USDC in potential profit. 
+Alice submits a `PriorityOrder` offering 1 ETH in exchange for a minimum of 1000 USDC. The fair market rate for the order is 1100 USDC, resulting in around 100 USDC in potential profit.
 
-If a filler assumes a desired margin of 10% of the total profit, a competitive price is 1090 USDC. This would be 900 bps of improvement. The filler would convert bps to mps (see below for details) to get 900 * 1000 = 900,000 mps of improvement. Thus they would set priorityFee of 900,000 wei on their fill transaction. Keep in mind that this is additional to the base fee.
+If a filler assumes a desired margin of 10% of the total profit, a competitive price is 1090 USDC. This would be 900 bps of improvement. The filler would convert bps to mps (see below for details) to get 900 * 1000 = 900,000 mps of improvement. Thus they would set `priorityFee` of 900,000 wei on their fill transaction. Keep in mind that this is additional to the base fee.
 
 ## Important Considerations
-- The PriorityOrderReactor is only meant to be used on chains which order transactions by priority fee. 
+- The `PriorityOrderReactor` is only meant to be used on chains which order transactions by priority fee.
 - Preliminary auctions for the start price of these orders are not planned. Instead, a minimum price is set at which each order must be executed.
 - Each order is only executable after a certain block specified by the user. This block will be a few blocks in the future from when the order is made available through the UniswapX orders endpoint. To improve user experience, Uniswap Labs can make the start block earlier by cosigning the order.
 - Only the fill transaction with the highest priority fee will win the order, all other transactions will revert onchain.
@@ -22,7 +22,7 @@ If a filler assumes a desired margin of 10% of the total profit, a competitive p
 - Unichain supports specifying a target block and has revert protection. For more information, please see the [Unichain Docs](/docs/unichain/technical-information/advanced-txn).
 
 ## Retrieving and Executing Signed Orders
-All signed Priority Orders created through the Uniswap UI are available via the UniswapX Orders Endpoint. [Swagger documentation](https://api.uniswap.org/v2/uniswapx/docs) is available, but see below for a quick example curl.
+All signed `PriorityOrder` messages created through the Uniswap UI are available via the UniswapX Orders Endpoint. [Swagger documentation](https://api.uniswap.org/v2/uniswapx/docs) is available, but see below for a quick example curl.
 
 ```bash
 GET https://api.uniswap.org/v2/orders?orderStatus=open&orderType=Priority
@@ -46,10 +46,10 @@ const orderHash = order.hash();
 The existing `UniswapXOrderQuoter` can also be used to quote priority orders, however, you must use a `JsonRpcProvider` that supports block overrides. Without block overrides, the SDK quoter cannot validate the entire order as the block number is checked first in the contract.
 
 ## Executing an Order
-The [PriorityOrderReactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol) shares the same interface as all other existing UniswapX reactors. Orders are executed against the `execute` and `executeBatch` functions, and optionally a callback is available via `executeWithCallback` and `executeBatchWithCallback`.
+The [`PriorityOrderReactor`](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol) shares the same interface as all other existing UniswapX reactors. Orders are executed against the `execute` and `executeBatch` functions, and optionally a callback is available via `executeWithCallback` and `executeBatchWithCallback`.
 
 ## Deployment Addresses
-The PriorityOrderReactor is deployed on the following chains:
+The `PriorityOrderReactor` is deployed on the following chains:
 
 | Chain | Source                                                                                                        | Address                                                                                                               |
 | ----- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------|
@@ -57,5 +57,6 @@ The PriorityOrderReactor is deployed on the following chains:
 | Base  | [PriorityOrderReactor](https://github.com/Uniswap/UniswapX/blob/main/src/reactors/PriorityOrderReactor.sol)   | [0x000000001Ec5656dcdB24D90DFa42742738De729](https://basescan.org/address/0x000000001Ec5656dcdB24D90DFa42742738De729#code) |
 
 
-## Timeline
-The Priority Order Reactor is live on Unichain and Base. Join the [UniswapX Fillers Chat](https://t.me/UniswapXdiscussion) for more details.
+## Get in Touch
+Join the [UniswapX Fillers Chat](https://t.me/UniswapXdiscussion) for updates and discussion.
+
